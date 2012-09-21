@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokerLeagueManager.Common.Commands
+namespace PokerLeagueManager.Common.Utilities
 {
-    public class Class1
+    public interface IDateTimeService
     {
+        DateTime Now();
     }
 }
