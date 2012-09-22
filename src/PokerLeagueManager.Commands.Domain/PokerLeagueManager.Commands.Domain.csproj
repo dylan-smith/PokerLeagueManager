@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\CommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\IHandlesCommand.cs" />
@@ -65,6 +66,9 @@
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
       <Name>PokerLeagueManager.Common.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CommandHandlers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

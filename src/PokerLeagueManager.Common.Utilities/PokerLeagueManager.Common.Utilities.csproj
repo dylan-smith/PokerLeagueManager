@@ -47,6 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseBootstrapper.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="DateTimeService.cs" />
     <Compile Include="GuidService.cs" />
     <Compile Include="IDateTimeService.cs" />

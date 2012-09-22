@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Unity 3.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -46,6 +50,7 @@
   <ItemGroup>
     <Compile Include="EnterGameResults.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />
     <Compile Include="Infrastructure\CommandTypeProvider.cs" />
     <Compile Include="Infrastructure\ICommand.cs" />
