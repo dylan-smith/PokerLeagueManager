@@ -13,6 +13,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
     {
         // TODO: Store the Command in a database somewhere for logging/auditing
 
+        private IEventRepository _eventRepository { get; set; }
+
+        public CommandHandlerFactory(IEventRepository eventRepository)
+        {
+            _eventRepository = eventRepository;
+        }
+
         public void ExecuteCommand<T>(T command) where T : ICommand
         {
             if (command == null)
@@ -52,7 +59,10 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentException(string.Format("Found more than 1 Command Handler for {0}", typeof(T).Name));
             }
 
-            return (IHandlesCommand<T>)UnityHelper.Container.Resolve(matchingTypes.First(), null);
+            var result = (IHandlesCommand<T>)UnityHelper.Container.Resolve(matchingTypes.First(), null);
+            result.Repository = _eventRepository;
+
+            return result;
         }
     }
 }

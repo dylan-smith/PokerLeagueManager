@@ -47,9 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlers\EnterGameResultsHandler.cs" />
+    <Compile Include="Infrastructure\BaseCommandHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\CommandHandlerFactory.cs" />
+    <Compile Include="Infrastructure\IAggregateRoot.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
+    <Compile Include="Infrastructure\IEventRepository.cs" />
     <Compile Include="Infrastructure\IHandlesCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -67,9 +71,7 @@
       <Name>PokerLeagueManager.Common.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommandHandlers\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
