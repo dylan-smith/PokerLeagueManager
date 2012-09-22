@@ -1,4 +1,5 @@
-﻿using PokerLeagueManager.Commands.Domain.Infrastructure;
+﻿using PokerLeagueManager.Commands.Domain.Aggregates.Game;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,14 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
     {
         public void Execute(EnterGameResults command)
         {
-            throw new NotImplementedException();
+            var game = new Game(command.GameDate);
+
+            foreach (var player in command.Players)
+            {
+                game.AddPlayer(player.PlayerName, player.Placing, player.Winnings);
+            }
+
+            this.Repository.PublishEvents(game.PendingEvents, command);
         }
     }
 }
