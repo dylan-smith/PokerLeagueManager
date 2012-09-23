@@ -20,6 +20,8 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
                 game.AddPlayer(player.PlayerName, player.Placing, player.Winnings);
             }
 
+            game.ValidateGame();
+
             this.Repository.PublishEvents(game.PendingEvents, command);
         }
     }

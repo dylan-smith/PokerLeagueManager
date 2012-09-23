@@ -13,6 +13,9 @@ namespace PokerLeagueManager.Commands.WCF
     {
         public void ExecuteCommand(ICommand command)
         {
+            // TODO: Implement this method
+            // TODO: log all commands
+            // TODO: do error-checking/handling
         }
     }
 }

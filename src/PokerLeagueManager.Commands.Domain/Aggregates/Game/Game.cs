@@ -20,7 +20,39 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
 
         public void AddPlayer(string playerName, int placing, int winnings)
         {
+            if (winnings < 0)
+            {
+                throw new ArgumentException("winnings cannot be negative", "winnings");
+            }
+
+            if (placing <= 0)
+            {
+                throw new ArgumentException("placing must be greater than 0", "placing");
+            }
+
+            if (string.IsNullOrEmpty(playerName))
+            {
+                throw new ArgumentException("Player Name must be entered", "playerName");
+            }
+
             this.PublishEvent(new PlayerAddedToGameEvent() { PlayerName = playerName, Placing = placing, Winnings = winnings });
+        }
+
+        public void ValidateGame()
+        {
+            var orderedPlayers = _players.OrderBy(x => x.Placing);
+
+            var curPlacing = 1;
+
+            foreach (var curPlayer in orderedPlayers)
+            {
+                if (curPlayer.Placing != curPlacing++)
+                {
+                    throw new Exception("The player placings must start at one and have no duplicates and not be higher than the total # of players");
+                }
+            }
+
+            // TODO: validate that the total winnings equals the total pay-in (once pay-in has been implemented)
         }
 
         // TODO: Can these be private or protected instead?
