@@ -1,4 +1,5 @@
 ﻿using PokerLeagueManager.Commands.Domain.Infrastructure;
+using PokerLeagueManager.Common.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +10,28 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
 {
     public class Game : BaseAggregateRoot
     {
-        public Game(DateTime gameDateTime)
+        private DateTime _gameDate;
+        private List<Player> _players = new List<Player>();
+
+        public Game(DateTime gameDate)
         {
-            throw new NotImplementedException();
+            this.PublishEvent(new GameCreatedEvent() { GameDate = gameDate });
         }
 
         public void AddPlayer(string playerName, int placing, int winnings)
         {
-            throw new NotImplementedException();
+            this.PublishEvent(new PlayerAddedToGameEvent() { PlayerName = playerName, Placing = placing, Winnings = winnings });
+        }
+
+        // TODO: Can these be private or protected instead?
+        public void ApplyEvent(GameCreatedEvent e)
+        {
+            _gameDate = e.GameDate;
+        }
+
+        public void ApplyEvent(PlayerAddedToGameEvent e)
+        {
+            _players.Add(new Player(e.PlayerName, e.Placing, e.Winnings));
         }
     }
 }
