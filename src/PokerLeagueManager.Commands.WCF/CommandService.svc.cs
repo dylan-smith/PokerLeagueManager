@@ -6,6 +6,8 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using Microsoft.Practices.Unity;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
 
 namespace PokerLeagueManager.Commands.WCF
 {
@@ -13,9 +15,9 @@ namespace PokerLeagueManager.Commands.WCF
     {
         public void ExecuteCommand(ICommand command)
         {
-            // TODO: Implement this method
-            // TODO: log all commands
-            // TODO: do error-checking/handling
+            var commandHandlerFactory = Resolver.Container.Resolve<ICommandHandlerFactory>();
+
+            commandHandlerFactory.ExecuteCommand(command);
         }
     }
 }
