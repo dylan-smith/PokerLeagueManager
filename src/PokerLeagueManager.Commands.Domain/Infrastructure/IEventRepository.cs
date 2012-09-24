@@ -10,9 +10,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public interface IEventRepository
     {
-        void PublishEvent(IEvent domainEvent, ICommand command);
+        void PublishEvent(IEvent e, ICommand c);
 
-        void PublishEvents(IEnumerable<IEvent> domainEvents, ICommand command);
+        void PublishEvents(IEnumerable<IEvent> events, ICommand c);
 
         T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot;
     }

@@ -58,4 +58,10 @@
   <ItemGroup>
     <Folder Include="Properties" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="Events.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />
+  </ItemGroup>
 </Project>

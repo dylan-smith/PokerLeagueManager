@@ -54,6 +54,7 @@
     <Compile Include="Infrastructure\BaseCommandHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\CommandHandlerFactory.cs" />
+    <Compile Include="Infrastructure\EventRepository.cs" />
     <Compile Include="Infrastructure\IAggregateRoot.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\IEventRepository.cs" />
