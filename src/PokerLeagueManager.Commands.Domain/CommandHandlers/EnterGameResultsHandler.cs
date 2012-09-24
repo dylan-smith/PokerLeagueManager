@@ -22,7 +22,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 
             game.ValidateGame();
 
-            this.Repository.PublishEvents(game.PendingEvents, command);
+            this.Repository.PublishEvents(game, command);
         }
     }
 }
