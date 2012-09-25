@@ -20,6 +20,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
 
         public void AddPlayer(string playerName, int placing, int winnings)
         {
+            // TODO: Use custom exception types
             if (winnings < 0)
             {
                 throw new ArgumentException("winnings cannot be negative", "winnings");
@@ -33,6 +34,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
             if (string.IsNullOrEmpty(playerName))
             {
                 throw new ArgumentException("Player Name must be entered", "playerName");
+            }
+
+            if (_players.Any(x => x.PlayerName.Trim() == playerName.Trim()))
+            {
+                throw new ArgumentException("Cannot add the same Player to a Game more than once", "playerName");
             }
 
             this.PublishEvent(new PlayerAddedToGameEvent() { PlayerName = playerName, Placing = placing, Winnings = winnings });

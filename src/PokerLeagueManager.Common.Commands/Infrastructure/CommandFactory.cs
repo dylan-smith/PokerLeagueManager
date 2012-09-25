@@ -10,13 +10,13 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
 {
     public class CommandFactory : ICommandFactory
     {
-        private IPrincipal _principal;
+        private IIdentity _identity;
         private IGuidService _guidService;
         private IDateTimeService _dateTimeService;
 
-        public CommandFactory(IPrincipal currentPrincipal, IGuidService guidService, IDateTimeService dateTimeService)
+        public CommandFactory(IIdentity currentIdentity, IGuidService guidService, IDateTimeService dateTimeService)
         {
-            _principal = currentPrincipal;
+            _identity = currentIdentity;
             _guidService = guidService;
             _dateTimeService = dateTimeService;
         }
@@ -25,13 +25,13 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
         {
             var result = new T();
 
-            if (_principal == null || _principal.Identity == null || string.IsNullOrEmpty(_principal.Identity.Name))
+            if (_identity == null || string.IsNullOrEmpty(_identity.Name))
             {
                 result.User = "Unknown";
             }
             else
             {
-                result.User = _principal.Identity.Name;
+                result.User = _identity.Name;
             }
 
             result.CommandId = _guidService.NewGuid();

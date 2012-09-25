@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PokerLeagueManager.Common.Commands
 {
     [DataContract]
-    public class EnterGameResults : BaseCommand
+    public class EnterGameResultsCommand : BaseCommand
     {
         [DataMember]
         public DateTime GameDate { get; set; }

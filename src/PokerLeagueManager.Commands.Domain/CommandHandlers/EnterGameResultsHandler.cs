@@ -9,15 +9,19 @@ using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 {
-    public class EnterGameResultsHandler : BaseCommandHandler, IHandlesCommand<EnterGameResults>
+    public class EnterGameResultsHandler : BaseCommandHandler, IHandlesCommand<EnterGameResultsCommand>
     {
-        public void Execute(EnterGameResults command)
+        public void Execute(EnterGameResultsCommand command)
         {
+            // TODO: if the command includes a Game Id use it, otherwise generate one
             var game = new Game(command.GameDate);
 
-            foreach (var player in command.Players)
+            if (command.Players != null)
             {
-                game.AddPlayer(player.PlayerName, player.Placing, player.Winnings);
+                foreach (var player in command.Players)
+                {
+                    game.AddPlayer(player.PlayerName, player.Placing, player.Winnings);
+                }
             }
 
             game.ValidateGame();
