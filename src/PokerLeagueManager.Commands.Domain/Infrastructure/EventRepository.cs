@@ -60,6 +60,26 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
+        public bool DoesAggregateExist(Guid aggregateId)
+        {
+            if (aggregateId == Guid.Empty)
+            {
+                return false;
+            }
+
+            int eventCount = (int)_databaseLayer.ExecuteScalar("SELECT COUNT(*) FROM Events WHERE AggregateId = @AggregateId",
+                "@AggregateId", aggregateId.ToString());
+
+            if (eventCount == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
         {
             if (aggregateId == Guid.Empty)

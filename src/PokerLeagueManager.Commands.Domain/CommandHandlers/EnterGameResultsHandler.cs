@@ -13,7 +13,11 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
     {
         public void Execute(EnterGameResultsCommand command)
         {
-            // TODO: if the command includes a Game Id use it, otherwise generate one
+            if (this.Repository.DoesAggregateExist(command.GameId))
+            {
+                throw new ArgumentException("Cannot enter game results for a previously existing Game Id", "GameId");
+            }
+
             var game = new Game(command.GameId, command.GameDate);
 
             if (command.Players != null)

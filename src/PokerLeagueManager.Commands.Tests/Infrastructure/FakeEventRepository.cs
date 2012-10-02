@@ -62,5 +62,15 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
             return aggRootInstance;
         }
+
+        public bool DoesAggregateExist(Guid aggregateId)
+        {
+            if (aggregateId == Guid.Empty || InitialEvents == null)
+            {
+                return false;
+            }
+
+            return InitialEvents.Any(e => e.AggregateId == aggregateId);
+        }
     }
 }
