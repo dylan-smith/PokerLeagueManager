@@ -55,6 +55,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             }
         }
 
+        public static Guid AnyGuid()
+        {
+            return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
+        }
+
         /// <summary>
         /// Compares the properties of two objects of the same type and returns if all properties are equal.
         /// </summary>
@@ -83,6 +88,14 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
                     valueA = propertyInfo.GetValue(objectA, null);
                     valueB = propertyInfo.GetValue(objectB, null);
+
+                    if (propertyInfo.PropertyType == typeof(Guid))
+                    {
+                        if ((Guid)valueA == AnyGuid())
+                        {
+                            break;
+                        }
+                    }
 
                     // if it is a primative type, value type or implements IComparable, just directly try and compare the value
                     if (CanDirectlyCompare(propertyInfo.PropertyType))

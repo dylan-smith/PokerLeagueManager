@@ -33,6 +33,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             return null;
         }
 
+        protected Guid AnyGuid()
+        {
+            return EventsAssert.AnyGuid();
+        }
+
         public void RunTest(ICommand command)
         {
             Setup();

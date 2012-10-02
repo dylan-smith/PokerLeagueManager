@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EnterGameResults_PresetGameId.cs" />
     <Compile Include="EnterGameResults_DuplicatePlayersTest.cs" />
     <Compile Include="EnterGameResults_NonSequentialPlacingsTest.cs" />
     <Compile Include="EnterGameResults_NegativePlacingTest.cs" />

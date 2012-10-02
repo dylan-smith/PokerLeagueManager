@@ -13,9 +13,16 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
         private DateTime _gameDate;
         private List<Player> _players = new List<Player>();
 
-        public Game(DateTime gameDate)
+        public Game(Guid gameId, DateTime gameDate)
         {
-            this.PublishEvent(new GameCreatedEvent() { GameDate = gameDate });
+            if (gameId != Guid.Empty)
+            {
+                this.PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
+            }
+            else
+            {
+                this.PublishEvent(new GameCreatedEvent() { AggregateId = Guid.NewGuid(), GameDate = gameDate });
+            }
         }
 
         public void AddPlayer(string playerName, int placing, int winnings)
@@ -41,7 +48,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
                 throw new ArgumentException("Cannot add the same Player to a Game more than once", "playerName");
             }
 
-            this.PublishEvent(new PlayerAddedToGameEvent() { PlayerName = playerName, Placing = placing, Winnings = winnings });
+            this.PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings });
         }
 
         public void ValidateGame()
@@ -64,6 +71,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
         // TODO: Can these be private or protected instead?
         public void ApplyEvent(GameCreatedEvent e)
         {
+            AggregateId = e.AggregateId;
             _gameDate = e.GameDate;
         }
 

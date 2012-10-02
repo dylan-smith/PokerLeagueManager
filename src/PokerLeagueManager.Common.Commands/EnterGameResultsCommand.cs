@@ -12,6 +12,9 @@ namespace PokerLeagueManager.Common.Commands
     public class EnterGameResultsCommand : BaseCommand
     {
         [DataMember]
+        public Guid GameId { get; set; }
+
+        [DataMember]
         public DateTime GameDate { get; set; }
         
         [DataMember]

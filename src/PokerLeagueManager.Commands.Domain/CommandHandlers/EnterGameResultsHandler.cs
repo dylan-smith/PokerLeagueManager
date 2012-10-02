@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
         public void Execute(EnterGameResultsCommand command)
         {
             // TODO: if the command includes a Game Id use it, otherwise generate one
-            var game = new Game(command.GameDate);
+            var game = new Game(command.GameId, command.GameDate);
 
             if (command.Players != null)
             {

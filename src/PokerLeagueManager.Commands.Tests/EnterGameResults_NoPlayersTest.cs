@@ -22,7 +22,7 @@ namespace PokerLeagueManager.Commands.Tests
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new GameCreatedEvent() { GameDate = _gameDate };
+            yield return new GameCreatedEvent() { AggregateId = AnyGuid(), GameDate = _gameDate };
         }
     }
 }
