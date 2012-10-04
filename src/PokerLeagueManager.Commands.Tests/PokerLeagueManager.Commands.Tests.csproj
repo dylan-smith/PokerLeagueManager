@@ -57,6 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EnterGameResults_TwoGamesWithSameDateTest.cs" />
     <Compile Include="EnterGameResults_DuplicateGameIdTest.cs" />
     <Compile Include="EnterGameResults_PresetGameIdTest.cs" />
     <Compile Include="EnterGameResults_DuplicatePlayersTest.cs" />

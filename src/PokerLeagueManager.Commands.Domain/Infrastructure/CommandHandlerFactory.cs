@@ -1,4 +1,5 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
+﻿using PokerLeagueManager.Commands.Domain.QueryServiceReference;
+using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         // TODO: Store the Command in a database somewhere for logging/auditing
         // TODO: implement some kind of error handling for the command
 
-        private IEventRepository _eventRepository { get; set; }
+        private IEventRepository _eventRepository;
+        private IQueryService _queryService;
 
-        public CommandHandlerFactory(IEventRepository eventRepository)
+        public CommandHandlerFactory(IEventRepository eventRepository, IQueryService queryService)
         {
             _eventRepository = eventRepository;
+            _queryService = queryService;
         }
 
         public void ExecuteCommand<T>(T command) where T : ICommand
@@ -62,6 +65,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
             var result = (IHandlesCommand<T>)UnityHelper.Container.Resolve(matchingTypes.First(), null);
             result.Repository = _eventRepository;
+            result.QueryService = _queryService;
 
             return result;
         }

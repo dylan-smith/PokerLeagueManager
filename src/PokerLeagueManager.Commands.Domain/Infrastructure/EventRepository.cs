@@ -54,6 +54,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
             // TODO: make sure this is all in a transaction
+            // TODO: also, publish to subscribers shouldn't happen until after commit
             foreach (var e in aggRoot.PendingEvents)
             {
                 PublishEvent(e, c, aggRoot.AggregateId);

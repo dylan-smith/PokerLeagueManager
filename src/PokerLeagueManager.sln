@@ -6,6 +6,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.WCF", "PokerLeagueManager.Commands.WCF\PokerLeagueManager.Commands.WCF.csproj", "{119C1495-34A1-4213-A211-DD2DD707024F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.Domain", "PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj", "{D702BDB7-9F99-4509-82AF-632689AFF7D0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5FD00AAD-1BDF-4499-8FDE-A554A796CE28} = {5FD00AAD-1BDF-4499-8FDE-A554A796CE28}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Queries.WCF", "PokerLeagueManager.Queries.WCF\PokerLeagueManager.Queries.WCF.csproj", "{5FD00AAD-1BDF-4499-8FDE-A554A796CE28}"
 EndProject
