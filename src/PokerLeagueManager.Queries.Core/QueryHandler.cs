@@ -1,4 +1,6 @@
-﻿using PokerLeagueManager.Common.Utilities;
+﻿using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,21 +11,18 @@ namespace PokerLeagueManager.Queries.Core
 {
     public class QueryHandler : IQueryHandler
     {
-        private IDatabaseLayer _databaseLayer;
+        private IQueryDataStore _queryDataStore;
 
-        public QueryHandler(IDatabaseLayer databaseLayer)
+        public QueryHandler(IQueryDataStore queryDataStore)
         {
-            _databaseLayer = databaseLayer;
+            _queryDataStore = queryDataStore;
         }
 
         public int GetGameCountByDate(DateTime gameDate)
         {
-            return (int)_databaseLayer.ExecuteScalar(
-                string.Format(
-                    "SELECT COUNT(*) FROM GetGameCountByDate WHERE GameYear = {0} AND GameMonth = {1} AND GameDay = {2}", 
-                    gameDate.Year, 
-                    gameDate.Month, 
-                    gameDate.Day));
+            return _queryDataStore.GetData<GetGameCountByDateDTO>().Count(x => x.GameYear == gameDate.Year &&
+                                                                               x.GameMonth == gameDate.Month &&
+                                                                               x.GameDay == gameDate.Day);
         }
     }
 }

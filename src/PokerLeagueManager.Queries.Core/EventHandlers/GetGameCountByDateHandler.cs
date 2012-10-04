@@ -1,4 +1,5 @@
-﻿using PokerLeagueManager.Common.Events;
+﻿using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,13 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
     {
         public void Handle(GameCreatedEvent e)
         {
-            DatabaseLayer.ExecuteNonQuery(
-                "INSERT INTO GetGameCountByDateHandler(GameId, GameYear, GameMonth, GameDay) VALUES(@GameId, @GameYear, @GameMonth, @GameDay)",
-                "@GameId", e.AggregateId,
-                "@GameYear", e.GameDate.Year,
-                "@GameMonth", e.GameDate.Month,
-                "@GameDay", e.GameDate.Day);
+            QueryDataStore.Insert(new GetGameCountByDateDTO()
+            {
+                GameId = e.AggregateId,
+                GameYear = e.GameDate.Year,
+                GameMonth = e.GameDate.Month,
+                GameDay = e.GameDate.Day
+            });
         }
     }
 }

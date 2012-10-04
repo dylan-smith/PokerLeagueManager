@@ -9,6 +9,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class BaseEventHandler
     {
-        public IDatabaseLayer DatabaseLayer { get; set; }
+        public IQueryDataStore QueryDataStore { get; set; }
     }
 }
