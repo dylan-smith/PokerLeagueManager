@@ -71,6 +71,7 @@
     <Compile Include="Infrastructure\EventsAssert.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
     <Compile Include="EnterGameResults_NoPlayersTest.cs" />
+    <Compile Include="Infrastructure\FakeQueryDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +83,10 @@
       <Project>{a466419b-e149-4027-bf0a-b1156f50c67d}</Project>
       <Name>PokerLeagueManager.Common.Commands</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
+      <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
+      <Name>PokerLeagueManager.Common.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.Events\PokerLeagueManager.Common.Events.csproj">
       <Project>{f658c3b6-604d-4e32-b2f6-7078761f32a9}</Project>
       <Name>PokerLeagueManager.Common.Events</Name>
@@ -89,6 +94,10 @@
     <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
       <Name>PokerLeagueManager.Common.Utilities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Queries.Core\PokerLeagueManager.Queries.Core.csproj">
+      <Project>{7c0d835a-1cda-41da-b203-b0ee2f17063a}</Project>
+      <Name>PokerLeagueManager.Queries.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Queries.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;

@@ -1,5 +1,5 @@
-﻿using PokerLeagueManager.Commands.Domain.QueryServiceReference;
-using PokerLeagueManager.Common.Commands.Infrastructure;
+﻿using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.DTO;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

@@ -1,12 +1,9 @@
-﻿using PokerLeagueManager.Commands.Domain.QueryServiceReference;
-using PokerLeagueManager.Common.Commands.Infrastructure;
+﻿using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

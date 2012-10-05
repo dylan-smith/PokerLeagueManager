@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Commands.Domain.QueryServiceReference;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
@@ -10,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Moq;
+using PokerLeagueManager.Queries.Core;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {
@@ -23,13 +25,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         public virtual IEnumerable<IEvent> Given()
         {
             return new List<IEvent>();
-        }
-
-        // TODO: Would be nice to be able to do an in-memory EventHandler and QueryHandler that way I can eliminate this ugly mocking
-        public virtual IQueryService GivenQueryResults()
-        {
-            var mockQueryService = new Mock<IQueryService>();
-            return mockQueryService.Object;
         }
 
         public virtual IEnumerable<IEvent> ExpectedEvents()
@@ -54,8 +49,13 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             var repository = new FakeEventRepository();
             repository.InitialEvents = Given();
 
+            var queryDataStore = new FakeQueryDataStore();
+            var queryService = new QueryHandler(queryDataStore);
+
+            HandleEvents(repository.InitialEvents, queryDataStore);
+            
             Exception caughtException = null;
-            var commandHandlerFactory = new CommandHandlerFactory(repository, GivenQueryResults());
+            var commandHandlerFactory = new CommandHandlerFactory(repository, queryService);
 
             try
             {
@@ -84,6 +84,16 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             }
 
             EventsAssert.AreEqual(ExpectedEvents().ToList<IEvent>(), repository.EventList);
+        }
+
+        private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)
+        {
+            var eventHandler = new EventHandlerFactory(queryDataStore);
+
+            foreach (IEvent e in events)
+            {
+                eventHandler.HandleEvent(e);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Queries.Core
 {
-    public class QueryHandler : IQueryHandler
+    public class QueryHandler : IQueryService
     {
         private IQueryDataStore _queryDataStore;
 

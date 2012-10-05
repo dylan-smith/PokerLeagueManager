@@ -24,7 +24,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             throw new NotImplementedException();
         }
 
-        public IEnumerable<T> GetData<T>()
+        public IEnumerable<T> GetData<T>() where T : IDataTransferObject
         {
             // TODO: use reflection to get the tablename and do a SELECT *
             // TODO: then use a DTOFactory to turn the results into the right DTO
