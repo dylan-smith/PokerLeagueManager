@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public class EventHandlerFactory
+    public class EventHandlerFactory : IEventHandlerFactory
     {
         // TODO: Check for duplicate events to provide idempotency
         private IQueryDataStore _queryDataStore;

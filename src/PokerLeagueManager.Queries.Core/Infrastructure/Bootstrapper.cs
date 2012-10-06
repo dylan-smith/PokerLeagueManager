@@ -16,6 +16,9 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             if (!_hasBootstrapped)
             {
+                Container.RegisterType<IEventHandlerFactory, EventHandlerFactory>();
+                Container.RegisterType<IQueryDataStore, QueryDataStore>();
+
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
                 _hasBootstrapped = true;
