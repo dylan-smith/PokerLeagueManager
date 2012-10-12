@@ -32,9 +32,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F89680D5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.Tests", "PokerLeagueManager.Commands.Tests\PokerLeagueManager.Commands.Tests.csproj", "{B1827067-9FB2-4023-B4E9-75F21F71468A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Infrastructure.Tests", "PokerLeagueManager.Infrastructure.Tests\PokerLeagueManager.Infrastructure.Tests.csproj", "{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 13
+		SccNumberOfProjects = 14
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://win-6v9br2subld:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -78,6 +80,10 @@ Global
 		SccProjectTopLevelParentUniqueName12 = PokerLeagueManager.sln
 		SccProjectName12 = PokerLeagueManager.Commands.Tests
 		SccLocalPath12 = PokerLeagueManager.Commands.Tests
+		SccProjectUniqueName13 = PokerLeagueManager.Infrastructure.Tests\\PokerLeagueManager.Infrastructure.Tests.csproj
+		SccProjectTopLevelParentUniqueName13 = PokerLeagueManager.sln
+		SccProjectName13 = PokerLeagueManager.Infrastructure.Tests
+		SccLocalPath13 = PokerLeagueManager.Infrastructure.Tests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +142,10 @@ Global
 		{B1827067-9FB2-4023-B4E9-75F21F71468A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B1827067-9FB2-4023-B4E9-75F21F71468A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1827067-9FB2-4023-B4E9-75F21F71468A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -145,5 +155,6 @@ Global
 		{85DE34BD-9901-4008-90E6-ADBC61401408} = {93A7F75E-5AE9-4D87-9EF1-98324A1AFFA8}
 		{119C1495-34A1-4213-A211-DD2DD707024F} = {93A7F75E-5AE9-4D87-9EF1-98324A1AFFA8}
 		{B1827067-9FB2-4023-B4E9-75F21F71468A} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
+		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 	EndGlobalSection
 EndGlobal

@@ -16,6 +16,8 @@ namespace PokerLeagueManager.Common.DTO.Infrastructure
         {
             if (!_hasBootstrapped)
             {
+                Container.RegisterType<IDTOFactory, DTOFactory>();
+
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
                 _hasBootstrapped = true;
