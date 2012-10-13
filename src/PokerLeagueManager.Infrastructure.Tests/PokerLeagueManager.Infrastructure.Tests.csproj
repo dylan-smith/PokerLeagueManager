@@ -62,8 +62,13 @@
     <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DTOFactoryTests.cs" />
+    <Compile Include="EventSubscriberFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">
+      <Project>{d702bdb7-9f99-4509-82af-632689aff7d0}</Project>
+      <Name>PokerLeagueManager.Commands.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
       <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
       <Name>PokerLeagueManager.Common.DTO</Name>
