@@ -27,6 +27,9 @@ namespace PokerLeagueManager.Queries.WCF.Infrastructure
         public static void Bootstrap()
         {
             PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.Events.Infrastructure.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Queries.Core.Infrastructure.Bootstrapper.Bootstrap();
 
             _hasBootstrapped = true;
         }

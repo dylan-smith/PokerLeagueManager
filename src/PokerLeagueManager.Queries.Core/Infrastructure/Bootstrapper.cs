@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common.DTO;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
@@ -18,6 +19,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             {
                 Container.RegisterType<IEventHandlerFactory, EventHandlerFactory>();
                 Container.RegisterType<IQueryDataStore, QueryDataStore>();
+                Container.RegisterType<IQueryService, QueryHandler>();
 
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
