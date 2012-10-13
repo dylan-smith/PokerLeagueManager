@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Events.sql" />
+    <Build Include="Subscribers.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />

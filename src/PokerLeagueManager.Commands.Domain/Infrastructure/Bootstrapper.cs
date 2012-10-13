@@ -17,6 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             if (!_hasBootstrapped)
             {
                 Container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>();
+                Container.RegisterType<IEventSubscriberFactory, EventSubscriberFactory>();
 
                 PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
                 PokerLeagueManager.Common.Events.Infrastructure.Bootstrapper.Bootstrap();

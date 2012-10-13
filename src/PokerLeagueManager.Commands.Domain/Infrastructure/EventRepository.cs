@@ -18,12 +18,18 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         IDatabaseLayer _databaseLayer;
         IGuidService _guidService;
         IDateTimeService _dateTimeService;
+        IEventSubscriberFactory _eventSubscriberFactory;
 
-        public EventRepository(IDatabaseLayer databaseLayer, IGuidService guidService, IDateTimeService dateTimeService)
+        public EventRepository(
+            IDatabaseLayer databaseLayer, 
+            IGuidService guidService, 
+            IDateTimeService dateTimeService, 
+            IEventSubscriberFactory eventSubscriberFactory)
         {
             _databaseLayer = databaseLayer;
             _guidService = guidService;
             _dateTimeService = dateTimeService;
+            _eventSubscriberFactory = eventSubscriberFactory;
         }
 
         public void PublishEvent(IEvent e, ICommand c, Guid aggregateId)
@@ -48,7 +54,32 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 "@EventData", eventXml,
                 "@Published", false);
 
-            // TODO: Need to publish this to all subscribers
+            var subscribers = GetSubscribers();
+
+            foreach (var s in subscribers)
+            {
+                s.Publish(e);
+            }
+
+            MarkEventAsPublished(e);
+
+            // TODO: support both async and sync subscribers, for now everything is treated as sync
+            // TODO: need to deal with the situation where the app crashes in between saving and publishing an event. How does it recover?
+        }
+
+        private void MarkEventAsPublished(IEvent e)
+        {
+            _databaseLayer.ExecuteNonQuery("UPDATE Events SET Published = 1 WHERE EventId = @EventId", "@EventId", e.EventId);
+        }
+
+        private IEnumerable<EventSubscriber> GetSubscribers()
+        {
+            var subscriberTable = _databaseLayer.GetDataTable("SELECT * FROM Subscribers");
+
+            foreach (DataRow row in subscriberTable.Rows)
+            {
+                yield return _eventSubscriberFactory.Create(row);
+            }
         }
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
