@@ -9,6 +9,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class EventSubscriberFactory : IEventSubscriberFactory
     {
+        private IEventServiceProxyFactory _eventServiceProxyFactory;
+
+        public EventSubscriberFactory(IEventServiceProxyFactory eventServiceProxyFactory)
+        {
+            _eventServiceProxyFactory = eventServiceProxyFactory;
+        }
+
         public EventSubscriber Create(DataRow row)
         {
             if (row == null)
@@ -16,7 +23,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentNullException("row", "row cannot be null");
             }
 
-            var result = new EventSubscriber();
+            var result = new EventSubscriber(_eventServiceProxyFactory.Create((string)row["SubscriberUrl"]));
 
             result.SubscriberId = (Guid)row["SubscriberId"];
             result.SubscriberUrl = (string)row["SubscriberUrl"];

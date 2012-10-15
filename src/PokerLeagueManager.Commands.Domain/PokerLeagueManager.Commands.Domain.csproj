@@ -57,11 +57,15 @@
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\CommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\EventRepository.cs" />
+    <Compile Include="Infrastructure\EventServiceProxy.cs" />
+    <Compile Include="Infrastructure\EventServiceProxyFactory.cs" />
     <Compile Include="Infrastructure\EventSubscriber.cs" />
     <Compile Include="Infrastructure\EventSubscriberFactory.cs" />
     <Compile Include="Infrastructure\IAggregateRoot.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\IEventRepository.cs" />
+    <Compile Include="Infrastructure\IEventServiceProxy.cs" />
+    <Compile Include="Infrastructure\IEventServiceProxyFactory.cs" />
     <Compile Include="Infrastructure\IEventSubscriberFactory.cs" />
     <Compile Include="Infrastructure\IHandlesCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +88,9 @@
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
       <Name>PokerLeagueManager.Common.Utilities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

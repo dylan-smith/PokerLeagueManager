@@ -75,7 +75,6 @@
     <Compile Include="Infrastructure\EventService.svc.cs">
       <DependentUpon>EventService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\IEventService.cs" />
     <Compile Include="Infrastructure\Resolver.cs" />
     <Compile Include="QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>

@@ -1,9 +1,5 @@
 ﻿using PokerLeagueManager.Common.Events.Infrastructure;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -12,9 +8,16 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         public Guid SubscriberId { get; set; }
         public string SubscriberUrl { get; set; }
 
+        private IEventService _eventService;
+
+        public EventSubscriber(IEventService eventService)
+        {
+            _eventService = eventService;
+        }
+
         public void Publish(IEvent e)
         {
-            throw new NotImplementedException();
+            _eventService.HandleEvent(e);
         }
     }
 }

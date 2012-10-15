@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using System.Data;
+using Moq;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {
@@ -12,7 +13,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void CreateWithNullRow()
         {
-            var sut = new EventSubscriberFactory();
+            var sut = new EventSubscriberFactory(null);
 
             sut.Create(null);
         }
@@ -25,14 +26,18 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             var subscriberTable = GenerateSampleDataTable();
             var testRow = subscriberTable.Rows.Add(subscriberId, subscriberUrl);
-            
-            var sut = new EventSubscriberFactory();
+
+            var mockEventServiceProxyFactory = new Mock<IEventServiceProxyFactory>();
+
+            var sut = new EventSubscriberFactory(mockEventServiceProxyFactory.Object);
 
             var result = sut.Create(testRow);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(subscriberId, result.SubscriberId);
             Assert.AreEqual(subscriberUrl, result.SubscriberUrl);
+
+            mockEventServiceProxyFactory.Verify(x => x.Create(subscriberUrl));
         }
 
         private DataTable GenerateSampleDataTable()

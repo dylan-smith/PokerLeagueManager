@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common.Events.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -18,6 +19,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             {
                 Container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>();
                 Container.RegisterType<IEventSubscriberFactory, EventSubscriberFactory>();
+                Container.RegisterType<IEventService, EventServiceProxy>();
 
                 PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
                 PokerLeagueManager.Common.Events.Infrastructure.Bootstrapper.Bootstrap();
