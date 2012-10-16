@@ -74,7 +74,6 @@
     <Compile Include="CommandService.svc.cs">
       <DependentUpon>CommandService.svc</DependentUpon>
     </Compile>
-    <Compile Include="ICommandService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resolver.cs" />
   </ItemGroup>
@@ -116,7 +115,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>1099</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:1761/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

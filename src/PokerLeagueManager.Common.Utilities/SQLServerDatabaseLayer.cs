@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace PokerLeagueManager.Common.Utilities
 
         public SQLServerDatabaseLayer()
         {
+            ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
 
         ~SQLServerDatabaseLayer()
@@ -95,7 +97,7 @@ namespace PokerLeagueManager.Common.Utilities
 
             _connection.Open();
             object result = myCommand.ExecuteScalar();
-            _connection.Open();
+            _connection.Close();
             return result;
         }
 

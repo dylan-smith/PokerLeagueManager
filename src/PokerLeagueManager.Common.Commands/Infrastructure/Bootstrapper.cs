@@ -17,6 +17,7 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
             if (!_hasBootstrapped)
             {
                 Container.RegisterType<ICommandFactory, CommandFactory>();
+                Container.RegisterType<ICommandService, CommandServiceProxy>();
 
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 

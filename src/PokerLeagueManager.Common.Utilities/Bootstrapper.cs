@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
+using System.Security.Principal;
 
 namespace PokerLeagueManager.Common.Utilities
 {
@@ -18,6 +19,8 @@ namespace PokerLeagueManager.Common.Utilities
             {
                 Container.RegisterType<IDateTimeService, DateTimeService>();
                 Container.RegisterType<IGuidService, GuidService>();
+                Container.RegisterType<IDatabaseLayer, SQLServerDatabaseLayer>();
+                Container.RegisterInstance<IIdentity>(System.Security.Principal.WindowsPrincipal.Current.Identity);
 
                 _hasBootstrapped = true;
             }

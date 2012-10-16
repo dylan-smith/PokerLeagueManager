@@ -3,9 +3,10 @@ using PokerLeagueManager.Common.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PokerLeagueManager.Commands.WCF
+namespace PokerLeagueManager.UI.WPF
 {
     public class Resolver
     {
@@ -22,11 +23,11 @@ namespace PokerLeagueManager.Commands.WCF
             }
         }
 
-        private static bool _hasBootstrapped = false;
+        private static bool _hasBootstrapped;
 
         public static void Bootstrap()
         {
-            PokerLeagueManager.Commands.Domain.Infrastructure.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 

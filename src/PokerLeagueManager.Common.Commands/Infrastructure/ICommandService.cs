@@ -1,7 +1,11 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PokerLeagueManager.Commands.WCF
+namespace PokerLeagueManager.Common.Commands.Infrastructure
 {
     [ServiceContract]
     [ServiceKnownType("GetKnownTypes", typeof(CommandTypeProvider))]

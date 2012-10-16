@@ -31,7 +31,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             sut.Insert(testDto);
 
             var expectedSql = string.Format(
-                "INSERT INTO GetGameCountByDateDTO(GameId, GameYear, GameMonth, GameDay) VALUES({0}, {1}, {2}, {3})",
+                "INSERT INTO GetGameCountByDate(GameId, GameYear, GameMonth, GameDay) VALUES('{0}', {1}, {2}, {3})",
                 testDto.GameId,
                 testDto.GameYear,
                 testDto.GameMonth,
@@ -53,7 +53,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             // the ToList() is necessary to force deferred execution to happen
             var result = sut.GetData<GetGameCountByDateDTO>().ToList();
 
-            var expectedSql = "SELECT * FROM GetGameCountByDateDTO";
+            var expectedSql = "SELECT * FROM GetGameCountByDate";
 
             mockDatabaseLayer.Verify(x => x.GetDataTable(expectedSql));
         }
@@ -75,7 +75,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             // the ToList() is necessary to force deferred execution to happen
             var result = sut.GetData<GetGameCountByDateDTO>().ToList();
 
-            var expectedSql = "SELECT * FROM GetGameCountByDateDTO";
+            var expectedSql = "SELECT * FROM GetGameCountByDate";
 
             mockDatabaseLayer.Verify(x => x.GetDataTable(expectedSql));
             mockDTOFactory.Verify(x => x.Create<GetGameCountByDateDTO>(sampleTable.Rows[0]));

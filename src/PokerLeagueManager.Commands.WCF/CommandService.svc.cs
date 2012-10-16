@@ -15,6 +15,8 @@ namespace PokerLeagueManager.Commands.WCF
     {
         public void ExecuteCommand(ICommand command)
         {
+            // TODO: Need to set some command values here (can't trust the caller to set user, command id, date/time, etc)
+
             var commandHandlerFactory = Resolver.Container.Resolve<ICommandHandlerFactory>();
 
             commandHandlerFactory.ExecuteCommand(command);

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,14 +23,14 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
         public void Insert<T>(T dto) where T : IDataTransferObject
         {
-            var tableName = dto.GetType().Name;
+            var tableName = GetTableName(typeof(T));
             var fieldList = string.Empty;
             var valueList = string.Empty;
 
             foreach (var prop in dto.GetType().GetProperties())
             {
                 fieldList += string.Format("{0}, ", prop.Name);
-                valueList += string.Format("{0}, ", prop.GetValue(dto));
+                valueList += string.Format("{0}, ", GetPropertyValueSql(prop, dto));
             }
 
             fieldList = fieldList.Substring(0, fieldList.Length - 2);
@@ -41,9 +42,19 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             _databaseLayer.ExecuteNonQuery(sql);
         }
 
+        private string GetPropertyValueSql<T>(PropertyInfo prop, T dto) where T : IDataTransferObject
+        {
+            if (prop.PropertyType == typeof(Guid))
+            {
+                return string.Format("'{0}'", prop.GetValue(dto));
+            }
+
+            return prop.GetValue(dto).ToString();
+        }
+
         public IEnumerable<T> GetData<T>() where T : IDataTransferObject
         {
-            var tableName = typeof(T).Name;
+            var tableName = GetTableName(typeof(T));
 
             var sql = string.Format("SELECT * FROM {0}", tableName);
 
@@ -53,6 +64,18 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             {
                 yield return _dtoFactory.Create<T>(row);
             }
+        }
+
+        private string GetTableName(Type dtoType)
+        {
+            var tableName = dtoType.Name;
+
+            if (tableName.Substring(tableName.Length - 3).ToUpper() == "DTO")
+            {
+                tableName = tableName.Substring(0, tableName.Length - 3);
+            }
+
+            return tableName;
         }
     }
 }

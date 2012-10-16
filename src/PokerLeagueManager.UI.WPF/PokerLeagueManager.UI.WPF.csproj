@@ -38,8 +38,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Unity 3.0\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -57,6 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resolver.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,6 +102,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PokerLeagueManager.Common.Commands\PokerLeagueManager.Common.Commands.csproj">
+      <Project>{a466419b-e149-4027-bf0a-b1156f50c67d}</Project>
+      <Name>PokerLeagueManager.Common.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
+      <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
+      <Name>PokerLeagueManager.Common.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
+      <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
+      <Name>PokerLeagueManager.Common.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
