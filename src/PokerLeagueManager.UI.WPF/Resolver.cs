@@ -1,10 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.UI.WPF.ViewModels;
 
 namespace PokerLeagueManager.UI.WPF
 {
@@ -27,6 +23,8 @@ namespace PokerLeagueManager.UI.WPF
 
         public static void Bootstrap()
         {
+            UnityHelper.Container.RegisterType<IEnterGameResultsViewModel, EnterGameResultsViewModel>();
+
             PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();

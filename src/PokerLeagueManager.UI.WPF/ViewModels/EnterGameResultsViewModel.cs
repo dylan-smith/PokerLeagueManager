@@ -2,16 +2,12 @@
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.UI.WPF.Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerLeagueManager.UI.WPF.ViewModels
 {
-    public class EnterGameResultsViewModel : INotifyPropertyChanged
+    public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
         // TODO: Implement IDataErrorInfo stuff and show validation warnings on the UI
 
@@ -39,12 +35,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
 
         private bool CanSaveGame()
         {
-            if (GameDate == null)
-            {
-                return false;
-            }
-
-            return true;
+            return GameDate != null;
         }
 
         private void SaveGame()
@@ -61,13 +52,24 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
 
         private void ClearScreen()
         {
-            ClearNewPlayer();
-
             this.GameDate = null;
             this.Players = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
 
             OnPropertyChanged("GameDate");
             OnPropertyChanged("Players");
+
+            ClearNewPlayer();
+        }
+
+        private void ClearNewPlayer()
+        {
+            this.NewPlayerName = string.Empty;
+            this.NewPlacing = string.Empty;
+            this.NewWinnings = string.Empty;
+
+            OnPropertyChanged("NewPlayerName");
+            OnPropertyChanged("NewPlacing");
+            OnPropertyChanged("NewWinnings");
         }
 
         private bool CanAddPlayer()
@@ -118,28 +120,6 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
             this.Players.Add(newPlayer);
 
             ClearNewPlayer();
-        }
-
-        private void ClearNewPlayer()
-        {
-            this.NewPlayerName = string.Empty;
-            this.NewPlacing = string.Empty;
-            this.NewWinnings = string.Empty;
-
-            OnPropertyChanged("NewPlayerName");
-            OnPropertyChanged("NewPlacing");
-            OnPropertyChanged("NewWinnings");
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, e);
-            }
         }
     }
 }

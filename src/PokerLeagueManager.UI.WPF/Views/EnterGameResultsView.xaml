@@ -7,9 +7,9 @@
     <Grid>
         <Label Content="Game Date:" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Height="25" Width="76"/>
         <DatePicker SelectedDate="{Binding Path=GameDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="93,12,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.284,-0.083" Width="179"/>
-        <TextBox Text="{Binding Path=NewPlayerName, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="12,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
-        <TextBox Text="{Binding Path=NewPlacing, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="159,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
-        <TextBox Text="{Binding Path=NewWinnings, Mode=TwoWay}" HorizontalAlignment="Left" Height="23" Margin="212,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
+        <TextBox Text="{Binding Path=NewPlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="12,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <TextBox Text="{Binding Path=NewPlacing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="159,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
+        <TextBox Text="{Binding Path=NewWinnings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="212,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
         <Label Content="Player Name" HorizontalAlignment="Left" Margin="12,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Placing" HorizontalAlignment="Left" Margin="159,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Winnings" HorizontalAlignment="Left" Margin="212,42,0,0" VerticalAlignment="Top"/>

@@ -78,8 +78,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Infrastructure\BaseViewModel.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="ViewModels\EnterGameResultsViewModel.cs" />
+    <Compile Include="ViewModels\IEnterGameResultsViewModel.cs" />
     <Compile Include="Views\EnterGameResultsView.xaml.cs">
       <DependentUpon>EnterGameResultsView.xaml</DependentUpon>
     </Compile>
