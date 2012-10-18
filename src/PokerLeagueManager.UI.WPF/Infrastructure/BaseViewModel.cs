@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace PokerLeagueManager.UI.WPF.Infrastructure
 {
@@ -13,6 +8,8 @@ namespace PokerLeagueManager.UI.WPF.Infrastructure
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
+            // TODO: Verify that this is a legit propertyName
+
             if (this.PropertyChanged != null)
             {
                 var e = new PropertyChangedEventArgs(propertyName);

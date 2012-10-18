@@ -40,6 +40,11 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
 
         private void SaveGame()
         {
+            if (!CanSaveGame())
+            {
+                throw new Exception("SaveGame should never be called if CanSaveGame returns false");
+            }
+
             var gameCommand = new EnterGameResultsCommand();
 
             gameCommand.GameDate = this.GameDate.GetValueOrDefault();
@@ -108,7 +113,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         {
             if (!CanAddPlayer())
             {
-                throw new Exception("AddPlayer should not ever be called if CanAddPlayer returns false");
+                throw new Exception("AddPlayer should never be called if CanAddPlayer returns false");
             }
 
             var newPlayer = new EnterGameResultsCommand.GamePlayer();
