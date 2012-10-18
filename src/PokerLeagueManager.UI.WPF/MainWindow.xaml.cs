@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.UI.WPF.Views;
+using PokerLeagueManager.UI.WPF.ViewModels;
 
 namespace PokerLeagueManager.UI.WPF
 {
@@ -38,6 +40,11 @@ namespace PokerLeagueManager.UI.WPF
             cmd.GameId = Guid.NewGuid();
 
             svc.ExecuteCommand(cmd);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            this.MainContent.Content = new EnterGameResultsView(new EnterGameResultsViewModel(new CommandServiceProxy()));
         }
     }
 }
