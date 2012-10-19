@@ -1,10 +1,8 @@
-﻿using PokerLeagueManager.Common.DTO.Infrastructure;
-using PokerLeagueManager.Queries.Core.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {

@@ -1,11 +1,7 @@
-﻿using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.Queries.Core.Infrastructure;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core
 {

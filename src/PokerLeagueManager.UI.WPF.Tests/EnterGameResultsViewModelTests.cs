@@ -1,9 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.UI.WPF.Tests.Infrastructure;
 using PokerLeagueManager.UI.WPF.ViewModels;
-using System;
-using System.Linq;
 
 namespace PokerLeagueManager.UI.WPF.Tests
 {

@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Commands.Domain.Infrastructure;
 using System.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {

@@ -1,14 +1,12 @@
 ﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PokerLeagueManager.Queries.WCF.Infrastructure
 {
     public class Resolver
     {
+        private static bool _hasBootstrapped;
+
         public static IUnityContainer Container
         {
             get
@@ -21,8 +19,6 @@ namespace PokerLeagueManager.Queries.WCF.Infrastructure
                 return UnityHelper.Container;
             }
         }
-
-        private static bool _hasBootstrapped;
 
         public static void Bootstrap()
         {

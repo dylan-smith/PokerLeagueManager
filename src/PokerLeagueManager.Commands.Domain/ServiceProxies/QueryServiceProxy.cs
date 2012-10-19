@@ -1,6 +1,6 @@
-﻿using PokerLeagueManager.Common.DTO;
-using System;
+﻿using System;
 using System.ServiceModel;
+using PokerLeagueManager.Common.DTO;
 
 namespace PokerLeagueManager.Commands.Domain.ServiceProxies
 {

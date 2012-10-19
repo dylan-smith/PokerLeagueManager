@@ -1,13 +1,8 @@
-﻿using PokerLeagueManager.Common.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.DTO;
+﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Commands.Domain.ServiceProxies;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

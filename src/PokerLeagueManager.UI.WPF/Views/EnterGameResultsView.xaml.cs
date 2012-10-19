@@ -1,5 +1,5 @@
-﻿using PokerLeagueManager.UI.WPF.ViewModels;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using PokerLeagueManager.UI.WPF.ViewModels;
 
 namespace PokerLeagueManager.UI.WPF.Views
 {

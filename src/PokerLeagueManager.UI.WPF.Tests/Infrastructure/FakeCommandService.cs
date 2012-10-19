@@ -1,15 +1,16 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using PokerLeagueManager.Common.Commands.Infrastructure;
 
 namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
 {
     public class FakeCommandService : ICommandService
     {
-        public List<ICommand> ExecutedCommands = new List<ICommand>();
+        public FakeCommandService()
+        {
+            ExecutedCommands = new List<ICommand>();
+        }
+
+        public List<ICommand> ExecutedCommands { get; set; }
 
         public void ExecuteCommand(ICommand command)
         {

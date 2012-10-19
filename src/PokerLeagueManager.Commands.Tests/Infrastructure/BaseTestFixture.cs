@@ -1,16 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
 using PokerLeagueManager.Queries.Core;
-using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
@@ -35,11 +30,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         public virtual Exception ExpectedException()
         {
             return null;
-        }
-
-        protected Guid AnyGuid()
-        {
-            return EventsAssert.AnyGuid();
         }
 
         public void RunTest(ICommand command)
@@ -84,6 +74,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             }
 
             EventsAssert.AreEqual(ExpectedEvents().ToList<IEvent>(), repository.EventList);
+        }
+
+        protected Guid AnyGuid()
+        {
+            return EventsAssert.AnyGuid();
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)

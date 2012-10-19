@@ -1,14 +1,7 @@
-﻿using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Queries.Core;
-using PokerLeagueManager.Queries.WCF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
+﻿using System;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Queries.WCF.Infrastructure;
 
 namespace PokerLeagueManager.Queries.WCF
 {

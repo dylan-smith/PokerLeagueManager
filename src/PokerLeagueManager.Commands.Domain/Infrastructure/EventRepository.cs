@@ -1,24 +1,22 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
+using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class EventRepository : IEventRepository
     {
-        IDatabaseLayer _databaseLayer;
-        IGuidService _guidService;
-        IDateTimeService _dateTimeService;
-        IEventSubscriberFactory _eventSubscriberFactory;
+        private IDatabaseLayer _databaseLayer;
+        private IGuidService _guidService;
+        private IDateTimeService _dateTimeService;
+        private IEventSubscriberFactory _eventSubscriberFactory;
 
         public EventRepository(
             IDatabaseLayer databaseLayer, 
@@ -32,6 +30,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _eventSubscriberFactory = eventSubscriberFactory;
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
         public void PublishEvent(IEvent e, ICommand c, Guid aggregateId)
         {
             e.EventId = _guidService.NewGuid();
@@ -44,7 +44,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             var sql = "INSERT INTO Events(EventId, EventDateTime, UserName, CommandId, AggregateId, EventType, EventData, Published)";
             sql += " VALUES(@EventId, @EventDateTime, @UserName, @CommandId, @AggregateId, @EventType, @EventData, @Published)";
 
-            _databaseLayer.ExecuteNonQuery(sql,
+            _databaseLayer.ExecuteNonQuery(
+                sql,
                 "@EventId", e.EventId,
                 "@EventDateTime", e.Timestamp.ToString("dd-MMM-yyyy HH:mm:ss.ff"),
                 "@UserName", e.User,
@@ -64,21 +65,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             MarkEventAsPublished(e);
         }
 
-        private void MarkEventAsPublished(IEvent e)
-        {
-            _databaseLayer.ExecuteNonQuery("UPDATE Events SET Published = 1 WHERE EventId = @EventId", "@EventId", e.EventId);
-        }
-
-        private IEnumerable<EventSubscriber> GetSubscribers()
-        {
-            var subscriberTable = _databaseLayer.GetDataTable("SELECT * FROM Subscribers");
-
-            foreach (DataRow row in subscriberTable.Rows)
-            {
-                yield return _eventSubscriberFactory.Create(row);
-            }
-        }
-
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
             foreach (var e in aggRoot.PendingEvents)
@@ -87,6 +73,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
         public bool DoesAggregateExist(Guid aggregateId)
         {
             if (aggregateId == Guid.Empty)
@@ -94,7 +82,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 return false;
             }
 
-            int eventCount = (int)_databaseLayer.ExecuteScalar("SELECT COUNT(*) FROM Events WHERE AggregateId = @AggregateId",
+            int eventCount = (int)_databaseLayer.ExecuteScalar(
+                "SELECT COUNT(*) FROM Events WHERE AggregateId = @AggregateId",
                 "@AggregateId", aggregateId.ToString());
 
             if (eventCount == 0)
@@ -107,6 +96,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
         public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
         {
             if (aggregateId == Guid.Empty)
@@ -132,6 +123,21 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             return (T)result;
+        }
+
+        private void MarkEventAsPublished(IEvent e)
+        {
+            _databaseLayer.ExecuteNonQuery("UPDATE Events SET Published = 1 WHERE EventId = @EventId", "@EventId", e.EventId);
+        }
+
+        private IEnumerable<EventSubscriber> GetSubscribers()
+        {
+            var subscriberTable = _databaseLayer.GetDataTable("SELECT * FROM Subscribers");
+
+            foreach (DataRow row in subscriberTable.Rows)
+            {
+                yield return _eventSubscriberFactory.Create(row);
+            }
         }
 
         private string SerializeEvent<T>(T e)

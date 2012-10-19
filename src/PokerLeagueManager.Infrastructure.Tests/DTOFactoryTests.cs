@@ -1,8 +1,8 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.DTO.Infrastructure;
-using PokerLeagueManager.Common.DTO;
 using System.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.DTO.Infrastructure;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {

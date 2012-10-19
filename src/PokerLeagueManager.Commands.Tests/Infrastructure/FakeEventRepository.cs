@@ -1,11 +1,9 @@
-﻿using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
+using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.Events.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {

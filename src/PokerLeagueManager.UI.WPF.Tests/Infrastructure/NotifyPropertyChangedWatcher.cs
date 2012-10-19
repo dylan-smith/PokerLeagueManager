@@ -10,7 +10,7 @@ namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
         public NotifyPropertyChangedWatcher(INotifyPropertyChanged target)
         {
             _propertyChangedEvents = new Dictionary<string, int>();
-            target.PropertyChanged += target_PropertyChanged;
+            target.PropertyChanged += OnPropertyChanged;
         }
 
         public bool HasPropertyChanged(string propertyName)
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
             return _propertyChangedEvents.ContainsKey(propertyName);
         }
 
-        void target_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (!_propertyChangedEvents.ContainsKey(e.PropertyName))
             {

@@ -1,11 +1,8 @@
-﻿using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
@@ -31,8 +28,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         public void HandleEvent(IEvent e)
         {
             var executeEventHandler = from m in typeof(EventHandlerFactory).GetMethods()
-                                       where m.Name == "HandleEvent" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition
-                                       select m;
+                                      where m.Name == "HandleEvent" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition
+                                      select m;
 
             if (executeEventHandler.Count() != 1)
             {
@@ -43,7 +40,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             generic.Invoke(this, new object[] { e });
         }
 
-        private IHandlesEvent<T> FindEventHandler<T>() where T: IEvent
+        private IHandlesEvent<T> FindEventHandler<T>() where T : IEvent
         {
             var matchingTypes = typeof(IHandlesEvent<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 

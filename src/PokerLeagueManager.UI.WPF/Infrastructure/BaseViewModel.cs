@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.WPF.Infrastructure
             }
         }
 
-        public void VerifyPropertyName(string propertyName)
+        private void VerifyPropertyName(string propertyName)
         {
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {

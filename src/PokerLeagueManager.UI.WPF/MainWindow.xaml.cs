@@ -1,6 +1,6 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.Windows;
+using Microsoft.Practices.Unity;
 using PokerLeagueManager.UI.WPF.Views;
-using System.Windows;
 
 namespace PokerLeagueManager.UI.WPF
 {

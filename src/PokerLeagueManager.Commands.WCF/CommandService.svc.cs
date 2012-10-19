@@ -1,8 +1,7 @@
-﻿using Microsoft.Practices.Unity;
+﻿using System.ServiceModel;
+using Microsoft.Practices.Unity;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands.Infrastructure;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
 
 namespace PokerLeagueManager.Commands.WCF
 {

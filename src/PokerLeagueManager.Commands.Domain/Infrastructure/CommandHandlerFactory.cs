@@ -1,9 +1,9 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Utilities;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -43,7 +43,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             generic.Invoke(this, new object[] { command });
         }
 
-        private IHandlesCommand<T> FindCommandHandler<T>() where T: ICommand
+        private IHandlesCommand<T> FindCommandHandler<T>() where T : ICommand
         {
             var matchingTypes = typeof(IHandlesCommand<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 

@@ -1,27 +1,44 @@
-﻿using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.UI.WPF.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.UI.WPF.Infrastructure;
 
 namespace PokerLeagueManager.UI.WPF.ViewModels
 {
     public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
+        private ICommandService _commandService;
+        private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
+
+        public EnterGameResultsViewModel(ICommandService commandService)
+        {
+            _commandService = commandService;
+
+            ResetPlayerCommands();
+
+            AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
+            SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
+        }
+
         public DateTime? GameDate { get; set; }
+
         public string NewPlayerName { get; set; }
+
         public string NewPlacing { get; set; }
+
         public string NewWinnings { get; set; }
 
-        public IEnumerable<string> Players {
+        public IEnumerable<string> Players
+        {
             get
             {
-                foreach(var p in _playerCommands.OrderBy(x => x.Placing))
+                foreach (var p in _playerCommands.OrderBy(x => x.Placing))
                 {
-                    if (p.Winnings > 0) 
+                    if (p.Winnings > 0)
                     {
                         yield return string.Format("{0} - {1} [${2}]", p.Placing, p.PlayerName, p.Winnings);
                     }
@@ -32,22 +49,10 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
                 }
             }
         }
-        
+
         public System.Windows.Input.ICommand AddPlayerCommand { get; set; }
+
         public System.Windows.Input.ICommand SaveGameCommand { get; set; }
-
-        private ICommandService _commandService;
-        private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
-
-        public EnterGameResultsViewModel(ICommandService commandService)
-        {
-            _commandService = commandService;
-
-            ResetPlayerCommands();
-            
-            AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
-            SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
-        }
 
         private void ResetPlayerCommands()
         {

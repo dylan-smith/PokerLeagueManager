@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Data;
 using System.Linq;
-using Moq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.Queries.Core.Infrastructure;
+using Moq;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.DTO.Infrastructure;
-using System.Data;
+using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {
@@ -21,7 +21,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
-            var testDto = new GetGameCountByDateDTO() {
+            var testDto = new GetGameCountByDateDTO() 
+            {
                 GameId = Guid.NewGuid(),
                 GameYear = 2012,
                 GameMonth = 10,

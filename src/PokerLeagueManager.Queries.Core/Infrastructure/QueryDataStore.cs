@@ -1,12 +1,9 @@
-﻿using PokerLeagueManager.Common.DTO.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
@@ -41,16 +38,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             _databaseLayer.ExecuteNonQuery(sql);
         }
 
-        private string GetPropertyValueSql<T>(PropertyInfo prop, T dto) where T : IDataTransferObject
-        {
-            if (prop.PropertyType == typeof(Guid))
-            {
-                return string.Format("'{0}'", prop.GetValue(dto));
-            }
-
-            return prop.GetValue(dto).ToString();
-        }
-
         public IEnumerable<T> GetData<T>() where T : IDataTransferObject
         {
             var tableName = GetTableName(typeof(T));
@@ -63,6 +50,16 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             {
                 yield return _dtoFactory.Create<T>(row);
             }
+        }
+
+        private string GetPropertyValueSql<T>(PropertyInfo prop, T dto) where T : IDataTransferObject
+        {
+            if (prop.PropertyType == typeof(Guid))
+            {
+                return string.Format("'{0}'", prop.GetValue(dto));
+            }
+
+            return prop.GetValue(dto).ToString();
         }
 
         private string GetTableName(Type dtoType)

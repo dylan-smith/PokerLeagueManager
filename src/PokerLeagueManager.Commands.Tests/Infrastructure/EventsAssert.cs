@@ -1,11 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Common.Events.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {
@@ -34,6 +33,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             }
         }
 
+        public static Guid AnyGuid()
+        {
+            return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
+        }
+
         private static void CompareEvents(IEvent expectedEvent, IEvent actualEvent, int i)
         {
             if (expectedEvent.GetType() != actualEvent.GetType())
@@ -52,11 +56,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             {
                 throw new AssertFailedException(string.Format("The expected and actual events do not match: The property {0} in both events does not match at index #{1}. {2}", propertyName, i, notMatchMessage));
             }
-        }
-
-        public static Guid AnyGuid()
-        {
-            return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
         }
 
         /// <summary>
@@ -221,6 +220,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         }
     }
 
+    [SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1402:FileMayOnlyContainASingleClass", Justification = "Reviewed.")]
     public class StringResult
     {
         public string Result { get; set; }

@@ -6,6 +6,8 @@ namespace PokerLeagueManager.UI.WPF
 {
     public class Resolver
     {
+        private static bool _hasBootstrapped;
+
         public static IUnityContainer Container
         {
             get
@@ -18,8 +20,6 @@ namespace PokerLeagueManager.UI.WPF
                 return UnityHelper.Container;
             }
         }
-
-        private static bool _hasBootstrapped;
 
         public static void Bootstrap()
         {
