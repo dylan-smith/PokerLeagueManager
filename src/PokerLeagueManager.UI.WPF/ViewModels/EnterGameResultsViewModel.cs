@@ -2,8 +2,10 @@
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.UI.WPF.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace PokerLeagueManager.UI.WPF.ViewModels
 {
@@ -16,21 +18,43 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         public string NewPlacing { get; set; }
         public string NewWinnings { get; set; }
 
-        public ObservableCollection<EnterGameResultsCommand.GamePlayer> Players { get; set; }
+        public IEnumerable<string> Players {
+            get
+            {
+                foreach(var p in _playerCommands.OrderBy(x => x.Placing))
+                {
+                    if (p.Winnings > 0) 
+                    {
+                        yield return string.Format("{0} - {1} [${2}]", p.Placing, p.PlayerName, p.Winnings);
+                    }
+                    else
+                    {
+                        yield return string.Format("{0} - {1}", p.Placing, p.PlayerName);
+                    }
+                }
+            }
+        }
         
         public System.Windows.Input.ICommand AddPlayerCommand { get; set; }
         public System.Windows.Input.ICommand SaveGameCommand { get; set; }
 
         private ICommandService _commandService;
+        private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
 
         public EnterGameResultsViewModel(ICommandService commandService)
         {
             _commandService = commandService;
 
-            Players = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
+            ResetPlayerCommands();
             
             AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
             SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
+        }
+
+        private void ResetPlayerCommands()
+        {
+            _playerCommands = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
+            _playerCommands.CollectionChanged += delegate { OnPropertyChanged("Players"); };
         }
 
         private bool CanSaveGame()
@@ -48,7 +72,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
             var gameCommand = new EnterGameResultsCommand();
 
             gameCommand.GameDate = this.GameDate.GetValueOrDefault();
-            gameCommand.Players = this.Players;
+            gameCommand.Players = _playerCommands;
 
             _commandService.ExecuteCommand(gameCommand);
 
@@ -58,7 +82,8 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         private void ClearScreen()
         {
             this.GameDate = null;
-            this.Players = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
+
+            ResetPlayerCommands();
 
             OnPropertyChanged("GameDate");
             OnPropertyChanged("Players");
@@ -122,7 +147,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
             newPlayer.Placing = int.Parse(this.NewPlacing);
             newPlayer.Winnings = int.Parse(this.NewWinnings);
 
-            this.Players.Add(newPlayer);
+            _playerCommands.Add(newPlayer);
 
             ClearNewPlayer();
         }

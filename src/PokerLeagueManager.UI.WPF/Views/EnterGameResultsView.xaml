@@ -10,11 +10,11 @@
         <TextBox Text="{Binding Path=NewPlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="12,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
         <TextBox Text="{Binding Path=NewPlacing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="159,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48"/>
         <TextBox Text="{Binding Path=NewWinnings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="212,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
+        <Button Command="{Binding AddPlayerCommand}" Content="Add Player" HorizontalAlignment="Left" Margin="277,73,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Label Content="Player Name" HorizontalAlignment="Left" Margin="12,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Placing" HorizontalAlignment="Left" Margin="159,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Winnings" HorizontalAlignment="Left" Margin="212,42,0,0" VerticalAlignment="Top"/>
         <ListBox ItemsSource="{Binding Players}" HorizontalAlignment="Left" Height="205" Margin="12,101,0,0" VerticalAlignment="Top" Width="340"/>
-        <Button Command="{Binding AddPlayerCommand}" Content="Add Player" HorizontalAlignment="Left" Margin="277,73,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
         <Button Command="{Binding SaveGameCommand}" Content="Save Game" HorizontalAlignment="Left" Margin="12,311,0,0" VerticalAlignment="Top" Width="340" Height="39"/>
     </Grid>
 </UserControl>

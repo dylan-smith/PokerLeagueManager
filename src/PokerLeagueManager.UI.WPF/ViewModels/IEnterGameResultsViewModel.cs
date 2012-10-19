@@ -1,5 +1,6 @@
 ﻿using PokerLeagueManager.Common.Commands;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
@@ -14,6 +15,6 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         string NewPlacing { get; set; }
         string NewPlayerName { get; set; }
         string NewWinnings { get; set; }
-        ObservableCollection<EnterGameResultsCommand.GamePlayer> Players { get; set; }
+        IEnumerable<string> Players { get; }
     }
 }

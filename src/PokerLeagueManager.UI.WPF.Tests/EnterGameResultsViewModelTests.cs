@@ -125,24 +125,19 @@ namespace PokerLeagueManager.UI.WPF.Tests
 
             var watcher = new NotifyPropertyChangedWatcher(sut);
 
-            bool playersChanged = false;
-            sut.Players.CollectionChanged += delegate { playersChanged = true; };
-
             sut.AddPlayerCommand.Execute(null);
 
             Assert.AreEqual(string.Empty, sut.NewPlayerName);
             Assert.AreEqual(string.Empty, sut.NewPlacing);
             Assert.AreEqual(string.Empty, sut.NewWinnings);
 
-            Assert.AreEqual(1, sut.Players.Count);
-            Assert.AreEqual("Dylan Smith", sut.Players[0].PlayerName);
-            Assert.AreEqual(1, sut.Players[0].Placing);
-            Assert.AreEqual(500, sut.Players[0].Winnings);
+            Assert.AreEqual(1, sut.Players.Count());
+            Assert.AreEqual("1 - Dylan Smith [$500]", sut.Players.First());
 
             Assert.IsTrue(watcher.HasPropertyChanged("NewPlayerName"));
             Assert.IsTrue(watcher.HasPropertyChanged("NewPlacing"));
             Assert.IsTrue(watcher.HasPropertyChanged("NewWinnings"));
-            Assert.IsTrue(playersChanged);
+            Assert.IsTrue(watcher.HasPropertyChanged("Players"));
         }
 
         [TestMethod]
@@ -186,7 +181,7 @@ namespace PokerLeagueManager.UI.WPF.Tests
             Assert.AreEqual(string.Empty, sut.NewPlacing);
             Assert.AreEqual(string.Empty, sut.NewWinnings);
 
-            Assert.AreEqual(0, sut.Players.Count);
+            Assert.AreEqual(0, sut.Players.Count());
 
             Assert.IsTrue(watcher.HasPropertyChanged("GameDate"));
             Assert.IsTrue(watcher.HasPropertyChanged("NewPlayerName"));
@@ -233,6 +228,26 @@ namespace PokerLeagueManager.UI.WPF.Tests
 
             Assert.AreEqual(2, dylanPlayer.Placing);
             Assert.AreEqual(0, dylanPlayer.Winnings);
+        }
+
+        [TestMethod]
+        public void AddTwoPlayersShouldReturnProperPlayerStringsInProperOrder()
+        {
+            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+
+            sut.NewPlayerName = "Dylan Smith";
+            sut.NewPlacing = "2";
+            sut.NewWinnings = "0";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.NewPlayerName = "Ryan Fritsch";
+            sut.NewPlacing = "1";
+            sut.NewWinnings = "200";
+            sut.AddPlayerCommand.Execute(null);
+
+            Assert.AreEqual(2, sut.Players.Count());
+            Assert.AreEqual("1 - Ryan Fritsch [$200]", sut.Players.ElementAt(0));
+            Assert.AreEqual("2 - Dylan Smith", sut.Players.ElementAt(1));
         }
 
         [TestMethod]
