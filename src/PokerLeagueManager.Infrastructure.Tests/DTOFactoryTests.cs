@@ -6,7 +6,6 @@ using System.Data;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {
-    // TODO: Rename all these tests to be prefixed with Infrastructure_
     [TestClass]
     public class DTOFactoryTests
     {

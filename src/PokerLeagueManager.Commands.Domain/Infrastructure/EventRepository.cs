@@ -62,9 +62,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             MarkEventAsPublished(e);
-
-            // TODO: support both async and sync subscribers, for now everything is treated as sync
-            // TODO: need to deal with the situation where the app crashes in between saving and publishing an event. How does it recover?
         }
 
         private void MarkEventAsPublished(IEvent e)
@@ -84,8 +81,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
-            // TODO: make sure this is all in a transaction
-            // TODO: also, publish to subscribers shouldn't happen until after commit
             foreach (var e in aggRoot.PendingEvents)
             {
                 PublishEvent(e, c, aggRoot.AggregateId);
@@ -121,7 +116,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
             T result = System.Activator.CreateInstance<T>();
 
-            // TODO: Need to introduce snapshot functionality
             var allEvents = _databaseLayer.GetDataTable(
                 "SELECT EventData, EventType FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp",
                 "@AggregateId", aggregateId.ToString());

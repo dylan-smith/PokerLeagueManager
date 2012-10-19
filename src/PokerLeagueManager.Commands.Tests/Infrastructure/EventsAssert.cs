@@ -25,7 +25,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
             if (expected.Count != actual.Count)
             {
-                // TODO: Need to make error messages more verbose, include actual event types and counts
                 throw new AssertFailedException("The expected events and actual events do not match.  The lengths of the event lists are not equal.");
             }
 

@@ -11,7 +11,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class EventHandlerFactory : IEventHandlerFactory
     {
-        // TODO: Check for duplicate events to provide idempotency
         private IQueryDataStore _queryDataStore;
 
         public EventHandlerFactory(IQueryDataStore queryDataStore)

@@ -36,7 +36,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             fieldList = fieldList.Substring(0, fieldList.Length - 2);
             valueList = valueList.Substring(0, valueList.Length - 2);
 
-            // TODO: Need to use parameterized SQL otherwise we're open to SQL Injection attacks
             var sql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableName, fieldList, valueList);
 
             _databaseLayer.ExecuteNonQuery(sql);

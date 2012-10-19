@@ -11,8 +11,6 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
 {
     public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
-        // TODO: Implement IDataErrorInfo stuff and show validation warnings on the UI
-
         public DateTime? GameDate { get; set; }
         public string NewPlayerName { get; set; }
         public string NewPlacing { get; set; }

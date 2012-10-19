@@ -27,7 +27,6 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
 
         public void AddPlayer(string playerName, int placing, int winnings)
         {
-            // TODO: Use custom exception types
             if (winnings < 0)
             {
                 throw new ArgumentException("winnings cannot be negative", "winnings");
@@ -64,11 +63,8 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
                     throw new Exception("The player placings must start at one and have no duplicates and not be higher than the total # of players");
                 }
             }
-
-            // TODO: validate that the total winnings equals the total pay-in (once pay-in has been implemented)
         }
 
-        // TODO: Can these be private or protected instead?
         public void ApplyEvent(GameCreatedEvent e)
         {
             AggregateId = e.AggregateId;

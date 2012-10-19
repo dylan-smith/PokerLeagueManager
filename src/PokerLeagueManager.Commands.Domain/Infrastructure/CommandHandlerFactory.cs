@@ -9,9 +9,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class CommandHandlerFactory : ICommandHandlerFactory
     {
-        // TODO: Store the Command in a database somewhere for logging/auditing
-        // TODO: implement some kind of error handling for the command
-
         private IEventRepository _eventRepository;
         private IQueryService _queryService;
 

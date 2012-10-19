@@ -7,7 +7,6 @@ namespace PokerLeagueManager.UI.WPF.Views
     {
         public EnterGameResultsView(EnterGameResultsViewModel viewModel)
         {
-            // TODO: Support resizing
             this.DataContext = viewModel;
 
             InitializeComponent();
