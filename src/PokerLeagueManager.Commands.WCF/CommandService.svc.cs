@@ -1,13 +1,6 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
-using Microsoft.Practices.Unity;
+﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
+using PokerLeagueManager.Common.Commands.Infrastructure;
 
 namespace PokerLeagueManager.Commands.WCF
 {
@@ -15,11 +8,12 @@ namespace PokerLeagueManager.Commands.WCF
     {
         public void ExecuteCommand(ICommand command)
         {
-            // TODO: Need to set some command values here (can't trust the caller to set user, command id, date/time, etc)
+            // TODO: Need to stuff a bunch of stuff into the command here like user name, ip, OS
+            // whatever we can extract from the context that looks useful
 
             var commandHandlerFactory = Resolver.Container.Resolve<ICommandHandlerFactory>();
-
-            commandHandlerFactory.ExecuteCommand(command);
+            var commandFactory = Resolver.Container.Resolve<ICommandFactory>();
+            commandHandlerFactory.ExecuteCommand(commandFactory.Create(command));
         }
     }
 }

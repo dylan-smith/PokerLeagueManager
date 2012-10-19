@@ -25,20 +25,25 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
         {
             var result = new T();
 
+            return Create(result);
+        }
+
+        public T Create<T>(T cmd) where T : ICommand
+        {
             if (_identity == null || string.IsNullOrEmpty(_identity.Name))
             {
-                result.User = "Unknown";
+                cmd.User = "Unknown";
             }
             else
             {
-                result.User = _identity.Name;
+                cmd.User = _identity.Name;
             }
 
-            result.CommandId = _guidService.NewGuid();
-            result.Timestamp = _dateTimeService.Now();
-            result.IsAsynchronous = false;
+            cmd.CommandId = _guidService.NewGuid();
+            cmd.Timestamp = _dateTimeService.Now();
+            cmd.IsAsynchronous = false;
 
-            return result;
+            return cmd;
         }
     }
 }
