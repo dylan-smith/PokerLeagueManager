@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace PokerLeagueManager.UI.WPF.Infrastructure
 {
@@ -8,12 +9,20 @@ namespace PokerLeagueManager.UI.WPF.Infrastructure
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            // TODO: Verify that this is a legit propertyName
+            VerifyPropertyName(propertyName);
 
             if (this.PropertyChanged != null)
             {
                 var e = new PropertyChangedEventArgs(propertyName);
                 this.PropertyChanged(this, e);
+            }
+        }
+
+        public void VerifyPropertyName(string propertyName)
+        {
+            if (TypeDescriptor.GetProperties(this)[propertyName] == null)
+            {
+                throw new Exception(string.Format("Invalid property name: {0}", propertyName));
             }
         }
     }
