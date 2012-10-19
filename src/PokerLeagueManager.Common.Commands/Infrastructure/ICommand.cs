@@ -14,6 +14,8 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
 
         string User { get; set; }
 
+        string ipAddress { get; set; }
+
         bool IsAsynchronous { get; set; }  
     }
 }

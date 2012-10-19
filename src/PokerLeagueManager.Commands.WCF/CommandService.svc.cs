@@ -1,6 +1,8 @@
 ﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands.Infrastructure;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace PokerLeagueManager.Commands.WCF
 {
@@ -8,8 +10,7 @@ namespace PokerLeagueManager.Commands.WCF
     {
         public void ExecuteCommand(ICommand command)
         {
-            // TODO: Need to stuff a bunch of stuff into the command here like user name, ip, OS
-            // whatever we can extract from the context that looks useful
+            Resolver.Container.RegisterInstance<OperationContext>(OperationContext.Current);
 
             var commandHandlerFactory = Resolver.Container.Resolve<ICommandHandlerFactory>();
             var commandFactory = Resolver.Container.Resolve<ICommandFactory>();
