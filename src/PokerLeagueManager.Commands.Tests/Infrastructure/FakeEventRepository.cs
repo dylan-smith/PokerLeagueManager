@@ -16,9 +16,9 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             InitialEvents = new List<IEvent>();
         }
 
-        public IList<EventCommandPair> EventCommandList { get; set; }
+        public IList<EventCommandPair> EventCommandList { get; private set; }
 
-        public IList<IEvent> EventList { get; set; }
+        public IList<IEvent> EventList { get; private set; }
 
         public IEnumerable<IEvent> InitialEvents { get; set; }
 
@@ -30,6 +30,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
+            if (aggRoot == null)
+            {
+                throw new ArgumentNullException("aggRoot");
+            }
+
             foreach (IEvent e in aggRoot.PendingEvents)
             {
                 EventCommandList.Add(new EventCommandPair(e, c, aggRoot.AggregateId));

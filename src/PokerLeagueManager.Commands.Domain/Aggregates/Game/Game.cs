@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
+using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
 {
@@ -58,7 +59,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
             {
                 if (curPlayer.Placing != curPlacing++)
                 {
-                    throw new Exception("The player placings must start at one and have no duplicates and not be higher than the total # of players");
+                    throw new PlayerPlacingsNotInOrderException("The player placings must start at one and have no duplicates and not be higher than the total # of players");
                 }
             }
         }

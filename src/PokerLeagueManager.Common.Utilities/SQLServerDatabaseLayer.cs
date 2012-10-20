@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Common.Utilities
 {
-    public class SQLServerDatabaseLayer : IDatabaseLayer, IDisposable
+    public class SqlServerDatabaseLayer : IDatabaseLayer, IDisposable
     {
         private SqlConnection _connection;
         private bool _disposedValue;
         private string _connectionString;
 
-        public SQLServerDatabaseLayer()
+        public SqlServerDatabaseLayer()
         {
             ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
 
-        ~SQLServerDatabaseLayer()
+        ~SqlServerDatabaseLayer()
         {
             this.Dispose(false);
         }
@@ -39,41 +39,50 @@ namespace PokerLeagueManager.Common.Utilities
             }
         }
 
-        public DataTable GetDataTable(string sqlString)
+        public DataTable GetDataTable(string sql)
         {
-            return this.GetDataTable(sqlString, new object[0]);
+            return this.GetDataTable(sql, new object[0]);
         }
 
-        public DataTable GetDataTable(string sqlString, params object[] sqlArgs)
+        public DataTable GetDataTable(string sql, params object[] sqlArgs)
         {
-            SqlCommand myCommand = this.PrepareCommand(sqlString, sqlArgs);
+            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
 
-            if (myCommand == null)
-            {
-                return null;
-            }
-
-            SqlDataAdapter myAdapter = new SqlDataAdapter(myCommand);
             DataTable result = new DataTable();
-            _connection.Open();
-            myAdapter.Fill(result);
-            _connection.Close();
-            return result;
-        }
 
-        public int ExecuteNonQuery(string sqlString)
-        {
-            return this.ExecuteNonQuery(sqlString, new object[0]);
-        }
-
-        public int ExecuteNonQuery(string sqlString, params object[] sqlArgs)
-        {
-            SqlCommand myCommand = this.PrepareCommand(sqlString, sqlArgs);
-
-            if (myCommand == null)
+            // this looks like a cyclomatic complexity nightmare, but I don't know a cleaner way to do it while respecting IDisposable
+            try
             {
-                return 0;
+                SqlDataAdapter myAdapter = new SqlDataAdapter(myCommand);
+
+                try
+                {
+                    _connection.Open();
+                    myAdapter.Fill(result);
+                    _connection.Close();
+                }
+                finally
+                {
+                    myAdapter.Dispose();
+                }
+
+                return result;
             }
+            catch
+            {
+                result.Dispose();
+                throw;
+            }
+        }
+
+        public int ExecuteNonQuery(string sql)
+        {
+            return this.ExecuteNonQuery(sql, new object[0]);
+        }
+
+        public int ExecuteNonQuery(string sql, params object[] sqlArgs)
+        {
+            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
 
             _connection.Open();
             int result = myCommand.ExecuteNonQuery();
@@ -81,19 +90,14 @@ namespace PokerLeagueManager.Common.Utilities
             return result;
         }
 
-        public object ExecuteScalar(string sqlString)
+        public object ExecuteScalar(string sql)
         {
-            return this.ExecuteScalar(sqlString, new object[0]);
+            return this.ExecuteScalar(sql, new object[0]);
         }
 
-        public object ExecuteScalar(string sqlString, params object[] sqlArgs)
+        public object ExecuteScalar(string sql, params object[] sqlArgs)
         {
-            SqlCommand myCommand = this.PrepareCommand(sqlString, sqlArgs);
-
-            if (myCommand == null)
-            {
-                return 0;
-            }
+            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
 
             _connection.Open();
             object result = myCommand.ExecuteScalar();
@@ -128,25 +132,33 @@ namespace PokerLeagueManager.Common.Utilities
             this._disposedValue = true;
         }
 
-        private SqlCommand PrepareCommand(string sqlString, params object[] sqlArgs)
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "It will be the responsibility of the caller to ensure they aren't vulnerable to SQL Injection")]
+        private SqlCommand PrepareCommand(string sql, params object[] sqlArgs)
         {
-            if (string.IsNullOrEmpty(sqlString))
+            if (string.IsNullOrEmpty(sql))
             {
-                throw new ArgumentException("The SQL statement was blank. A valid SQL Statement must be provided.", "sqlString");
+                throw new ArgumentException("The SQL statement was blank. A valid SQL Statement must be provided.", "sql");
             }
 
-            SqlCommand myCommand;
+            SqlCommand myCommand = new SqlCommand(sql, this._connection);
 
-            myCommand = new SqlCommand(sqlString, this._connection);
-            myCommand.CommandTimeout = 0;
-            myCommand.CommandType = CommandType.Text;
-
-            for (int i = 0; i < sqlArgs.Length; i += 2)
+            try
             {
-                myCommand.Parameters.AddWithValue((string)sqlArgs[i], sqlArgs[i + 1]);
-            }
+                myCommand.CommandTimeout = 0;
+                myCommand.CommandType = CommandType.Text;
 
-            return myCommand;
+                for (int i = 0; i < sqlArgs.Length; i += 2)
+                {
+                    myCommand.Parameters.AddWithValue((string)sqlArgs[i], sqlArgs[i + 1]);
+                }
+
+                return myCommand;
+            }
+            catch
+            {
+                myCommand.Dispose();
+                throw;
+            }
         }
     }
 }

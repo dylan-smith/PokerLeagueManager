@@ -11,16 +11,16 @@ namespace PokerLeagueManager.Common.Utilities
     {
         string ConnectionString { get; set; }
 
-        int ExecuteNonQuery(string sqlString);
+        int ExecuteNonQuery(string sql);
 
-        int ExecuteNonQuery(string sqlString, params object[] sqlArgs);
+        int ExecuteNonQuery(string sql, params object[] sqlArgs);
 
-        object ExecuteScalar(string sqlString);
+        object ExecuteScalar(string sql);
 
-        object ExecuteScalar(string sqlString, params object[] sqlArgs);
+        object ExecuteScalar(string sql, params object[] sqlArgs);
 
-        DataTable GetDataTable(string sqlString);
+        DataTable GetDataTable(string sql);
 
-        DataTable GetDataTable(string sqlString, params object[] sqlArgs);
+        DataTable GetDataTable(string sql, params object[] sqlArgs);
     }
 }

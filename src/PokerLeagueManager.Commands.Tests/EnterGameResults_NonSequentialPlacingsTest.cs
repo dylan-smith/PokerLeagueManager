@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Commands.Tests
 {
@@ -23,7 +24,7 @@ namespace PokerLeagueManager.Commands.Tests
 
         public override Exception ExpectedException()
         {
-            return new Exception();
+            return new PlayerPlacingsNotInOrderException();
         }
     }
 }

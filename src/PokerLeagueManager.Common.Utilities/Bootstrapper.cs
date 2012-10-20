@@ -13,7 +13,7 @@ namespace PokerLeagueManager.Common.Utilities
             {
                 Container.RegisterType<IDateTimeService, DateTimeService>();
                 Container.RegisterType<IGuidService, GuidService>();
-                Container.RegisterType<IDatabaseLayer, SQLServerDatabaseLayer>();
+                Container.RegisterType<IDatabaseLayer, SqlServerDatabaseLayer>();
                 Container.RegisterInstance<IIdentity>(System.Security.Principal.WindowsPrincipal.Current.Identity);
 
                 _hasBootstrapped = true;

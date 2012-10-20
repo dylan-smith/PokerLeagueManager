@@ -11,6 +11,11 @@ namespace PokerLeagueManager.Common.Utilities
     {
         public static IEnumerable<Type> FindHandlers<TCommand>(this Type handlerGenericType, Assembly assemblyToSearch)
         {
+            if (assemblyToSearch == null)
+            {
+                throw new ArgumentNullException("assemblyToSearch");
+            }
+
             return from t in assemblyToSearch.GetExportedTypes()
                    where t.IsClass &&
                          t.GetInterfaces().Where(i => i.IsGenericType &&

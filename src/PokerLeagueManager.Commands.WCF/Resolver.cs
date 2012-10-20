@@ -3,7 +3,7 @@ using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Commands.WCF
 {
-    public class Resolver
+    public static class Resolver
     {
         private static bool _hasBootstrapped = false;
 
