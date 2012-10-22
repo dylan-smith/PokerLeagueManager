@@ -29,6 +29,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\PokerLeagueManager.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +60,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EnterGameResultsViewModelTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\FakeCommandService.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

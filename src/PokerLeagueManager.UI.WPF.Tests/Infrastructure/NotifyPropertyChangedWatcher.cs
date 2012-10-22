@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
@@ -9,6 +10,11 @@ namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
 
         public NotifyPropertyChangedWatcher(INotifyPropertyChanged target)
         {
+            if (target == null)
+            {
+                throw new ArgumentNullException("tartget");
+            }
+
             _propertyChangedEvents = new Dictionary<string, int>();
             target.PropertyChanged += OnPropertyChanged;
         }

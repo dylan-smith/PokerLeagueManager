@@ -10,7 +10,7 @@ namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
             ExecutedCommands = new List<ICommand>();
         }
 
-        public List<ICommand> ExecutedCommands { get; set; }
+        public List<ICommand> ExecutedCommands { get; private set; }
 
         public void ExecuteCommand(ICommand command)
         {
