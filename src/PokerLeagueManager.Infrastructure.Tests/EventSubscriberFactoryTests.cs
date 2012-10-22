@@ -44,10 +44,18 @@ namespace PokerLeagueManager.Infrastructure.Tests
         {
             var result = new DataTable();
 
-            result.Columns.Add("SubscriberId", typeof(Guid));
-            result.Columns.Add("SubscriberUrl", typeof(string));
+            try
+            {
+                result.Columns.Add("SubscriberId", typeof(Guid));
+                result.Columns.Add("SubscriberUrl", typeof(string));
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                result.Dispose();
+                throw;
+            }
         }
     }
 }

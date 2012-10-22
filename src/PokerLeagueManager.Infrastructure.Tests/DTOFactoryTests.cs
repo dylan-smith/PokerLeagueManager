@@ -7,7 +7,7 @@ using PokerLeagueManager.Common.DTO.Infrastructure;
 namespace PokerLeagueManager.Infrastructure.Tests
 {
     [TestClass]
-    public class DTOFactoryTests
+    public class DtoFactoryTests
     {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
         }
 
         [TestMethod]
-        public void SampleDTOFromDataRow()
+        public void SampleDtoFromDataRow()
         {
             var sut = new DTOFactory();
             var sampleTable = GenerateSampleDataTable();
@@ -44,12 +44,20 @@ namespace PokerLeagueManager.Infrastructure.Tests
         {
             var result = new DataTable();
 
-            result.Columns.Add("GameId", typeof(Guid));
-            result.Columns.Add("GameYear", typeof(int));
-            result.Columns.Add("GameMonth", typeof(int));
-            result.Columns.Add("GameDay", typeof(int));
+            try
+            {
+                result.Columns.Add("GameId", typeof(Guid));
+                result.Columns.Add("GameYear", typeof(int));
+                result.Columns.Add("GameMonth", typeof(int));
+                result.Columns.Add("GameDay", typeof(int));
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                result.Dispose();
+                throw;
+            }
         }
     }
 }

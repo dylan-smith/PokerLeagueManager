@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
     public class QueryDataStoreTests
     {
         [TestMethod]
-        public void InsertSampleDTO()
+        public void InsertSampleDto()
         {
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
             var mockDTOFactory = new Mock<IDTOFactory>();
@@ -42,7 +42,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
         }
 
         [TestMethod]
-        public void GetSampleDTOWithNoResults()
+        public void GetSampleDtoWithNoResults()
         {
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
             var mockDTOFactory = new Mock<IDTOFactory>();
@@ -52,7 +52,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
             // the ToList() is necessary to force deferred execution to happen
-            var result = sut.GetData<GetGameCountByDateDTO>().ToList();
+            sut.GetData<GetGameCountByDateDTO>().ToList();
 
             var expectedSql = "SELECT * FROM GetGameCountByDate";
 
@@ -60,7 +60,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
         }
 
         [TestMethod]
-        public void GetSampleDTOWithTwoResults()
+        public void GetSampleDtoWithTwoResults()
         {
             var sampleTable = GenerateSampleDataTable();
             sampleTable.Rows.Add(Guid.NewGuid(), 2010, 7, 3);
@@ -74,7 +74,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
             // the ToList() is necessary to force deferred execution to happen
-            var result = sut.GetData<GetGameCountByDateDTO>().ToList();
+            sut.GetData<GetGameCountByDateDTO>().ToList();
 
             var expectedSql = "SELECT * FROM GetGameCountByDate";
 
@@ -87,12 +87,20 @@ namespace PokerLeagueManager.Infrastructure.Tests
         {
             var result = new DataTable();
 
-            result.Columns.Add("GameId", typeof(Guid));
-            result.Columns.Add("GameYear", typeof(int));
-            result.Columns.Add("GameMonth", typeof(int));
-            result.Columns.Add("GameDay", typeof(int));
+            try
+            {
+                result.Columns.Add("GameId", typeof(Guid));
+                result.Columns.Add("GameYear", typeof(int));
+                result.Columns.Add("GameMonth", typeof(int));
+                result.Columns.Add("GameDay", typeof(int));
 
-            return result;
+                return result;
+            }
+            catch
+            {
+                result.Dispose();
+                throw;
+            }
         }
     }
 }
