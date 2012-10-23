@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Common.DTO.Infrastructure
 {
-    public class DTOFactory : IDTOFactory
+    public class DtoFactory : IDtoFactory
     {
         public T Create<T>(DataRow row) where T : IDataTransferObject
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 
@@ -17,6 +18,7 @@ namespace PokerLeagueManager.Common.Commands
         [DataMember]
         public IEnumerable<GamePlayer> Players { get; set; }
 
+        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible", Justification = "By Design")]
         [DataContract]
         public class GamePlayer
         {

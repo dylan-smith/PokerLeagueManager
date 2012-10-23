@@ -17,11 +17,11 @@ namespace PokerLeagueManager.Infrastructure.Tests
         public void InsertSampleDto()
         {
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
-            var mockDTOFactory = new Mock<IDTOFactory>();
+            var mockDTOFactory = new Mock<IDtoFactory>();
 
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
-            var testDto = new GetGameCountByDateDTO() 
+            var testDto = new GetGameCountByDateDto() 
             {
                 GameId = Guid.NewGuid(),
                 GameYear = 2012,
@@ -45,14 +45,14 @@ namespace PokerLeagueManager.Infrastructure.Tests
         public void GetSampleDtoWithNoResults()
         {
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
-            var mockDTOFactory = new Mock<IDTOFactory>();
+            var mockDTOFactory = new Mock<IDtoFactory>();
 
             mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>())).Returns(GenerateSampleDataTable());
 
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
             // the ToList() is necessary to force deferred execution to happen
-            sut.GetData<GetGameCountByDateDTO>().ToList();
+            sut.GetData<GetGameCountByDateDto>().ToList();
 
             var expectedSql = "SELECT * FROM GetGameCountByDate";
 
@@ -67,20 +67,20 @@ namespace PokerLeagueManager.Infrastructure.Tests
             sampleTable.Rows.Add(Guid.NewGuid(), 2012, 11, 27);
 
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
-            var mockDTOFactory = new Mock<IDTOFactory>();
+            var mockDTOFactory = new Mock<IDtoFactory>();
 
             mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>())).Returns(sampleTable);
 
             var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
 
             // the ToList() is necessary to force deferred execution to happen
-            sut.GetData<GetGameCountByDateDTO>().ToList();
+            sut.GetData<GetGameCountByDateDto>().ToList();
 
             var expectedSql = "SELECT * FROM GetGameCountByDate";
 
             mockDatabaseLayer.Verify(x => x.GetDataTable(expectedSql));
-            mockDTOFactory.Verify(x => x.Create<GetGameCountByDateDTO>(sampleTable.Rows[0]));
-            mockDTOFactory.Verify(x => x.Create<GetGameCountByDateDTO>(sampleTable.Rows[1]));
+            mockDTOFactory.Verify(x => x.Create<GetGameCountByDateDto>(sampleTable.Rows[0]));
+            mockDTOFactory.Verify(x => x.Create<GetGameCountByDateDto>(sampleTable.Rows[1]));
         }
 
         private DataTable GenerateSampleDataTable()

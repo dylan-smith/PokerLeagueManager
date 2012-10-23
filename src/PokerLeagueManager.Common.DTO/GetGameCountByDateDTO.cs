@@ -5,7 +5,7 @@ using PokerLeagueManager.Common.DTO.Infrastructure;
 namespace PokerLeagueManager.Common.DTO
 {
     [DataContract]
-    public class GetGameCountByDateDTO : IDataTransferObject
+    public class GetGameCountByDateDto : IDataTransferObject
     {
         [DataMember]
         public Guid GameId { get; set; }

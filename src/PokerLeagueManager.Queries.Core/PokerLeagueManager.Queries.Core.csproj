@@ -24,6 +24,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\PokerLeagueManager.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\GetGameCountByDateHandler.cs" />
-    <Compile Include="Infrastructure\BaseEventHandler.cs" />
+    <Compile Include="Infrastructure\BaseHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\EventHandlerFactory.cs" />
     <Compile Include="Infrastructure\IEventHandlerFactory.cs" />

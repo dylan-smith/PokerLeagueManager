@@ -4,11 +4,11 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGameCountByDateHandler : BaseEventHandler, IHandlesEvent<GameCreatedEvent>
+    public class GetGameCountByDateHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
-            QueryDataStore.Insert(new GetGameCountByDateDTO()
+            QueryDataStore.Insert(new GetGameCountByDateDto()
             {
                 GameId = e.AggregateId,
                 GameYear = e.GameDate.Year,

@@ -13,15 +13,15 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullDataRow()
         {
-            var sut = new DTOFactory();
+            var sut = new DtoFactory();
 
-            sut.Create<GetGameCountByDateDTO>(null);
+            sut.Create<GetGameCountByDateDto>(null);
         }
 
         [TestMethod]
         public void SampleDtoFromDataRow()
         {
-            var sut = new DTOFactory();
+            var sut = new DtoFactory();
             var sampleTable = GenerateSampleDataTable();
 
             var gameId = Guid.NewGuid();
@@ -31,7 +31,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             sampleTable.Rows.Add(gameId, gameYear, gameMonth, gameDay);
 
-            var result = sut.Create<GetGameCountByDateDTO>(sampleTable.Rows[0]);
+            var result = sut.Create<GetGameCountByDateDto>(sampleTable.Rows[0]);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(gameId, result.GameId);

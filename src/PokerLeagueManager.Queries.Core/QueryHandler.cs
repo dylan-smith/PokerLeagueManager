@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Queries.Core
 
         public int GetGameCountByDate(DateTime gameDate)
         {
-            return _queryDataStore.GetData<GetGameCountByDateDTO>().Count(x => x.GameYear == gameDate.Year &&
+            return _queryDataStore.GetData<GetGameCountByDateDto>().Count(x => x.GameYear == gameDate.Year &&
                                                                                x.GameMonth == gameDate.Month &&
                                                                                x.GameDay == gameDate.Day);
         }

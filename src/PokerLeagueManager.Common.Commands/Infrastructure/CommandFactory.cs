@@ -40,7 +40,7 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
 
             MessageProperties prop = _currentContext.IncomingMessageProperties;
             RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-            cmd.IpAddress = endpoint.Address;
+            cmd.IPAddress = endpoint.Address;
 
             cmd.CommandId = _guidService.NewGuid();
             cmd.Timestamp = _dateTimeService.Now();

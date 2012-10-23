@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Events.Infrastructure;
@@ -30,11 +31,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             var executeEventHandler = from m in typeof(EventHandlerFactory).GetMethods()
                                       where m.Name == "HandleEvent" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition
                                       select m;
-
-            if (executeEventHandler.Count() != 1)
-            {
-                throw new Exception("Unexpected Exception. Could not find the HandleEvent method via Reflection.");
-            }
 
             MethodInfo generic = executeEventHandler.First().MakeGenericMethod(e.GetType());
             generic.Invoke(this, new object[] { e });
