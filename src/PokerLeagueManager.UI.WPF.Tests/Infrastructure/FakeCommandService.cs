@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 
-namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
+namespace PokerLeagueManager.UI.Wpf.Tests.Infrastructure
 {
     public class FakeCommandService : ICommandService
     {

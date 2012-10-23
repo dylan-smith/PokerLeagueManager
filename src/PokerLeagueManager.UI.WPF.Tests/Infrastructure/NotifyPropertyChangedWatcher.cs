@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace PokerLeagueManager.UI.WPF.Tests.Infrastructure
+namespace PokerLeagueManager.UI.Wpf.Tests.Infrastructure
 {
     public class NotifyPropertyChangedWatcher
     {

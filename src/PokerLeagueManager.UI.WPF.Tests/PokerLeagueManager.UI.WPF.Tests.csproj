@@ -6,8 +6,8 @@
     <ProjectGuid>{867B5F52-1B00-4713-9A5E-C167A2C40601}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PokerLeagueManager.UI.WPF.Tests</RootNamespace>
-    <AssemblyName>PokerLeagueManager.UI.WPF.Tests</AssemblyName>
+    <RootNamespace>PokerLeagueManager.UI.Wpf.Tests</RootNamespace>
+    <AssemblyName>PokerLeagueManager.UI.Wpf.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -78,9 +78,9 @@
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
       <Name>PokerLeagueManager.Common.Utilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.UI.WPF\PokerLeagueManager.UI.WPF.csproj">
+    <ProjectReference Include="..\PokerLeagueManager.UI.WPF\PokerLeagueManager.UI.Wpf.csproj">
       <Project>{cd9912a6-3828-47d9-8524-45f0fc2cffcf}</Project>
-      <Name>PokerLeagueManager.UI.WPF</Name>
+      <Name>PokerLeagueManager.UI.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

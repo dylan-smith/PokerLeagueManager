@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace PokerLeagueManager.UI.WPF
+namespace PokerLeagueManager.UI.Wpf
 {
     public partial class App : Application
     {

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using Microsoft.Practices.Unity;
-using PokerLeagueManager.UI.WPF.Views;
+using PokerLeagueManager.UI.Wpf.Views;
 
-namespace PokerLeagueManager.UI.WPF
+namespace PokerLeagueManager.UI.Wpf
 {
     public partial class MainWindow : Window
     {

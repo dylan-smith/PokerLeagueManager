@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace PokerLeagueManager.UI.WPF.ViewModels
+namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public interface IEnterGameResultsViewModel : INotifyPropertyChanged
     {

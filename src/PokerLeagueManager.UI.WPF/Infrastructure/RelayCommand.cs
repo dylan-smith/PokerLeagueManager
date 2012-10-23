@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace PokerLeagueManager.UI.WPF.Infrastructure
+namespace PokerLeagueManager.UI.Wpf.Infrastructure
 {
     public class RelayCommand : ICommand
     {

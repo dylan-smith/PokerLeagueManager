@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.WPF", "PokerLeagueManager.UI.WPF\PokerLeagueManager.UI.WPF.csproj", "{CD9912A6-3828-47D9-8524-45F0FC2CFFCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf", "PokerLeagueManager.UI.WPF\PokerLeagueManager.UI.Wpf.csproj", "{CD9912A6-3828-47D9-8524-45F0FC2CFFCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.WCF", "PokerLeagueManager.Commands.WCF\PokerLeagueManager.Commands.WCF.csproj", "{119C1495-34A1-4213-A211-DD2DD707024F}"
 EndProject
@@ -34,7 +34,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Infrastructure.Tests", "PokerLeagueManager.Infrastructure.Tests\PokerLeagueManager.Infrastructure.Tests.csproj", "{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.WPF.Tests", "PokerLeagueManager.UI.WPF.Tests\PokerLeagueManager.UI.WPF.Tests.csproj", "{867B5F52-1B00-4713-9A5E-C167A2C40601}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.Tests", "PokerLeagueManager.UI.WPF.Tests\PokerLeagueManager.UI.Wpf.Tests.csproj", "{867B5F52-1B00-4713-9A5E-C167A2C40601}"
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution

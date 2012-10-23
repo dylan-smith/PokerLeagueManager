@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
-using PokerLeagueManager.UI.WPF.ViewModels;
+using PokerLeagueManager.UI.Wpf.ViewModels;
 
-namespace PokerLeagueManager.UI.WPF.Views
+namespace PokerLeagueManager.UI.Wpf.Views
 {
     public partial class EnterGameResultsView : UserControl
     {

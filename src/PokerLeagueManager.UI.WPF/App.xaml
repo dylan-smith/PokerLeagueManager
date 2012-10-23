@@ -1,4 +1,4 @@
-﻿<Application x:Class="PokerLeagueManager.UI.WPF.App"
+﻿<Application x:Class="PokerLeagueManager.UI.Wpf.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">

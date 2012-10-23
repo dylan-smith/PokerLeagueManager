@@ -1,10 +1,10 @@
 ﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.UI.WPF.ViewModels;
+using PokerLeagueManager.UI.Wpf.ViewModels;
 
-namespace PokerLeagueManager.UI.WPF
+namespace PokerLeagueManager.UI.Wpf
 {
-    public class Resolver
+    public static class Resolver
     {
         private static bool _hasBootstrapped;
 

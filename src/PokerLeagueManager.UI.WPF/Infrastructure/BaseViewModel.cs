@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
+using PokerLeagueManager.Common.Utilities.Exceptions;
 
-namespace PokerLeagueManager.UI.WPF.Infrastructure
+namespace PokerLeagueManager.UI.Wpf.Infrastructure
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
@@ -22,7 +23,7 @@ namespace PokerLeagueManager.UI.WPF.Infrastructure
         {
             if (TypeDescriptor.GetProperties(this)[propertyName] == null)
             {
-                throw new Exception(string.Format("Invalid property name: {0}", propertyName));
+                throw new ArgumentException("Invalid property name", propertyName);
             }
         }
     }

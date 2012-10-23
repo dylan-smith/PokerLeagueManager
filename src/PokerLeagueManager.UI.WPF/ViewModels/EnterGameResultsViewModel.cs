@@ -5,9 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.UI.WPF.Infrastructure;
+using PokerLeagueManager.UI.Wpf.Infrastructure;
 
-namespace PokerLeagueManager.UI.WPF.ViewModels
+namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
@@ -69,7 +69,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         {
             if (!CanSaveGame())
             {
-                throw new Exception("SaveGame should never be called if CanSaveGame returns false");
+                throw new InvalidOperationException("SaveGame should never be called if CanSaveGame returns false");
             }
 
             var gameCommand = new EnterGameResultsCommand();
@@ -141,7 +141,7 @@ namespace PokerLeagueManager.UI.WPF.ViewModels
         {
             if (!CanAddPlayer())
             {
-                throw new Exception("AddPlayer should never be called if CanAddPlayer returns false");
+                throw new InvalidOperationException("AddPlayer should never be called if CanAddPlayer returns false");
             }
 
             var newPlayer = new EnterGameResultsCommand.GamePlayer();

@@ -2,10 +2,10 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.UI.WPF.Tests.Infrastructure;
-using PokerLeagueManager.UI.WPF.ViewModels;
+using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;
+using PokerLeagueManager.UI.Wpf.ViewModels;
 
-namespace PokerLeagueManager.UI.WPF.Tests
+namespace PokerLeagueManager.UI.Wpf.Tests
 {
     [TestClass]
     public class EnterGameResultsViewModelTests
@@ -141,7 +141,7 @@ namespace PokerLeagueManager.UI.WPF.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void IfAddPlayerCommandExecuteIsCalledWhenThereIsInvalidData_ShouldThrowException()
         {
             var sut = new EnterGameResultsViewModel(new FakeCommandService());
@@ -251,7 +251,7 @@ namespace PokerLeagueManager.UI.WPF.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception))]
+        [ExpectedException(typeof(InvalidOperationException))]
         public void SaveGameWithNoGameDate()
         {
             var sut = new EnterGameResultsViewModel(new FakeCommandService());
