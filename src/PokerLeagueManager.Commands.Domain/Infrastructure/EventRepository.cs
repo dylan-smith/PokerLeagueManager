@@ -157,8 +157,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         private IEvent CreateEventFromDataRow(DataRow row)
         {
-            Type eventType = Type.GetType((string)row["EventType"], true);
-            DataContractSerializer ser = new DataContractSerializer(eventType);
+            var eventType = Type.GetType((string)row["EventType"], true);
+            var ser = new DataContractSerializer(eventType);
 
             using (var xr = new XmlReaderFacade((string)row["EventData"]))
             {
