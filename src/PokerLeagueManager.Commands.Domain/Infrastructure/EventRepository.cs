@@ -157,31 +157,12 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         private IEvent CreateEventFromDataRow(DataRow row)
         {
-            StringReader reader = null;
-            XmlReader xr = null;
+            Type eventType = Type.GetType((string)row["EventType"], true);
+            DataContractSerializer ser = new DataContractSerializer(eventType);
 
-            try
+            using (var xr = new XmlReaderFacade((string)row["EventData"]))
             {
-                reader = new StringReader((string)row["EventData"]);
-                xr = XmlReader.Create(reader);
-
-                Type eventType = Type.GetType((string)row["EventType"], true);
-
-                DataContractSerializer ser = new DataContractSerializer(eventType);
-                return (IEvent)ser.ReadObject(xr);
-            }
-            finally
-            {
-                if (xr != null)
-                {
-                    xr.Dispose();
-                    reader = null;
-                }
-
-                if (reader != null)
-                {
-                    reader.Dispose();
-                }
+                return (IEvent)ser.ReadObject(xr.XmlReader);
             }
         }
     }

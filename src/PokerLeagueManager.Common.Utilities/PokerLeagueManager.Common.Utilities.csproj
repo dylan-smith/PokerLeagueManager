@@ -62,6 +62,7 @@
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="SqlServerDatabaseLayer.cs" />
     <Compile Include="UnityHelper.cs" />
+    <Compile Include="XmlReaderFacade.cs" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
