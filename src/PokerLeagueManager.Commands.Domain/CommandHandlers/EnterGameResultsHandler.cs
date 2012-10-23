@@ -1,5 +1,5 @@
 ﻿using System;
-using PokerLeagueManager.Commands.Domain.Aggregates.Game;
+using PokerLeagueManager.Commands.Domain.Aggregates;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 

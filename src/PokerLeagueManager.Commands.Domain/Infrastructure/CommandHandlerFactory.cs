@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Commands.Infrastructure;
@@ -28,6 +29,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             FindCommandHandler<T>().Execute(command);
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
         public void ExecuteCommand(ICommand command)
         {
             var executeCommandMethod = from m in typeof(CommandHandlerFactory).GetMethods()

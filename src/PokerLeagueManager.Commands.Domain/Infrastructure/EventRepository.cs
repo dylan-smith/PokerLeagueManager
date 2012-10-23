@@ -19,9 +19,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         private IEventSubscriberFactory _eventSubscriberFactory;
 
         public EventRepository(
-            IDatabaseLayer databaseLayer, 
-            IGuidService guidService, 
-            IDateTimeService dateTimeService, 
+            IDatabaseLayer databaseLayer,
+            IGuidService guidService,
+            IDateTimeService dateTimeService,
             IEventSubscriberFactory eventSubscriberFactory)
         {
             _databaseLayer = databaseLayer;
@@ -157,13 +157,32 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         private IEvent CreateEventFromDataRow(DataRow row)
         {
-            StringReader reader = new StringReader((string)row["EventData"]);
-            XmlReader xr = XmlReader.Create(reader);
-            
-            Type eventType = Type.GetType((string)row["EventType"], true);
+            StringReader reader = null;
+            XmlReader xr = null;
 
-            DataContractSerializer ser = new DataContractSerializer(eventType);
-            return (IEvent)ser.ReadObject(xr);
+            try
+            {
+                reader = new StringReader((string)row["EventData"]);
+                xr = XmlReader.Create(reader);
+
+                Type eventType = Type.GetType((string)row["EventType"], true);
+
+                DataContractSerializer ser = new DataContractSerializer(eventType);
+                return (IEvent)ser.ReadObject(xr);
+            }
+            finally
+            {
+                if (xr != null)
+                {
+                    xr.Dispose();
+                    reader = null;
+                }
+
+                if (reader != null)
+                {
+                    reader.Dispose();
+                }
+            }
         }
     }
 }

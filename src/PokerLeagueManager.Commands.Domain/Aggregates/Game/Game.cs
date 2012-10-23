@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Utilities.Exceptions;
 
-namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
+namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
-        private DateTime _gameDate;
         private List<Player> _players = new List<Player>();
 
         public Game(Guid gameId, DateTime gameDate)
@@ -64,10 +64,10 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
             }
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         public void ApplyEvent(GameCreatedEvent e)
         {
             AggregateId = e.AggregateId;
-            _gameDate = e.GameDate;
         }
 
         public void ApplyEvent(PlayerAddedToGameEvent e)

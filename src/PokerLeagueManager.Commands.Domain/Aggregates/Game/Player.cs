@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PokerLeagueManager.Commands.Domain.Aggregates.Game
+namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Player
     {
