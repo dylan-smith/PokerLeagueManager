@@ -10,6 +10,7 @@ namespace PokerLeagueManager.Common.Utilities
     {
         public Guid NewGuid()
         {
+
             return Guid.NewGuid();
         }
     }
