@@ -155,6 +155,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
+
         private IEvent CreateEventFromDataRow(DataRow row)
         {
             var eventType = Type.GetType((string)row["EventType"], true);
