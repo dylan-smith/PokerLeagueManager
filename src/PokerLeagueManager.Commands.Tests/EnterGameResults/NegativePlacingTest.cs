@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Utilities.Exceptions;
 
-namespace PokerLeagueManager.Commands.Tests
+namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class EnterGameResults_NonSequentialPlacingTest : BaseTestFixture
+    public class NegativePlacingTest : BaseTestFixture
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         [TestMethod]
-        public void EnterGameResults_NonSequentialPlacing()
+        public void NegativePlacing()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 });
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 3, Winnings = 0 });
-            
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = -1, Winnings = 100 });
+
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }
 
         public override Exception ExpectedException()
         {
-            return new PlayerPlacingsNotInOrderException();
+            return new ArgumentException();
         }
     }
 }

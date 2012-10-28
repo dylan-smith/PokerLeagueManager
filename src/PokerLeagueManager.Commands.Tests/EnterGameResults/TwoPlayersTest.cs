@@ -6,29 +6,28 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Events.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests
+namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class EnterGameResults_PresetGameIdTest : BaseTestFixture
+    public class TwoPlayersTest : BaseTestFixture
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
-        private Guid _gameId = Guid.NewGuid();
 
         [TestMethod]
-        public void EnterGameResults_PresetGameId()
+        public void TwoPlayers()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
             players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 });
             players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 });
 
-            RunTest(new EnterGameResultsCommand() { GameId = _gameId, GameDate = _gameDate, Players = players });
+            RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new GameCreatedEvent() { AggregateId = _gameId, GameDate = _gameDate };
-            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 };
-            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 };
+            yield return new GameCreatedEvent() { AggregateId = AnyGuid(), GameDate = _gameDate };
+            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 };
+            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 };
         }
     }
 }

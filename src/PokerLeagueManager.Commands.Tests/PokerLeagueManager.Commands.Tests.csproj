@@ -60,20 +60,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="EnterGameResults_TwoGamesWithSameDateTest.cs" />
-    <Compile Include="EnterGameResults_DuplicateGameIdTest.cs" />
-    <Compile Include="EnterGameResults_PresetGameIdTest.cs" />
-    <Compile Include="EnterGameResults_DuplicatePlayersTest.cs" />
-    <Compile Include="EnterGameResults_NonSequentialPlacingsTest.cs" />
-    <Compile Include="EnterGameResults_NegativePlacingTest.cs" />
-    <Compile Include="EnterGameResults_NegativeWinningsTest.cs" />
-    <Compile Include="EnterGameResults_EmptyPlayerNameTest.cs" />
-    <Compile Include="EnterGameResults_TwoPlayersTest.cs" />
+    <Compile Include="EnterGameResults\TwoGamesWithSameDateTest.cs" />
+    <Compile Include="EnterGameResults\DuplicateGameIdTest.cs" />
+    <Compile Include="EnterGameResults\PresetGameIdTest.cs" />
+    <Compile Include="EnterGameResults\DuplicatePlayersTest.cs" />
+    <Compile Include="EnterGameResults\NonSequentialPlacingsTest.cs" />
+    <Compile Include="EnterGameResults\NegativePlacingTest.cs" />
+    <Compile Include="EnterGameResults\NegativeWinningsTest.cs" />
+    <Compile Include="EnterGameResults\EmptyPlayerNameTest.cs" />
+    <Compile Include="EnterGameResults\TwoPlayersTest.cs" />
     <Compile Include="Infrastructure\BaseTestFixture.cs" />
     <Compile Include="Infrastructure\EventCommandPair.cs" />
     <Compile Include="Infrastructure\EventsAssert.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
-    <Compile Include="EnterGameResults_NoPlayersTest.cs" />
+    <Compile Include="EnterGameResults\NoPlayersTest.cs" />
     <Compile Include="Infrastructure\FakeQueryDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

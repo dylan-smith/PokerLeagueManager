@@ -6,15 +6,15 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Events.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests
+namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class EnterGameResults_NoPlayersTest : BaseTestFixture
+    public class NoPlayersTest : BaseTestFixture
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         [TestMethod]
-        public void EnterGameResults_NoPlayers()
+        public void NoPlayers()
         {
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate });
         }
