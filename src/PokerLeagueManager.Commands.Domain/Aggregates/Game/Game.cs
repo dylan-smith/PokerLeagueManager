@@ -14,6 +14,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         public Game(Guid gameId, DateTime gameDate)
         {
+            if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue)
+            {
+                throw new ArgumentException("Invalid GameDate, cannot be DateTime.MinValue", "gameDate");
+            }
+
             if (gameId != Guid.Empty)
             {
                 this.PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });

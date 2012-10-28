@@ -60,6 +60,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EnterGameResults\DateTimeMaxValueGameDateTest.cs" />
+    <Compile Include="EnterGameResults\DateTimeMinValueGameDateTest.cs" />
     <Compile Include="EnterGameResults\TwoGamesWithSameDateTest.cs" />
     <Compile Include="EnterGameResults\DuplicateGameIdTest.cs" />
     <Compile Include="EnterGameResults\PresetGameIdTest.cs" />
