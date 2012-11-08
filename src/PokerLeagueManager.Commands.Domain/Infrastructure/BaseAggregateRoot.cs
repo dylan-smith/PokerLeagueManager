@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         protected MethodInfo FindEventHandler(Type eventType)
         {
-            var matchingMethods = from m in this.GetType().GetMethods()
+            var matchingMethods = from m in this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                                   where m.Name == "ApplyEvent" && m.GetParameters().Count() == 1 && m.GetParameters()[0].ParameterType == eventType
                                   select m;
 

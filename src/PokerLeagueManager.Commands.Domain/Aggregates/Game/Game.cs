@@ -69,13 +69,15 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
         }
 
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
-        public void ApplyEvent(GameCreatedEvent e)
+        private void ApplyEvent(GameCreatedEvent e)
         {
             AggregateId = e.AggregateId;
         }
 
-        public void ApplyEvent(PlayerAddedToGameEvent e)
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(PlayerAddedToGameEvent e)
         {
             _players.Add(new Player(e.PlayerName, e.Placing, e.Winnings));
         }
