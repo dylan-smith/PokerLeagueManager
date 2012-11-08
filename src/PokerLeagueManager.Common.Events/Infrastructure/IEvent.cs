@@ -12,8 +12,6 @@ namespace PokerLeagueManager.Common.Events.Infrastructure
 
         DateTime Timestamp { get; set; }
 
-        string User { get; set; }
-
         Guid CommandId { get; set; }
 
         Guid AggregateId { get; set; }

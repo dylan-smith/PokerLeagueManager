@@ -14,7 +14,6 @@ namespace PokerLeagueManager.Common.Events.Infrastructure
         {
             EventId = Guid.NewGuid();
             Timestamp = DateTime.Now;
-            User = string.Empty;
             CommandId = Guid.Empty;
             AggregateId = Guid.Empty;
         }
@@ -24,9 +23,6 @@ namespace PokerLeagueManager.Common.Events.Infrastructure
 
         [DataMember]
         public DateTime Timestamp { get; set; }
-
-        [DataMember]
-        public string User { get; set; }
 
         [DataMember]
         public Guid CommandId { get; set; }

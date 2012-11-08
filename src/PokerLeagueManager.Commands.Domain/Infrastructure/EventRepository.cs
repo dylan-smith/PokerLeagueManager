@@ -36,19 +36,17 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             e.EventId = _guidService.NewGuid();
             e.Timestamp = _dateTimeService.Now();
-            e.User = c.User;
             e.CommandId = c.CommandId;
             e.AggregateId = aggregateId;
 
             var eventXml = SerializeEvent(e);
-            var sql = "INSERT INTO Events(EventId, EventDateTime, UserName, CommandId, AggregateId, EventType, EventData, Published)";
-            sql += " VALUES(@EventId, @EventDateTime, @UserName, @CommandId, @AggregateId, @EventType, @EventData, @Published)";
+            var sql = "INSERT INTO Events(EventId, EventDateTime, CommandId, AggregateId, EventType, EventData, Published)";
+            sql += " VALUES(@EventId, @EventDateTime, @CommandId, @AggregateId, @EventType, @EventData, @Published)";
 
             _databaseLayer.ExecuteNonQuery(
                 sql,
                 "@EventId", e.EventId,
                 "@EventDateTime", e.Timestamp.ToString("dd-MMM-yyyy HH:mm:ss.ff"),
-                "@UserName", e.User,
                 "@CommandId", e.CommandId,
                 "@AggregateId", e.AggregateId,
                 "@EventType", e.GetType().AssemblyQualifiedName,
