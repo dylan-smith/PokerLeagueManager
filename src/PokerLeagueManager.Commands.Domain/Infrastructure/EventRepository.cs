@@ -97,26 +97,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             PublishEvents(aggRoot, c);
         }
 
-        private bool ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
-        {
-            if (aggRoot.AggregateVersion == Guid.Empty)
-            {
-                return true;
-            }
-
-            var currentVersion = GetAggregateVersion(aggRoot.AggregateId);
-
-            return currentVersion == aggRoot.AggregateVersion;
-        }
-
-        private Guid GetAggregateVersion(Guid aggregateId)
-        {
-            return (Guid)_databaseLayer.ExecuteScalar(
-                "SELECT TOP 1 EventId FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp DESC",
-                "@AggregateId", aggregateId.ToString());
-
-        }
-
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
         public bool DoesAggregateExist(Guid aggregateId)
@@ -168,6 +148,27 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             return (T)result;
+        }
+
+        private bool ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
+        {
+            if (aggRoot.AggregateVersion == Guid.Empty)
+            {
+                return true;
+            }
+
+            var currentVersion = GetAggregateVersion(aggRoot.AggregateId);
+
+            return currentVersion == aggRoot.AggregateVersion;
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        private Guid GetAggregateVersion(Guid aggregateId)
+        {
+            return (Guid)_databaseLayer.ExecuteScalar(
+                "SELECT TOP 1 EventId FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp DESC",
+                "@AggregateId", aggregateId.ToString());
         }
 
         private void MarkEventAsPublished(IEvent e)

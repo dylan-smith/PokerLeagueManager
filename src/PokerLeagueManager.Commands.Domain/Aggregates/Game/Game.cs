@@ -12,10 +12,6 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
     {
         private List<Player> _players = new List<Player>();
 
-        private Game()
-        {
-        }
-
         public Game(Guid gameId, DateTime gameDate)
         {
             if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue)
@@ -31,6 +27,10 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             {
                 this.PublishEvent(new GameCreatedEvent() { AggregateId = Guid.NewGuid(), GameDate = gameDate });
             }
+        }
+
+        private Game()
+        {
         }
 
         public void AddPlayer(string playerName, int placing, int winnings)

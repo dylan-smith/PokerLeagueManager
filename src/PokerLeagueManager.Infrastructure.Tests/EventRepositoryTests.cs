@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.Commands.Domain.Aggregates;
 using System.Data;
-using PokerLeagueManager.Common.Events;
-using System.Runtime.Serialization;
 using System.IO;
+using System.Runtime.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using PokerLeagueManager.Commands.Domain.Aggregates;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
+using PokerLeagueManager.Common.Events;
+using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Infrastructure.Tests
