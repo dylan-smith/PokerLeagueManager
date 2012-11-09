@@ -14,6 +14,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             AggregateId = Guid.Empty;
             EventsApplied = false;
+            AggregateVersion = Guid.Empty;
         }
 
         public virtual ICollection<IEvent> PendingEvents
@@ -24,6 +25,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         public bool EventsApplied { get; set; }
 
         public Guid AggregateId { get; set; }
+
+        public Guid AggregateVersion { get; set; }
 
         public void ApplyEvent(IEvent e)
         {

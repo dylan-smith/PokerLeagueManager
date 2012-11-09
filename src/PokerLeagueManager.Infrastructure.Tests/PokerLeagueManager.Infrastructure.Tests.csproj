@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.XML" />
   </ItemGroup>
   <Choose>
@@ -62,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DtoFactoryTests.cs" />

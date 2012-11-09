@@ -13,5 +13,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         bool EventsApplied { get; set; }
 
         void ApplyEvent(IEvent e);
+
+        Guid AggregateVersion { get; set; }
     }
 }

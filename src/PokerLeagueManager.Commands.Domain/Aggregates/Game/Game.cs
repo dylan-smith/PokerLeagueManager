@@ -12,6 +12,10 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
     {
         private List<Player> _players = new List<Player>();
 
+        private Game()
+        {
+        }
+
         public Game(Guid gameId, DateTime gameDate)
         {
             if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue)

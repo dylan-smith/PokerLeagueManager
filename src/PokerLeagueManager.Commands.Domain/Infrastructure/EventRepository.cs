@@ -8,6 +8,7 @@ using System.Xml;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -65,10 +66,55 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
+            if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
+            {
+                return;
+            }
+
+            if (!ValidateAggregateOptimisticConcurrency(aggRoot))
+            {
+                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, aggRoot.AggregateVersion));
+            }
+
             foreach (var e in aggRoot.PendingEvents)
             {
                 PublishEvent(e, c, aggRoot.AggregateId);
             }
+        }
+
+        public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
+        {
+            if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
+            {
+                return;
+            }
+
+            if (aggRoot.AggregateVersion != originalVersion)
+            {
+                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, originalVersion));
+            }
+
+            PublishEvents(aggRoot, c);
+        }
+
+        private bool ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
+        {
+            if (aggRoot.AggregateVersion == Guid.Empty)
+            {
+                return true;
+            }
+
+            var currentVersion = GetAggregateVersion(aggRoot.AggregateId);
+
+            return currentVersion == aggRoot.AggregateVersion;
+        }
+
+        private Guid GetAggregateVersion(Guid aggregateId)
+        {
+            return (Guid)_databaseLayer.ExecuteScalar(
+                "SELECT TOP 1 EventId FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp DESC",
+                "@AggregateId", aggregateId.ToString());
+
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
@@ -103,7 +149,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentException(string.Format("Invalid Aggregate ID ({0})", aggregateId.ToString()));
             }
 
-            T result = System.Activator.CreateInstance<T>();
+            T result = (T)System.Activator.CreateInstance(typeof(T), true);
 
             var allEvents = _databaseLayer.GetDataTable(
                 "SELECT EventData, EventType FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp",
@@ -118,6 +164,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             {
                 var e = CreateEventFromDataRow(row);
                 result.ApplyEvent(e);
+                result.AggregateVersion = e.EventId;
             }
 
             return (T)result;
