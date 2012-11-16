@@ -22,12 +22,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
         public IEnumerable<IEvent> InitialEvents { get; set; }
 
-        public void PublishEvent(IEvent e, ICommand c, Guid aggregateId)
-        {
-            EventCommandList.Add(new EventCommandPair(e, c, aggregateId));
-            EventList.Add(e);
-        }
-
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
             if (aggRoot == null)
@@ -40,6 +34,11 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                 EventCommandList.Add(new EventCommandPair(e, c, aggRoot.AggregateId));
                 EventList.Add(e);
             }
+        }
+
+        public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
+        {
+            PublishEvents(aggRoot, c);
         }
 
         public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot

@@ -12,6 +12,7 @@ namespace PokerLeagueManager.Common.Utilities
     public class SqlServerDatabaseLayer : IDatabaseLayer, IDisposable
     {
         private SqlConnection _connection;
+        private SqlTransaction _transaction;
         private bool _disposedValue;
         private string _connectionString;
 
@@ -50,20 +51,13 @@ namespace PokerLeagueManager.Common.Utilities
 
             DataTable result = new DataTable();
 
-            // this looks like a cyclomatic complexity nightmare, but I don't know a cleaner way to do it while respecting IDisposable
             try
             {
-                SqlDataAdapter myAdapter = new SqlDataAdapter(myCommand);
-
-                try
+                using (SqlDataAdapter myAdapter = new SqlDataAdapter(myCommand))
                 {
-                    _connection.Open();
+                    OpenConnection();
                     myAdapter.Fill(result);
-                    _connection.Close();
-                }
-                finally
-                {
-                    myAdapter.Dispose();
+                    CloseConnection();
                 }
 
                 return result;
@@ -84,9 +78,10 @@ namespace PokerLeagueManager.Common.Utilities
         {
             SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
 
-            _connection.Open();
+            OpenConnection();
             int result = myCommand.ExecuteNonQuery();
-            _connection.Close();
+            CloseConnection();
+
             return result;
         }
 
@@ -99,9 +94,10 @@ namespace PokerLeagueManager.Common.Utilities
         {
             SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
 
-            _connection.Open();
+            OpenConnection();
             object result = myCommand.ExecuteScalar();
-            _connection.Close();
+            CloseConnection();
+
             return result;
         }
 
@@ -109,6 +105,30 @@ namespace PokerLeagueManager.Common.Utilities
         {
             this.Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void ExecuteInTransaction(Action work)
+        {
+            _connection.Open();
+            _transaction = _connection.BeginTransaction();
+
+            try
+            {
+                work();
+                _transaction.Commit();
+            }
+            catch
+            {
+                _transaction.Rollback();
+                throw;
+            }
+            finally
+            {
+                _connection.Close();
+
+                _transaction.Dispose();
+                _transaction = null;
+            }
         }
 
         protected virtual void Dispose(bool disposing)
@@ -125,11 +145,28 @@ namespace PokerLeagueManager.Common.Utilities
                         }
 
                         this._connection.Dispose();
+                        this._transaction.Dispose();
                     }
                 }
             }
 
             this._disposedValue = true;
+        }
+
+        private void CloseConnection()
+        {
+            if (_transaction == null)
+            {
+                _connection.Close();
+            }
+        }
+
+        private void OpenConnection()
+        {
+            if (_transaction == null)
+            {
+                _connection.Open();
+            }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "It will be the responsibility of the caller to ensure they aren't vulnerable to SQL Injection")]
@@ -151,6 +188,8 @@ namespace PokerLeagueManager.Common.Utilities
                 {
                     myCommand.Parameters.AddWithValue((string)sqlArgs[i], sqlArgs[i + 1]);
                 }
+
+                myCommand.Transaction = _transaction;
 
                 return myCommand;
             }

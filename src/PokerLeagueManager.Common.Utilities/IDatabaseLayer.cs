@@ -22,5 +22,7 @@ namespace PokerLeagueManager.Common.Utilities
         DataTable GetDataTable(string sql);
 
         DataTable GetDataTable(string sql, params object[] sqlArgs);
+
+        void ExecuteInTransaction(Action work);
     }
 }

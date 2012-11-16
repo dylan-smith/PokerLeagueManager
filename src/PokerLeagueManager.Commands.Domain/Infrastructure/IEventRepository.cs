@@ -6,9 +6,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public interface IEventRepository
     {
-        void PublishEvent(IEvent e, ICommand c, Guid aggregateId);
-
         void PublishEvents(IAggregateRoot aggRoot, ICommand c);
+
+        void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion);
 
         T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot;
 

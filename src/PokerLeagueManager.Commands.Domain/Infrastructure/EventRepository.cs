@@ -31,39 +31,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _eventSubscriberFactory = eventSubscriberFactory;
         }
 
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public void PublishEvent(IEvent e, ICommand c, Guid aggregateId)
-        {
-            e.EventId = _guidService.NewGuid();
-            e.Timestamp = _dateTimeService.Now();
-            e.CommandId = c.CommandId;
-            e.AggregateId = aggregateId;
-
-            var eventXml = SerializeEvent(e);
-            var sql = "INSERT INTO Events(EventId, EventDateTime, CommandId, AggregateId, EventType, EventData, Published)";
-            sql += " VALUES(@EventId, @EventDateTime, @CommandId, @AggregateId, @EventType, @EventData, @Published)";
-
-            _databaseLayer.ExecuteNonQuery(
-                sql,
-                "@EventId", e.EventId,
-                "@EventDateTime", e.Timestamp.ToString("dd-MMM-yyyy HH:mm:ss.ff"),
-                "@CommandId", e.CommandId,
-                "@AggregateId", e.AggregateId,
-                "@EventType", e.GetType().AssemblyQualifiedName,
-                "@EventData", eventXml,
-                "@Published", false);
-
-            var subscribers = GetSubscribers();
-
-            foreach (var s in subscribers)
-            {
-                s.Publish(e);
-            }
-
-            MarkEventAsPublished(e);
-        }
-
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
         {
             if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
@@ -76,10 +43,15 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, aggRoot.AggregateVersion));
             }
 
-            foreach (var e in aggRoot.PendingEvents)
-            {
-                PublishEvent(e, c, aggRoot.AggregateId);
-            }
+            _databaseLayer.ExecuteInTransaction(() =>
+                {
+                    foreach (var e in aggRoot.PendingEvents)
+                    {
+                        PublishEventToDatabase(e, c, aggRoot.AggregateId);
+                    }
+                });
+
+            PublishEventsToSubscribers(aggRoot.PendingEvents);
         }
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
@@ -148,6 +120,45 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             return (T)result;
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        private void PublishEventToDatabase(IEvent e, ICommand c, Guid aggregateId)
+        {
+            e.EventId = _guidService.NewGuid();
+            e.Timestamp = _dateTimeService.Now();
+            e.CommandId = c.CommandId;
+            e.AggregateId = aggregateId;
+
+            var eventXml = SerializeEvent(e);
+            var sql = "INSERT INTO Events(EventId, EventDateTime, CommandId, AggregateId, EventType, EventData, Published)";
+            sql += " VALUES(@EventId, @EventDateTime, @CommandId, @AggregateId, @EventType, @EventData, @Published)";
+
+            _databaseLayer.ExecuteNonQuery(
+                sql,
+                "@EventId", e.EventId,
+                "@EventDateTime", e.Timestamp.ToString("dd-MMM-yyyy HH:mm:ss.ff"),
+                "@CommandId", e.CommandId,
+                "@AggregateId", e.AggregateId,
+                "@EventType", e.GetType().AssemblyQualifiedName,
+                "@EventData", eventXml,
+                "@Published", false);
+        }
+
+        private void PublishEventsToSubscribers(IEnumerable<IEvent> events)
+        {
+            var subscribers = GetSubscribers();
+
+            foreach (var e in events)
+            {
+                foreach (var s in subscribers)
+                {
+                    s.Publish(e);
+                }
+
+                MarkEventAsPublished(e);
+            }
         }
 
         private bool ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
