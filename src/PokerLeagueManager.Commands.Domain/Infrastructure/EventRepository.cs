@@ -31,6 +31,59 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _eventSubscriberFactory = eventSubscriberFactory;
         }
 
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        public bool DoesAggregateExist(Guid aggregateId)
+        {
+            if (aggregateId == Guid.Empty)
+            {
+                return false;
+            }
+
+            int eventCount = (int)_databaseLayer.ExecuteScalar(
+                "SELECT COUNT(*) FROM Events WHERE AggregateId = @AggregateId",
+                "@AggregateId", aggregateId.ToString());
+
+            if (eventCount == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
+        {
+            if (aggregateId == Guid.Empty)
+            {
+                throw new ArgumentException(string.Format("Invalid Aggregate ID ({0})", aggregateId.ToString()));
+            }
+
+            T result = (T)System.Activator.CreateInstance(typeof(T), true);
+
+            var allEvents = _databaseLayer.GetDataTable(
+                "SELECT EventData, EventType FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp",
+                "@AggregateId", aggregateId.ToString());
+
+            if (allEvents.Rows.Count == 0)
+            {
+                throw new ArgumentException(string.Format("No Aggregate with the specified ID was found ({0})", aggregateId.ToString()));
+            }
+
+            foreach (DataRow row in allEvents.Rows)
+            {
+                var e = CreateEventFromDataRow(row);
+                result.ApplyEvent(e);
+                result.AggregateVersion = e.EventId;
+            }
+
+            return (T)result;
+        }
+
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
         {
             if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
@@ -53,7 +106,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 return;
             }
 
-            ExecuteWithLockedAggregate(aggRoot.AggregateId, () =>
+            ExecuteWithLockedAggregate(
+                aggRoot.AggregateId,
+                () =>
                 {
                     ValidateAggregateOptimisticConcurrency(aggRoot);
                     PersistEventsInTransaction(aggRoot, c);
@@ -77,7 +132,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             try
             {
-                _databaseLayer.ExecuteNonQuery("INSERT INTO AggregateLocks(AggregateId, LockExpiry) VALUES(@AggregateId, @LockExpiry)", 
+                _databaseLayer.ExecuteNonQuery(
+                    "INSERT INTO AggregateLocks(AggregateId, LockExpiry) VALUES(@AggregateId, @LockExpiry)",
                     "@AggregateId", aggregateId.ToString(),
                     "@LockExpiry", _dateTimeService.UtcNow().AddMinutes(1));
             }
@@ -130,59 +186,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         private void ReleaseAggregateLock(Guid aggregateId)
         {
             _databaseLayer.ExecuteNonQuery("DELETE FROM AggregateLocks WHERE AggregateId = @AggregateId", "@AggregateId", aggregateId);
-        }
-
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public bool DoesAggregateExist(Guid aggregateId)
-        {
-            if (aggregateId == Guid.Empty)
-            {
-                return false;
-            }
-
-            int eventCount = (int)_databaseLayer.ExecuteScalar(
-                "SELECT COUNT(*) FROM Events WHERE AggregateId = @AggregateId",
-                "@AggregateId", aggregateId.ToString());
-
-            if (eventCount == 0)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
-        {
-            if (aggregateId == Guid.Empty)
-            {
-                throw new ArgumentException(string.Format("Invalid Aggregate ID ({0})", aggregateId.ToString()));
-            }
-
-            T result = (T)System.Activator.CreateInstance(typeof(T), true);
-
-            var allEvents = _databaseLayer.GetDataTable(
-                "SELECT EventData, EventType FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp",
-                "@AggregateId", aggregateId.ToString());
-
-            if (allEvents.Rows.Count == 0)
-            {
-                throw new ArgumentException(string.Format("No Aggregate with the specified ID was found ({0})", aggregateId.ToString()));
-            }
-
-            foreach (DataRow row in allEvents.Rows)
-            {
-                var e = CreateEventFromDataRow(row);
-                result.ApplyEvent(e);
-                result.AggregateVersion = e.EventId;
-            }
-
-            return (T)result;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
