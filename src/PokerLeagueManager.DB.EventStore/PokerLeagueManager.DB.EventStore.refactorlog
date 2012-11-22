@@ -21,4 +21,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="UserNae" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="61a392c8-c00f-42f6-bc80-eee741134eb9" ChangeDateTime="11/22/2012 03:11:43">
+    <Property Name="ElementName" Value="[dbo].[AggregateLocks].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AggregateLocks]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AggregateId" />
+  </Operation>
 </Operations>

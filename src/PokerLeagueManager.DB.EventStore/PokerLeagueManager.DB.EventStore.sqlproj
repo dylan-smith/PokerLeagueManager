@@ -64,6 +64,7 @@
   <ItemGroup>
     <Build Include="Events.sql" />
     <Build Include="Subscribers.sql" />
+    <Build Include="AggregateLocks.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />

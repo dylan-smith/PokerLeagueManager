@@ -31,29 +31,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _eventSubscriberFactory = eventSubscriberFactory;
         }
 
-        public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
-        {
-            if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
-            {
-                return;
-            }
-
-            if (!ValidateAggregateOptimisticConcurrency(aggRoot))
-            {
-                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, aggRoot.AggregateVersion));
-            }
-
-            _databaseLayer.ExecuteInTransaction(() =>
-                {
-                    foreach (var e in aggRoot.PendingEvents)
-                    {
-                        PublishEventToDatabase(e, c, aggRoot.AggregateId);
-                    }
-                });
-
-            PublishEventsToSubscribers(aggRoot.PendingEvents);
-        }
-
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
         {
             if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
@@ -67,6 +44,92 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             PublishEvents(aggRoot, c);
+        }
+
+        public void PublishEvents(IAggregateRoot aggRoot, ICommand c)
+        {
+            if (aggRoot.PendingEvents == null || aggRoot.PendingEvents.Count == 0)
+            {
+                return;
+            }
+
+            ExecuteWithLockedAggregate(aggRoot.AggregateId, () =>
+                {
+                    ValidateAggregateOptimisticConcurrency(aggRoot);
+                    PersistEventsInTransaction(aggRoot, c);
+                });
+
+            PublishEventsToSubscribers(aggRoot.PendingEvents);
+        }
+
+        private void ExecuteWithLockedAggregate(Guid aggregateId, Action work)
+        {
+            DeleteExpiredLocks();
+
+            AcquireAggregateLock(aggregateId);
+            work();
+            ReleaseAggregateLock(aggregateId);
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        private void AcquireAggregateLock(Guid aggregateId)
+        {
+            try
+            {
+                _databaseLayer.ExecuteNonQuery("INSERT INTO AggregateLocks(AggregateId, LockExpiry) VALUES(@AggregateId, @LockExpiry)", 
+                    "@AggregateId", aggregateId.ToString(),
+                    "@LockExpiry", _dateTimeService.UtcNow().AddMinutes(1));
+            }
+            catch
+            {
+                throw new OptimisticConcurrencyException(string.Format("Aggregate ID {0} is currently being written to by another process", aggregateId));
+            }
+        }
+
+        private void DeleteExpiredLocks()
+        {
+            _databaseLayer.ExecuteNonQuery("DELETE FROM AggregateLocks WHERE LockExpiry < @CurrentDateTime", "@CurrentDateTime", _dateTimeService.UtcNow());
+        }
+
+        private void ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
+        {
+            if (aggRoot.AggregateVersion == Guid.Empty)
+            {
+                return;
+            }
+
+            var currentVersion = GetAggregateVersion(aggRoot.AggregateId);
+
+            if (currentVersion != aggRoot.AggregateVersion)
+            {
+                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, aggRoot.AggregateVersion));
+            }
+        }
+
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
+        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
+        private Guid GetAggregateVersion(Guid aggregateId)
+        {
+            return (Guid)_databaseLayer.ExecuteScalar(
+                "SELECT TOP 1 EventId FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp DESC",
+                "@AggregateId", aggregateId.ToString());
+        }
+
+        private void PersistEventsInTransaction(IAggregateRoot aggRoot, ICommand c)
+        {
+            _databaseLayer.ExecuteInTransaction(() =>
+            {
+                foreach (var e in aggRoot.PendingEvents)
+                {
+                    PersistEventToDatabase(e, c, aggRoot.AggregateId);
+                }
+            });
+        }
+
+        private void ReleaseAggregateLock(Guid aggregateId)
+        {
+            _databaseLayer.ExecuteNonQuery("DELETE FROM AggregateLocks WHERE AggregateId = @AggregateId", "@AggregateId", aggregateId);
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
@@ -124,7 +187,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        private void PublishEventToDatabase(IEvent e, ICommand c, Guid aggregateId)
+        private void PersistEventToDatabase(IEvent e, ICommand c, Guid aggregateId)
         {
             e.EventId = _guidService.NewGuid();
             e.Timestamp = _dateTimeService.Now();
@@ -161,27 +224,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
-        private bool ValidateAggregateOptimisticConcurrency(IAggregateRoot aggRoot)
-        {
-            if (aggRoot.AggregateVersion == Guid.Empty)
-            {
-                return true;
-            }
-
-            var currentVersion = GetAggregateVersion(aggRoot.AggregateId);
-
-            return currentVersion == aggRoot.AggregateVersion;
-        }
-
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
-        [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        private Guid GetAggregateVersion(Guid aggregateId)
-        {
-            return (Guid)_databaseLayer.ExecuteScalar(
-                "SELECT TOP 1 EventId FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp DESC",
-                "@AggregateId", aggregateId.ToString());
-        }
-
         private void MarkEventAsPublished(IEvent e)
         {
             _databaseLayer.ExecuteNonQuery("UPDATE Events SET Published = 1 WHERE EventId = @EventId", "@EventId", e.EventId);
@@ -201,7 +243,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             var serializer = new DataContractSerializer(e.GetType());
 
-            using (var memStream = new System.IO.MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 serializer.WriteObject(memStream, e);
 

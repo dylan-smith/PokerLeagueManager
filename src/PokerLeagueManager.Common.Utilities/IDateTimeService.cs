@@ -9,5 +9,6 @@ namespace PokerLeagueManager.Common.Utilities
     public interface IDateTimeService
     {
         DateTime Now();
+        DateTime UtcNow();
     }
 }
