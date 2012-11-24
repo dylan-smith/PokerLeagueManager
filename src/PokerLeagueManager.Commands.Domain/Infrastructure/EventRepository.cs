@@ -17,18 +17,18 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         private IDatabaseLayer _databaseLayer;
         private IGuidService _guidService;
         private IDateTimeService _dateTimeService;
-        private IEventSubscriberFactory _eventSubscriberFactory;
+        private IEventServiceProxyFactory _eventServiceProxyFactory;
 
         public EventRepository(
             IDatabaseLayer databaseLayer,
             IGuidService guidService,
             IDateTimeService dateTimeService,
-            IEventSubscriberFactory eventSubscriberFactory)
+            IEventServiceProxyFactory eventServiceProxyFactory)
         {
             _databaseLayer = databaseLayer;
             _guidService = guidService;
             _dateTimeService = dateTimeService;
-            _eventSubscriberFactory = eventSubscriberFactory;
+            _eventServiceProxyFactory = eventServiceProxyFactory;
         }
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
@@ -220,7 +220,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             {
                 foreach (var s in subscribers)
                 {
-                    s.Publish(e);
+                    s.HandleEvent(e);
                 }
 
                 MarkEventAsPublished(e);
@@ -232,13 +232,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _databaseLayer.ExecuteNonQuery("UPDATE Events SET Published = 1 WHERE EventId = @EventId", "@EventId", e.EventId);
         }
 
-        private IEnumerable<EventSubscriber> GetSubscribers()
+        private IEnumerable<IEventService> GetSubscribers()
         {
             var subscriberTable = _databaseLayer.GetDataTable("SELECT * FROM Subscribers");
 
             foreach (DataRow row in subscriberTable.Rows)
             {
-                yield return _eventSubscriberFactory.Create(row);
+                yield return _eventServiceProxyFactory.Create(row);
             }
         }
 

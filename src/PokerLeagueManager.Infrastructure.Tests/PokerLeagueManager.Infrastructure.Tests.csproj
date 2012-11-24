@@ -67,7 +67,6 @@
     <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DtoFactoryTests.cs" />
-    <Compile Include="EventSubscriberFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">

@@ -62,14 +62,11 @@
     <Compile Include="Infrastructure\EventRepository.cs" />
     <Compile Include="Infrastructure\EventServiceProxy.cs" />
     <Compile Include="Infrastructure\EventServiceProxyFactory.cs" />
-    <Compile Include="Infrastructure\EventSubscriber.cs" />
-    <Compile Include="Infrastructure\EventSubscriberFactory.cs" />
     <Compile Include="Infrastructure\IAggregateRoot.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
     <Compile Include="Infrastructure\IEventRepository.cs" />
     <Compile Include="Infrastructure\IEventServiceProxy.cs" />
     <Compile Include="Infrastructure\IEventServiceProxyFactory.cs" />
-    <Compile Include="Infrastructure\IEventSubscriberFactory.cs" />
     <Compile Include="Infrastructure\IHandlesCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceProxies\QueryServiceProxy.cs" />
