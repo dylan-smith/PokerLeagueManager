@@ -9,7 +9,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         ICollection<IEvent> PendingEvents { get; }
 
         Guid AggregateId { get; set; }
-
         bool EventsApplied { get; set; }
 
         Guid AggregateVersion { get; set; }
