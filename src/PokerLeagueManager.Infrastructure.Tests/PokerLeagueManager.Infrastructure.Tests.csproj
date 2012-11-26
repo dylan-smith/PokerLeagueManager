@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventServiceProxyFactoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +94,9 @@
       <Project>{7c0d835a-1cda-41da-b203-b0ee2f17063a}</Project>
       <Name>PokerLeagueManager.Queries.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
