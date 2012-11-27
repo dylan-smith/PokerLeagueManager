@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
@@ -23,7 +24,10 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 throw new ArgumentNullException("e", "Cannot handle a null event.");
             }
 
-            FindEventHandler<T>().Handle(e);
+            foreach (var handler in FindEventHandlers<T>())
+            {
+                handler.Handle(e);
+            }
         }
 
         public void HandleEvent(IEvent e)
@@ -36,24 +40,17 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             generic.Invoke(this, new object[] { e });
         }
 
-        private IHandlesEvent<T> FindEventHandler<T>() where T : IEvent
+        private IEnumerable<IHandlesEvent<T>> FindEventHandlers<T>() where T : IEvent
         {
             var matchingTypes = typeof(IHandlesEvent<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 
-            if (matchingTypes.Count() == 0)
+            foreach (var handler in matchingTypes)
             {
-                throw new ArgumentException(string.Format("Could not find Event Handler for {0}", typeof(T).Name));
+                var result = (IHandlesEvent<T>)UnityHelper.Container.Resolve(handler, null);
+                result.QueryDataStore = _queryDataStore;
+
+                yield return result;
             }
-
-            if (matchingTypes.Count() > 1)
-            {
-                throw new ArgumentException(string.Format("Found more than 1 Event Handler for {0}", typeof(T).Name));
-            }
-
-            var result = (IHandlesEvent<T>)UnityHelper.Container.Resolve(matchingTypes.First(), null);
-            result.QueryDataStore = _queryDataStore;
-
-            return result;
         }
     }
 }

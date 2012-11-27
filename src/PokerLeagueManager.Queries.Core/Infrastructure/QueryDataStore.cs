@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
+using System.Text;
 using PokerLeagueManager.Common.DTO.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
 
@@ -21,21 +22,13 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         public void Insert<T>(T dto) where T : IDataTransferObject
         {
             var tableName = GetTableName(typeof(T));
-            var fieldList = string.Empty;
-            var valueList = string.Empty;
-
-            foreach (var prop in dto.GetType().GetProperties())
-            {
-                fieldList += string.Format("{0}, ", prop.Name);
-                valueList += string.Format("{0}, ", GetPropertyValueSql(prop, dto));
-            }
-
-            fieldList = fieldList.Substring(0, fieldList.Length - 2);
-            valueList = valueList.Substring(0, valueList.Length - 2);
+            var fieldList = BuildFieldList(dto.GetType().GetProperties());
+            var valueList = BuildValueList(dto.GetType().GetProperties());
+            var valueArray = BuildValueArray(dto.GetType().GetProperties(), dto);
 
             var sql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableName, fieldList, valueList);
 
-            _databaseLayer.ExecuteNonQuery(sql);
+            _databaseLayer.ExecuteNonQuery(sql, valueArray);
         }
 
         public IEnumerable<T> GetData<T>() where T : IDataTransferObject
@@ -52,14 +45,45 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             }
         }
 
-        private string GetPropertyValueSql<T>(PropertyInfo prop, T dto) where T : IDataTransferObject
+        private string BuildFieldList(PropertyInfo[] properties)
         {
-            if (prop.PropertyType == typeof(Guid))
+            var result = new StringBuilder();
+
+            foreach (var prop in properties)
             {
-                return string.Format("'{0}'", prop.GetValue(dto));
+                result.AppendFormat("{0}, ", prop.Name);
             }
 
-            return prop.GetValue(dto).ToString();
+            result.Remove(result.Length - 2, 2);
+
+            return result.ToString();
+        }
+
+        private string BuildValueList(PropertyInfo[] properties)
+        {
+            var result = new StringBuilder();
+
+            foreach (var prop in properties)
+            {
+                result.AppendFormat("@{0}, ", prop.Name);
+            }
+
+            result.Remove(result.Length - 2, 2);
+
+            return result.ToString();
+        }
+
+        private object[] BuildValueArray<T>(PropertyInfo[] properties, T dto)
+        {
+            object[] result = new object[properties.Length * 2];
+
+            for (int x = 0; x < result.Length; x += 2)
+            {
+                result[x] = string.Format("@{0}", properties[x / 2].Name);
+                result[x + 1] = properties[x / 2].GetValue(dto);
+            }
+
+            return result;
         }
 
         private string GetTableName(Type dtoType)
