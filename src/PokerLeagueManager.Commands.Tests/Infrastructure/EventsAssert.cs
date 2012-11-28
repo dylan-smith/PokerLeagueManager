@@ -24,7 +24,13 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
             if (expected.Count != actual.Count)
             {
-                throw new AssertFailedException("The expected events and actual events do not match.  The lengths of the event lists are not equal.");
+                string msg = "The expected events and actual events do not match.  The lengths of the event lists are not equal.";
+                msg += Environment.NewLine;
+                msg += string.Format("Expected Events: {0}", EventListToString(expected));
+                msg += Environment.NewLine;
+                msg += string.Format("Actual Events: {0}", EventListToString(actual));
+
+                throw new AssertFailedException(msg);
             }
 
             for (int i = 0; i < actual.Count; i++)
@@ -36,6 +42,24 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         public static Guid AnyGuid()
         {
             return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
+        }
+
+        private static string EventListToString(IList<IEvent> events)
+        {
+            var result = string.Empty;
+
+            foreach (var e in events)
+            {
+                result += e.GetType().Name;
+                result += ", ";
+            }
+
+            if (result.Length > 0)
+            {
+                result = result.Substring(0, result.Length - 2);
+            }
+
+            return result;
         }
 
         private static void CompareEvents(IEvent expectedEvent, IEvent actualEvent, int i)
