@@ -19,7 +19,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var mockDatabaseLayer = new Mock<IDatabaseLayer>();
             var mockDTOFactory = new Mock<IDtoFactory>();
 
-            var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
+            var sut = new QueryDataStore(mockDTOFactory.Object);
+            sut.DatabaseLayer = mockDatabaseLayer.Object;
 
             var testDto = new GetGameCountByDateDto() 
             {
@@ -44,7 +45,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>())).Returns(GenerateSampleDataTable());
 
-            var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
+            var sut = new QueryDataStore(mockDTOFactory.Object);
+            sut.DatabaseLayer = mockDatabaseLayer.Object;
 
             // the ToList() is necessary to force deferred execution to happen
             sut.GetData<GetGameCountByDateDto>().ToList();
@@ -66,7 +68,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>())).Returns(sampleTable);
 
-            var sut = new QueryDataStore(mockDatabaseLayer.Object, mockDTOFactory.Object);
+            var sut = new QueryDataStore(mockDTOFactory.Object);
+            sut.DatabaseLayer = mockDatabaseLayer.Object;
 
             // the ToList() is necessary to force deferred execution to happen
             sut.GetData<GetGameCountByDateDto>().ToList();

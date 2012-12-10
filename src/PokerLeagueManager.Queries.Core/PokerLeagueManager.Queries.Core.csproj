@@ -54,8 +54,10 @@
     <Compile Include="Infrastructure\BaseHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\EventHandlerFactory.cs" />
+    <Compile Include="Infrastructure\IdempotencyChecker.cs" />
     <Compile Include="Infrastructure\IEventHandlerFactory.cs" />
     <Compile Include="Infrastructure\IHandlesEvent.cs" />
+    <Compile Include="Infrastructure\IIdempotencyChecker.cs" />
     <Compile Include="Infrastructure\IQueryDataStore.cs" />
     <Compile Include="Infrastructure\QueryDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

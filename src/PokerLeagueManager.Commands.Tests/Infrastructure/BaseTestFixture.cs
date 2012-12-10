@@ -42,13 +42,9 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             repository.InitialEvents = Given();
 
             var queryDataStore = new FakeQueryDataStore();
-            var mockDatabaseLayer = new Mock<IDatabaseLayer>();
             var queryService = new QueryHandler(queryDataStore);
 
-            // this is so that everything passes the Idempotency check
-            mockDatabaseLayer.Setup(x => x.ExecuteScalar(It.IsAny<string>(), It.IsAny<object[]>())).Returns(0);
-
-            HandleEvents(repository.InitialEvents, queryDataStore, mockDatabaseLayer.Object);
+            HandleEvents(repository.InitialEvents, queryDataStore);
             
             Exception caughtException = null;
             var commandHandlerFactory = new CommandHandlerFactory(repository, queryService);
@@ -87,9 +83,14 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             return EventsAssert.AnyGuid();
         }
 
-        private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore, IDatabaseLayer databaseLayer)
+        private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)
         {
-            var eventHandler = new EventHandlerFactory(queryDataStore, databaseLayer);
+            var mockIdempotencyChecker = new Mock<IIdempotencyChecker>();
+            var mockDatabaseLayer = new Mock<IDatabaseLayer>();
+
+            mockDatabaseLayer.Setup(x => x.ExecuteInTransaction(It.IsAny<Action>())).Callback<Action>(x => x());
+
+            var eventHandler = new EventHandlerFactory(queryDataStore, mockIdempotencyChecker.Object, mockDatabaseLayer.Object);
 
             foreach (IEvent e in events)
             {

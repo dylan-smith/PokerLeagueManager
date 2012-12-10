@@ -11,12 +11,17 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
     public class EventHandlerFactory : IEventHandlerFactory
     {
         private IQueryDataStore _queryDataStore;
+        private IIdempotencyChecker _idempotencyChecker;
         private IDatabaseLayer _databaseLayer;
 
-        public EventHandlerFactory(IQueryDataStore queryDataStore, IDatabaseLayer databaseLayer)
+        public EventHandlerFactory(IQueryDataStore queryDataStore, IIdempotencyChecker idempotencyChecker, IDatabaseLayer databaseLayer)
         {
             _queryDataStore = queryDataStore;
+            _idempotencyChecker = idempotencyChecker;
             _databaseLayer = databaseLayer;
+
+            _queryDataStore.DatabaseLayer = _databaseLayer;
+            _idempotencyChecker.DatabaseLayer = _databaseLayer;
         }
 
         public void HandleEvent<T>(T e) where T : IEvent
@@ -26,15 +31,20 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 throw new ArgumentNullException("e", "Cannot handle a null event.");
             }
 
-            if (!IdempotencyCheck(e))
+            if (_idempotencyChecker.CheckIdempotency(e.EventId))
             {
                 return;
             }
 
-            foreach (var handler in FindEventHandlers<T>())
-            {
-                handler.Handle(e);
-            }
+            _databaseLayer.ExecuteInTransaction(() =>
+                {
+                    foreach (var handler in FindEventHandlers<T>())
+                    {
+                        handler.Handle(e);
+                    }
+
+                    _idempotencyChecker.MarkEventAsProcessed(e.EventId);
+                });
         }
 
         public void HandleEvent(IEvent e)
@@ -45,13 +55,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             MethodInfo generic = executeEventHandler.First().MakeGenericMethod(e.GetType());
             generic.Invoke(this, new object[] { e });
-        }
-
-        private bool IdempotencyCheck<T>(T e) where T : IEvent
-        {
-            var eventCount = (int)_databaseLayer.ExecuteScalar("SELECT COUNT(*) FROM EventsProcessed WHERE EventId = @EventId", "@EventId", e.EventId);
-
-            return eventCount == 0;
         }
 
         private IEnumerable<IHandlesEvent<T>> FindEventHandlers<T>() where T : IEvent

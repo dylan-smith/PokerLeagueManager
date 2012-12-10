@@ -10,14 +10,14 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class QueryDataStore : IQueryDataStore
     {
-        private IDatabaseLayer _databaseLayer;
         private IDtoFactory _dtoFactory;
 
-        public QueryDataStore(IDatabaseLayer databaseLayer, IDtoFactory dtoFactory)
+        public QueryDataStore(IDtoFactory dtoFactory)
         {
-            _databaseLayer = databaseLayer;
             _dtoFactory = dtoFactory;
         }
+
+        public IDatabaseLayer DatabaseLayer { get; set; }
 
         public void Insert<T>(T dto) where T : IDataTransferObject
         {
@@ -28,7 +28,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             var sql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableName, fieldList, valueList);
 
-            _databaseLayer.ExecuteNonQuery(sql, valueArray);
+            DatabaseLayer.ExecuteNonQuery(sql, valueArray);
         }
 
         public IEnumerable<T> GetData<T>() where T : IDataTransferObject
@@ -37,7 +37,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             var sql = string.Format("SELECT * FROM {0}", tableName);
 
-            var dataTable = _databaseLayer.GetDataTable(sql);
+            var dataTable = DatabaseLayer.GetDataTable(sql);
 
             foreach (DataRow row in dataTable.Rows)
             {

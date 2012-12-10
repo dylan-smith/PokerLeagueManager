@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
@@ -10,13 +11,15 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
     {
         private Dictionary<Type, List<IDataTransferObject>> dataStore = new Dictionary<Type, List<IDataTransferObject>>();
 
+        public IDatabaseLayer DatabaseLayer { get; set; }
+
         public void Insert<T>(T dto) where T : IDataTransferObject
         {
             if (!dataStore.ContainsKey(typeof(T)))
             {
                 dataStore.Add(typeof(T), new List<IDataTransferObject>());
             }
-            
+
             dataStore[typeof(T)].Add(dto);
         }
 
