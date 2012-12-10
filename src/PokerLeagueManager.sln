@@ -42,7 +42,7 @@ Global
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://win-6v9br2subld:8080/tfs/defaultcollection
 		SccLocalPath0 = .
-		SccProjectUniqueName1 = PokerLeagueManager.UI.WPF\\PokerLeagueManager.UI.WPF.csproj
+		SccProjectUniqueName1 = PokerLeagueManager.UI.WPF\\PokerLeagueManager.UI.Wpf.csproj
 		SccProjectName1 = PokerLeagueManager.UI.WPF
 		SccLocalPath1 = PokerLeagueManager.UI.WPF
 		SccProjectUniqueName2 = PokerLeagueManager.Commands.WCF\\PokerLeagueManager.Commands.WCF.csproj
@@ -86,7 +86,7 @@ Global
 		SccProjectTopLevelParentUniqueName13 = PokerLeagueManager.sln
 		SccProjectName13 = PokerLeagueManager.Infrastructure.Tests
 		SccLocalPath13 = PokerLeagueManager.Infrastructure.Tests
-		SccProjectUniqueName14 = PokerLeagueManager.UI.WPF.Tests\\PokerLeagueManager.UI.WPF.Tests.csproj
+		SccProjectUniqueName14 = PokerLeagueManager.UI.WPF.Tests\\PokerLeagueManager.UI.Wpf.Tests.csproj
 		SccProjectTopLevelParentUniqueName14 = PokerLeagueManager.sln
 		SccProjectName14 = PokerLeagueManager.UI.WPF.Tests
 		SccLocalPath14 = PokerLeagueManager.UI.WPF.Tests
