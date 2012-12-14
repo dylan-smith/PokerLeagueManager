@@ -12,9 +12,10 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
     {
         private IDtoFactory _dtoFactory;
 
-        public QueryDataStore(IDtoFactory dtoFactory)
+        public QueryDataStore(IDtoFactory dtoFactory, IDatabaseLayer databaseLayer)
         {
             _dtoFactory = dtoFactory;
+            DatabaseLayer = databaseLayer;
         }
 
         public IDatabaseLayer DatabaseLayer { get; set; }

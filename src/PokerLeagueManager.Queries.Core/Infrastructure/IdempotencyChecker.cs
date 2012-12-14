@@ -22,7 +22,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             var eventCount = (int)DatabaseLayer.ExecuteScalar("SELECT COUNT(*) FROM EventsProcessed WHERE EventId = @EventId", "@EventId", eventId);
 
-            return eventCount == 0;
+            return eventCount > 0;
         }
 
         public void MarkEventAsProcessed(Guid eventId)
