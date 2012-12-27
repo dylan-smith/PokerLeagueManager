@@ -129,6 +129,9 @@
             <dependencyFromLayerToLayer Id="78bd2086-5434-4de5-8400-41afce38b279" direction="Forward">
               <layerMoniker Id="a30058f5-1952-4ebc-9bb8-3f2fa29a8987" />
             </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="0bf84390-19ab-4046-99e9-a867c1cfd63f" direction="Forward">
+              <layerMoniker Id="44fc7778-5cce-4479-be1b-5231329e59ad" />
+            </dependencyFromLayerToLayer>
           </dependencyToLayers>
           <references>
             <reference Id="ca615461-e145-4fb4-8606-994f6b55e1fa" name="IEventRepository">
@@ -174,6 +177,22 @@
                 <LinkCategory Ref="Dsl.NamespaceUsedInAssembly" />
               </ExpandedNode>
               <ExpandedNode Id="(Namespace=PokerLeagueManager.Commands.Domain.CommandHandlers)" Label="PokerLeagueManager‎.Commands‎.Domain‎.CommandHandlers" Category="CodeSchema_Namespace">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="44fc7778-5cce-4479-be1b-5231329e59ad" name="Event Handler Service Proxy">
+          <references>
+            <reference Id="9f0e4367-e39c-4be8-8d53-b8b109e3db3a" name="EventServiceProxy">
+              <ArtifactNode Label="EventServiceProxy" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Commands.Domain/bin/Debug/PokerLeagueManager.Commands.Domain.dll Namespace=PokerLeagueManager.Commands.Domain.Infrastructure Type=EventServiceProxy)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Commands.Domain Namespace=PokerLeagueManager.Commands.Domain.Infrastructure Type=EventServiceProxy)" Label="EventServiceProxy" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+            <reference Id="b3342986-cdf3-4855-b8d8-5b225d39988d" name="IEventServiceProxy">
+              <ArtifactNode Label="IEventServiceProxy" Category="CodeSchema_Interface" Id="(Assembly=../PokerLeagueManager.Commands.Domain/bin/Debug/PokerLeagueManager.Commands.Domain.dll Namespace=PokerLeagueManager.Commands.Domain.Infrastructure Type=IEventServiceProxy)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Commands.Domain Namespace=PokerLeagueManager.Commands.Domain.Infrastructure Type=IEventServiceProxy)" Label="IEventServiceProxy" Category="CodeSchema_Interface">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
             </reference>
@@ -242,6 +261,20 @@
               <layerMoniker Id="1e657365-2ad1-4901-8a8d-9d25dceff379" />
             </dependencyFromLayerToLayer>
           </dependencyToLayers>
+          <references>
+            <reference Id="c7067d79-8a4c-4c8d-af4f-fb17e6826ba7" name="IQueryDataStore">
+              <ArtifactNode Label="IQueryDataStore" Category="CodeSchema_Interface" Id="(Assembly=../PokerLeagueManager.Queries.Core/bin/Debug/PokerLeagueManager.Queries.Core.dll Namespace=PokerLeagueManager.Queries.Core.Infrastructure Type=IQueryDataStore)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.Core Namespace=PokerLeagueManager.Queries.Core.Infrastructure Type=IQueryDataStore)" Label="IQueryDataStore" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+            <reference Id="1c1cfd46-291a-47d2-99a5-86de6ec8f61a" name="QueryDataStore">
+              <ArtifactNode Label="QueryDataStore" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.Core/bin/Debug/PokerLeagueManager.Queries.Core.dll Namespace=PokerLeagueManager.Queries.Core.Infrastructure Type=QueryDataStore)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.Core Namespace=PokerLeagueManager.Queries.Core.Infrastructure Type=QueryDataStore)" Label="QueryDataStore" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
         </layer>
       </childLayers>
       <references>
@@ -264,13 +297,6 @@
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <childLayers>
-        <layer Id="44fc7778-5cce-4479-be1b-5231329e59ad" name="Event Handler Service Proxy">
-          <dependencyToLayers>
-            <dependencyFromLayerToLayer Id="ed8b4af7-5b48-4369-96cd-216f6f7816e2" direction="Forward">
-              <layerMoniker Id="5551e1ad-597b-4d2f-a1ce-be70ce1b2735" />
-            </dependencyFromLayerToLayer>
-          </dependencyToLayers>
-        </layer>
         <layer Id="5551e1ad-597b-4d2f-a1ce-be70ce1b2735" name="Events">
           <references>
             <reference Id="8f2316d9-0710-44a0-bcdb-f9c563c4119d" name="PokerLeagueManager‎.Common‎.Events">
@@ -313,7 +339,22 @@
             </reference>
           </references>
         </layer>
-        <layer Id="4cd6f961-2d4c-4228-9dfe-ffb866903635" name="Query Service Proxy" />
+        <layer Id="4cd6f961-2d4c-4228-9dfe-ffb866903635" name="Query Service Proxy">
+          <references>
+            <reference Id="e9c7ea35-d6c9-4541-b504-28876213bfd2" name="IQueryService">
+              <ArtifactNode Label="IQueryService" Category="CodeSchema_Interface" Id="(Assembly=../PokerLeagueManager.Common.DTO/bin/Debug/PokerLeagueManager.Common.DTO.dll Namespace=PokerLeagueManager.Common.DTO Type=IQueryService)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.DTO Namespace=PokerLeagueManager.Common.DTO Type=IQueryService)" Label="IQueryService" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+            <reference Id="9f41269d-a719-4b20-9108-6fde45da6a04" name="QueryServiceProxy">
+              <ArtifactNode Label="QueryServiceProxy" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Common.DTO/bin/Debug/PokerLeagueManager.Common.DTO.dll Namespace=PokerLeagueManager.Common.DTO Type=QueryServiceProxy)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.DTO Namespace=PokerLeagueManager.Common.DTO Type=QueryServiceProxy)" Label="QueryServiceProxy" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
       </childLayers>
       <references>
         <reference Id="33a45386-6f8a-4baf-8f7a-0b5b3a56cdb3" name="PokerLeagueManager.Common.DTO">

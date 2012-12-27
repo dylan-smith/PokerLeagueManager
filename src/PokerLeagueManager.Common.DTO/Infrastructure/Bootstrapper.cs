@@ -12,6 +12,7 @@ namespace PokerLeagueManager.Common.DTO.Infrastructure
             if (!_hasBootstrapped)
             {
                 Container.RegisterType<IDtoFactory, DtoFactory>();
+                Container.RegisterType<IQueryService, QueryServiceProxy>();
 
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 

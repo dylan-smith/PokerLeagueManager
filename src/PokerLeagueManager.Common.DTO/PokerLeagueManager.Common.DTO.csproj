@@ -53,11 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetGameCountByDateDto.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DtoFactory.cs" />
     <Compile Include="Infrastructure\IDataTransferObject.cs" />
     <Compile Include="Infrastructure\IDtoFactory.cs" />
+    <Compile Include="QueryServiceProxy.cs" />
     <Compile Include="IQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
