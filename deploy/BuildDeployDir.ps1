@@ -1,4 +1,4 @@
-$build_outputs = "Build Outputs"
+$build_outputs = "BuildOutputs"
 $deploy_dir = "Deployment"
 mkdir $deploy_dir
 
