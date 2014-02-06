@@ -32,3 +32,13 @@ if (Test-Path PokerLeagueManager.Queries.WCF -pathType container)
     cmd /c PokerLeagueManager.Queries.WCF.deploy /Y
     cd ..
 }
+
+if (Test-Path PokerLeagueManager.UI.WPF -pathType container)
+{
+    if (Test-Path C:\PokerLeagueManager.UI.WPF -pathType container)
+	{
+	    rmdir C:\PokerLeagueManager.UI.WPF -recurse -force
+	}
+	mkdir C:\PokerLeagueManager.UI.WPF
+	copy -path PokerLeagueManager.UI.WPF -dest C:\PokerLeagueManager.UI.WPF -recurse
+}

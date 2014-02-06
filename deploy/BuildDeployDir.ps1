@@ -26,6 +26,16 @@ mkdir "$local_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.localhost.publish.xml" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 
+mkdir "$local_server_dir\PokerLeagueManager.UI.WPF"
+copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\Microsoft.Practices.Unity.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Commands.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+
+
 ### Build Environment ###
 
 $build_env_dir = "$deploy_dir\Build Environment"
@@ -49,6 +59,15 @@ copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.BUILD.publish.xml" -
 mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
+
+mkdir "$build_server_dir\PokerLeagueManager.UI.WPF"
+copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\Microsoft.Practices.Unity.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Commands.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
 
 ############################
 
