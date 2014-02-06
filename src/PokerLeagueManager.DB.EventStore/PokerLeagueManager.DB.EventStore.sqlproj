@@ -77,7 +77,11 @@
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerLeagueManager.DB.EventStore.BUILD.publish.xml" />
-    <None Include="PokerLeagueManager.DB.EventStore.localhost.publish.xml" />
+    <None Include="PokerLeagueManager.DB.EventStore.BUILD.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PokerLeagueManager.DB.EventStore.localhost.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

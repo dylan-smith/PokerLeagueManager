@@ -72,7 +72,11 @@
     <RefactorLog Include="PokerLeagueManager.DB.QueryStore.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerLeagueManager.DB.QueryStore.localhost.publish.xml" />
-    <None Include="PokerLeagueManager.DB.QueryStore.BUILD.publish.xml" />
+    <None Include="PokerLeagueManager.DB.QueryStore.localhost.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
