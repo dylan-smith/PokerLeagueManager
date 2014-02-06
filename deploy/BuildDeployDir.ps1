@@ -33,7 +33,7 @@ copy -path "$build_outputs\PokerLeagueManager.Common.Commands.dll" -dest "$local
 copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.foo" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
-copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config.bar" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 
 
 ### Build Environment ###
