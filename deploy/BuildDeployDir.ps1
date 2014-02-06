@@ -23,3 +23,5 @@ copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.dacpac" -dest "$buil
 
 mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\"
+
+copy -path "$build_outputs\deploy\config\*" -dest "$deploy_dir\" -Force -Recurse
