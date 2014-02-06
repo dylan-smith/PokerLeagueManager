@@ -77,6 +77,7 @@
     <PostDeploy Include="Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerLeagueManager.DB.EventStore.publish.xml" />
+    <None Include="PokerLeagueManager.DB.EventStore.BUILD.publish.xml" />
+    <None Include="PokerLeagueManager.DB.EventStore.localhost.publish.xml" />
   </ItemGroup>
 </Project>

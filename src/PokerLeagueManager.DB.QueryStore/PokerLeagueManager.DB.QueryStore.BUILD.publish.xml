@@ -4,12 +4,11 @@
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseName>PokerLeagueManager.DB.QueryStore</TargetDatabaseName>
     <DeployScriptFileName>PokerLeagueManager.DB.QueryStore.sql</DeployScriptFileName>
-    <TargetConnectionString>Data Source=localhost;Integrated Security=True;Pooling=False</TargetConnectionString>
+    <TargetConnectionString>Data Source=localhost\BUILD;Integrated Security=True;Pooling=False</TargetConnectionString>
     <ScriptDatabaseOptions>True</ScriptDatabaseOptions>
-    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <BlockOnPossibleDataLoss>False</BlockOnPossibleDataLoss>
     <CreateNewDatabase>True</CreateNewDatabase>
     <DeployDatabaseInSingleUserMode>True</DeployDatabaseInSingleUserMode>
-    <DropObjectsNotInSource>True</DropObjectsNotInSource>
     <ProfileVersionNumber>1</ProfileVersionNumber>
   </PropertyGroup>
 </Project>

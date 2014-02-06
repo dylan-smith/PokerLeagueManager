@@ -72,6 +72,7 @@
     <RefactorLog Include="PokerLeagueManager.DB.QueryStore.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerLeagueManager.DB.QueryStore.publish.xml" />
+    <None Include="PokerLeagueManager.DB.QueryStore.localhost.publish.xml" />
+    <None Include="PokerLeagueManager.DB.QueryStore.BUILD.publish.xml" />
   </ItemGroup>
 </Project>
