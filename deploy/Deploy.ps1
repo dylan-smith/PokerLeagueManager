@@ -39,6 +39,5 @@ if (Test-Path PokerLeagueManager.UI.WPF -pathType container)
 	{
 	    rmdir C:\PokerLeagueManager.UI.WPF -recurse -force
 	}
-	mkdir C:\PokerLeagueManager.UI.WPF
-	copy -path PokerLeagueManager.UI.WPF -dest C:\PokerLeagueManager.UI.WPF -recurse
+	copy -path PokerLeagueManager.UI.WPF -dest C:\ -recurse
 }
