@@ -69,6 +69,6 @@ copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$buil
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
 
-############################
+#############################
 
 copy -path "$build_outputs\deploy\config\*" -dest "$deploy_dir\" -Force -Recurse
