@@ -20,7 +20,7 @@ copy -path "$build_outputs\_PublishedWebsites\PokerLeagueManager.Queries.WCF_Pac
 
 mkdir "$local_server_dir\PokerLeagueManager.DB.EventStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.dacpac" -dest "$local_server_dir\PokerLeagueManager.DB.EventStore\"
-copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.localhost.publish.xml" -dest "$local_server_dir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
+copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.localhost.publish.xml" -dest "$local_server_dir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
 
 mkdir "$local_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\"
@@ -54,7 +54,7 @@ copy -path "$build_outputs\_PublishedWebsites\PokerLeagueManager.Queries.WCF_Pac
 
 mkdir "$build_server_dir\PokerLeagueManager.DB.EventStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.dacpac" -dest "$build_server_dir\PokerLeagueManager.DB.EventStore\"
-copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.BUILD.publish.xml" -dest "$build_server_dir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
+copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.BUILD.publish.xml" -dest "$build_server_dir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
 
 mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\"
