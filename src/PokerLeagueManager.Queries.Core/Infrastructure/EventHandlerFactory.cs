@@ -63,7 +63,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             foreach (var handler in matchingTypes)
             {
-                var result = (IHandlesEvent<T>)UnityHelper.Container.Resolve(handler, null);
+                var result = (IHandlesEvent<T>)UnitySingleton.Container.Resolve(handler, null);
                 result.QueryDataStore = _queryDataStore;
 
                 yield return result;

@@ -2,7 +2,7 @@
 
 namespace PokerLeagueManager.Common.Utilities
 {
-    public static class UnityHelper
+    public static class UnitySingleton
     {
         private static IUnityContainer _container;
 

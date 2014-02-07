@@ -17,13 +17,13 @@ namespace PokerLeagueManager.UI.Wpf
                     Bootstrap();
                 }
 
-                return UnityHelper.Container;
+                return UnitySingleton.Container;
             }
         }
 
         public static void Bootstrap()
         {
-            UnityHelper.Container.RegisterType<IEnterGameResultsViewModel, EnterGameResultsViewModel>();
+            UnitySingleton.Container.RegisterType<IEnterGameResultsViewModel, EnterGameResultsViewModel>();
 
             PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();

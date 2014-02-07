@@ -59,7 +59,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentException(string.Format("Found more than 1 Command Handler for {0}", typeof(T).Name));
             }
 
-            var result = (IHandlesCommand<T>)UnityHelper.Container.Resolve(matchingTypes.First(), null);
+            var result = (IHandlesCommand<T>)UnitySingleton.Container.Resolve(matchingTypes.First(), null);
             result.Repository = _eventRepository;
             result.QueryService = _queryService;
 

@@ -6,7 +6,7 @@ namespace PokerLeagueManager.Common.Utilities
     {
         public static IUnityContainer Container
         {
-            get { return UnityHelper.Container; }
+            get { return UnitySingleton.Container; }
         }
     }
 }

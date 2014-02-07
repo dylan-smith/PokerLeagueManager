@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Queries.WCF.Infrastructure
                     Bootstrap();
                 }
 
-                return UnityHelper.Container;
+                return UnitySingleton.Container;
             }
         }
 
