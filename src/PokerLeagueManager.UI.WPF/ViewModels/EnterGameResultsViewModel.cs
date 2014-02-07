@@ -36,17 +36,9 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         {
             get
             {
-                foreach (var p in _playerCommands.OrderBy(x => x.Placing))
-                {
-                    if (p.Winnings > 0)
-                    {
-                        yield return string.Format("{0} - {1} [${2}]", p.Placing, p.PlayerName, p.Winnings);
-                    }
-                    else
-                    {
-                        yield return string.Format("{0} - {1}", p.Placing, p.PlayerName);
-                    }
-                }
+                return _playerCommands.OrderBy(p => p.Placing)
+                                      .Select(p => string.Format("{0} - {1}", p.Placing, p.PlayerName) + 
+                                                   (p.Winnings > 0 ? string.Format(" [${0}]", p.Winnings) : string.Empty));
             }
         }
 
