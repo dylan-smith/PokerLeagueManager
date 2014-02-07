@@ -4,7 +4,7 @@ using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public class Bootstrapper : BaseBootstrapper
+    public static class Bootstrapper
     {
         private static bool _hasBootstrapped = false;
 
@@ -12,10 +12,10 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             if (!_hasBootstrapped)
             {
-                Container.RegisterType<IEventHandlerFactory, EventHandlerFactory>();
-                Container.RegisterType<IQueryDataStore, QueryDataStore>();
-                Container.RegisterType<IQueryService, QueryHandler>();
-                Container.RegisterType<IIdempotencyChecker, IdempotencyChecker>();
+                UnitySingleton.Container.RegisterType<IEventHandlerFactory, EventHandlerFactory>();
+                UnitySingleton.Container.RegisterType<IQueryDataStore, QueryDataStore>();
+                UnitySingleton.Container.RegisterType<IQueryService, QueryHandler>();
+                UnitySingleton.Container.RegisterType<IIdempotencyChecker, IdempotencyChecker>();
 
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 

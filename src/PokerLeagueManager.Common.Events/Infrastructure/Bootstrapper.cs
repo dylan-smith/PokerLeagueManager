@@ -2,7 +2,7 @@
 
 namespace PokerLeagueManager.Common.Events.Infrastructure
 {
-    public class Bootstrapper : BaseBootstrapper
+    public static class Bootstrapper
     {
         private static bool _hasBootstrapped = false;
 

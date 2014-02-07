@@ -3,7 +3,7 @@ using Microsoft.Practices.Unity;
 
 namespace PokerLeagueManager.Common.Utilities
 {
-    public class Bootstrapper : BaseBootstrapper
+    public static class Bootstrapper
     {
         private static bool _hasBootstrapped = false;
 
@@ -11,10 +11,10 @@ namespace PokerLeagueManager.Common.Utilities
         {
             if (!_hasBootstrapped)
             {
-                Container.RegisterType<IDateTimeService, DateTimeService>();
-                Container.RegisterType<IGuidService, GuidService>();
-                Container.RegisterType<IDatabaseLayer, SqlServerDatabaseLayer>();
-                Container.RegisterInstance<IIdentity>(System.Security.Principal.WindowsPrincipal.Current.Identity);
+                UnitySingleton.Container.RegisterType<IDateTimeService, DateTimeService>();
+                UnitySingleton.Container.RegisterType<IGuidService, GuidService>();
+                UnitySingleton.Container.RegisterType<IDatabaseLayer, SqlServerDatabaseLayer>();
+                UnitySingleton.Container.RegisterInstance<IIdentity>(System.Security.Principal.WindowsPrincipal.Current.Identity);
 
                 _hasBootstrapped = true;
             }

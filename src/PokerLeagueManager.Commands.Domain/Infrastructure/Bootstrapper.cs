@@ -6,7 +6,7 @@ using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
-    public class Bootstrapper : BaseBootstrapper
+    public static class Bootstrapper
     {
         private static bool _hasBootstrapped = false;
 
@@ -14,10 +14,10 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             if (!_hasBootstrapped)
             {
-                Container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>();
-                Container.RegisterType<IEventService, EventServiceProxy>();
-                Container.RegisterType<IEventRepository, EventRepository>();
-                Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>();
+                UnitySingleton.Container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>();
+                UnitySingleton.Container.RegisterType<IEventService, EventServiceProxy>();
+                UnitySingleton.Container.RegisterType<IEventRepository, EventRepository>();
+                UnitySingleton.Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>();
 
                 PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
                 PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();

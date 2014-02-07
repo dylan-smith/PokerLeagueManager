@@ -3,7 +3,7 @@ using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Common.DTO.Infrastructure
 {
-    public class Bootstrapper : BaseBootstrapper
+    public static class Bootstrapper
     {
         private static bool _hasBootstrapped = false;
 
@@ -11,8 +11,8 @@ namespace PokerLeagueManager.Common.DTO.Infrastructure
         {
             if (!_hasBootstrapped)
             {
-                Container.RegisterType<IDtoFactory, DtoFactory>();
-                Container.RegisterType<IQueryService, QueryServiceProxy>();
+                UnitySingleton.Container.RegisterType<IDtoFactory, DtoFactory>();
+                UnitySingleton.Container.RegisterType<IQueryService, QueryServiceProxy>();
 
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
