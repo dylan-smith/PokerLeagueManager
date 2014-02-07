@@ -72,7 +72,6 @@
     <Build Include="Tables\AggregateLocks.sql" />
     <Build Include="Tables\Events.sql" />
     <Build Include="Tables\Subscribers.sql" />
-    <Build Include="Stored Procedures\InsertSubscribers_Dev.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />
@@ -87,5 +86,14 @@
     <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.localhost.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.dev.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="PublishEnvironment">
+      <DefaultValue>dev</DefaultValue>
+      <Value>$(SqlCmdVar__1)</Value>
+    </SqlCmdVariable>
   </ItemGroup>
 </Project>

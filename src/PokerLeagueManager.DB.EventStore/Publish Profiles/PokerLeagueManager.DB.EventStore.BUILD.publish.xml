@@ -11,4 +11,9 @@
     <DeployDatabaseInSingleUserMode>True</DeployDatabaseInSingleUserMode>
     <ProfileVersionNumber>1</ProfileVersionNumber>
   </PropertyGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="PublishEnvironment">
+      <Value>Build</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
 </Project>

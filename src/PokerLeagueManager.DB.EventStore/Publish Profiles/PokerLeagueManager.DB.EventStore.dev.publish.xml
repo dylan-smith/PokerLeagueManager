@@ -13,7 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <SqlCmdVariable Include="PublishEnvironment">
-      <Value>Local</Value>
+      <Value>dev</Value>
     </SqlCmdVariable>
   </ItemGroup>
 </Project>
