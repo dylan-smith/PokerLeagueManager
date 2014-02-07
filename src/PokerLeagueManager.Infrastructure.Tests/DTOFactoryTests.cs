@@ -21,16 +21,15 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [TestMethod]
         public void SampleDtoFromDataRow()
         {
-            var sut = new DtoFactory();
-            var sampleTable = GenerateSampleDataTable();
-
             var gameId = Guid.NewGuid();
             var gameYear = 2010;
             var gameMonth = 7;
             var gameDay = 3;
 
+            var sampleTable = GenerateSampleDataTable();
             sampleTable.Rows.Add(gameId, gameYear, gameMonth, gameDay);
 
+            var sut = new DtoFactory();
             var result = sut.Create<GetGameCountByDateDto>(sampleTable.Rows[0]);
 
             Assert.IsNotNull(result);
