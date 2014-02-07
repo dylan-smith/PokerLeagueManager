@@ -57,7 +57,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         private void ResetPlayerCommands()
         {
             _playerCommands = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
-            _playerCommands.CollectionChanged += delegate { OnPropertyChanged("Players"); };
+            _playerCommands.CollectionChanged += (x, y) => OnPropertyChanged("Players");
         }
 
         private bool CanSaveGame()
