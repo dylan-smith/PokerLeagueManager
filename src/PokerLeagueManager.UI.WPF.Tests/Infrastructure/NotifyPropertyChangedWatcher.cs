@@ -12,7 +12,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests.Infrastructure
         {
             if (target == null)
             {
-                throw new ArgumentNullException("tartget");
+                throw new ArgumentNullException("target");
             }
 
             _propertyChangedEvents = new Dictionary<string, int>();
