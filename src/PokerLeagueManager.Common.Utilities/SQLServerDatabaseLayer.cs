@@ -23,7 +23,7 @@ namespace PokerLeagueManager.Common.Utilities
 
         ~SqlServerDatabaseLayer()
         {
-            this.Dispose(false);
+            Dispose(false);
         }
 
         public string ConnectionString
@@ -42,18 +42,18 @@ namespace PokerLeagueManager.Common.Utilities
 
         public DataTable GetDataTable(string sql)
         {
-            return this.GetDataTable(sql, new object[0]);
+            return GetDataTable(sql, new object[0]);
         }
 
         public DataTable GetDataTable(string sql, params object[] sqlArgs)
         {
-            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
+            var myCommand = PrepareCommand(sql, sqlArgs);
 
-            DataTable result = new DataTable();
+            var result = new DataTable();
 
             try
             {
-                using (SqlDataAdapter myAdapter = new SqlDataAdapter(myCommand))
+                using (var myAdapter = new SqlDataAdapter(myCommand))
                 {
                     OpenConnection();
                     myAdapter.Fill(result);
@@ -71,12 +71,12 @@ namespace PokerLeagueManager.Common.Utilities
 
         public int ExecuteNonQuery(string sql)
         {
-            return this.ExecuteNonQuery(sql, new object[0]);
+            return ExecuteNonQuery(sql, new object[0]);
         }
 
         public int ExecuteNonQuery(string sql, params object[] sqlArgs)
         {
-            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
+            var myCommand = PrepareCommand(sql, sqlArgs);
 
             OpenConnection();
             int result = myCommand.ExecuteNonQuery();
@@ -87,12 +87,12 @@ namespace PokerLeagueManager.Common.Utilities
 
         public object ExecuteScalar(string sql)
         {
-            return this.ExecuteScalar(sql, new object[0]);
+            return ExecuteScalar(sql, new object[0]);
         }
 
         public object ExecuteScalar(string sql, params object[] sqlArgs)
         {
-            SqlCommand myCommand = this.PrepareCommand(sql, sqlArgs);
+            var myCommand = this.PrepareCommand(sql, sqlArgs);
 
             OpenConnection();
             object result = myCommand.ExecuteScalar();
@@ -103,7 +103,7 @@ namespace PokerLeagueManager.Common.Utilities
 
         public void Dispose()
         {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -133,24 +133,24 @@ namespace PokerLeagueManager.Common.Utilities
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this._disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
-                    if (this._connection != null)
+                    if (_connection != null)
                     {
-                        if (this._connection.State == ConnectionState.Open)
+                        if (_connection.State == ConnectionState.Open)
                         {
-                            this._connection.Close();
+                            _connection.Close();
                         }
 
-                        this._connection.Dispose();
-                        this._transaction.Dispose();
+                        _connection.Dispose();
+                        _transaction.Dispose();
                     }
                 }
             }
 
-            this._disposedValue = true;
+            _disposedValue = true;
         }
 
         private void CloseConnection()
@@ -172,12 +172,12 @@ namespace PokerLeagueManager.Common.Utilities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2100:Review SQL queries for security vulnerabilities", Justification = "It will be the responsibility of the caller to ensure they aren't vulnerable to SQL Injection")]
         private SqlCommand PrepareCommand(string sql, params object[] sqlArgs)
         {
-            if (string.IsNullOrEmpty(sql))
+            if (string.IsNullOrWhiteSpace(sql))
             {
                 throw new ArgumentException("The SQL statement was blank. A valid SQL Statement must be provided.", "sql");
             }
 
-            SqlCommand myCommand = new SqlCommand(sql, this._connection);
+            var myCommand = new SqlCommand(sql, _connection);
 
             try
             {
