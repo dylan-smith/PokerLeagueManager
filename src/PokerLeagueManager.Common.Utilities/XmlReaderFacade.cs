@@ -15,6 +15,7 @@ namespace PokerLeagueManager.Common.Utilities
         public XmlReaderFacade(string data)
         {
             _reader = new StringReader(data);
+
             try
             {
                 this.XmlReader = XmlReader.Create(_reader);
