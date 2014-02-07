@@ -24,6 +24,7 @@ namespace PokerLeagueManager.Commands.WCF
         {
             PokerLeagueManager.Commands.Domain.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
             _hasBootstrapped = true;

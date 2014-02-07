@@ -20,6 +20,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>();
 
                 PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
+                PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
                 PokerLeagueManager.Common.Events.Infrastructure.Bootstrapper.Bootstrap();
                 PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
 
