@@ -44,7 +44,6 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
 
             cmd.CommandId = _guidService.NewGuid();
             cmd.Timestamp = _dateTimeService.Now();
-            cmd.IsAsynchronous = false;
 
             return cmd;
         }
