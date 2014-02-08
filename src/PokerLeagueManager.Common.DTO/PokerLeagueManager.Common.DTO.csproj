@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetGameCountByDateDto.cs" />
+    <Compile Include="DataTransferObjects\GetGameCountByDateDto.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DtoFactory.cs" />
