@@ -14,19 +14,14 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         public Game(Guid gameId, DateTime gameDate)
         {
-            if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue)
+            if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue || gameDate == default(DateTime))
             {
-                throw new ArgumentException("Invalid GameDate, cannot be DateTime.MinValue", "gameDate");
+                throw new ArgumentException("Invalid GameDate", "gameDate");
             }
 
-            if (gameId != Guid.Empty)
-            {
-                this.PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
-            }
-            else
-            {
-                this.PublishEvent(new GameCreatedEvent() { AggregateId = Guid.NewGuid(), GameDate = gameDate });
-            }
+            gameId = gameId == Guid.Empty ? Guid.NewGuid() : gameId;
+
+            this.PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
         }
 
         private Game()
@@ -37,15 +32,15 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
             if (winnings < 0)
             {
-                throw new ArgumentException("winnings cannot be negative", "winnings");
+                throw new ArgumentException("Winnings cannot be negative", "winnings");
             }
 
             if (placing <= 0)
             {
-                throw new ArgumentException("placing must be greater than 0", "placing");
+                throw new ArgumentException("Placing must be greater than 0", "placing");
             }
 
-            if (string.IsNullOrEmpty(playerName))
+            if (string.IsNullOrWhiteSpace(playerName))
             {
                 throw new ArgumentException("Player Name must be entered", "playerName");
             }
