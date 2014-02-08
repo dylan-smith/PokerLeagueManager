@@ -142,7 +142,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
-        public void IfAddPlayerCommandExecuteIsCalledWhenThereIsInvalidData_ShouldThrowException()
+        public void AddPlayerCommandExecuteIsCalledWhenThereIsInvalidData_ShouldThrowException()
         {
             var sut = new EnterGameResultsViewModel(new FakeCommandService());
 
