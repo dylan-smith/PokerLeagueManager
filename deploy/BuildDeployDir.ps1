@@ -24,7 +24,7 @@ copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.loc
 
 mkdir "$local_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\"
-copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.localhost.publish.xml" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
+copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.localhost.publish.xml" -dest "$local_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 
 mkdir "$local_server_dir\PokerLeagueManager.UI.WPF"
 copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
@@ -58,7 +58,7 @@ copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.BUI
 
 mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\"
-copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
+copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml" -dest "$build_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 
 mkdir "$build_server_dir\PokerLeagueManager.UI.WPF"
 copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"

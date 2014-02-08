@@ -63,19 +63,21 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+    <Folder Include="Tables" />
+    <Folder Include="Publish Profiles" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="GetGameCountByDate.sql" />
-    <Build Include="EventsProcessed.sql" />
+    <Build Include="Tables\EventsProcessed.sql" />
+    <Build Include="Tables\GetGameCountByDate.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.QueryStore.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PokerLeagueManager.DB.QueryStore.localhost.publish.xml">
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.localhost.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
