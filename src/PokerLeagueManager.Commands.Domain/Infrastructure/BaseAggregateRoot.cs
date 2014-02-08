@@ -13,7 +13,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         protected BaseAggregateRoot()
         {
             AggregateId = Guid.Empty;
-            EventsApplied = false;
             AggregateVersion = Guid.Empty;
         }
 
@@ -21,8 +20,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             get { return _pendingEvents; }
         }
-
-        public bool EventsApplied { get; set; }
 
         public Guid AggregateId { get; set; }
 
