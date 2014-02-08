@@ -1,5 +1,4 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Commands.Domain.ServiceProxies;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events.Infrastructure;
 using PokerLeagueManager.Common.Utilities;

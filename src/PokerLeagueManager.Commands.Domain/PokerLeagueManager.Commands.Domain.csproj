@@ -69,7 +69,6 @@
     <Compile Include="Infrastructure\IEventServiceProxyFactory.cs" />
     <Compile Include="Infrastructure\IHandlesCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceProxies\QueryServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Common.Commands\PokerLeagueManager.Common.Commands.csproj">
@@ -92,6 +91,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
