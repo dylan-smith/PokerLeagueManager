@@ -17,7 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             AggregateVersion = Guid.Empty;
         }
 
-        public virtual ICollection<IEvent> PendingEvents
+        public ICollection<IEvent> PendingEvents
         {
             get { return _pendingEvents; }
         }
@@ -39,7 +39,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             ApplyEvent(e);
         }
 
-        protected MethodInfo FindEventHandler(Type eventType)
+        private MethodInfo FindEventHandler(Type eventType)
         {
             var matchingMethods = from m in this.GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
                                   where m.Name == "ApplyEvent" && m.GetParameters().Count() == 1 && m.GetParameters()[0].ParameterType == eventType
@@ -48,7 +48,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             return matchingMethods.FirstOrDefault();
         }
 
-        protected void InvokeEventHandler(MethodInfo methodtoBeInvoked, IEvent e)
+        private void InvokeEventHandler(MethodInfo methodtoBeInvoked, IEvent e)
         {
             if (methodtoBeInvoked != null)
             {
