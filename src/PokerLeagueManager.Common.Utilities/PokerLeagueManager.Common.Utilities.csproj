@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="DateTimeService.cs" />
+    <Compile Include="Exceptions\GameWithNotEnoughPlayersException.cs" />
     <Compile Include="Exceptions\OptimisticConcurrencyException.cs" />
     <Compile Include="Exceptions\PlayerPlacingsNotInOrderException.cs" />
     <Compile Include="GuidService.cs" />

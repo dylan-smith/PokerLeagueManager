@@ -55,6 +55,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         public void ValidateGame()
         {
+            if (_players.Count < 2)
+            {
+                throw new GameWithNotEnoughPlayersException("Each game must have at least 2 players>");
+            }
+
             var orderedPlayers = _players.OrderBy(x => x.Placing);
 
             var curPlacing = 1;
