@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using PokerLeagueManager.Common.DTO.Infrastructure;
@@ -44,6 +45,36 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             {
                 yield return _dtoFactory.Create<T>(row);
             }
+        }
+
+        public T GetData<T>(Func<T, bool> filter) where T : IDataTransferObject
+        {
+            return GetData<T>().FirstOrDefault(filter);
+        }
+
+        public void Update<T>(T dto) where T : IDataTransferObject
+        {
+            var tableName = GetTableName(typeof(T));
+            var setClause = BuildSetClause(dto.GetType().GetProperties());
+            var valueArray = BuildValueArray(dto.GetType().GetProperties(), dto);
+
+            var sql = string.Format("UPDATE {0} SET {1} WHERE DtoId = '{2}'", tableName, setClause, dto.DtoId);
+
+            DatabaseLayer.ExecuteNonQuery(sql, valueArray);
+        }
+
+        private string BuildSetClause(PropertyInfo[] properties)
+        {
+            var result = new StringBuilder();
+
+            foreach (var prop in properties)
+            {
+                result.AppendFormat("{0} = @{0}, ", prop.Name);
+            }
+
+            result.Remove(result.Length - 2, 2);
+
+            return result.ToString();
         }
 
         private string BuildFieldList(PropertyInfo[] properties)

@@ -32,5 +32,18 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
             return dataStore[typeof(T)].Cast<T>();
         }
+
+        public T GetData<T>(Func<T, bool> filter) where T : IDataTransferObject
+        {
+            return GetData<T>().FirstOrDefault(filter);
+        }
+
+        public void Update<T>(T dto) where T : IDataTransferObject
+        {
+            var old = dataStore[typeof(T)].First(x => x.DtoId == dto.DtoId);
+
+            dataStore[typeof(T)].Remove(old);
+            dataStore[typeof(T)].Add(dto);
+        }
     }
 }
