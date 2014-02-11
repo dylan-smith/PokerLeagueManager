@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[GetGamesList]
+(
+	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[GameId] UNIQUEIDENTIFIER NOT NULL, 
+    [GameDate] DATETIME NOT NULL, 
+    [NumPlayers] INT NOT NULL, 
+    [Winner] VARCHAR(MAX) NOT NULL
+)

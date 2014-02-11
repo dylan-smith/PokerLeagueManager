@@ -14,4 +14,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="EventId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d96155e6-1363-48d4-80a0-c3c6ab88b652" ChangeDateTime="02/11/2014 03:53:03">
+    <Property Name="ElementName" Value="[dbo].[GetGameCountByDate].[GameYear]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[GetGameCountByDate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="GameDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b96df5d5-4fb9-48f5-ab9f-449de2a2061e" ChangeDateTime="02/11/2014 03:53:12">
+    <Property Name="ElementName" Value="[dbo].[GetGameCountByDate].[GameMonth]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[GetGameCountByDate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="NumPlayers" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b99d61f1-2f97-4219-8301-3371d2d7657d" ChangeDateTime="02/11/2014 03:53:15">
+    <Property Name="ElementName" Value="[dbo].[GetGameCountByDate].[GameDay]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[GetGameCountByDate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Winner" />
+  </Operation>
 </Operations>
