@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Queries.WCF.Infrastructure;
@@ -17,6 +18,11 @@ namespace PokerLeagueManager.Queries.WCF
         public int GetGameCountByDate(DateTime gameDate)
         {
             return _queryHandler.GetGameCountByDate(gameDate);
+        }
+
+        public IEnumerable<GetGamesListDto> GetGamesList()
+        {
+            return _queryHandler.GetGamesList();
         }
     }
 }

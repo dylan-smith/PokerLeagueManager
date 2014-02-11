@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace PokerLeagueManager.Common.DTO
@@ -8,5 +9,8 @@ namespace PokerLeagueManager.Common.DTO
     {
         [OperationContract]
         int GetGameCountByDate(DateTime gameDate);
+
+        [OperationContract]
+        IEnumerable<GetGamesListDto> GetGamesList();
     }
 }

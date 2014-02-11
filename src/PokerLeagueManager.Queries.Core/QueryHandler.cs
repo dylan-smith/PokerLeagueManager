@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Queries.Core.Infrastructure;
@@ -19,6 +20,11 @@ namespace PokerLeagueManager.Queries.Core
             return _queryDataStore.GetData<GetGameCountByDateDto>().Count(x => x.GameYear == gameDate.Year &&
                                                                                x.GameMonth == gameDate.Month &&
                                                                                x.GameDay == gameDate.Day);
+        }
+
+        public IEnumerable<GetGamesListDto> GetGamesList()
+        {
+            return _queryDataStore.GetData<GetGamesListDto>();
         }
     }
 }

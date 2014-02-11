@@ -340,6 +340,11 @@
           </references>
         </layer>
         <layer Id="4cd6f961-2d4c-4228-9dfe-ffb866903635" name="Query Service Proxy">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="f7afdcd5-dfd1-41ec-b35a-9ffc58984d34" direction="Forward">
+              <layerMoniker Id="ed3d8cef-9913-4cfa-9fde-48bda1192b22" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
           <references>
             <reference Id="e9c7ea35-d6c9-4541-b504-28876213bfd2" name="IQueryService">
               <ArtifactNode Label="IQueryService" Category="CodeSchema_Interface" Id="(Assembly=../PokerLeagueManager.Common.DTO/bin/Debug/PokerLeagueManager.Common.DTO.dll Namespace=PokerLeagueManager.Common.DTO Type=IQueryService)" />
