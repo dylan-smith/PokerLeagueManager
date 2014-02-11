@@ -5,18 +5,18 @@ using PokerLeagueManager.Common.DTO.Infrastructure;
 namespace PokerLeagueManager.Common.DTO
 {
     [DataContract]
-    public class GetGameCountByDateDto : BaseDataTransferObject
+    public class GetGamesListDto : BaseDataTransferObject
     {
         [DataMember]
         public Guid GameId { get; set; }
 
         [DataMember]
-        public int GameYear { get; set; }
+        public DateTime GameDate { get; set; }
 
         [DataMember]
-        public int GameMonth { get; set; }
+        public int NumPlayers { get; set; }
 
         [DataMember]
-        public int GameDay { get; set; }
+        public string Winner { get; set; }
     }
 }

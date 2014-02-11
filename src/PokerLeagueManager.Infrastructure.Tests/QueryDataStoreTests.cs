@@ -23,6 +23,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             var testDto = new GetGameCountByDateDto() 
             {
+                DtoId = Guid.NewGuid(),
                 GameId = Guid.NewGuid(),
                 GameYear = 2012,
                 GameMonth = 10,
@@ -31,9 +32,9 @@ namespace PokerLeagueManager.Infrastructure.Tests
 
             sut.Insert(testDto);
 
-            var expectedSql = "INSERT INTO GetGameCountByDate(GameId, GameYear, GameMonth, GameDay) VALUES(@GameId, @GameYear, @GameMonth, @GameDay)";
+            var expectedSql = "INSERT INTO GetGameCountByDate(GameId, GameYear, GameMonth, GameDay, DtoId) VALUES(@GameId, @GameYear, @GameMonth, @GameDay, @DtoId)";
 
-            mockDatabaseLayer.Verify(x => x.ExecuteNonQuery(expectedSql, "@GameId", testDto.GameId, "@GameYear", testDto.GameYear, "@GameMonth", testDto.GameMonth, "@GameDay", testDto.GameDay));
+            mockDatabaseLayer.Verify(x => x.ExecuteNonQuery(expectedSql, "@GameId", testDto.GameId, "@GameYear", testDto.GameYear, "@GameMonth", testDto.GameMonth, "@GameDay", testDto.GameDay, "@DtoId", testDto.DtoId));
         }
 
         [TestMethod]
