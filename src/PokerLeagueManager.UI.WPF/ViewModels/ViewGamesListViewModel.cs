@@ -34,7 +34,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             get
             {
                 return _games.OrderByDescending(g => g.GameDate)
-                             .Select(g => string.Format("{0} - {1} [${2}]", g.GameDate.ToString("dd-MMM-yyyy"), g.Winner, g.NumPlayers));
+                             .Select(g => string.Format("{0} - {1} [${2}]", g.GameDate.ToString("dd-MMM-yyyy"), g.Winner, g.Winnings));
             }
         }
 

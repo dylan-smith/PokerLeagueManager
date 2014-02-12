@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
             {
                 GameId = e.AggregateId,
                 GameDate = e.GameDate,
-                NumPlayers = 0,
+                Winnings = 0,
                 Winner = string.Empty
             });
         }
@@ -20,12 +20,11 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         public void Handle(PlayerAddedToGameEvent e)
         {
             var game = QueryDataStore.GetData<GetGamesListDto>(x => x.GameId == e.AggregateId);
-
-            game.NumPlayers++;
             
             if (e.Placing == 1)
             {
                 game.Winner = e.PlayerName;
+                game.Winnings = e.Winnings;
             }
             
             QueryDataStore.Update<GetGamesListDto>(game);
