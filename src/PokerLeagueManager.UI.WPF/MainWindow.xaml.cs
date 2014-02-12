@@ -1,17 +1,26 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
 
-            this.Content = Resolver.Container.Resolve<ViewGamesListView>();
-            //// this.Content = Resolver.Container.Resolve<EnterGameResultsView>();
+            Resolver.Container.RegisterInstance<IMainWindow>(this);
+
+            ShowView(Resolver.Container.Resolve<ViewGamesListView>());
+            //// ShowView(Resolver.Container.Resolve<EnterGameResultsView>());
+        }
+
+        public void ShowView(UserControl view)
+        {
+            this.Content = view;
         }
     }
 }
