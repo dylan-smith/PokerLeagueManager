@@ -101,15 +101,22 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockView = new Mock<IEnterGameResultsView>();
             Resolver.Container.RegisterInstance<IEnterGameResultsView>(mockView.Object);
 
-            var emptyGamesList = new List<GetGamesListDto>();
-
-            mockQueryService.Setup(x => x.GetGamesList()).Returns(emptyGamesList);
-
             var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
 
             sut.AddGameCommand.Execute(null);
 
             mockMainWindow.Verify(x => x.ShowView(It.IsAny<IEnterGameResultsView>()));
+        }
+
+        [TestMethod]
+        public void AddGameCanExecute_ReturnsTrue()
+        {
+            var mockQueryService = new Mock<IQueryService>();
+            var mockMainWindow = new Mock<IMainWindow>();
+
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+
+            Assert.IsTrue(sut.AddGameCommand.CanExecute(null));
         }
     }
 }
