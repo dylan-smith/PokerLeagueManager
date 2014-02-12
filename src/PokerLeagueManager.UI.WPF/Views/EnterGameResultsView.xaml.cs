@@ -5,7 +5,7 @@ namespace PokerLeagueManager.UI.Wpf.Views
 {
     public partial class EnterGameResultsView : UserControl
     {
-        public EnterGameResultsView(EnterGameResultsViewModel viewModel)
+        public EnterGameResultsView(IEnterGameResultsViewModel viewModel)
         {
             this.DataContext = viewModel;
 

@@ -10,7 +10,8 @@ namespace PokerLeagueManager.UI.Wpf
         {
             InitializeComponent();
 
-            this.Content = Resolver.Container.Resolve<EnterGameResultsView>();
+            this.Content = Resolver.Container.Resolve<ViewGamesListView>();
+            //// this.Content = Resolver.Container.Resolve<EnterGameResultsView>();
         }
     }
 }

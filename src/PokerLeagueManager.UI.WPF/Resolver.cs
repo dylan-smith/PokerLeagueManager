@@ -24,6 +24,7 @@ namespace PokerLeagueManager.UI.Wpf
         public static void Bootstrap()
         {
             UnitySingleton.Container.RegisterType<IEnterGameResultsViewModel, EnterGameResultsViewModel>();
+            UnitySingleton.Container.RegisterType<IViewGamesListViewModel, ViewGamesListViewModel>();
 
             PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
