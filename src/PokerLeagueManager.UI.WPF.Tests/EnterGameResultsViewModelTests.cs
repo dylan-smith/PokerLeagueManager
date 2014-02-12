@@ -175,7 +175,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var fakeCommandService = new FakeCommandService();
             var mockMainWindow = new Mock<IMainWindow>();
             var mockViewGamesListView = new Mock<IViewGamesListView>();
-            UnitySingleton.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
+            Resolver.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
 
             var sut = new EnterGameResultsViewModel(fakeCommandService, mockMainWindow.Object);
 
@@ -202,7 +202,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var fakeCommandService = new FakeCommandService();
             var mockMainWindow = new Mock<IMainWindow>();
             var mockViewGamesListView = new Mock<IViewGamesListView>();
-            UnitySingleton.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
+            Resolver.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
 
             var sut = new EnterGameResultsViewModel(fakeCommandService, mockMainWindow.Object);
 
