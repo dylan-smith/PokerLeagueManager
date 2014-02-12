@@ -3,7 +3,7 @@ using PokerLeagueManager.UI.Wpf.ViewModels;
 
 namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public partial class EnterGameResultsView : UserControl
+    public partial class EnterGameResultsView : UserControl, IEnterGameResultsView
     {
         public EnterGameResultsView(IEnterGameResultsViewModel viewModel)
         {

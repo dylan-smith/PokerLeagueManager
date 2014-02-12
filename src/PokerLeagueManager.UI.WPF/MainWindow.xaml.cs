@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf
             //// ShowView(Resolver.Container.Resolve<EnterGameResultsView>());
         }
 
-        public void ShowView(UserControl view)
+        public void ShowView(object view)
         {
             this.Content = view;
         }

@@ -42,9 +42,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void AddGame()
         {
-            _mainWindow.ShowView(Resolver.Container.Resolve<EnterGameResultsView>());
-
-            // show the view
+            _mainWindow.ShowView(Resolver.Container.Resolve<IEnterGameResultsView>());
         }
     }
 }

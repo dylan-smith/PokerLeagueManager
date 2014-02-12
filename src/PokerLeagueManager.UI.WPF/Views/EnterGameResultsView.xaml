@@ -14,7 +14,8 @@
         <Label Content="Player Name" HorizontalAlignment="Left" Margin="12,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Placing" HorizontalAlignment="Left" Margin="159,42,0,0" VerticalAlignment="Top"/>
         <Label Content="Winnings" HorizontalAlignment="Left" Margin="212,42,0,0" VerticalAlignment="Top"/>
-        <ListBox ItemsSource="{Binding Players}" HorizontalAlignment="Left" Height="205" Margin="12,101,0,0" VerticalAlignment="Top" Width="340"/>
-        <Button Command="{Binding SaveGameCommand}" Content="Save Game" HorizontalAlignment="Left" Margin="12,311,0,0" VerticalAlignment="Top" Width="340" Height="39"/>
+        <ListBox ItemsSource="{Binding Players}" HorizontalAlignment="Left" Height="205" Margin="10,101,0,0" VerticalAlignment="Top" Width="340"/>
+        <Button Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Left" Margin="10,311,0,0" VerticalAlignment="Top" Width="160" Height="39"/>
+        <Button Command="{Binding SaveGameCommand}" Content="Save Game" HorizontalAlignment="Left" Margin="194,311,0,0" VerticalAlignment="Top" Width="160" Height="39"/>
     </Grid>
 </UserControl>

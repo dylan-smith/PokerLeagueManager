@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Linq;
+using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
+using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf.Tests
 {
@@ -13,7 +18,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenGameDateIsEmpty_SaveCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.GameDate = null;
 
@@ -23,7 +29,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenGameDateIsValid_SaveCommandCanExecuteIsTrue()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.GameDate = DateTime.Now;
 
@@ -33,7 +40,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenPlayerDataIsEmpty_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = string.Empty;
             sut.NewPlacing = string.Empty;
@@ -45,7 +53,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenPlayerNameIsEmpty_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = string.Empty;
             sut.NewPlacing = "1";
@@ -57,7 +66,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenPlacingIsEmpty_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Homer Simpson";
             sut.NewPlacing = string.Empty;
@@ -69,7 +79,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenWinningsIsEmpty_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Anderson Silva";
             sut.NewPlacing = "5";
@@ -81,7 +92,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenPlayerDataIsValid_AddPlayerCommandCanExecuteIsTrue()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Keira Knightly";
             sut.NewPlacing = "1";
@@ -93,7 +105,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenPlacingIsNotANumber_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Tom Brady";
             sut.NewPlacing = "1st";
@@ -105,7 +118,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenWinningsIsNotANumber_AddPlayerCommandCanExecuteIsFalse()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Tom Brady";
             sut.NewPlacing = "1";
@@ -117,7 +131,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void AddPlayerWithValidData()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "1";
@@ -144,7 +159,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void AddPlayerCommandExecuteIsCalledWhenThereIsInvalidData_ShouldThrowException()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = string.Empty;
@@ -157,10 +173,11 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         public void SaveGameWithValidDataNoPlayers()
         {
             var fakeCommandService = new FakeCommandService();
+            var mockMainWindow = new Mock<IMainWindow>();
+            var mockViewGamesListView = new Mock<IViewGamesListView>();
+            UnitySingleton.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
 
-            var sut = new EnterGameResultsViewModel(fakeCommandService);
-
-            var watcher = new NotifyPropertyChangedWatcher(sut);
+            var sut = new EnterGameResultsViewModel(fakeCommandService, mockMainWindow.Object);
 
             var testGameDate = DateTime.Now;
 
@@ -176,26 +193,18 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Assert.AreEqual(testGameDate, actualCommand.GameDate);
             Assert.AreEqual(0, actualCommand.Players.Count());
 
-            Assert.IsNull(sut.GameDate);
-            Assert.AreEqual(string.Empty, sut.NewPlayerName);
-            Assert.AreEqual(string.Empty, sut.NewPlacing);
-            Assert.AreEqual(string.Empty, sut.NewWinnings);
-
-            Assert.AreEqual(0, sut.Players.Count());
-
-            Assert.IsTrue(watcher.HasPropertyChanged("GameDate"));
-            Assert.IsTrue(watcher.HasPropertyChanged("NewPlayerName"));
-            Assert.IsTrue(watcher.HasPropertyChanged("NewPlacing"));
-            Assert.IsTrue(watcher.HasPropertyChanged("NewWinnings"));
-            Assert.IsTrue(watcher.HasPropertyChanged("Players"));
+            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IViewGamesListView>()));
         }
 
         [TestMethod]
         public void SaveGameWithValidDataTwoPlayers()
         {
             var fakeCommandService = new FakeCommandService();
+            var mockMainWindow = new Mock<IMainWindow>();
+            var mockViewGamesListView = new Mock<IViewGamesListView>();
+            UnitySingleton.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
 
-            var sut = new EnterGameResultsViewModel(fakeCommandService);
+            var sut = new EnterGameResultsViewModel(fakeCommandService, mockMainWindow.Object);
 
             var testGameDate = DateTime.Now;
 
@@ -228,12 +237,15 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             Assert.AreEqual(2, dylanPlayer.Placing);
             Assert.AreEqual(0, dylanPlayer.Winnings);
+
+            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IViewGamesListView>()));
         }
 
         [TestMethod]
         public void AddTwoPlayersShouldReturnProperPlayerStringsInProperOrder()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "2";
@@ -254,7 +266,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void SaveGameWithNoGameDate()
         {
-            var sut = new EnterGameResultsViewModel(new FakeCommandService());
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object);
 
             sut.GameDate = null;
 

@@ -9,6 +9,6 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
 {
     public interface IMainWindow
     {
-        void ShowView(UserControl view);
+        void ShowView(object view);
     }
 }

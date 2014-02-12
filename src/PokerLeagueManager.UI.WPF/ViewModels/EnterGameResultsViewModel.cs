@@ -3,25 +3,31 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
+using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
         private ICommandService _commandService;
+        private IMainWindow _mainWindow;
+
         private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
 
-        public EnterGameResultsViewModel(ICommandService commandService)
+        public EnterGameResultsViewModel(ICommandService commandService, IMainWindow mainWindow)
         {
             _commandService = commandService;
+            _mainWindow = mainWindow;
 
             ResetPlayerCommands();
 
             AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
             SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
+            CancelCommand = new RelayCommand(x => this.Cancel());
         }
 
         public DateTime? GameDate { get; set; }
@@ -45,6 +51,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public System.Windows.Input.ICommand AddPlayerCommand { get; set; }
 
         public System.Windows.Input.ICommand SaveGameCommand { get; set; }
+
+        public System.Windows.Input.ICommand CancelCommand { get; set; }
 
         private void ResetPlayerCommands()
         {
@@ -71,19 +79,12 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
             _commandService.ExecuteCommand(gameCommand);
 
-            ClearScreen();
+            Cancel();
         }
 
-        private void ClearScreen()
+        private void Cancel()
         {
-            this.GameDate = null;
-
-            ResetPlayerCommands();
-
-            OnPropertyChanged("GameDate");
-            OnPropertyChanged("Players");
-
-            ClearNewPlayer();
+            _mainWindow.ShowView(Resolver.Container.Resolve<IViewGamesListView>());
         }
 
         private void ClearNewPlayer()

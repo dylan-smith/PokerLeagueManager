@@ -91,6 +91,8 @@
       <DependentUpon>EnterGameResultsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resolver.cs" />
+    <Compile Include="Views\IEnterGameResultsView.cs" />
+    <Compile Include="Views\IViewGamesListView.cs" />
     <Compile Include="Views\ViewGamesListView.xaml.cs">
       <DependentUpon>ViewGamesListView.xaml</DependentUpon>
     </Compile>

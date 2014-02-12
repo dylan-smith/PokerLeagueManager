@@ -10,6 +10,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         
         System.Windows.Input.ICommand SaveGameCommand { get; set; }
 
+        System.Windows.Input.ICommand CancelCommand { get; set; }
+
         DateTime? GameDate { get; set; }
 
         string NewPlacing { get; set; }
