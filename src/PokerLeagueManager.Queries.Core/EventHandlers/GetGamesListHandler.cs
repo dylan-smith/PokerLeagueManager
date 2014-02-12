@@ -4,7 +4,7 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>
+    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<PlayerAddedToGameEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
