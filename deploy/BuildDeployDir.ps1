@@ -35,6 +35,16 @@ copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$loca
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 
+mkdir "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents"
+copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\Microsoft.Practices.Unity.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Commands.Domain.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Events.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe.config" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+
 
 ### Build Environment ###
 
@@ -68,6 +78,16 @@ copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$build_serv
 copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$build_server_dir\PokerLeagueManager.UI.WPF\"
+
+mkdir "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents"
+copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\Microsoft.Practices.Unity.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Commands.Domain.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Events.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
+copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe.config" -dest "$build_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
 
 ############################
 

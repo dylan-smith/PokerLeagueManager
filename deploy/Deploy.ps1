@@ -41,3 +41,10 @@ if (Test-Path PokerLeagueManager.UI.WPF -pathType container)
 	}
 	copy -path PokerLeagueManager.UI.WPF -dest C:\ -recurse
 }
+
+if (Test-Path PokerLeagueManager.Utilities.ProcessEvents -pathType container)
+{
+	cmd PokerLeagueManager.Utilities.ProcessEvents
+	cmd /c PokerLeagueManager.Utilities.ProcessEvents.exe
+	cd ..
+}
