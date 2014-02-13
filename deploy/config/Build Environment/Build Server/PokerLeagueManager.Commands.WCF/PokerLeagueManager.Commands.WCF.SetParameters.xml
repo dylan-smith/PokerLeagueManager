@@ -2,6 +2,5 @@
 <parameters>
   <setParameter name="IIS Web Application Name" value="Build Web Site/PokerLeagueManager.Commands.WCF" />
   <setParameter name="default-Web.config Connection String" value="Data Source=localhost\BUILD;Initial Catalog=PokerLeagueManager.DB.EventStore;Integrated Security=True;Pooling=False" />
-  <setParameter name="EventService Endpoint Address" value="http://localhost:783/PokerLeagueManager.Queries.WCF/EventService.svc" />
   <setParameter name="QueryService Endpoint Address" value="http://localhost:783/PokerLeagueManager.Queries.WCF/QueryService.svc" />
 </parameters>

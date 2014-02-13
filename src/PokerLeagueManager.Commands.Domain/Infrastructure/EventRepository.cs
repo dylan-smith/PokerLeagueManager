@@ -117,6 +117,20 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             PublishEventsToSubscribers(aggRoot.PendingEvents);
         }
 
+        public void PublishAllUnpublishedEvents()
+        {
+            var allEvents = _databaseLayer.GetDataTable("SELECT EventData, EventType FROM Events WHERE Published = 0 ORDER BY EventTimestamp");
+
+            var eventList = new List<IEvent>();
+
+            foreach (DataRow row in allEvents.Rows)
+            {
+                eventList.Add(CreateEventFromDataRow(row));
+            }
+
+            PublishEventsToSubscribers(eventList);
+        }
+
         private void ExecuteWithLockedAggregate(Guid aggregateId, Action work)
         {
             DeleteExpiredLocks();

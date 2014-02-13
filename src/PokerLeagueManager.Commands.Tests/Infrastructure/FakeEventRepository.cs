@@ -74,5 +74,10 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
             return InitialEvents.Any(e => e.AggregateId == aggregateId);
         }
+
+        public void PublishAllUnpublishedEvents()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
