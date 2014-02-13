@@ -105,7 +105,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             sut.AddGameCommand.Execute(null);
 
-            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IEnterGameResultsView>()));
+            mockMainWindow.Verify(x => x.ShowView(mockView.Object));
         }
 
         [TestMethod]

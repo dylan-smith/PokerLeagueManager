@@ -273,5 +273,20 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             sut.SaveGameCommand.Execute(null);
         }
+
+        [TestMethod]
+        public void ClickCancelButtonShouldShowViewGamesList()
+        {
+            var mockMainWindow = new Mock<IMainWindow>();
+            
+            var mockView = new Mock<IViewGamesListView>();
+            Resolver.Container.RegisterInstance<IViewGamesListView>(mockView.Object);
+
+            var sut = new EnterGameResultsViewModel(null, mockMainWindow.Object);
+
+            sut.CancelCommand.Execute(null);
+
+            mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+        }
     }
 }
