@@ -273,7 +273,10 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         private IEvent CreateEventFromDataRow(DataRow row)
         {
-            var eventType = Type.GetType((string)row["EventType"], true);
+            var typeSections = ((string)row["EventType"]).Split(',');
+            var typeDef = typeSections[0] + ", " + typeSections[1];
+
+            var eventType = Type.GetType(typeDef, true);
             var ser = new DataContractSerializer(eventType);
 
             using (var xr = new XmlReaderFacade((string)row["EventData"]))
