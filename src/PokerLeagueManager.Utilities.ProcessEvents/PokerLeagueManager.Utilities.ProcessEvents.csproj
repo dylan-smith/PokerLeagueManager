@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="PokerLeagueManager.snk" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">
