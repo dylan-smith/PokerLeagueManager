@@ -89,6 +89,8 @@
     <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.dev.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Scripts\SampleEvents.sql" />
+    <None Include="Scripts\Subscribers.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="PublishEnvironment">
