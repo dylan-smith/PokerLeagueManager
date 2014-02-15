@@ -24,5 +24,5 @@ END
 
 IF '$(PublishEnvironment)' = 'Build'
 BEGIN
-INSERT INTO Subscribers(SubscriberId, SubscriberUrl) VALUES(newid(), 'http://localhost:783/PokerLeagueManager.Queries.WCF/InfrastructureEventService.svc')
+INSERT INTO Subscribers(SubscriberId, SubscriberUrl) VALUES(newid(), 'http://localhost:783/PokerLeagueManager.Queries.WCF/Infrastructure/EventService.svc')
 END
