@@ -86,7 +86,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         /// Compares the properties of two objects of the same type and returns if all properties are equal.
         /// </summary>
         /// <param name="objectA">The first object to compare.</param>
-        /// <param name="objectB">The second object to compre.</param>
+        /// <param name="objectB">The second object to compare.</param>
         /// <param name="ignoreList">A list of property names to ignore from the comparison.</param>
         /// <returns><c>true</c> if all property values are equal, otherwise <c>false</c>.</returns>
         private static bool AreObjectsEqual(object objectA, object objectB, ref string propertyName, ref string notMatchMessage, params string[] ignoreList)
