@@ -78,7 +78,6 @@
     <Compile Include="Infrastructure\EventsAssert.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
     <Compile Include="EnterGameResults\NoPlayersTest.cs" />
-    <Compile Include="Infrastructure\FakeQueryDataStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +96,10 @@
     <ProjectReference Include="..\PokerLeagueManager.Common.Events\PokerLeagueManager.Common.Events.csproj">
       <Project>{f658c3b6-604d-4e32-b2f6-7078761f32a9}</Project>
       <Name>PokerLeagueManager.Common.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Common.Tests\PokerLeagueManager.Common.Tests.csproj">
+      <Project>{8ade28f5-e0e5-4130-b882-28958bbf6ee0}</Project>
+      <Name>PokerLeagueManager.Common.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>

@@ -5,7 +5,7 @@ using PokerLeagueManager.Common.DTO.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.Infrastructure
+namespace PokerLeagueManager.Common.Tests
 {
     public class FakeQueryDataStore : IQueryDataStore
     {
