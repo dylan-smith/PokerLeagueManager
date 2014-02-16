@@ -81,5 +81,6 @@
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.localhost.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.DEV.publish.xml" />
   </ItemGroup>
 </Project>
