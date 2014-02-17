@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
@@ -7,36 +8,36 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.DTO.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 
-namespace PokerLeagueManager.Queries.Tests.Infrastructure
+namespace PokerLeagueManager.Common.Tests
 {
-    public static class DtoAssert
+    public static class ListComparer
     {
-        public static void AreEqual(IEnumerable<IDataTransferObject> expected, IEnumerable<IDataTransferObject> actual)
+        public static void AreEqual(IEnumerable<object> expected, IEnumerable<object> actual)
         {
             if (expected == null)
             {
-                throw new ArgumentNullException("Cannot pass in null for the expected or actual dtos.", "expected");
+                throw new ArgumentNullException("Cannot pass in null for the expected or actual", "expected");
             }
 
             if (actual == null)
             {
-                throw new ArgumentNullException("Cannot pass in null for the expected or actual dtos.", "actual");
+                throw new ArgumentNullException("Cannot pass in null for the expected or actual", "actual");
             }
-
+            
             if (expected.Count() != actual.Count())
             {
-                string msg = "The expected DTO's and actual DTO's do not match.  The lengths of the DTO lists are not equal.";
+                string msg = "The expected and actual do not match.  The lengths of the lists are not equal.";
                 msg += Environment.NewLine;
-                msg += string.Format("Expected Events: {0}", DTOListToString(expected));
+                msg += string.Format("Expected: {0}", ListToString(expected));
                 msg += Environment.NewLine;
-                msg += string.Format("Actual Events: {0}", DTOListToString(actual));
+                msg += string.Format("Actual: {0}", ListToString(actual));
 
                 throw new AssertFailedException(msg);
             }
 
             for (int i = 0; i < actual.Count(); i++)
             {
-                CompareDTO(expected.ElementAt(i), actual.ElementAt(i), i);
+                CompareObjects(expected.ElementAt(i), actual.ElementAt(i), i);
             }
         }
 
@@ -45,11 +46,11 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
         }
 
-        private static string DTOListToString(IEnumerable<IDataTransferObject> dtos)
+        private static string ListToString(IEnumerable objects)
         {
             var result = string.Empty;
 
-            foreach (var d in dtos)
+            foreach (var d in objects)
             {
                 result += d.GetType().Name;
                 result += ", ";
@@ -63,22 +64,24 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return result;
         }
 
-        private static void CompareDTO(IDataTransferObject expectedDto, IDataTransferObject actualDto, int i)
+        private static void CompareObjects(object expected, object actual, int i)
         {
-            if (expectedDto.GetType() != actualDto.GetType())
+            if (expected.GetType() != actual.GetType())
             {
-                throw new AssertFailedException(string.Format("The expected and actual DTO's do not match: The DTO's at index #{0} have different types ({1} vs {2})", i.ToString(), expectedDto.GetType().Name, actualDto.GetType().Name));
+                throw new AssertFailedException(string.Format("The expected and actual do not match: The objects at index #{0} have different types ({1} vs {2})", i.ToString(), expected.GetType().Name, actual.GetType().Name));
             }
 
             List<string> ignoreList = new List<string>();
+            ignoreList.Add("EventId");
+            ignoreList.Add("Timestamp");
             ignoreList.Add("DtoId");
 
             string propertyName = string.Empty;
             string notMatchMessage = string.Empty;
 
-            if (!AreObjectsEqual(expectedDto, actualDto, ref propertyName, ref notMatchMessage, ignoreList.ToArray()))
+            if (!AreObjectsEqual(expected, actual, ref propertyName, ref notMatchMessage, ignoreList.ToArray()))
             {
-                throw new AssertFailedException(string.Format("The expected and actual DTO's do not match: The property {0} in both DTO's does not match at index #{1}. {2}", propertyName, i, notMatchMessage));
+                throw new AssertFailedException(string.Format("The expected and actual do not match: The property {0} in both objects does not match at index #{1}. {2}", propertyName, i, notMatchMessage));
             }
         }
 

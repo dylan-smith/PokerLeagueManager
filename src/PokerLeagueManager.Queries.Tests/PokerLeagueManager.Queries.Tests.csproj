@@ -70,7 +70,6 @@
     <Compile Include="GetGamesList\TwoGames.cs" />
     <Compile Include="GetGamesList\ZeroGamesTest.cs" />
     <Compile Include="Infrastructure\BaseQueryTest.cs" />
-    <Compile Include="Infrastructure\DTOAssert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

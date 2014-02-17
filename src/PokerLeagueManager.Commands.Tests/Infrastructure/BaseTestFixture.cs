@@ -76,12 +76,12 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                 }
             }
 
-            EventsAssert.AreEqual(ExpectedEvents().ToList<IEvent>(), repository.EventList);
+            ListComparer.AreEqual(ExpectedEvents(), repository.EventList);
         }
 
         protected Guid AnyGuid()
         {
-            return EventsAssert.AnyGuid();
+            return ListComparer.AnyGuid();
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)

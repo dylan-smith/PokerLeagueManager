@@ -42,6 +42,7 @@
     <AssemblyOriginatorKeyFile>..\PokerLeagueManager.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,12 +53,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeQueryDataStore.cs" />
+    <Compile Include="ListComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
       <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
       <Name>PokerLeagueManager.Common.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Common.Events\PokerLeagueManager.Common.Events.csproj">
+      <Project>{f658c3b6-604d-4e32-b2f6-7078761f32a9}</Project>
+      <Name>PokerLeagueManager.Common.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
       <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
