@@ -113,7 +113,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
 
                     if (propertyInfo.PropertyType == typeof(Guid))
                     {
-                        if ((Guid)valueA == AnyGuid())
+                        if ((Guid)valueA == AnyGuid() && (Guid)valueB != Guid.Empty)
                         {
                             break;
                         }
