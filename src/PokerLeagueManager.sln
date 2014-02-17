@@ -40,9 +40,13 @@ Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "PokerLeagueManager.Models",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Utilities.ProcessEvents", "PokerLeagueManager.Utilities.ProcessEvents\PokerLeagueManager.Utilities.ProcessEvents.csproj", "{6926FD7A-5035-4029-9A81-9038FAB2B7FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Queries.Tests", "PokerLeagueManager.Queries.Tests\PokerLeagueManager.Queries.Tests.csproj", "{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Common.Tests", "PokerLeagueManager.Common.Tests\PokerLeagueManager.Common.Tests.csproj", "{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
+		SccNumberOfProjects = 19
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://win-6v9br2subld:8080/tfs/defaultcollection
 		SccLocalPath0 = .
@@ -102,6 +106,14 @@ Global
 		SccProjectTopLevelParentUniqueName16 = PokerLeagueManager.sln
 		SccProjectName16 = PokerLeagueManager.Utilities.ProcessEvents
 		SccLocalPath16 = PokerLeagueManager.Utilities.ProcessEvents
+		SccProjectUniqueName17 = PokerLeagueManager.Queries.Tests\\PokerLeagueManager.Queries.Tests.csproj
+		SccProjectTopLevelParentUniqueName17 = PokerLeagueManager.sln
+		SccProjectName17 = PokerLeagueManager.Queries.Tests
+		SccLocalPath17 = PokerLeagueManager.Queries.Tests
+		SccProjectUniqueName18 = PokerLeagueManager.Common.Tests\\PokerLeagueManager.Common.Tests.csproj
+		SccProjectTopLevelParentUniqueName18 = PokerLeagueManager.sln
+		SccProjectName18 = PokerLeagueManager.Common.Tests
+		SccLocalPath18 = PokerLeagueManager.Common.Tests
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -176,6 +188,14 @@ Global
 		{6926FD7A-5035-4029-9A81-9038FAB2B7FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6926FD7A-5035-4029-9A81-9038FAB2B7FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6926FD7A-5035-4029-9A81-9038FAB2B7FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -189,5 +209,7 @@ Global
 		{B1827067-9FB2-4023-B4E9-75F21F71468A} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{E727D44E-0D3F-4C9D-9193-7752AB8C5DFA} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{867B5F52-1B00-4713-9A5E-C167A2C40601} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
+		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
+		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 	EndGlobalSection
 EndGlobal
