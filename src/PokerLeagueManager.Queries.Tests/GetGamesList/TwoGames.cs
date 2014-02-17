@@ -40,7 +40,7 @@ namespace PokerLeagueManager.Queries.Tests
         }
 
         [TestMethod]
-        public void GetGamesList_ZeroGames()
+        public void GetGamesList_TwoGames()
         {
             RunTest(x => x.GetGamesList());
         }
