@@ -77,6 +77,7 @@
     <Compile Include="Infrastructure\EventCommandPair.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
     <Compile Include="EnterGameResults\NoPlayersTest.cs" />
+    <Compile Include="Infrastructure\VerifyEventsNow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -76,12 +76,36 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                 }
             }
 
-            ListComparer.AreEqual(ExpectedEvents(), repository.EventList);
+            ValidateExpectedEvents(ExpectedEvents(), repository.EventList);
         }
 
-        protected Guid AnyGuid()
+        public Guid AnyGuid()
         {
             return ListComparer.AnyGuid();
+        }
+
+        private void ValidateExpectedEvents(IEnumerable<IEvent> expected, IEnumerable<IEvent> actual)
+        {
+            var expectedSegment = new List<IEvent>();
+            var actualSegment = new List<IEvent>();
+            int i = 0;
+
+            foreach (var e in expected)
+            {
+                if (e is VerifyEventsNow)
+                {
+                    ListComparer.AreEqual(expectedSegment, actualSegment);
+                    expectedSegment = new List<IEvent>();
+                    actualSegment = new List<IEvent>();
+                }
+                else
+                {
+                    expectedSegment.Add(e);
+                    actualSegment.Add(actual.ElementAt(i++));
+                }
+            }
+
+            ListComparer.AreEqual(expectedSegment, actualSegment);
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)
