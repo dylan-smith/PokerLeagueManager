@@ -80,6 +80,11 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             DtoAssert.AreEqual(ExpectedDtos().ToList<IDataTransferObject>(), results);
         }
 
+        protected Guid AnyGuid()
+        {
+            return DtoAssert.AnyGuid();
+        }
+
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)
         {
             var mockIdempotencyChecker = new Mock<IIdempotencyChecker>();
