@@ -94,18 +94,27 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             {
                 if (e is VerifyEventsNow)
                 {
-                    ListComparer.AreEqual(expectedSegment, actualSegment);
+                    ListComparer.AreEqual(expectedSegment, actualSegment, false);
                     expectedSegment = new List<IEvent>();
                     actualSegment = new List<IEvent>();
                 }
                 else
                 {
                     expectedSegment.Add(e);
-                    actualSegment.Add(actual.ElementAt(i++));
+
+                    if (i < actual.Count())
+                    {
+                        actualSegment.Add(actual.ElementAt(i++));
+                    }
                 }
             }
 
-            ListComparer.AreEqual(expectedSegment, actualSegment);
+            for (int x = i; x < actual.Count(); x++)
+            {
+                actualSegment.Add(actual.ElementAt(x));
+            }
+
+            ListComparer.AreEqual(expectedSegment, actualSegment, false);
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)

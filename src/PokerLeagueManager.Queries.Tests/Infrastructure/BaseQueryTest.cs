@@ -77,7 +77,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
                 }
             }
 
-            ListComparer.AreEqual(ExpectedDtos().ToList<IDataTransferObject>(), results);
+            ListComparer.AreEqual(ExpectedDtos(), results, true);
         }
 
         protected Guid AnyGuid()

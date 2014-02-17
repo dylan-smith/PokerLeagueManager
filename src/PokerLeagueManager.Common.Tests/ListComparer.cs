@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Common.Tests
 {
     public static class ListComparer
     {
-        public static void AreEqual(IEnumerable<object> expected, IEnumerable<object> actual)
+        public static void AreEqual(IEnumerable<object> expected, IEnumerable<object> actual, bool orderMatters)
         {
             if (expected == null)
             {
@@ -35,9 +35,54 @@ namespace PokerLeagueManager.Common.Tests
                 throw new AssertFailedException(msg);
             }
 
-            for (int i = 0; i < actual.Count(); i++)
+            if (orderMatters)
             {
-                CompareObjects(expected.ElementAt(i), actual.ElementAt(i), i);
+                for (int i = 0; i < actual.Count(); i++)
+                {
+                    CompareObjects(expected.ElementAt(i), actual.ElementAt(i), i);
+                }
+            }
+            else
+            {
+                Exception firstException = null;
+
+                var actualMatches = new Dictionary<IEvent, bool>();
+                foreach (var e in actual)
+                {
+                    actualMatches.Add((IEvent)e, false);
+                }
+
+                for (int i = 0; i < expected.Count(); i++)
+                {
+                    var matchFound = false;
+
+                    for (int j = 0; j < actual.Count() && !matchFound; j++)
+                    {
+                        if (!actualMatches[(IEvent)actual.ElementAt(j)])
+                        {
+                            try
+                            {
+                                CompareObjects(expected.ElementAt(i), actual.ElementAt(j), i);
+                                matchFound = true;
+                                actualMatches[(IEvent)actual.ElementAt(j)] = true;
+                            }
+                            catch (AssertFailedException ex)
+                            {
+                                if (firstException == null)
+                                {
+                                    firstException = ex;
+                                }
+                            }
+                        }
+                    }
+
+                    if (!matchFound)
+                    {
+                        throw firstException;
+                    }
+
+                    firstException = null;
+                }
             }
         }
 
