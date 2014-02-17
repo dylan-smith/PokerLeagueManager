@@ -7,7 +7,7 @@ using PokerLeagueManager.Common.Commands;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class NegativePlacingTest : BaseTestFixture
+    public class NegativePlacingTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 

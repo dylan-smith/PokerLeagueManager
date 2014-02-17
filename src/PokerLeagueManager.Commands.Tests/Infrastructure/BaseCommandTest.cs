@@ -14,7 +14,7 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {
     [TestClass]
-    public abstract class BaseTestFixture
+    public abstract class BaseCommandTest
     {
         public virtual void Setup()
         {

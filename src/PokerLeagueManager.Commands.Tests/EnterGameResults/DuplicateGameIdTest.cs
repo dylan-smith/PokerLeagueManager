@@ -9,7 +9,7 @@ using PokerLeagueManager.Common.Events.Infrastructure;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class DuplicateGameIdTest : BaseTestFixture
+    public class DuplicateGameIdTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
         private Guid _gameId = Guid.NewGuid();

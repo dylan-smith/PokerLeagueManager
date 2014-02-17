@@ -9,7 +9,7 @@ using PokerLeagueManager.Common.Events.Infrastructure;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class TwoGamesWithSameDateTest : BaseTestFixture
+    public class TwoGamesWithSameDateTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 

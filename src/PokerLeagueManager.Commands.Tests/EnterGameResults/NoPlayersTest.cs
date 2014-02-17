@@ -10,7 +10,7 @@ using PokerLeagueManager.Common.Utilities.Exceptions;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class NoPlayersTest : BaseTestFixture
+    public class NoPlayersTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 

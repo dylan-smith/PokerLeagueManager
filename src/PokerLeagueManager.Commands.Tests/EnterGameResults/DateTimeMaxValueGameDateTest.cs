@@ -9,7 +9,7 @@ using PokerLeagueManager.Common.Events.Infrastructure;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class DateTimeMaxValueGameDateTest : BaseTestFixture
+    public class DateTimeMaxValueGameDateTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.MaxValue;
 

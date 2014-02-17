@@ -9,7 +9,7 @@ using PokerLeagueManager.Common.Events.Infrastructure;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class DateTimeMinValueGameDateTest : BaseTestFixture
+    public class DateTimeMinValueGameDateTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.MinValue;
 
