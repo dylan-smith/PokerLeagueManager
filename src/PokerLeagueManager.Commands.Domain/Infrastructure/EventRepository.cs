@@ -114,7 +114,14 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                     PersistEventsInTransaction(aggRoot, c);
                 });
 
-            PublishEventsToSubscribers(aggRoot.PendingEvents);
+            try
+            {
+                PublishEventsToSubscribers(aggRoot.PendingEvents);
+            }
+            catch (Exception ex)
+            {
+                throw new PublishEventFailedException("Events were persisted to the Event Store, but one or more of the subscribers failed to successfully receive/process an Event.", ex);
+            }
         }
 
         public void PublishAllUnpublishedEvents()
