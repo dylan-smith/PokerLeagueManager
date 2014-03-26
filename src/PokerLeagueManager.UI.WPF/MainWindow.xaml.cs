@@ -12,15 +12,21 @@ namespace PokerLeagueManager.UI.Wpf
         {
             InitializeComponent();
 
+            Application.Current.DispatcherUnhandledException += GlobalExceptionHandler;
             Resolver.Container.RegisterInstance<IMainWindow>(this);
 
             ShowView(Resolver.Container.Resolve<ViewGamesListView>());
-            //// ShowView(Resolver.Container.Resolve<EnterGameResultsView>());
         }
 
         public void ShowView(object view)
         {
             this.Content = view;
+        }
+
+        private void GlobalExceptionHandler(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message, "Unhandled Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            Application.Current.Shutdown();
         }
     }
 }
