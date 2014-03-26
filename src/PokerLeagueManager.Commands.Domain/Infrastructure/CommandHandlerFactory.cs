@@ -42,7 +42,15 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
 
             MethodInfo generic = executeCommandMethod.First().MakeGenericMethod(command.GetType());
-            generic.Invoke(this, new object[] { command });
+
+            try
+            {
+                generic.Invoke(this, new object[] { command });
+            }
+            catch (TargetInvocationException ex)
+            {
+                throw ex.InnerException;
+            }
         }
 
         private IHandlesCommand<T> FindCommandHandler<T>() where T : ICommand

@@ -61,7 +61,8 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                     throw;
                 }
 
-                caughtException = e.InnerException;
+                // caughtException = e.InnerException;
+                caughtException = e;
             }
 
             if (caughtException != null || ExpectedException() != null)
