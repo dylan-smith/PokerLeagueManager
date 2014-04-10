@@ -32,10 +32,22 @@ namespace WCFExceptionHandling.UI
                 var result = svc.ExecuteCommand();
                 MessageBox.Show(result.ToString());
             }
-            catch (Exception ex)
+            catch (FaultException<ExceptionDetail> ex)
             {
-                var foo = (FaultException)ex;
-                MessageBox.Show(ex.GetType().ToString());
+                HandleServiceException(ex.Detail);
+            }
+        }
+
+        private void HandleServiceException(ExceptionDetail ex)
+        {
+            // should log the error here too
+            if (ex.Type.StartsWith("WCFExceptionHandling."))
+            {
+                MessageBox.Show(ex.Message, "Action Failed", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                MessageBox.Show(ex.Message, "Action Failed - Unexpected Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

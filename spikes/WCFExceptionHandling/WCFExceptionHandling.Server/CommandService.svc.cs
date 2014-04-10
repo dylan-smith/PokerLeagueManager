@@ -13,7 +13,7 @@ namespace WCFExceptionHandling.Server
     {
         public int ExecuteCommand()
         {
-            throw new DivideByZeroException("foo");
+            throw new GameWithNotEnoughPlayersException();
             //return 42;
         }
     }
