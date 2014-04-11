@@ -36,7 +36,7 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
             }
         }
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             VerifyPropertyName(propertyName);
 

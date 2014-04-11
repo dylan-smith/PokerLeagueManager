@@ -144,7 +144,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             Assert.AreEqual(string.Empty, sut.NewPlayerName);
             Assert.AreEqual(string.Empty, sut.NewPlacing);
-            Assert.AreEqual(string.Empty, sut.NewWinnings);
+            Assert.AreEqual("0", sut.NewWinnings);
 
             Assert.AreEqual(1, sut.Players.Count());
             Assert.AreEqual("1 - Dylan Smith [$500]", sut.Players.First());

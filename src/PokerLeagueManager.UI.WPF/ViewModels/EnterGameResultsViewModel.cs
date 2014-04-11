@@ -24,6 +24,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
             SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
             CancelCommand = new RelayCommand(x => this.Cancel());
+
+            ClearNewPlayer();
         }
 
         public DateTime? GameDate { get; set; }
@@ -90,7 +92,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         {
             this.NewPlayerName = string.Empty;
             this.NewPlacing = string.Empty;
-            this.NewWinnings = string.Empty;
+            this.NewWinnings = "0";
 
             OnPropertyChanged("NewPlayerName");
             OnPropertyChanged("NewPlacing");
