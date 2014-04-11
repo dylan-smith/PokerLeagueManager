@@ -55,6 +55,11 @@
     <Compile Include="Aggregates\Game\Game.cs" />
     <Compile Include="Aggregates\Game\Player.cs" />
     <Compile Include="CommandHandlers\EnterGameResultsHandler.cs" />
+    <Compile Include="Exceptions\GameWithNotEnoughPlayersException.cs" />
+    <Compile Include="Exceptions\UnableToAcquireAggregateLockException.cs" />
+    <Compile Include="Exceptions\OptimisticConcurrencyException.cs" />
+    <Compile Include="Exceptions\PlayerPlacingsNotInOrderException.cs" />
+    <Compile Include="Exceptions\PublishEventFailedException.cs" />
     <Compile Include="Infrastructure\BaseAggregateRoot.cs" />
     <Compile Include="Infrastructure\BaseCommandHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />

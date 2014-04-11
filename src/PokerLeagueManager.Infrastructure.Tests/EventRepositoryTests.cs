@@ -5,10 +5,10 @@ using System.Runtime.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Commands.Domain.Aggregates;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {

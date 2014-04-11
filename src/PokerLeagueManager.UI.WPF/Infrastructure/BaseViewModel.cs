@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.UI.Wpf.Infrastructure
 {

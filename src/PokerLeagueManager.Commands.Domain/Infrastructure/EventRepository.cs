@@ -4,11 +4,10 @@ using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Xml;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 using PokerLeagueManager.Common.Utilities;
-using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -93,7 +92,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
             if (aggRoot.AggregateVersion != originalVersion)
             {
-                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, originalVersion));
+                throw new OptimisticConcurrencyException(aggRoot, originalVersion);
             }
 
             PublishEvents(aggRoot, c);
@@ -120,7 +119,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
             catch (Exception ex)
             {
-                throw new PublishEventFailedException("Events were persisted to the Event Store, but one or more of the subscribers failed to successfully receive/process an Event.", ex);
+                throw new PublishEventFailedException(aggRoot, c, ex);
             }
         }
 
@@ -158,9 +157,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                     "@AggregateId", aggregateId.ToString(),
                     "@LockExpiry", _dateTimeService.UtcNow().AddMinutes(1));
             }
-            catch
+            catch (Exception ex)
             {
-                throw new OptimisticConcurrencyException(string.Format("Aggregate ID {0} is currently being written to by another process", aggregateId));
+                throw new UnableToAcquireAggregateLockException(aggregateId, ex);
             }
         }
 
@@ -180,7 +179,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
             if (currentVersion != aggRoot.AggregateVersion)
             {
-                throw new OptimisticConcurrencyException(string.Format("Aggregate ID: {0} - Original Version: {1}", aggRoot.AggregateId, aggRoot.AggregateVersion));
+                throw new OptimisticConcurrencyException(aggRoot, aggRoot.AggregateVersion, currentVersion);
             }
         }
 

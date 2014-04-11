@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
-using PokerLeagueManager.Common.Utilities.Exceptions;
 
 namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
@@ -57,7 +57,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
             if (_players.Count < 2)
             {
-                throw new GameWithNotEnoughPlayersException("Each game must have at least 2 players");
+                throw new GameWithNotEnoughPlayersException();
             }
 
             var orderedPlayers = _players.OrderBy(x => x.Placing);
@@ -68,7 +68,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             {
                 if (curPlayer.Placing != curPlacing++)
                 {
-                    throw new PlayerPlacingsNotInOrderException("The player placings must start at one and have no duplicates and not be higher than the total # of players");
+                    throw new PlayerPlacingsNotInOrderException();
                 }
             }
         }

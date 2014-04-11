@@ -58,10 +58,6 @@
     <Compile Include="ExceptionMarshallingBehavior.cs" />
     <Compile Include="ExceptionMarshallingErrorHandler.cs" />
     <Compile Include="ExceptionMarshallingMessageInspector.cs" />
-    <Compile Include="Exceptions\GameWithNotEnoughPlayersException.cs" />
-    <Compile Include="Exceptions\OptimisticConcurrencyException.cs" />
-    <Compile Include="Exceptions\PublishEventFailedException.cs" />
-    <Compile Include="Exceptions\PlayerPlacingsNotInOrderException.cs" />
     <Compile Include="GuidService.cs" />
     <Compile Include="IDatabaseLayer.cs" />
     <Compile Include="IDateTimeService.cs" />
