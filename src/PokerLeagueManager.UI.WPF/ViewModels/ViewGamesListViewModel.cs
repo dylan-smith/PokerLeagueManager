@@ -14,17 +14,12 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class ViewGamesListViewModel : BaseViewModel, INotifyPropertyChanged, IViewGamesListViewModel
     {
-        private IQueryService _queryService;
-        private IMainWindow _mainWindow;
-
         private ObservableCollection<GetGamesListDto> _games;
 
         public ViewGamesListViewModel(IQueryService queryService, IMainWindow mainWindow)
+            : base(null, queryService, mainWindow)
         {
-            _queryService = queryService;
-            _mainWindow = mainWindow;
-
-            _games = new ObservableCollection<GetGamesListDto>(_queryService.GetGamesList());
+            _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
 
             AddGameCommand = new RelayCommand(x => this.AddGame());
         }
@@ -43,7 +38,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         private void AddGame()
         {
             var view = Resolver.Container.Resolve<IEnterGameResultsView>();
-            _mainWindow.ShowView(view);
+            _MainWindow.ShowView(view);
         }
     }
 }

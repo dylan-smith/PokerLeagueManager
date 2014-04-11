@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.ServiceModel;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
@@ -13,16 +14,11 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class EnterGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IEnterGameResultsViewModel
     {
-        private ICommandService _commandService;
-        private IMainWindow _mainWindow;
-
         private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
 
         public EnterGameResultsViewModel(ICommandService commandService, IMainWindow mainWindow)
+            : base(commandService, null, mainWindow)
         {
-            _commandService = commandService;
-            _mainWindow = mainWindow;
-
             ResetPlayerCommands();
 
             AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
@@ -43,7 +39,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             get
             {
                 return _playerCommands.OrderBy(p => p.Placing)
-                                      .Select(p => string.Format("{0} - {1}", p.Placing, p.PlayerName) + 
+                                      .Select(p => string.Format("{0} - {1}", p.Placing, p.PlayerName) +
                                                    (p.Winnings > 0 ? string.Format(" [${0}]", p.Winnings) : string.Empty));
             }
         }
@@ -77,14 +73,17 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             gameCommand.GameDate = this.GameDate.GetValueOrDefault();
             gameCommand.Players = _playerCommands;
 
-            _commandService.ExecuteCommand(gameCommand);
+            var commandResult = ExecuteCommand(gameCommand);
 
-            Cancel();
+            if (commandResult)
+            {
+                Cancel();
+            }
         }
 
         private void Cancel()
         {
-            _mainWindow.ShowView(Resolver.Container.Resolve<IViewGamesListView>());
+            _MainWindow.ShowView(Resolver.Container.Resolve<IViewGamesListView>());
         }
 
         private void ClearNewPlayer()
