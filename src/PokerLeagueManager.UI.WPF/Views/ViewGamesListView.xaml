@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             Height="300" Width="300">
+             MinHeight="100" MinWidth="100" d:DesignWidth="300" d:DesignHeight="300">
     <Grid>
-        <Button Command="{Binding AddGameCommand}" Content="Add Game" HorizontalAlignment="Left" Margin="12,12,0,0" VerticalAlignment="Top" Width="276" Height="39"/>
-        <ListBox ItemsSource="{Binding Games}" HorizontalAlignment="Left" Height="205" Margin="12,80,0,0" VerticalAlignment="Top" Width="276"/>
+        <Button Command="{Binding AddGameCommand}" Content="Add Game" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top" Height="40"/>
+        <ListBox ItemsSource="{Binding Games}" HorizontalAlignment="Stretch" Margin="10,60,10,10" VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>

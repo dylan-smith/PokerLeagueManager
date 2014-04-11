@@ -22,6 +22,10 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
 
             AddGameCommand = new RelayCommand(x => this.AddGame());
+
+            Height = 400;
+            Width = 385;
+            WindowTitle = "View Games";
         }
 
         public IEnumerable<string> Games

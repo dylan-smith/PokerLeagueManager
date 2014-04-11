@@ -26,6 +26,9 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             CancelCommand = new RelayCommand(x => this.Cancel());
 
             ClearNewPlayer();
+
+            Height = 400;
+            WindowTitle = "Enter Game Results";
         }
 
         public DateTime? GameDate { get; set; }

@@ -17,6 +17,12 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public int Width { get; set; }
+
+        public int Height { get; set; }
+
+        public string WindowTitle { get; set; }
+
         protected IMainWindow _MainWindow { get; set; }
 
         protected ICommandService _CommandService { get; set; }
