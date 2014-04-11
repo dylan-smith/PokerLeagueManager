@@ -45,10 +45,12 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             var queryDataStore = new FakeQueryDataStore();
             var queryService = new QueryHandler(queryDataStore);
 
+            var commandRepository = new Mock<ICommandRepository>();
+
             HandleEvents(repository.InitialEvents, queryDataStore);
             
             Exception caughtException = null;
-            var commandHandlerFactory = new CommandHandlerFactory(repository, queryService);
+            var commandHandlerFactory = new CommandHandlerFactory(repository, queryService, commandRepository.Object);
 
             try
             {
@@ -61,7 +63,6 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                     throw;
                 }
 
-                // caughtException = e.InnerException;
                 caughtException = e;
             }
 

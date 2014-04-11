@@ -12,11 +12,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
     {
         private IEventRepository _eventRepository;
         private IQueryService _queryService;
+        private ICommandRepository _commandRepository;
 
-        public CommandHandlerFactory(IEventRepository eventRepository, IQueryService queryService)
+        public CommandHandlerFactory(IEventRepository eventRepository, IQueryService queryService, ICommandRepository commandRepository)
         {
             _eventRepository = eventRepository;
             _queryService = queryService;
+            _commandRepository = commandRepository;
         }
 
         public void ExecuteCommand<T>(T command) where T : ICommand
@@ -26,7 +28,16 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentNullException("command", "Cannot execute a null Command.");
             }
 
-            FindCommandHandler<T>().Execute(command);
+            try
+            {
+                _commandRepository.LogCommand(command);
+                FindCommandHandler<T>().Execute(command);
+            }
+            catch (Exception ex)
+            {
+                _commandRepository.LogFailedCommand(command, ex);
+                throw;
+            }
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]

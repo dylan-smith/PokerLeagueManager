@@ -72,6 +72,7 @@
     <Build Include="Tables\AggregateLocks.sql" />
     <Build Include="Tables\Events.sql" />
     <Build Include="Tables\Subscribers.sql" />
+    <Build Include="Tables\Commands.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />

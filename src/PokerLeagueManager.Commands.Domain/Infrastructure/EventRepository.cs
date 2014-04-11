@@ -225,7 +225,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _databaseLayer.ExecuteNonQuery(
                 sql,
                 "@EventId", e.EventId,
-                "@EventDateTime", e.Timestamp.ToString("dd-MMM-yyyy HH:mm:ss.ff"),
+                "@EventDateTime", e.Timestamp.ToUniversalTime().ToString("dd-MMM-yyyy HH:mm:ss.ff"),
                 "@CommandId", e.CommandId,
                 "@AggregateId", e.AggregateId,
                 "@EventType", e.GetType().AssemblyQualifiedName,

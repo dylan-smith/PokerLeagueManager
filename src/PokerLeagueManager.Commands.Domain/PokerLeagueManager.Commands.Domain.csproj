@@ -61,6 +61,7 @@
     <Compile Include="Aggregates\Game\Player.cs" />
     <Compile Include="CommandHandlers\EnterGameResultsHandler.cs" />
     <Compile Include="Aggregates\Game\Exceptions\GameWithNotEnoughPlayersException.cs" />
+    <Compile Include="Infrastructure\CommandRepository.cs" />
     <Compile Include="Infrastructure\Exceptions\UnableToAcquireAggregateLockException.cs" />
     <Compile Include="Infrastructure\Exceptions\OptimisticConcurrencyException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerPlacingsNotInOrderException.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Infrastructure\EventServiceProxyFactory.cs" />
     <Compile Include="Infrastructure\IAggregateRoot.cs" />
     <Compile Include="Infrastructure\ICommandHandlerFactory.cs" />
+    <Compile Include="Infrastructure\ICommandRepository.cs" />
     <Compile Include="Infrastructure\IEventRepository.cs" />
     <Compile Include="Infrastructure\IEventServiceProxy.cs" />
     <Compile Include="Infrastructure\IEventServiceProxyFactory.cs" />

@@ -55,9 +55,7 @@ namespace PokerLeagueManager.Common.Utilities
             {
                 using (var myAdapter = new SqlDataAdapter(myCommand))
                 {
-                    OpenConnection();
-                    myAdapter.Fill(result);
-                    CloseConnection();
+                    ExecuteWithConnection(() => myAdapter.Fill(result));
                 }
 
                 return result;
@@ -77,10 +75,9 @@ namespace PokerLeagueManager.Common.Utilities
         public int ExecuteNonQuery(string sql, params object[] sqlArgs)
         {
             var myCommand = PrepareCommand(sql, sqlArgs);
+            int result = default(int);
 
-            OpenConnection();
-            int result = myCommand.ExecuteNonQuery();
-            CloseConnection();
+            ExecuteWithConnection(() => result = myCommand.ExecuteNonQuery());
 
             return result;
         }
@@ -93,10 +90,9 @@ namespace PokerLeagueManager.Common.Utilities
         public object ExecuteScalar(string sql, params object[] sqlArgs)
         {
             var myCommand = this.PrepareCommand(sql, sqlArgs);
+            object result = default(object);
 
-            OpenConnection();
-            object result = myCommand.ExecuteScalar();
-            CloseConnection();
+            ExecuteWithConnection(() => result = myCommand.ExecuteScalar());
 
             return result;
         }
@@ -166,6 +162,20 @@ namespace PokerLeagueManager.Common.Utilities
             if (_transaction == null)
             {
                 _connection.Open();
+            }
+        }
+
+        private void ExecuteWithConnection(Action work)
+        {
+            OpenConnection();
+
+            try
+            {
+                work();
+            }
+            finally
+            {
+                CloseConnection();
             }
         }
 
