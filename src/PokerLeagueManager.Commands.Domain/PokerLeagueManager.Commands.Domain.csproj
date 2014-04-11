@@ -52,14 +52,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\Game\Exceptions\DuplicatePlayerNameException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\PlayerNameMustNotBeBlankException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\PlacingMustBeGreaterThanZeroException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\InvalidGameDateException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\WinningsCannotBeNegativeException.cs" />
     <Compile Include="Aggregates\Game\Game.cs" />
     <Compile Include="Aggregates\Game\Player.cs" />
     <Compile Include="CommandHandlers\EnterGameResultsHandler.cs" />
-    <Compile Include="Exceptions\GameWithNotEnoughPlayersException.cs" />
-    <Compile Include="Exceptions\UnableToAcquireAggregateLockException.cs" />
-    <Compile Include="Exceptions\OptimisticConcurrencyException.cs" />
-    <Compile Include="Exceptions\PlayerPlacingsNotInOrderException.cs" />
-    <Compile Include="Exceptions\PublishEventFailedException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\GameWithNotEnoughPlayersException.cs" />
+    <Compile Include="Infrastructure\Exceptions\UnableToAcquireAggregateLockException.cs" />
+    <Compile Include="Infrastructure\Exceptions\OptimisticConcurrencyException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\PlayerPlacingsNotInOrderException.cs" />
+    <Compile Include="Infrastructure\Exceptions\PublishEventFailedException.cs" />
     <Compile Include="Infrastructure\BaseAggregateRoot.cs" />
     <Compile Include="Infrastructure\BaseCommandHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />

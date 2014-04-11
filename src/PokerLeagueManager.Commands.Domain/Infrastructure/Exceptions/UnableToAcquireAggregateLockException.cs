@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PokerLeagueManager.Commands.Domain.Exceptions
+namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {
     [Serializable]
     public class UnableToAcquireAggregateLockException : Exception

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
@@ -21,7 +22,7 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 
         public override Exception ExpectedException()
         {
-            return new ArgumentException();
+            return new InvalidGameDateException(_gameDate);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization;
 using PokerLeagueManager.Commands.Domain.Exceptions;
+using PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 using PokerLeagueManager.Common.Utilities;

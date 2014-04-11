@@ -2,7 +2,7 @@
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Domain.Exceptions
+namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {
     [Serializable]
     public class PublishEventFailedException : Exception

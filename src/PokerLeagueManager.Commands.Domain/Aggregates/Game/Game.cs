@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
             if (gameDate == DateTime.MinValue || gameDate == DateTime.MaxValue || gameDate == default(DateTime))
             {
-                throw new ArgumentException("Invalid GameDate", "gameDate");
+                throw new InvalidGameDateException(gameDate);
             }
 
             gameId = gameId == Guid.Empty ? Guid.NewGuid() : gameId;
@@ -32,22 +32,22 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
             if (winnings < 0)
             {
-                throw new ArgumentException("Winnings cannot be negative", "winnings");
+                throw new WinningsCannotBeNegativeException(winnings, playerName);
             }
 
             if (placing <= 0)
             {
-                throw new ArgumentException("Placing must be greater than 0", "placing");
+                throw new PlacingMustBeGreaterThanZeroException(placing, playerName);
             }
 
             if (string.IsNullOrWhiteSpace(playerName))
             {
-                throw new ArgumentException("Player Name must be entered", "playerName");
+                throw new PlayerNameMustNotBeBlankException();
             }
 
             if (_players.Any(x => x.PlayerName.Trim() == playerName.Trim()))
             {
-                throw new ArgumentException("Cannot add the same Player to a Game more than once", "playerName");
+                throw new DuplicatePlayerNameException(playerName);
             }
 
             this.PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings });

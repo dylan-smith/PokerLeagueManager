@@ -1,7 +1,7 @@
 ﻿using System;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Domain.Exceptions
+namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {
     [Serializable]
     public class OptimisticConcurrencyException : Exception
