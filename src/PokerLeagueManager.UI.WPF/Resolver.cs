@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Unity;
+﻿using log4net;
+using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.UI.Wpf.ViewModels;
 using PokerLeagueManager.UI.Wpf.Views;
@@ -28,6 +29,7 @@ namespace PokerLeagueManager.UI.Wpf
             UnitySingleton.Container.RegisterType<IViewGamesListViewModel, ViewGamesListViewModel>();
             UnitySingleton.Container.RegisterType<IViewGamesListView, ViewGamesListView>();
             UnitySingleton.Container.RegisterType<IEnterGameResultsView, EnterGameResultsView>();
+            UnitySingleton.Container.RegisterType<ILog>(new InjectionFactory(x => LogManager.GetLogger(string.Empty)));
 
             PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
             PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();

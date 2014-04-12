@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
+using log4net;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
@@ -11,12 +12,15 @@ namespace PokerLeagueManager.UI.Wpf
 {
     public partial class MainWindow : Window, IMainWindow
     {
+        private readonly ILog _logger;
+
         public MainWindow()
         {
             InitializeComponent();
 
             Application.Current.DispatcherUnhandledException += GlobalExceptionHandler;
             Resolver.Container.RegisterInstance<IMainWindow>(this);
+            _logger = Resolver.Container.Resolve<ILog>();
 
             ShowView(Resolver.Container.Resolve<ViewGamesListView>());
         }
@@ -84,7 +88,8 @@ namespace PokerLeagueManager.UI.Wpf
 
         private void GlobalExceptionHandler(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message, "Unhandled Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+            _logger.Fatal("Unhandled Exception", e.Exception);
+            MessageBox.Show("An unexpected error has occurred. The details have been logged. The application will now shutdown.", "Unhandled Exception", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
             Application.Current.Shutdown();
         }

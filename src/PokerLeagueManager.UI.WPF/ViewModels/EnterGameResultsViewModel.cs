@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel;
+using log4net;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
@@ -16,8 +17,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
 
-        public EnterGameResultsViewModel(ICommandService commandService, IMainWindow mainWindow)
-            : base(commandService, null, mainWindow)
+        public EnterGameResultsViewModel(ICommandService commandService, IMainWindow mainWindow, ILog logger)
+            : base(commandService, null, mainWindow, logger)
         {
             ResetPlayerCommands();
 

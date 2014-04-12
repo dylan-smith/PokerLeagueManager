@@ -27,7 +27,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             mockQueryService.Setup(x => x.GetGamesList()).Returns(emptyGamesList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             Assert.AreEqual(0, sut.Games.Count());
         }
@@ -48,7 +48,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             mockQueryService.Setup(x => x.GetGamesList()).Returns(oneGameList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             Assert.AreEqual(1, sut.Games.Count());
             Assert.AreEqual("12-Feb-2014 - Dylan [$100]", sut.Games.First());
@@ -85,7 +85,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             mockQueryService.Setup(x => x.GetGamesList()).Returns(threeGameList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             Assert.AreEqual(3, sut.Games.Count());
             Assert.AreEqual("14-Feb-2014 - Dylan [$100]", sut.Games.ElementAt(0));
@@ -101,7 +101,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockView = new Mock<IEnterGameResultsView>();
             Resolver.Container.RegisterInstance<IEnterGameResultsView>(mockView.Object);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             sut.AddGameCommand.Execute(null);
 
@@ -114,7 +114,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockQueryService = new Mock<IQueryService>();
             var mockMainWindow = new Mock<IMainWindow>();
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object);
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             Assert.IsTrue(sut.AddGameCommand.CanExecute(null));
         }

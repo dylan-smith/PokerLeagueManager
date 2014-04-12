@@ -24,6 +24,8 @@ using System.Windows;
 [assembly: CLSCompliant(false)]
 [assembly: NeutralResourcesLanguage("en-US")]
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 [assembly: ThemeInfo(
     ResourceDictionaryLocation.None, // where theme specific resource dictionaries are located
     // (used if a resource is not found in the page, 

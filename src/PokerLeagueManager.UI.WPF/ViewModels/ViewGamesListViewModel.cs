@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using log4net;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
@@ -16,8 +17,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         private ObservableCollection<GetGamesListDto> _games;
 
-        public ViewGamesListViewModel(IQueryService queryService, IMainWindow mainWindow)
-            : base(null, queryService, mainWindow)
+        public ViewGamesListViewModel(IQueryService queryService, IMainWindow mainWindow, ILog logger)
+            : base(null, queryService, mainWindow, logger)
         {
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
 
