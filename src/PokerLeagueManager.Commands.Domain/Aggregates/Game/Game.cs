@@ -45,7 +45,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new PlayerNameMustNotBeBlankException();
             }
 
-            if (_players.Any(x => x.PlayerName.Trim() == playerName.Trim()))
+            if (_players.Any(x => x.PlayerName.ToUpper().Trim() == playerName.ToUpper().Trim()))
             {
                 throw new DuplicatePlayerNameException(playerName);
             }

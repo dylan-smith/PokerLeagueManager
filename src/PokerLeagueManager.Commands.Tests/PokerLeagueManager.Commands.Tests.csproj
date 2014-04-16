@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EnterGameResults\DuplicatePlayersCaseInsensitiveTest.cs" />
     <Compile Include="EnterGameResults\OnePlayerTest.cs" />
     <Compile Include="EnterGameResults\ZeroPlacingTest.cs" />
     <Compile Include="EnterGameResults\DateTimeMaxValueGameDateTest.cs" />
