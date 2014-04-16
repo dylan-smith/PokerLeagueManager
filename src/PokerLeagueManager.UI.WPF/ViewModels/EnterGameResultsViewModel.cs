@@ -115,11 +115,6 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 return false;
             }
 
-            if (string.IsNullOrWhiteSpace(NewWinnings))
-            {
-                return false;
-            }
-
             int temp;
 
             if (!int.TryParse(NewPlacing, out temp))
@@ -127,7 +122,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 return false;
             }
 
-            if (!int.TryParse(NewWinnings, out temp))
+            if (!string.IsNullOrWhiteSpace(NewWinnings) && !int.TryParse(NewWinnings, out temp))
             {
                 return false;
             }
@@ -144,9 +139,17 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
             var newPlayer = new EnterGameResultsCommand.GamePlayer();
 
-            newPlayer.PlayerName = this.NewPlayerName;
-            newPlayer.Placing = int.Parse(this.NewPlacing);
-            newPlayer.Winnings = int.Parse(this.NewWinnings);
+            newPlayer.PlayerName = NewPlayerName;
+            newPlayer.Placing = int.Parse(NewPlacing);
+
+            if (string.IsNullOrWhiteSpace(NewWinnings))
+            {
+                newPlayer.Winnings = 0;
+            }
+            else
+            {
+                newPlayer.Winnings = int.Parse(NewWinnings);
+            }
 
             _playerCommands.Add(newPlayer);
 

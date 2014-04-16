@@ -80,7 +80,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
-        public void WhenWinningsIsEmpty_AddPlayerCommandCanExecuteIsFalse()
+        public void WhenWinningsIsEmpty_AddPlayerCommandCanExecuteIsTrue()
         {
             var mockMainWindow = new Mock<IMainWindow>();
             var sut = new EnterGameResultsViewModel(new FakeCommandService(), mockMainWindow.Object, _mockLogger);
@@ -89,7 +89,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlacing = "5";
             sut.NewWinnings = string.Empty;
 
-            Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
+            Assert.IsTrue(sut.AddPlayerCommand.CanExecute(null));
         }
 
         [TestMethod]
