@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              MinHeight="100" MinWidth="100" d:DesignWidth="300" d:DesignHeight="300">
     <Grid>
-        <Button Command="{Binding AddGameCommand}" Content="Add Game" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top" Height="40"/>
-        <ListBox ItemsSource="{Binding Games}" HorizontalAlignment="Stretch" Margin="10,60,10,10" VerticalAlignment="Stretch" />
+        <Button x:Name="AddGameButton" Command="{Binding AddGameCommand}" Content="Add Game" HorizontalAlignment="Stretch" Margin="10,10,10,0" VerticalAlignment="Top" Height="40"/>
+        <ListBox x:Name="GamesListBox" ItemsSource="{Binding Games}" HorizontalAlignment="Stretch" Margin="10,60,10,10" VerticalAlignment="Stretch" />
     </Grid>
 </UserControl>
