@@ -63,6 +63,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CommandHandlerFactoryTests.cs" />
     <Compile Include="EventServiceProxyFactoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
     <Compile Include="QueryDataStoreTests.cs" />
