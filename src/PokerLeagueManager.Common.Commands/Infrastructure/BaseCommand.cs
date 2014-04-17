@@ -6,6 +6,11 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
     [DataContract]
     public class BaseCommand : ICommand
     {
+        public BaseCommand()
+        {
+            CommandId = Guid.NewGuid();
+        }
+
         [DataMember]
         public Guid CommandId { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using PokerLeagueManager.Common.Utilities;
 
@@ -42,7 +43,11 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
             RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
             cmd.IPAddress = endpoint.Address;
 
-            cmd.CommandId = _guidService.NewGuid();
+            if (cmd.CommandId == Guid.Empty)
+            {
+                cmd.CommandId = _guidService.NewGuid();
+            }
+
             cmd.Timestamp = _dateTimeService.Now();
 
             return cmd;

@@ -193,6 +193,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             Assert.AreEqual(1, fakeCommandService.ExecutedCommands.Count);
             EnterGameResultsCommand actualCommand = fakeCommandService.ExecutedCommands[0] as EnterGameResultsCommand;
+            Assert.IsFalse(actualCommand.CommandId == Guid.Empty);
             Assert.AreEqual(testGameDate, actualCommand.GameDate);
             Assert.AreEqual(0, actualCommand.Players.Count());
 
@@ -229,6 +230,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             EnterGameResultsCommand actualCommand = fakeCommandService.ExecutedCommands[0] as EnterGameResultsCommand;
 
+            Assert.IsFalse(actualCommand.CommandId == Guid.Empty);
             Assert.AreEqual(testGameDate, actualCommand.GameDate);
             Assert.AreEqual(2, actualCommand.Players.Count());
 
