@@ -13,7 +13,7 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         [TestMethod]
-        public void DuplicatePlayers()
+        public void DuplicatePlayersCaseInsensitive()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
             players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 });
