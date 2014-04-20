@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokerLeagueManager.UI.Wpf.TestFramework
 {
@@ -49,6 +51,23 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         {
             Mouse.Click(SaveGameButton);
             return new ViewGamesListScreen(App);
+        }
+
+        public EnterGameResultsScreen DismissWarningDialog()
+        {
+            Mouse.Click(ActionFailedOkButton);
+            return this;
+        }
+
+        public void VerifyDuplicateGameDateWarning()
+        {
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("DATE"), "Did not contain DATE: " + ActionFailedMessage.DisplayText.ToUpper());
+        }
+
+        public override void VerifyScreen()
+        {
+            TakeScreenshot();
+            AddPlayerButton.Find();
         }
 
         private WpfDatePicker GameDatePicker
@@ -107,6 +126,35 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             {
                 var ctl = new WpfButton(App);
                 ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "SaveGameButton");
+                return ctl;
+            }
+        }
+
+        private WinWindow ActionFailedMessageBox
+        {
+            get
+            {
+                var ctl = new WinWindow();
+                ctl.SearchProperties.Add(WinWindow.PropertyNames.Name, "Action Failed");
+                return ctl;
+            }
+        }
+
+        private WinButton ActionFailedOkButton
+        {
+            get
+            {
+                var ctl = new WinButton(ActionFailedMessageBox);
+                ctl.SearchProperties.Add(WinButton.PropertyNames.Name, "OK");
+                return ctl;
+            }
+        }
+
+        private WinText ActionFailedMessage
+        {
+            get
+            {
+                var ctl = new WinText(ActionFailedMessageBox);
                 return ctl;
             }
         }

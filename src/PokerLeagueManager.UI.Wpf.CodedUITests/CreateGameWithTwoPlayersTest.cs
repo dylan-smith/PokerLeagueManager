@@ -33,7 +33,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterWinnings("20")
                             .ClickAddPlayer()
                             .ClickSaveGame()
-                            .VerifyGameInList(testDate + " - Jerry Seinfeld [$1301]");
+                            .VerifyGameInList(testDate + " - Jerry Seinfeld [$130]");
         }
     }
 }

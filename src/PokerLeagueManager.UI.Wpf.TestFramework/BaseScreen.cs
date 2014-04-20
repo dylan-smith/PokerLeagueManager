@@ -14,6 +14,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             App = app;
         }
 
+        public void TakeScreenshot()
+        {
+            Keyboard.SendKeys(" ");
+        }
+
+        public virtual void VerifyScreen()
+        {
+            TakeScreenshot();
+        }
+
         protected ApplicationUnderTest App { get; set; }
     }
 }

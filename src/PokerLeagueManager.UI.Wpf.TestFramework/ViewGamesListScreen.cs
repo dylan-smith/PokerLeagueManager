@@ -24,7 +24,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public void VerifyGameInList(string gameDescription)
         {
-            Assert.IsTrue(FindGameListItem(gameDescription).TryFind());
+            Assert.IsTrue(FindGameListItem(gameDescription).TryFind(), gameDescription);
         }
 
         public string FindUnusedGameDate()
@@ -41,6 +41,15 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
 
             return randomDate.ToString("dd-MMM-yyyy");
+        }
+
+        public string FindUsedGameDate()
+        {
+            var allGames = GetAllGameListItems();
+
+            var usedDates = allGames.Select(x => x.Name.Substring(0, x.Name.IndexOf(" - ")));
+
+            return usedDates.First();
         }
 
         private DateTime GenerateRandomDate(int minYear, int maxYear)
