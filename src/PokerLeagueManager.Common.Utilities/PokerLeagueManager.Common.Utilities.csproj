@@ -55,9 +55,6 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="DateTimeService.cs" />
-    <Compile Include="ExceptionMarshallingBehavior.cs" />
-    <Compile Include="ExceptionMarshallingErrorHandler.cs" />
-    <Compile Include="ExceptionMarshallingMessageInspector.cs" />
     <Compile Include="GuidService.cs" />
     <Compile Include="IDatabaseLayer.cs" />
     <Compile Include="IDateTimeService.cs" />
