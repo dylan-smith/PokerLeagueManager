@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf", "PokerLeagueManager.UI.WPF\PokerLeagueManager.UI.Wpf.csproj", "{CD9912A6-3828-47D9-8524-45F0FC2CFFCF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.WCF", "PokerLeagueManager.Commands.WCF\PokerLeagueManager.Commands.WCF.csproj", "{119C1495-34A1-4213-A211-DD2DD707024F}"
@@ -44,11 +46,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Queries.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Common.Tests", "PokerLeagueManager.Common.Tests\PokerLeagueManager.Common.Tests.csproj", "{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.CodedUITests", "PokerLeagueManager.UI.Wpf.CodedUITests\PokerLeagueManager.UI.Wpf.CodedUITests.csproj", "{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.TestFramework", "PokerLeagueManager.UI.Wpf.TestFramework\PokerLeagueManager.UI.Wpf.TestFramework.csproj", "{772509F8-6B0B-4676-82F7-8F37EE6F60EE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 19
+		SccNumberOfProjects = 21
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://win-6v9br2subld:8080/tfs/defaultcollection
+		SccTeamFoundationServer = http://localhost:8080/tfs/defaultcollection
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = PokerLeagueManager.UI.WPF\\PokerLeagueManager.UI.Wpf.csproj
 		SccProjectName1 = PokerLeagueManager.UI.WPF
@@ -114,6 +120,14 @@ Global
 		SccProjectTopLevelParentUniqueName18 = PokerLeagueManager.sln
 		SccProjectName18 = PokerLeagueManager.Common.Tests
 		SccLocalPath18 = PokerLeagueManager.Common.Tests
+		SccProjectUniqueName19 = PokerLeagueManager.UI.Wpf.CodedUITests\\PokerLeagueManager.UI.Wpf.CodedUITests.csproj
+		SccProjectTopLevelParentUniqueName19 = PokerLeagueManager.sln
+		SccProjectName19 = PokerLeagueManager.UI.Wpf.CodedUITests
+		SccLocalPath19 = PokerLeagueManager.UI.Wpf.CodedUITests
+		SccProjectUniqueName20 = PokerLeagueManager.UI.Wpf.TestFramework\\PokerLeagueManager.UI.Wpf.TestFramework.csproj
+		SccProjectTopLevelParentUniqueName20 = PokerLeagueManager.sln
+		SccProjectName20 = PokerLeagueManager.UI.Wpf.TestFramework
+		SccLocalPath20 = PokerLeagueManager.UI.Wpf.TestFramework
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -196,6 +210,14 @@ Global
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -211,5 +233,7 @@ Global
 		{867B5F52-1B00-4713-9A5E-C167A2C40601} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
+		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
+		{772509F8-6B0B-4676-82F7-8F37EE6F60EE} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 	EndGlobalSection
 EndGlobal
