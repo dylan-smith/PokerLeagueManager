@@ -69,6 +69,11 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("2 PLAYERS"), "Did not contain 2 PLAYERS: " + ActionFailedMessage.DisplayText.ToUpper());
         }
 
+        public void VerifyDuplicatePlayerWarning()
+        {
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
+        }
+
         public override void VerifyScreen()
         {
             TakeScreenshot();
