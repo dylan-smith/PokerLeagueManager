@@ -74,6 +74,11 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
         }
 
+        public void VerifySaveGameIsDisabled()
+        {
+            Assert.IsFalse(SaveGameButton.Enabled);
+        }
+
         public override void VerifyScreen()
         {
             TakeScreenshot();
