@@ -63,6 +63,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NoPlayersTest.cs" />
+    <Compile Include="OnePlayerTest.cs" />
     <Compile Include="DuplicateGameDateTest.cs" />
     <Compile Include="CreateGameWithTwoPlayersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

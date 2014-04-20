@@ -64,6 +64,11 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("DATE"), "Did not contain DATE: " + ActionFailedMessage.DisplayText.ToUpper());
         }
 
+        public void VerifyNotEnoughPlayersWarning()
+        {
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("2 PLAYERS"), "Did not contain 2 PLAYERS: " + ActionFailedMessage.DisplayText.ToUpper());
+        }
+
         public override void VerifyScreen()
         {
             TakeScreenshot();
