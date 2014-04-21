@@ -63,6 +63,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CreateGameWithFourPlayersTest.cs" />
     <Compile Include="NonSequentialPlacingsTest.cs" />
     <Compile Include="ZeroPlacingTest.cs" />
     <Compile Include="NegativeWinningsTest.cs" />
