@@ -53,6 +53,24 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return usedDates.First();
         }
 
+        public void VerifyAllGamesInReverseChronologicalOrder()
+        {
+            var allGames = GetAllGameListItems();
+
+            var usedDates = allGames.Select(x => x.Name.Substring(0, x.Name.IndexOf(" - ")));
+
+            var previousGameDate = DateTime.MaxValue;
+
+            foreach (var g in usedDates)
+            {
+                var gameDate = DateTime.Parse(g);
+
+                Assert.IsTrue(gameDate < previousGameDate);
+
+                previousGameDate = gameDate;
+            }
+        }
+
         private DateTime GenerateRandomDate(int minYear, int maxYear)
         {
             var randomDays = GenerateRandomInteger((maxYear - minYear) * 365);
@@ -69,7 +87,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         }
 
         private WpfButton AddGameButton
-        { 
+        {
             get
             {
                 var ctl = new WpfButton(App);

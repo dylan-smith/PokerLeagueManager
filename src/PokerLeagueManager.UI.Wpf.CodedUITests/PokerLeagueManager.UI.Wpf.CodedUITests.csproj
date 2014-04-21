@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateGameWithFourPlayersTest.cs" />
+    <Compile Include="GameListShouldBeReverseChronologicalTest.cs" />
     <Compile Include="NonSequentialPlacingsTest.cs" />
     <Compile Include="CreateGameWithErrorThenFixAndResaveTest.cs" />
     <Compile Include="ZeroPlacingTest.cs" />
