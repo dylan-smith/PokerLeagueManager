@@ -79,6 +79,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             Assert.IsFalse(SaveGameButton.Enabled);
         }
 
+        public void VerifyInvalidWinningsWarning()
+        {
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("WINNINGS"), "Did not contain WINNINGS: " + ActionFailedMessage.DisplayText.ToUpper());
+        }
+
+        public void VerifyInvalidPlacingWarning()
+        {
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("PLACING"), "Did not contain PLACING: " + ActionFailedMessage.DisplayText.ToUpper());
+        }
+
         public override void VerifyScreen()
         {
             TakeScreenshot();
