@@ -24,6 +24,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public void VerifyGameInList(string gameDescription)
         {
+            TakeScreenshot();
             Assert.IsTrue(FindGameListItem(gameDescription).TryFind(), gameDescription);
         }
 
