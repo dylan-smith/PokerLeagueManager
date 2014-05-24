@@ -42,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\lib\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\lib\Moq 4.0.10827\NET40\Moq.dll</HintPath>
     </Reference>
@@ -66,7 +69,6 @@
     <Compile Include="CommandHandlerFactoryTests.cs" />
     <Compile Include="EventServiceProxyFactoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />
-    <Compile Include="QueryDataStoreTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DtoFactoryTests.cs" />
     <Compile Include="QueryEventHandlerTests.cs" />

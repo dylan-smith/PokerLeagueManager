@@ -1,4 +1,5 @@
-﻿using PokerLeagueManager.Common.DTO;
+﻿using System.Linq;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
@@ -19,15 +20,15 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(PlayerAddedToGameEvent e)
         {
-            var game = QueryDataStore.GetData<GetGamesListDto>(x => x.GameId == e.AggregateId);
-            
+            var game = QueryDataStore.GetData<GetGamesListDto>().First(x => x.GameId == e.AggregateId);
+
             if (e.Placing == 1)
             {
                 game.Winner = e.PlayerName;
                 game.Winnings = e.Winnings;
             }
-            
-            QueryDataStore.Update<GetGamesListDto>(game);
+
+            QueryDataStore.Update(game);
         }
     }
 }

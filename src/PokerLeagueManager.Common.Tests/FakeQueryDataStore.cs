@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using PokerLeagueManager.Common.DTO.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Common.Tests
@@ -11,9 +10,7 @@ namespace PokerLeagueManager.Common.Tests
     {
         private Dictionary<Type, List<IDataTransferObject>> dataStore = new Dictionary<Type, List<IDataTransferObject>>();
 
-        public IDatabaseLayer DatabaseLayer { get; set; }
-
-        public void Insert<T>(T dto) where T : IDataTransferObject
+        public void Insert<T>(T dto) where T : class, IDataTransferObject
         {
             if (!dataStore.ContainsKey(typeof(T)))
             {
@@ -23,7 +20,7 @@ namespace PokerLeagueManager.Common.Tests
             dataStore[typeof(T)].Add(dto);
         }
 
-        public IEnumerable<T> GetData<T>() where T : IDataTransferObject
+        public IEnumerable<T> GetData<T>() where T : class, IDataTransferObject
         {
             if (!dataStore.ContainsKey(typeof(T)))
             {
@@ -33,12 +30,7 @@ namespace PokerLeagueManager.Common.Tests
             return dataStore[typeof(T)].Cast<T>();
         }
 
-        public T GetData<T>(Func<T, bool> filter) where T : IDataTransferObject
-        {
-            return GetData<T>().FirstOrDefault(filter);
-        }
-
-        public void Update<T>(T dto) where T : IDataTransferObject
+        public void Update<T>(T dto) where T : class, IDataTransferObject
         {
             var old = dataStore[typeof(T)].First(x => x.DtoId == dto.DtoId);
 

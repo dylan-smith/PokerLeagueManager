@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Events.Infrastructure;
@@ -20,7 +19,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             _idempotencyChecker = idempotencyChecker;
             _databaseLayer = databaseLayer;
 
-            _queryDataStore.DatabaseLayer = _databaseLayer;
             _idempotencyChecker.DatabaseLayer = _databaseLayer;
         }
 

@@ -1,133 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using PokerLeagueManager.Common.DTO.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public class QueryDataStore : IQueryDataStore
+    public class QueryDataStore : DbContext, IQueryDataStore
     {
-        private IDtoFactory _dtoFactory;
-
-        public QueryDataStore(IDtoFactory dtoFactory, IDatabaseLayer databaseLayer)
+        public QueryDataStore()
+            : base("default")
         {
-            _dtoFactory = dtoFactory;
-            DatabaseLayer = databaseLayer;
+            Database.SetInitializer<QueryDataStore>(null);
         }
 
-        public IDatabaseLayer DatabaseLayer { get; set; }
-
-        public void Insert<T>(T dto) where T : IDataTransferObject
+        public void Insert<T>(T dto) where T : class, IDataTransferObject
         {
-            var tableName = GetTableName(typeof(T));
-            var fieldList = BuildFieldList(dto.GetType().GetProperties());
-            var valueList = BuildValueList(dto.GetType().GetProperties());
-            var valueArray = BuildValueArray(dto.GetType().GetProperties(), dto);
-
-            var sql = string.Format("INSERT INTO {0}({1}) VALUES({2})", tableName, fieldList, valueList);
-
-            DatabaseLayer.ExecuteNonQuery(sql, valueArray);
+            var dtoSet = base.Set<T>();
+            dtoSet.Add(dto);
+            base.SaveChanges();
         }
 
-        public IEnumerable<T> GetData<T>() where T : IDataTransferObject
+        public IEnumerable<T> GetData<T>() where T : class, IDataTransferObject
         {
-            var tableName = GetTableName(typeof(T));
+            return base.Set<T>();
+        }
 
-            var sql = string.Format("SELECT * FROM {0}", tableName);
+        public void Update<T>(T dto) where T : class, IDataTransferObject
+        {
+            base.SaveChanges();
+        }
 
-            var dataTable = DatabaseLayer.GetDataTable(sql);
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            AddAllDtoToModel(modelBuilder);
+            base.OnModelCreating(modelBuilder);
+        }
 
-            foreach (DataRow row in dataTable.Rows)
+        private void AddAllDtoToModel(DbModelBuilder modelBuilder)
+        {
+            var dtoTypes = typeof(IDataTransferObject).Assembly.GetExportedTypes()
+                             .Where(x => x.IsClass &&
+                                         x.GetInterfaces().Contains(typeof(IDataTransferObject)) &&
+                                         x.Name != "BaseDataTransferObject");
+
+            var entityMethod = typeof(DbModelBuilder).GetMethod("Entity");
+
+            foreach (var dto in dtoTypes)
             {
-                yield return _dtoFactory.Create<T>(row);
+                entityMethod.MakeGenericMethod(dto)
+                    .Invoke(modelBuilder, new object[] { });
             }
-        }
-
-        public T GetData<T>(Func<T, bool> filter) where T : IDataTransferObject
-        {
-            return GetData<T>().FirstOrDefault(filter);
-        }
-
-        public void Update<T>(T dto) where T : IDataTransferObject
-        {
-            var tableName = GetTableName(typeof(T));
-            var setClause = BuildSetClause(dto.GetType().GetProperties());
-            var valueArray = BuildValueArray(dto.GetType().GetProperties(), dto);
-
-            var sql = string.Format("UPDATE {0} SET {1} WHERE DtoId = '{2}'", tableName, setClause, dto.DtoId);
-
-            DatabaseLayer.ExecuteNonQuery(sql, valueArray);
-        }
-
-        private string BuildSetClause(PropertyInfo[] properties)
-        {
-            var result = new StringBuilder();
-
-            foreach (var prop in properties)
-            {
-                result.AppendFormat("{0} = @{0}, ", prop.Name);
-            }
-
-            result.Remove(result.Length - 2, 2);
-
-            return result.ToString();
-        }
-
-        private string BuildFieldList(PropertyInfo[] properties)
-        {
-            var result = new StringBuilder();
-
-            foreach (var prop in properties)
-            {
-                result.AppendFormat("{0}, ", prop.Name);
-            }
-
-            result.Remove(result.Length - 2, 2);
-
-            return result.ToString();
-        }
-
-        private string BuildValueList(PropertyInfo[] properties)
-        {
-            var result = new StringBuilder();
-
-            foreach (var prop in properties)
-            {
-                result.AppendFormat("@{0}, ", prop.Name);
-            }
-
-            result.Remove(result.Length - 2, 2);
-
-            return result.ToString();
-        }
-
-        private object[] BuildValueArray<T>(PropertyInfo[] properties, T dto)
-        {
-            object[] result = new object[properties.Length * 2];
-
-            for (int x = 0; x < result.Length; x += 2)
-            {
-                result[x] = string.Format("@{0}", properties[x / 2].Name);
-                result[x + 1] = properties[x / 2].GetValue(dto);
-            }
-
-            return result;
-        }
-
-        private string GetTableName(Type dtoType)
-        {
-            var tableName = dtoType.Name;
-
-            if (tableName.Substring(tableName.Length - 3).ToUpper() == "DTO")
-            {
-                tableName = tableName.Substring(0, tableName.Length - 3);
-            }
-
-            return tableName;
         }
     }
 }

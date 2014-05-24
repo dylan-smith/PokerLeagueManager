@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Common.DTO.Infrastructure
 {
@@ -16,6 +13,7 @@ namespace PokerLeagueManager.Common.DTO.Infrastructure
         }
 
         [DataMember]
+        [Key]
         public Guid DtoId { get; set; }
     }
 }

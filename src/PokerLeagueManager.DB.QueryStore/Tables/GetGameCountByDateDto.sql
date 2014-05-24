@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[GetGameCountByDate]
+﻿CREATE TABLE [dbo].[GetGameCountByDateDto]
 (
 	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[GameId] UNIQUEIDENTIFIER NOT NULL, 
