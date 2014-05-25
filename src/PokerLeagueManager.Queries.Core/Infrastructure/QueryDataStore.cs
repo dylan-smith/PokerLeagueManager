@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
@@ -35,7 +36,16 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             AddAllDtoToModel(modelBuilder);
+            modelBuilder.Types().Configure(x => x.ToTable(GetTableName(x.ClrType)));
             base.OnModelCreating(modelBuilder);
+        }
+
+        private string GetTableName(Type type)
+        {
+            var result = type.FullName.Substring(type.FullName.LastIndexOf(".") + 1);
+            result = result.Replace("+", "_");
+
+            return result;
         }
 
         private void AddAllDtoToModel(DbModelBuilder modelBuilder)

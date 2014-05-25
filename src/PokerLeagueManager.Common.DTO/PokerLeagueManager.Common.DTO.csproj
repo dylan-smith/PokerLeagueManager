@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\GetGameResultsDto.cs" />
     <Compile Include="DataTransferObjects\GetGamesListDto.cs" />
     <Compile Include="DataTransferObjects\GetGameCountByDateDto.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />

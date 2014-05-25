@@ -70,6 +70,8 @@
     <Build Include="Tables\EventsProcessed.sql" />
     <Build Include="Tables\GetGameCountByDateDto.sql" />
     <Build Include="Tables\GetGamesListDto.sql" />
+    <Build Include="Tables\GetGameResultsDto.sql" />
+    <Build Include="Tables\GetGameResultsDto_PlayerDto.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.QueryStore.refactorlog" />
