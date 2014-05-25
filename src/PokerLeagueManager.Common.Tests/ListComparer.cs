@@ -45,10 +45,10 @@ namespace PokerLeagueManager.Common.Tests
             {
                 Exception firstException = null;
 
-                var actualMatches = new Dictionary<IEvent, bool>();
+                var actualMatches = new Dictionary<object, bool>();
                 foreach (var e in actual)
                 {
-                    actualMatches.Add((IEvent)e, false);
+                    actualMatches.Add((object)e, false);
                 }
 
                 for (int i = 0; i < expected.Count(); i++)
@@ -57,13 +57,13 @@ namespace PokerLeagueManager.Common.Tests
 
                     for (int j = 0; j < actual.Count() && !matchFound; j++)
                     {
-                        if (!actualMatches[(IEvent)actual.ElementAt(j)])
+                        if (!actualMatches[(object)actual.ElementAt(j)])
                         {
                             try
                             {
                                 CompareObjects(expected.ElementAt(i), actual.ElementAt(j), i);
                                 matchFound = true;
-                                actualMatches[(IEvent)actual.ElementAt(j)] = true;
+                                actualMatches[(object)actual.ElementAt(j)] = true;
                             }
                             catch (AssertFailedException ex)
                             {
@@ -193,7 +193,7 @@ namespace PokerLeagueManager.Common.Tests
 
                             if (enumerableA != null)
                             {
-                                AreEqual((IEnumerable<object>)enumerableA, (IEnumerable<object>)enumerableB, true);
+                                AreEqual((IEnumerable<object>)enumerableA, (IEnumerable<object>)enumerableB, false);
                                 break;
                             }
                             else
