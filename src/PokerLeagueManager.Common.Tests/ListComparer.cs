@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.DTO.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
 
 namespace PokerLeagueManager.Common.Tests
@@ -23,7 +22,7 @@ namespace PokerLeagueManager.Common.Tests
             {
                 throw new ArgumentNullException("Cannot pass in null for the expected or actual", "actual");
             }
-            
+
             if (expected.Count() != actual.Count())
             {
                 string msg = "The expected and actual do not match.  The lengths of the lists are not equal.";
@@ -189,8 +188,19 @@ namespace PokerLeagueManager.Common.Tests
                         }
                         else
                         {
-                            result = false;
-                            break;
+                            var enumerableA = valueA as IEnumerable;
+                            var enumerableB = valueB as IEnumerable;
+
+                            if (enumerableA != null)
+                            {
+                                AreEqual((IEnumerable<object>)enumerableA, (IEnumerable<object>)enumerableB, true);
+                                break;
+                            }
+                            else
+                            {
+                                result = false;
+                                break;
+                            }
                         }
                     }
                 }
