@@ -9,6 +9,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
         IEnumerable<T> GetData<T>() where T : class, IDataTransferObject;
 
-        void Update<T>(T dto) where T : class, IDataTransferObject;
+        int SaveChanges();
     }
 }

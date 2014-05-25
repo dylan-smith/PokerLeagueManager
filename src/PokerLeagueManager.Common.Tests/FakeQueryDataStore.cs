@@ -30,12 +30,9 @@ namespace PokerLeagueManager.Common.Tests
             return dataStore[typeof(T)].Cast<T>();
         }
 
-        public void Update<T>(T dto) where T : class, IDataTransferObject
+        public int SaveChanges()
         {
-            var old = dataStore[typeof(T)].First(x => x.DtoId == dto.DtoId);
-
-            dataStore[typeof(T)].Remove(old);
-            dataStore[typeof(T)].Add(dto);
+            return 0;
         }
     }
 }

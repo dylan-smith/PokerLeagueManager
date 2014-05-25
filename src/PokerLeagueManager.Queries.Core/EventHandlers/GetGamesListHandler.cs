@@ -28,7 +28,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 game.Winnings = e.Winnings;
             }
 
-            QueryDataStore.Update(game);
+            QueryDataStore.SaveChanges();
         }
     }
 }

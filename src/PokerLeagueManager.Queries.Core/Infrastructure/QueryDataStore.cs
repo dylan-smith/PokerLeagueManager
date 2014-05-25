@@ -27,11 +27,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             return base.Set<T>();
         }
 
-        public void Update<T>(T dto) where T : class, IDataTransferObject
-        {
-            base.SaveChanges();
-        }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
