@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSpike.Domain", "EFSpike.Domain\EFSpike.Domain.csproj", "{601F94D5-E656-48B0-8DBD-87FF72BFD541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFSpike.UI", "EFSpike.UI\EFSpike.UI.csproj", "{B8E78069-03C6-471A-A143-4F6BCAC9AECC}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EFSpike.DB", "EFSpike.DB\EFSpike.DB.sqlproj", "{6A612CC3-344A-4C97-B987-87491B8956CA}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://localhost:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = EFSpike.Domain\\EFSpike.Domain.csproj
+		SccProjectName1 = EFSpike.Domain
+		SccLocalPath1 = EFSpike.Domain
+		SccProjectUniqueName2 = EFSpike.UI\\EFSpike.UI.csproj
+		SccProjectName2 = EFSpike.UI
+		SccLocalPath2 = EFSpike.UI
+		SccProjectUniqueName3 = EFSpike.DB\\EFSpike.DB.sqlproj
+		SccProjectName3 = EFSpike.DB
+		SccLocalPath3 = EFSpike.DB
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{601F94D5-E656-48B0-8DBD-87FF72BFD541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{601F94D5-E656-48B0-8DBD-87FF72BFD541}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{601F94D5-E656-48B0-8DBD-87FF72BFD541}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{601F94D5-E656-48B0-8DBD-87FF72BFD541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8E78069-03C6-471A-A143-4F6BCAC9AECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8E78069-03C6-471A-A143-4F6BCAC9AECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8E78069-03C6-471A-A143-4F6BCAC9AECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8E78069-03C6-471A-A143-4F6BCAC9AECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A612CC3-344A-4C97-B987-87491B8956CA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
