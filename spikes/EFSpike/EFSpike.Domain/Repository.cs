@@ -1,23 +1,15 @@
 ﻿
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Collections.Generic;
 using PokerLeagueManager.Common.DTO;
 namespace EFSpike.Domain
 {
-    public class Repository : DbContext
+    public class Repository
     {
-        public Repository()
-            : base("default")
+        public IEnumerable<GetGameResultsDto> GetResults()
         {
-            Database.SetInitializer<Repository>(null);
-        }
+            var ctx = new DtoContext();
 
-        public DbSet<GetGameResultsDto> Results { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            base.OnModelCreating(modelBuilder);
+            return ctx.GetResults();
         }
     }
 }

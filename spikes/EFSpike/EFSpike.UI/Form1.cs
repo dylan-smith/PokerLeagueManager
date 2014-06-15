@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using EFSpike.Domain;
 
 namespace EFSpike.UI
 {
@@ -15,6 +10,15 @@ namespace EFSpike.UI
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var repo = new Repository();
+
+            var data = repo.GetResults();
+
+            MessageBox.Show(data.Count().ToString());
         }
     }
 }

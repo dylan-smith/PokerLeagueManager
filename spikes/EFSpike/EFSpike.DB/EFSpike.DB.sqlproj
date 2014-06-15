@@ -69,4 +69,7 @@
   <ItemGroup>
     <None Include="DEV.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Script.PostDeployment1.sql" />
+  </ItemGroup>
 </Project>
