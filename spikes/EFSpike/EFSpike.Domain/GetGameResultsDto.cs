@@ -20,6 +20,6 @@ namespace PokerLeagueManager.Common.DTO
         public DateTime GameDate { get; set; }
 
         [DataMember]
-        public ICollection<PlayerDto> Players { get; private set; }
+        public virtual ICollection<PlayerDto> Players { get; private set; }
     }
 }
