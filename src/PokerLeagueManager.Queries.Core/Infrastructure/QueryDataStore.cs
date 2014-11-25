@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using PokerLeagueManager.Common.DTO.Infrastructure;
@@ -24,7 +25,23 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
         public IEnumerable<T> GetData<T>() where T : class, IDataTransferObject
         {
-            return base.Set<T>();
+            var allICollections = typeof(T).GetProperties().Where(p => p.PropertyType.Name == typeof(ICollection<>).Name);
+            var dtoCollections = allICollections.Where(c => typeof(IDataTransferObject).IsAssignableFrom(c.PropertyType.GenericTypeArguments.First()));
+            var dtoMembers = typeof(T).GetProperties().Where(p => typeof(IDataTransferObject).IsAssignableFrom(p.PropertyType));
+
+            DbQuery<T> results = base.Set<T>();
+
+            foreach (var col in dtoCollections)
+            {
+                results = results.Include(col.Name);
+            }
+
+            foreach (var prop in dtoMembers)
+            {
+                results = results.Include(prop.Name);
+            }
+
+            return results.ToList();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,6 +49,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             AddAllDtoToModel(modelBuilder);
             modelBuilder.Types().Configure(x => x.ToTable(GetTableName(x.ClrType)));
+            base.Configuration.LazyLoadingEnabled = false;
             base.OnModelCreating(modelBuilder);
         }
 
