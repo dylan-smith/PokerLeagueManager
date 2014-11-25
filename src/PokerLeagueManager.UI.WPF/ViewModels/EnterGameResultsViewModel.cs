@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.ServiceModel;
 using log4net;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
 
@@ -17,8 +17,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         private ObservableCollection<EnterGameResultsCommand.GamePlayer> _playerCommands;
 
-        public EnterGameResultsViewModel(ICommandService commandService, IMainWindow mainWindow, ILog logger)
-            : base(commandService, null, mainWindow, logger)
+        public EnterGameResultsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
+            : base(commandService, queryService, mainWindow, logger)
         {
             ResetPlayerCommands();
 
@@ -39,6 +39,29 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public string NewPlacing { get; set; }
 
         public string NewWinnings { get; set; }
+
+        private Guid _gameId;
+
+        public Guid GameId
+        {
+            get
+            {
+                return _gameId;
+            }
+
+            set
+            {
+                _gameId = value;
+                var gameResults = _QueryService.GetGameResults(_gameId).First();
+                GameDate = gameResults.GameDate;
+                OnPropertyChanged("GameDate");
+
+                foreach (var player in gameResults.Players)
+                {
+                    _playerCommands.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = player.PlayerName, Placing = player.Placing, Winnings = player.Winnings });
+                }
+            }
+        }
 
         public IEnumerable<string> Players
         {

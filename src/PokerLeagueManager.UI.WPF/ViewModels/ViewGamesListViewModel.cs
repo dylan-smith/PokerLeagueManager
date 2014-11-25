@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using log4net;
 using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
@@ -15,14 +11,15 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class ViewGamesListViewModel : BaseViewModel, INotifyPropertyChanged, IViewGamesListViewModel
     {
-        private ObservableCollection<GetGamesListDto> _games;
+        private List<GetGamesListDto> _games;
 
         public ViewGamesListViewModel(IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(null, queryService, mainWindow, logger)
         {
-            _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
+            _games = new List<GetGamesListDto>(_QueryService.GetGamesList());
 
-            AddGameCommand = new RelayCommand(x => this.AddGame());
+            AddGameCommand = new RelayCommand(x => AddGame());
+            GameDoubleClickCommand = new RelayCommand(x => GameDoubleClick());
 
             Height = 400;
             Width = 385;
@@ -38,11 +35,23 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             }
         }
 
+        public int SelectedGameIndex { get; set; }
+
         public System.Windows.Input.ICommand AddGameCommand { get; set; }
+
+        public System.Windows.Input.ICommand GameDoubleClickCommand { get; set; }
 
         private void AddGame()
         {
             var view = Resolver.Container.Resolve<IEnterGameResultsView>();
+            _MainWindow.ShowView(view);
+        }
+
+        private void GameDoubleClick()
+        {
+            var selectedGame = _games.OrderByDescending(g => g.GameDate).ElementAt(SelectedGameIndex);
+            var view = Resolver.Container.Resolve<IEnterGameResultsView>();
+            view.GameId = selectedGame.GameId;
             _MainWindow.ShowView(view);
         }
     }
