@@ -21,5 +21,10 @@ namespace PokerLeagueManager.Common.DTO
 
         [DataMember]
         public virtual ICollection<PlayerDto> Players { get; private set; }
+
+        [DataMember]
+        public virtual ICollection<BuyinDto> Buyins { get; private set; }
+
+        public virtual ICollection<int> foo { get; private set; }
     }
 }

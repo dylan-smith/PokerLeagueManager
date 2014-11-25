@@ -55,3 +55,13 @@ INSERT [dbo].[PlayerDto] ([DtoId], [GetGameResultsDto_DtoId], [PlayerName], [Pla
 GO
 INSERT [dbo].[PlayerDto] ([DtoId], [GetGameResultsDto_DtoId], [PlayerName], [Placing], [Winnings]) VALUES (N'772b8482-43e6-4737-b66a-fddf3b363c3e', N'24b868b9-96c6-449f-b664-64146152024d', N'GW Stein', 1, 240)
 GO
+INSERT [dbo].[BuyinDto] ([DtoId], [GetGameResultsDto_DtoId], [BuyinAmount]) VALUES (N'724c85ba-8291-4289-9bd6-06ea7431259d', N'049e86c7-1f6c-4b02-b5f3-17b54f988ddc', 120)
+GO
+INSERT [dbo].[BuyinDto] ([DtoId], [GetGameResultsDto_DtoId], [BuyinAmount]) VALUES (N'cd323355-34a9-4dd4-8414-9a7659ef2df3', N'049e86c7-1f6c-4b02-b5f3-17b54f988ddc', 90)
+GO
+INSERT [dbo].[BuyinDto] ([DtoId], [GetGameResultsDto_DtoId], [BuyinAmount]) VALUES (N'0634c281-dac3-4a90-bcd6-d74de722524b', N'049e86c7-1f6c-4b02-b5f3-17b54f988ddc', 275)
+GO
+INSERT [dbo].[BuyinDto] ([DtoId], [GetGameResultsDto_DtoId], [BuyinAmount]) VALUES (N'0ba2323c-848c-4a4b-bb7a-98dc04486a17', N'51087e1e-2209-4ba4-b714-3cc4ddf5d7e4', 30)
+GO
+INSERT [dbo].[BuyinDto] ([DtoId], [GetGameResultsDto_DtoId], [BuyinAmount]) VALUES (N'334f2f4b-eb8f-47d0-af2d-a00b7e77bd5e', N'51087e1e-2209-4ba4-b714-3cc4ddf5d7e4', 10)
+GO
