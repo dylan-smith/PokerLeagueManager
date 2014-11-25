@@ -87,7 +87,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private bool CanSaveGame()
         {
-            return GameDate != null;
+            return GameDate != null && _gameId == default(Guid);
         }
 
         private void SaveGame()
