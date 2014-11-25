@@ -27,9 +27,9 @@ namespace PokerLeagueManager.Queries.Core
             return _queryDataStore.GetData<GetGamesListDto>();
         }
 
-        public IEnumerable<GetGameResultsDto> GetGameResults(Guid gameId)
+        public GetGameResultsDto GetGameResults(Guid gameId)
         {
-            return _queryDataStore.GetData<GetGameResultsDto>().Where(x => x.GameId == gameId);
+            return _queryDataStore.GetData<GetGameResultsDto>().First(x => x.GameId == gameId);
         }
     }
 }

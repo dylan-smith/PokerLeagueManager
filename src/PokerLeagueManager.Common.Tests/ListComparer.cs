@@ -5,11 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.Events.Infrastructure;
 
 namespace PokerLeagueManager.Common.Tests
 {
-    public static class ListComparer
+    public static class ObjectComparer
     {
         public static void AreEqual(IEnumerable<object> expected, IEnumerable<object> actual, bool orderMatters)
         {
@@ -88,6 +87,11 @@ namespace PokerLeagueManager.Common.Tests
         public static Guid AnyGuid()
         {
             return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
+        }
+
+        public static void AreEqual(object expected, object actual)
+        {
+            CompareObjects(expected, actual, 0);
         }
 
         private static string ListToString(IEnumerable objects)

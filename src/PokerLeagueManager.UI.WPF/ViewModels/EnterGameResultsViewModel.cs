@@ -52,7 +52,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             set
             {
                 _gameId = value;
-                var gameResults = _QueryService.GetGameResults(_gameId).First();
+                var gameResults = _QueryService.GetGameResults(_gameId);
                 GameDate = gameResults.GameDate;
                 OnPropertyChanged("GameDate");
 

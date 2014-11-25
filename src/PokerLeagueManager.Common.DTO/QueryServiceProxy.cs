@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Common.DTO
             return base.Channel.GetGamesList();
         }
 
-        public IEnumerable<GetGameResultsDto> GetGameResults(Guid gameId)
+        public GetGameResultsDto GetGameResults(Guid gameId)
         {
             return base.Channel.GetGameResults(gameId);
         }

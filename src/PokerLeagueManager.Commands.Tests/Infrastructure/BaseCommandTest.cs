@@ -83,7 +83,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
         public Guid AnyGuid()
         {
-            return ListComparer.AnyGuid();
+            return ObjectComparer.AnyGuid();
         }
 
         private void ValidateExpectedEvents(IEnumerable<IEvent> expected, IEnumerable<IEvent> actual)
@@ -96,7 +96,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             {
                 if (e is VerifyEventsNow)
                 {
-                    ListComparer.AreEqual(expectedSegment, actualSegment, false);
+                    ObjectComparer.AreEqual(expectedSegment, actualSegment, false);
                     expectedSegment = new List<IEvent>();
                     actualSegment = new List<IEvent>();
                 }
@@ -116,7 +116,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                 actualSegment.Add(actual.ElementAt(x));
             }
 
-            ListComparer.AreEqual(expectedSegment, actualSegment, false);
+            ObjectComparer.AreEqual(expectedSegment, actualSegment, false);
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)

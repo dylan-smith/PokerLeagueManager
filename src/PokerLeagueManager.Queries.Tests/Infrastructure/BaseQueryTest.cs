@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Common.DTO;
@@ -31,6 +30,11 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return null;
         }
 
+        public virtual IDataTransferObject ExpectedDto()
+        {
+            return null;
+        }
+
         public IQueryService SetupQueryService()
         {
             var queryDataStore = new FakeQueryDataStore();
@@ -40,6 +44,46 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return new QueryHandler(queryDataStore);
         }
 
+        public void RunTest(Func<IQueryService, IDataTransferObject> query)
+        {
+            var queryDataStore = new FakeQueryDataStore();
+
+            HandleEvents(Given(), queryDataStore);
+
+            var queryService = new QueryHandler(queryDataStore);
+
+            Exception caughtException = null;
+            IDataTransferObject result = null;
+
+            try
+            {
+                result = query(queryService);
+            }
+            catch (Exception e)
+            {
+                if (ExpectedException() == null)
+                {
+                    throw;
+                }
+
+                caughtException = e.InnerException;
+            }
+
+            if (caughtException != null || ExpectedException() != null)
+            {
+                if (caughtException != null && ExpectedException() != null)
+                {
+                    Assert.AreEqual(ExpectedException().GetType(), caughtException.GetType());
+                }
+                else
+                {
+                    Assert.Fail("There was an Expected Exception but none was thrown.");
+                }
+            }
+
+            ObjectComparer.AreEqual(ExpectedDto(), result);
+        }
+
         public void RunTest(Func<IQueryService, IEnumerable<IDataTransferObject>> query)
         {
             var queryDataStore = new FakeQueryDataStore();
@@ -47,7 +91,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             HandleEvents(Given(), queryDataStore);
 
             var queryService = new QueryHandler(queryDataStore);
-            
+
             Exception caughtException = null;
             IEnumerable<IDataTransferObject> results = null;
 
@@ -77,12 +121,12 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
                 }
             }
 
-            ListComparer.AreEqual(ExpectedDtos(), results, false);
+            ObjectComparer.AreEqual(ExpectedDtos(), results, false);
         }
 
         protected Guid AnyGuid()
         {
-            return ListComparer.AnyGuid();
+            return ObjectComparer.AnyGuid();
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)
