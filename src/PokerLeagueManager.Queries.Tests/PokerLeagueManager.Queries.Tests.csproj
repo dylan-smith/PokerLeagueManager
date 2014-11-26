@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="GetGameCountByDate\TwoGamesOnDateOneDifferentTest.cs" />
     <Compile Include="GetGameCountByDate\ZeroGamesTest.cs" />
+    <Compile Include="GetGameResults\InvalidGameIdTest.cs" />
+    <Compile Include="GetGameResults\EmptyGameIdTest.cs" />
     <Compile Include="GetGameResults\TwoPlayerGameTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />
     <Compile Include="GetGamesList\ZeroGamesTest.cs" />

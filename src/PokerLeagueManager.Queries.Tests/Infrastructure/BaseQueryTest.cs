@@ -66,7 +66,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
                     throw;
                 }
 
-                caughtException = e.InnerException;
+                caughtException = e;
             }
 
             if (caughtException != null || ExpectedException() != null)
@@ -80,8 +80,10 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
                     Assert.Fail("There was an Expected Exception but none was thrown.");
                 }
             }
-
-            ObjectComparer.AreEqual(ExpectedDto(), result);
+            else
+            {
+                ObjectComparer.AreEqual(ExpectedDto(), result);
+            }
         }
 
         public void RunTest(Func<IQueryService, IEnumerable<IDataTransferObject>> query)
@@ -120,8 +122,10 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
                     Assert.Fail("There was an Expected Exception but none was thrown.");
                 }
             }
-
-            ObjectComparer.AreEqual(ExpectedDtos(), results, false);
+            else
+            {
+                ObjectComparer.AreEqual(ExpectedDtos(), results, false);
+            }
         }
 
         protected Guid AnyGuid()
