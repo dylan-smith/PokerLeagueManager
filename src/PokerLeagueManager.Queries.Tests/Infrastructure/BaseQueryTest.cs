@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -44,16 +45,13 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return new QueryHandler(queryDataStore);
         }
 
-        public void RunTest(Func<IQueryService, IDataTransferObject> query)
+        public void RunTest<T>(Func<IQueryService, T> query) where T : class
         {
-            var queryDataStore = new FakeQueryDataStore();
-
-            HandleEvents(Given(), queryDataStore);
-
-            var queryService = new QueryHandler(queryDataStore);
+            var queryService = SetupQueryService();
 
             Exception caughtException = null;
-            IDataTransferObject result = null;
+
+            T result = default(T);
 
             try
             {
@@ -82,49 +80,14 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             }
             else
             {
-                ObjectComparer.AreEqual(ExpectedDto(), result);
-            }
-        }
-
-        public void RunTest(Func<IQueryService, IEnumerable<IDataTransferObject>> query)
-        {
-            var queryDataStore = new FakeQueryDataStore();
-
-            HandleEvents(Given(), queryDataStore);
-
-            var queryService = new QueryHandler(queryDataStore);
-
-            Exception caughtException = null;
-            IEnumerable<IDataTransferObject> results = null;
-
-            try
-            {
-                results = query(queryService);
-            }
-            catch (Exception e)
-            {
-                if (ExpectedException() == null)
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(T)))
                 {
-                    throw;
-                }
-
-                caughtException = e.InnerException;
-            }
-
-            if (caughtException != null || ExpectedException() != null)
-            {
-                if (caughtException != null && ExpectedException() != null)
-                {
-                    Assert.AreEqual(ExpectedException().GetType(), caughtException.GetType());
+                    ObjectComparer.AreEqual(ExpectedDtos(), (IEnumerable<object>)result, false);
                 }
                 else
                 {
-                    Assert.Fail("There was an Expected Exception but none was thrown.");
+                    ObjectComparer.AreEqual(ExpectedDto(), result);
                 }
-            }
-            else
-            {
-                ObjectComparer.AreEqual(ExpectedDtos(), results, false);
             }
         }
 
