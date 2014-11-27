@@ -53,7 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeQueryDataStore.cs" />
-    <Compile Include="ListComparer.cs" />
+    <Compile Include="ObjectComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
