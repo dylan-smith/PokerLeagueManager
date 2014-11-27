@@ -35,6 +35,7 @@ copy -path "$build_outputs\PokerLeagueManager.Common.DTO.dll" -dest "$local_serv
 copy -path "$build_outputs\PokerLeagueManager.Common.Utilities.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 copy -path "$build_outputs\PokerLeagueManager.UI.WPF.exe.config" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
+copy -path "$build_outputs\System.Windows.Interactivity.dll" -dest "$local_server_dir\PokerLeagueManager.UI.WPF\"
 
 mkdir "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents"
 copy -path "$build_outputs\Microsoft.Practices.ServiceLocation.dll" -dest "$local_server_dir\PokerLeagueManager.Utilities.ProcessEvents\"
