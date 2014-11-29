@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -22,10 +19,17 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return new EnterGameResultsScreen(App);
         }
 
-        public void VerifyGameInList(string gameDescription)
+        public ViewGamesListScreen VerifyGameInList(string gameDescription)
         {
             TakeScreenshot();
             Assert.IsTrue(FindGameListItem(gameDescription).TryFind(), gameDescription);
+            return this;
+        }
+
+        public override void VerifyScreen()
+        {
+            TakeScreenshot();
+            AddGameButton.Find();
         }
 
         public string FindUnusedGameDate()
@@ -69,6 +73,15 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
                 previousGameDate = gameDate;
             }
+        }
+
+        public EnterGameResultsScreen DoubleClickGame(string gameText)
+        {
+            var item = FindGameListItem(gameText);
+
+            Mouse.DoubleClick(item);
+
+            return new EnterGameResultsScreen(App);
         }
 
         private DateTime GenerateRandomDate(int minYear, int maxYear)

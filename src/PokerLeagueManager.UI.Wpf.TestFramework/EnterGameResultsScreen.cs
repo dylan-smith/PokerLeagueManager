@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
@@ -50,6 +46,12 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         public ViewGamesListScreen ClickSaveGame()
         {
             Mouse.Click(SaveGameButton);
+            return new ViewGamesListScreen(App);
+        }
+
+        public ViewGamesListScreen ClickCancel()
+        {
+            Mouse.Click(CancelButton);
             return new ViewGamesListScreen(App);
         }
 
@@ -155,6 +157,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
         }
 
+        private WpfButton CancelButton
+        {
+            get
+            {
+                var ctl = new WpfButton(App);
+                ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "CancelButton");
+                return ctl;
+            }
+        }
+
         private WinWindow ActionFailedMessageBox
         {
             get
@@ -181,6 +193,30 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             {
                 var ctl = new WinText(ActionFailedMessageBox);
                 return ctl;
+            }
+        }
+
+        public EnterGameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
+        {
+            var actualPlayers = PlayerListItems;
+
+            foreach (var p in expectedPlayers)
+            {
+                Assert.IsTrue(actualPlayers.Any(x => x.Name == p), string.Format("{0} not found in list", p));
+            }
+
+            return this;
+        }
+
+        private UITestControlCollection PlayerListItems
+        {
+            get
+            {
+                var list = new WpfList(App);
+                list.SearchProperties.Add(WpfList.PropertyNames.AutomationId, "PlayersListBox");
+
+                var items = new WpfListItem(list);
+                return items.FindMatchingControls();
             }
         }
     }
