@@ -5,7 +5,7 @@ namespace CodeAnalysisSpike
     {
         public int Foo(int arg = 0)
         {
-            return arg + 1;
+            return arg;
         }
     }
 }
