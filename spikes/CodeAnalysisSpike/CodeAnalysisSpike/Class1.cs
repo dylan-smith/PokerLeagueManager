@@ -1,0 +1,11 @@
+﻿
+namespace CodeAnalysisSpike
+{
+    public class Class1
+    {
+        public int Foo(int arg = 0)
+        {
+            return arg + 1;
+        }
+    }
+}
