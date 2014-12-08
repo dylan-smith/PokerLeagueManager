@@ -5,20 +5,21 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d"
              MinHeight="250"
-             MinWidth="385"
-             MaxWidth="385" d:DesignHeight="380">
+             MinWidth="420"
+             MaxWidth="420" d:DesignHeight="380">
     <Grid>
         <Label Content="Game Date:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" />
         <DatePicker x:Name="GameDatePicker" SelectedDate="{Binding Path=GameDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="197" Height="25" />
         <TextBox x:Name="PlayerNameTextBox" Text="{Binding Path=NewPlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name="PlacingTextBox" Text="{Binding Path=NewPlacing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="170,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
         <TextBox x:Name="WinningsTextBox" Text="{Binding Path=NewWinnings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="230,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
-        <Button x:Name="AddPlayerButton" Command="{Binding AddPlayerCommand}" Content="Add Player" HorizontalAlignment="Left" Margin="300,73,0,0" VerticalAlignment="Top" Width="75" Height="23"/>
+        <Button x:Name="AddPlayerButton" Command="{Binding AddPlayerCommand}" Content="Add Player" HorizontalAlignment="Left" Margin="300,73,0,0" VerticalAlignment="Top" Width="110" Height="23"/>
         <Label Content="Player Name" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top"/>
         <Label Content="Placing" HorizontalAlignment="Left" Margin="170,45,0,0" VerticalAlignment="Top"/>
         <Label Content="Winnings" HorizontalAlignment="Left" Margin="230,45,0,0" VerticalAlignment="Top"/>
-        <ListBox x:Name="PlayersListBox" ItemsSource="{Binding Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,106,10,60"  />
-        <Button x:Name="CancelButton" Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Width="177" Height="40" />
-        <Button x:Name="SaveGameButton" Command="{Binding SaveGameCommand}" Content="Save Game" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"  Width="177" Height="40"/>
+        <ListBox x:Name="PlayersListBox" ItemsSource="{Binding Players}" SelectedIndex="{Binding Path=SelectedPlayerIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,106,130,60"  />
+        <Button x:Name="CancelButton" Command="{Binding CancelCommand}" Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10" Width="195" Height="40" />
+        <Button x:Name="SaveGameButton" Command="{Binding SaveGameCommand}" Content="Save Game" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10"  Width="195" Height="40"/>
+        <Button x:Name="DeletePlayerButton" Command="{Binding DeletePlayerCommand}" Content="Delete Player" HorizontalAlignment="Left" Margin="300,106,0,0" VerticalAlignment="Top" Width="110" Height="23"/>
     </Grid>
 </UserControl>

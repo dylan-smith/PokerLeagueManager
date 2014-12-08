@@ -23,6 +23,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             ResetPlayerCommands();
 
             AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
+            DeletePlayerCommand = new RelayCommand(x => this.DeletePlayer(), x => this.CanDeletePlayer());
             SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
             CancelCommand = new RelayCommand(x => this.Cancel());
 
@@ -75,10 +76,14 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public System.Windows.Input.ICommand AddPlayerCommand { get; set; }
 
+        public System.Windows.Input.ICommand DeletePlayerCommand { get; set; }
+
         public System.Windows.Input.ICommand SaveGameCommand { get; set; }
 
         public System.Windows.Input.ICommand CancelCommand { get; set; }
 
+        public int SelectedPlayerIndex { get; set; }
+        
         private void ResetPlayerCommands()
         {
             _playerCommands = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
@@ -151,6 +156,21 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             }
 
             return true;
+        }
+
+        private bool CanDeletePlayer()
+        {
+            return _playerCommands.Count > 0 && SelectedPlayerIndex >= 0;
+        }
+
+        private void DeletePlayer()
+        {
+            if (!CanDeletePlayer())
+            {
+                throw new InvalidOperationException("DeletePlayer should never be called if CanDeletePlayer returns false");
+            }
+
+            _playerCommands.Remove(_playerCommands.OrderBy(p => p.Placing).ElementAt(SelectedPlayerIndex));
         }
 
         private void AddPlayer()
