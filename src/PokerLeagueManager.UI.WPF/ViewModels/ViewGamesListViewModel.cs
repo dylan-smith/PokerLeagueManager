@@ -50,7 +50,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         private void GameDoubleClick()
         {
             var selectedGame = _games.OrderByDescending(g => g.GameDate).ElementAt(SelectedGameIndex);
-            var view = Resolver.Container.Resolve<IEnterGameResultsView>();
+            var view = Resolver.Container.Resolve<IViewGameResultsView>();
             view.GameId = selectedGame.GameId;
             _MainWindow.ShowView(view);
         }

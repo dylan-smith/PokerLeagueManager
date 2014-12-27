@@ -87,10 +87,16 @@
     <Compile Include="Infrastructure\BaseViewModel.cs" />
     <Compile Include="Infrastructure\IMainWindow.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
+    <Compile Include="ViewModels\IViewGameResultsViewModel.cs" />
+    <Compile Include="ViewModels\ViewGameResultsViewModel.cs" />
     <Compile Include="ViewModels\ViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\IViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\EnterGameResultsViewModel.cs" />
     <Compile Include="ViewModels\IEnterGameResultsViewModel.cs" />
+    <Compile Include="Views\IViewGameResultsView.cs" />
+    <Compile Include="Views\ViewGameResultsView.xaml.cs">
+      <DependentUpon>ViewGameResultsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EnterGameResultsView.xaml.cs">
       <DependentUpon>EnterGameResultsView.xaml</DependentUpon>
     </Compile>
@@ -100,6 +106,10 @@
     <Compile Include="Views\ViewGamesListView.xaml.cs">
       <DependentUpon>ViewGamesListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ViewGameResultsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\EnterGameResultsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
