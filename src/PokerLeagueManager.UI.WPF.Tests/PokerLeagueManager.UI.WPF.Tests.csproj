@@ -71,9 +71,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ViewGameResultsViewModelTests.cs" />
     <Compile Include="ViewGamesListViewModelTests.cs" />
     <Compile Include="EnterGameResultsViewModelTests.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\FakeCommandService.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

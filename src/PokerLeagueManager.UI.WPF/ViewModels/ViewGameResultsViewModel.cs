@@ -41,7 +41,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
                 var gameResults = _QueryService.GetGameResults(_gameId);
 
-                GameDate = gameResults.GameDate.ToString("dd-MMM-yyyy");
+                GameDate = gameResults.GameDate.ToString("d-MMM-yyyy");
                 OnPropertyChanged("GameDate");
 
                 Players = gameResults.Players.OrderBy(p => p.Placing)
