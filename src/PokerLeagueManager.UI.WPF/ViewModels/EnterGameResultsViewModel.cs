@@ -41,29 +41,6 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public string NewWinnings { get; set; }
 
-        private Guid _gameId;
-
-        public Guid GameId
-        {
-            get
-            {
-                return _gameId;
-            }
-
-            set
-            {
-                _gameId = value;
-                var gameResults = _QueryService.GetGameResults(_gameId);
-                GameDate = gameResults.GameDate;
-                OnPropertyChanged("GameDate");
-
-                foreach (var player in gameResults.Players)
-                {
-                    _playerCommands.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = player.PlayerName, Placing = player.Placing, Winnings = player.Winnings });
-                }
-            }
-        }
-
         public IEnumerable<string> Players
         {
             get
@@ -83,7 +60,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public System.Windows.Input.ICommand CancelCommand { get; set; }
 
         public int SelectedPlayerIndex { get; set; }
-        
+
         private void ResetPlayerCommands()
         {
             _playerCommands = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
@@ -92,7 +69,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private bool CanSaveGame()
         {
-            return GameDate != null && _gameId == default(Guid);
+            return GameDate != null;
         }
 
         private void SaveGame()

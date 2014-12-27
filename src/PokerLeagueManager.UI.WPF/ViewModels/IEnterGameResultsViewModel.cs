@@ -21,7 +21,5 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         string NewWinnings { get; set; }
 
         IEnumerable<string> Players { get; }
-
-        Guid GameId { get; set; }
     }
 }
