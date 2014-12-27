@@ -4,11 +4,8 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
-using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
 using PokerLeagueManager.UI.Wpf.Views;
 
@@ -117,6 +114,29 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
 
             Assert.IsTrue(sut.AddGameCommand.CanExecute(null));
+        }
+
+        [TestMethod]
+        public void DoubleClickGame_ShowsViewGameResultsView()
+        {
+            var mockQueryService = new Mock<IQueryService>();
+            var mockMainWindow = new Mock<IMainWindow>();
+            var mockView = new Mock<IViewGameResultsView>();
+            Resolver.Container.RegisterInstance<IViewGameResultsView>(mockView.Object);
+
+            var gameId = Guid.NewGuid();
+            var gamesList = new List<GetGamesListDto>();
+            gamesList.Add(new GetGamesListDto() { GameId = gameId });
+
+            mockQueryService.Setup(q => q.GetGamesList()).Returns(gamesList);
+
+            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+
+            sut.SelectedGameIndex = 0;
+            sut.GameDoubleClickCommand.Execute(null);
+
+            mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+            mockView.VerifySet(x => x.GameId = gameId);
         }
     }
 }

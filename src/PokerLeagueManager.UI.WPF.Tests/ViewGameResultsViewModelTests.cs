@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
+using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
 using PokerLeagueManager.UI.Wpf.Views;
 
@@ -52,6 +53,32 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             Assert.AreEqual(1, sut.Players.Count());
             Assert.AreEqual("1 - King Kong [$100]", sut.Players.First());
+        }
+
+        [TestMethod]
+        public void WhenGameIdIsSet_NotifyPropertyChangedShouldFire()
+        {
+            var gameId = Guid.NewGuid();
+            var testResultsDto = new GetGameResultsDto();
+            testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
+
+            var player = new GetGameResultsDto.PlayerDto();
+            player.Placing = 1;
+            player.PlayerName = "King Kong";
+            player.Winnings = 100;
+            testResultsDto.Players.Add(player);
+
+            var mockQuerySvc = new Mock<IQueryService>();
+            mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
+
+            var sut = new ViewGameResultsViewModel(null, mockQuerySvc.Object, null, null);
+
+            var watcher = new NotifyPropertyChangedWatcher(sut);
+
+            sut.GameId = gameId;
+
+            Assert.IsTrue(watcher.HasPropertyChanged("GameDate"));
+            Assert.IsTrue(watcher.HasPropertyChanged("Players"));
         }
 
         [TestMethod]

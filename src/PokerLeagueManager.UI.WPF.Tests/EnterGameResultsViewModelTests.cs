@@ -159,6 +159,20 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void AddPlayerWithEmptyWinningsShouldConvertToZero()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            sut.NewPlayerName = "Dylan Smith";
+            sut.NewPlacing = "1";
+            sut.NewWinnings = string.Empty;
+
+            sut.AddPlayerCommand.Execute(null);
+
+            Assert.AreEqual("1 - Dylan Smith", sut.Players.First());
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void AddPlayerCommandExecuteIsCalledWhenThereIsInvalidData_ShouldThrowException()
         {
@@ -292,6 +306,82 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.CancelCommand.Execute(null);
 
             mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+        }
+
+        [TestMethod]
+        public void WhenPlayerCountIsZero_CanDeleteIsFalse()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            Assert.IsFalse(sut.DeletePlayerCommand.CanExecute(null));
+        }
+
+        [TestMethod]
+        public void WhenNoPlayerIsSelected_CanDeleteIsFalse()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            sut.NewPlayerName = "Dylan";
+            sut.NewPlacing = "1";
+            sut.NewWinnings = "100";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.SelectedPlayerIndex = -1;
+
+            Assert.IsFalse(sut.DeletePlayerCommand.CanExecute(null));
+        }
+
+        [TestMethod]
+        public void WhenPlayerIsSelected_CanDeleteIsTrue()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            sut.NewPlayerName = "Dylan";
+            sut.NewPlacing = "1";
+            sut.NewWinnings = "100";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.SelectedPlayerIndex = 0;
+
+            Assert.IsTrue(sut.DeletePlayerCommand.CanExecute(null));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void DeletePlayerCalledWhenNotValid()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            sut.DeletePlayerCommand.Execute(null);
+        }
+
+        [TestMethod]
+        public void DeletePlayerRemovesFromList()
+        {
+            var sut = new EnterGameResultsViewModel(null, null, null, null);
+
+            sut.NewPlayerName = "Dylan";
+            sut.NewPlacing = "1";
+            sut.NewWinnings = "100";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.NewPlayerName = "Super Mario";
+            sut.NewPlacing = "2";
+            sut.NewWinnings = "50";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.NewPlayerName = "Yoshi";
+            sut.NewPlacing = "3";
+            sut.NewWinnings = "0";
+            sut.AddPlayerCommand.Execute(null);
+
+            sut.SelectedPlayerIndex = 1;
+
+            sut.DeletePlayerCommand.Execute(null);
+
+            Assert.AreEqual(2, sut.Players.Count());
+            Assert.AreEqual("1 - Dylan [$100]", sut.Players.ElementAt(0));
+            Assert.AreEqual("3 - Yoshi", sut.Players.ElementAt(1));
         }
     }
 }
