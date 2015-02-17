@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UITesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.UI.Wpf.TestFramework;
 
@@ -35,8 +36,9 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .ClickSaveGame()
                             .VerifyGameInList(testDate + " - Jerry Seinfeld [$130]")
                             .DoubleClickGame(testDate + " - Jerry Seinfeld [$130]")
+                            .VerifyGameDate(DateTime.Parse(testDate).ToString("d-MMM-yyyy"))
                             .VerifyPlayerList("1 - Jerry Seinfeld [$130]", "2 - Wayne Gretzky [$20]")
-                            .ClickCancel()
+                            .ClickClose()
                             .VerifyScreen();
         }
     }

@@ -75,13 +75,13 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
         }
 
-        public EnterGameResultsScreen DoubleClickGame(string gameText)
+        public ViewGameResultsScreen DoubleClickGame(string gameText)
         {
             var item = FindGameListItem(gameText);
 
             Mouse.DoubleClick(item);
 
-            return new EnterGameResultsScreen(App);
+            return new ViewGameResultsScreen(App);
         }
 
         private DateTime GenerateRandomDate(int minYear, int maxYear)
