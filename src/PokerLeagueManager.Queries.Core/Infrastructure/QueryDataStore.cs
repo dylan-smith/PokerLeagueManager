@@ -44,6 +44,14 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             return results.ToList();
         }
 
+        public void Delete<T>(Guid dtoId) where T : class, IDataTransferObject
+        {
+            var dtoSet = base.Set<T>();
+            var dtoToDelete = dtoSet.Single(d => d.DtoId == dtoId);
+            dtoSet.Remove(dtoToDelete);
+            base.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

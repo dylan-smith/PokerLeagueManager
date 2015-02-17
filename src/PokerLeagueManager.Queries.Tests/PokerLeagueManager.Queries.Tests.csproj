@@ -70,6 +70,7 @@
     <Compile Include="GetGameResults\InvalidGameIdTest.cs" />
     <Compile Include="GetGameResults\EmptyGameIdTest.cs" />
     <Compile Include="GetGameResults\TwoPlayerGameTest.cs" />
+    <Compile Include="GetGamesList\TwoGamesThenDeleteTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />
     <Compile Include="GetGamesList\ZeroGamesTest.cs" />
     <Compile Include="Infrastructure\BaseQueryTest.cs" />

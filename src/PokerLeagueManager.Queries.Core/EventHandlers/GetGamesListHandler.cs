@@ -5,7 +5,7 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<PlayerAddedToGameEvent>
+    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<PlayerAddedToGameEvent>, IHandlesEvent<GameDeletedEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
@@ -29,6 +29,13 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
             }
 
             QueryDataStore.SaveChanges();
+        }
+
+        public void Handle(GameDeletedEvent e)
+        {
+            var dto = QueryDataStore.GetData<GetGamesListDto>().First(x => x.GameId == e.AggregateId);
+
+            QueryDataStore.Delete<GetGamesListDto>(dto.DtoId);
         }
     }
 }

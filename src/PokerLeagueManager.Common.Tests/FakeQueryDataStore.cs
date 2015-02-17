@@ -30,6 +30,12 @@ namespace PokerLeagueManager.Common.Tests
             return dataStore[typeof(T)].Cast<T>();
         }
 
+        public void Delete<T>(Guid dtoId) where T : class, IDataTransferObject
+        {
+            var dtoToDelete = dataStore[typeof(T)].Single(d => d.DtoId == dtoId);
+            dataStore[typeof(T)].Remove(dtoToDelete);
+        }
+
         public int SaveChanges()
         {
             return 0;
