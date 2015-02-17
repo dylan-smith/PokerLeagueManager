@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
@@ -14,27 +15,35 @@ namespace PokerLeagueManager.UI.Wpf.Tests
     [TestClass]
     public class ViewGamesListViewModelTests
     {
+        private Mock<ICommandService> _mockCommandService = new Mock<ICommandService>();
+        private Mock<IQueryService> _mockQueryService = new Mock<IQueryService>();
+        private Mock<IMainWindow> _mockMainWindow = new Mock<IMainWindow>();
+
+        private ViewGamesListViewModel _sut = null;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _mockCommandService = new Mock<ICommandService>();
+            _mockQueryService = new Mock<IQueryService>();
+            _mockMainWindow = new Mock<IMainWindow>();
+        }
+
         [TestMethod]
         public void WhenNoGames_ShowsEmptyList()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
-
             var emptyGamesList = new List<GetGamesListDto>();
 
-            mockQueryService.Setup(x => x.GetGamesList()).Returns(emptyGamesList);
+            _mockQueryService.Setup(x => x.GetGamesList()).Returns(emptyGamesList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            Assert.AreEqual(0, sut.Games.Count());
+            Assert.AreEqual(0, _sut.Games.Count());
         }
 
         [TestMethod]
         public void OneGames_ShowsProperFormat()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
-
             var oneGameList = new List<GetGamesListDto>();
             oneGameList.Add(new GetGamesListDto()
             {
@@ -43,20 +52,17 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 Winnings = 100
             });
 
-            mockQueryService.Setup(x => x.GetGamesList()).Returns(oneGameList);
+            _mockQueryService.Setup(x => x.GetGamesList()).Returns(oneGameList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            Assert.AreEqual(1, sut.Games.Count());
-            Assert.AreEqual("12-Feb-2014 - Dylan [$100]", sut.Games.First());
+            Assert.AreEqual(1, _sut.Games.Count());
+            Assert.AreEqual("12-Feb-2014 - Dylan [$100]", _sut.Games.First());
         }
 
         [TestMethod]
         public void ThreeGames_ShowsInOrder()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
-
             var threeGameList = new List<GetGamesListDto>();
 
             threeGameList.Add(new GetGamesListDto()
@@ -80,47 +86,40 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 Winnings = 100
             });
 
-            mockQueryService.Setup(x => x.GetGamesList()).Returns(threeGameList);
+            _mockQueryService.Setup(x => x.GetGamesList()).Returns(threeGameList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            Assert.AreEqual(3, sut.Games.Count());
-            Assert.AreEqual("14-Feb-2014 - Dylan [$100]", sut.Games.ElementAt(0));
-            Assert.AreEqual("13-Feb-2014 - Dylan [$100]", sut.Games.ElementAt(1));
-            Assert.AreEqual("13-Feb-2013 - Dylan [$100]", sut.Games.ElementAt(2));
+            Assert.AreEqual(3, _sut.Games.Count());
+            Assert.AreEqual("14-Feb-2014 - Dylan [$100]", _sut.Games.ElementAt(0));
+            Assert.AreEqual("13-Feb-2014 - Dylan [$100]", _sut.Games.ElementAt(1));
+            Assert.AreEqual("13-Feb-2013 - Dylan [$100]", _sut.Games.ElementAt(2));
         }
 
         [TestMethod]
         public void AddGame_ShowsEnterGameResultsView()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
             var mockView = new Mock<IEnterGameResultsView>();
             Resolver.Container.RegisterInstance<IEnterGameResultsView>(mockView.Object);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            sut.AddGameCommand.Execute(null);
+            _sut.AddGameCommand.Execute(null);
 
-            mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+            _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
         }
 
         [TestMethod]
         public void AddGameCanExecute_ReturnsTrue()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
-
-            Assert.IsTrue(sut.AddGameCommand.CanExecute(null));
+            Assert.IsTrue(_sut.AddGameCommand.CanExecute(null));
         }
 
         [TestMethod]
         public void DoubleClickGame_ShowsViewGameResultsView()
         {
-            var mockQueryService = new Mock<IQueryService>();
-            var mockMainWindow = new Mock<IMainWindow>();
             var mockView = new Mock<IViewGameResultsView>();
             Resolver.Container.RegisterInstance<IViewGameResultsView>(mockView.Object);
 
@@ -128,14 +127,14 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var gamesList = new List<GetGamesListDto>();
             gamesList.Add(new GetGamesListDto() { GameId = gameId });
 
-            mockQueryService.Setup(q => q.GetGamesList()).Returns(gamesList);
+            _mockQueryService.Setup(q => q.GetGamesList()).Returns(gamesList);
 
-            var sut = new ViewGamesListViewModel(mockQueryService.Object, mockMainWindow.Object, null);
+            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
 
-            sut.SelectedGameIndex = 0;
-            sut.GameDoubleClickCommand.Execute(null);
+            _sut.SelectedGameIndex = 0;
+            _sut.GameDoubleClickCommand.Execute(null);
 
-            mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+            _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
             mockView.VerifySet(x => x.GameId = gameId);
         }
     }
