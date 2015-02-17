@@ -73,6 +73,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
         }
 
+        public void DeleteGame()
+        {
+            base.PublishEvent(new GameDeletedEvent() { AggregateId = base.AggregateId });
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)

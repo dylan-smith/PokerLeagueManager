@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Serialization;
-using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
@@ -63,7 +63,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentException(string.Format("Invalid Aggregate ID ({0})", aggregateId.ToString()));
             }
 
-            T result = (T)System.Activator.CreateInstance(typeof(T), true);
+            var constructor = typeof(T).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, System.Type.EmptyTypes, null);
+            var result = (T)constructor.Invoke(null);
 
             var allEvents = _databaseLayer.GetDataTable(
                 "SELECT EventData, EventType FROM Events WHERE AggregateId = @AggregateId ORDER BY EventTimestamp",

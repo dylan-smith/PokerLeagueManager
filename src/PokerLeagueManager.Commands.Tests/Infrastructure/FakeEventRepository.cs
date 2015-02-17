@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.Events.Infrastructure;
@@ -51,7 +52,8 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
 
                 if (aggEvents.Count() > 0)
                 {
-                    aggRootInstance = (T)System.Activator.CreateInstance<T>();
+                    var constructor = typeof(T).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, System.Type.EmptyTypes, null);
+                    aggRootInstance = (T)constructor.Invoke(null);
 
                     aggRootInstance.AggregateId = aggregateId;
 
@@ -60,6 +62,14 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
                         aggRootInstance.ApplyEvent(e);
                     }
                 }
+                else
+                {
+                    throw new ArgumentException(string.Format("No Aggregate with the specified ID was found ({0})", aggregateId.ToString()));
+                }
+            }
+            else
+            {
+                throw new ArgumentException(string.Format("No Aggregate with the specified ID was found ({0})", aggregateId.ToString()));
             }
 
             return aggRootInstance;
