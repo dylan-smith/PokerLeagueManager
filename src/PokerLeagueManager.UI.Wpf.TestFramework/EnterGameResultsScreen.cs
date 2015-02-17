@@ -43,6 +43,24 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public EnterGameResultsScreen ClickDeletePlayer()
+        {
+            Mouse.Click(DeletePlayerButton);
+            return this;
+        }
+
+        public EnterGameResultsScreen ClickPlayer(string playerName)
+        {
+            var item = GetPlayerListItem(playerName);
+            if (item == null)
+            {
+                Assert.Fail(string.Format("Couldn't find list item for {0}", playerName));
+            }
+
+            Mouse.Click(item);
+            return this;
+        }
+
         public ViewGamesListScreen ClickSaveGame()
         {
             Mouse.Click(SaveGameButton);
@@ -61,34 +79,58 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
-        public void VerifyDuplicateGameDateWarning()
+        public EnterGameResultsScreen VerifyDuplicateGameDateWarning()
         {
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("DATE"), "Did not contain DATE: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
         }
 
-        public void VerifyNotEnoughPlayersWarning()
+        public EnterGameResultsScreen VerifyNotEnoughPlayersWarning()
         {
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("2 PLAYERS"), "Did not contain 2 PLAYERS: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
         }
 
-        public void VerifyDuplicatePlayerWarning()
+        public EnterGameResultsScreen VerifyDuplicatePlayerWarning()
         {
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
         }
 
-        public void VerifySaveGameIsDisabled()
+        public EnterGameResultsScreen VerifySaveGameIsDisabled()
         {
             Assert.IsFalse(SaveGameButton.Enabled);
+            return this;
         }
 
-        public void VerifyInvalidWinningsWarning()
+        public EnterGameResultsScreen VerifyInvalidWinningsWarning()
         {
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("WINNINGS"), "Did not contain WINNINGS: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
         }
 
-        public void VerifyInvalidPlacingWarning()
+        public EnterGameResultsScreen VerifyInvalidPlacingWarning()
         {
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("PLACING"), "Did not contain PLACING: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
+        }
+
+        public EnterGameResultsScreen VerifyPlayerNotInList(string playerName)
+        {
+            Assert.IsNull(GetPlayerListItem(playerName), string.Format("Player was found in list when it shouldn't be there: {0}", playerName));
+            return this;
+        }
+
+        public EnterGameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
+        {
+            var actualPlayers = PlayerListItems;
+
+            foreach (var p in expectedPlayers)
+            {
+                Assert.IsTrue(actualPlayers.Any(x => x.Name == p), string.Format("{0} not found in list", p));
+            }
+
+            return this;
         }
 
         public override void VerifyScreen()
@@ -196,18 +238,6 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
         }
 
-        public EnterGameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
-        {
-            var actualPlayers = PlayerListItems;
-
-            foreach (var p in expectedPlayers)
-            {
-                Assert.IsTrue(actualPlayers.Any(x => x.Name == p), string.Format("{0} not found in list", p));
-            }
-
-            return this;
-        }
-
         private UITestControlCollection PlayerListItems
         {
             get
@@ -217,6 +247,21 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
                 var items = new WpfListItem(list);
                 return items.FindMatchingControls();
+            }
+        }
+
+        private WpfListItem GetPlayerListItem(string playerName)
+        {
+            return (WpfListItem)PlayerListItems.OfType<WpfListItem>().FirstOrDefault(i => ((WpfListItem)i).DisplayText.Contains(playerName));
+        }
+
+        private WpfButton DeletePlayerButton
+        {
+            get
+            {
+                var ctl = new WpfButton(App);
+                ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "DeletePlayerButton");
+                return ctl;
             }
         }
     }
