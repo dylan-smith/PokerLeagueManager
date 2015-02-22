@@ -32,6 +32,38 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void WhenNoGameSelected_DeleteButtonDisabled()
+        {
+            var twoGamesList = new List<GetGamesListDto>();
+            twoGamesList.Add(new GetGamesListDto());
+            twoGamesList.Add(new GetGamesListDto());
+
+            _mockQueryService.Setup(x => x.GetGamesList())
+                             .Returns(twoGamesList);
+
+            _sut = CreateSUT();
+
+            _sut.SelectedGameIndex = -1;
+
+            Assert.IsFalse(_sut.DeleteGameCommand.CanExecute(null));
+        }
+
+        [TestMethod]
+        public void WhenNoGamesInList_DeleteButtonDisabled()
+        {
+            var emptyGamesList = new List<GetGamesListDto>();
+
+            _mockQueryService.Setup(x => x.GetGamesList())
+                             .Returns(emptyGamesList);
+
+            _sut = CreateSUT();
+
+            _sut.SelectedGameIndex = 2;
+
+            Assert.IsFalse(_sut.DeleteGameCommand.CanExecute(null));
+        }
+
+        [TestMethod]
         public void WhenDeletingGame_RefreshesGamesList()
         {
             var twoGamesList = new List<GetGamesListDto>();

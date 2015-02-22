@@ -22,12 +22,17 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
 
             AddGameCommand = new RelayCommand(x => AddGame());
-            DeleteGameCommand = new RelayCommand(x => DeleteGame());
+            DeleteGameCommand = new RelayCommand(x => DeleteGame(), x => CanDeleteGame());
             GameDoubleClickCommand = new RelayCommand(x => GameDoubleClick());
 
             Height = 400;
             Width = 385;
             WindowTitle = "View Games";
+        }
+
+        private bool CanDeleteGame()
+        {
+            return _games.Count > 0 && SelectedGameIndex >= 0;
         }
 
         public IEnumerable<string> Games
