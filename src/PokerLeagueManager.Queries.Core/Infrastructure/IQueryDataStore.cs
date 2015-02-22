@@ -12,6 +12,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
         void Delete<T>(Guid dtoId) where T : class, IDataTransferObject;
 
+        void Delete<T>(T dto) where T : class, IDataTransferObject;
+
         int SaveChanges();
     }
 }

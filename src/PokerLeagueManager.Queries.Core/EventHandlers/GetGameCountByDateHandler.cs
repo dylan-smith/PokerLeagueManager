@@ -21,7 +21,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         public void Handle(GameDeletedEvent e)
         {
             var dto = QueryDataStore.GetData<GetGameCountByDateDto>().Single(d => d.GameId == e.AggregateId);
-            QueryDataStore.Delete<GetGameCountByDateDto>(dto.DtoId);
+            QueryDataStore.Delete<GetGameCountByDateDto>(dto);
         }
     }
 }

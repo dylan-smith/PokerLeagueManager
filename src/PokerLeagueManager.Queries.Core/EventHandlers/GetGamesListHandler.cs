@@ -35,7 +35,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             var dto = QueryDataStore.GetData<GetGamesListDto>().Single(x => x.GameId == e.AggregateId);
 
-            QueryDataStore.Delete<GetGamesListDto>(dto.DtoId);
+            QueryDataStore.Delete<GetGamesListDto>(dto);
         }
     }
 }

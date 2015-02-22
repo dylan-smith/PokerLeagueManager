@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.DTO.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
@@ -52,12 +53,25 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             base.SaveChanges();
         }
 
+        public void Delete<T>(T dto) where T : class, IDataTransferObject
+        {
+            var dtoSet = base.Set<T>();
+            dtoSet.Remove(dto);
+            base.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             AddAllDtoToModel(modelBuilder);
             modelBuilder.Types().Configure(x => x.ToTable(GetTableName(x.ClrType)));
             base.Configuration.LazyLoadingEnabled = false;
+
+            modelBuilder.Entity<GetGameResultsDto>()
+                .HasMany(e => e.Players)
+                .WithRequired()
+                .WillCascadeOnDelete();
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -81,7 +95,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             foreach (var dto in dtoTypes)
             {
                 entityMethod.MakeGenericMethod(dto)
-                    .Invoke(modelBuilder, new object[] { });
+                            .Invoke(modelBuilder, new object[] { });
             }
         }
     }

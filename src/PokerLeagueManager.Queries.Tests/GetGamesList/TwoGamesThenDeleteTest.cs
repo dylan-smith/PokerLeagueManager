@@ -42,7 +42,7 @@ namespace PokerLeagueManager.Queries.Tests
         }
 
         [TestMethod]
-        public void GetGamesList_TwoGames()
+        public void GetGamesList_TwoGamesThenDelete()
         {
             RunTest(x => x.GetGamesList());
         }

@@ -36,6 +36,11 @@ namespace PokerLeagueManager.Common.Tests
             dataStore[typeof(T)].Remove(dtoToDelete);
         }
 
+        public void Delete<T>(T dto) where T : class, IDataTransferObject
+        {
+            dataStore[typeof(T)].Remove(dto);
+        }
+
         public int SaveChanges()
         {
             return 0;
