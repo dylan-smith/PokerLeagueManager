@@ -59,6 +59,8 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public void VerifyAllGamesInReverseChronologicalOrder()
         {
+            TakeScreenshot();
+
             var allGames = GetAllGameListItems();
 
             var usedDates = allGames.Select(x => x.Name.Substring(0, x.Name.IndexOf(" - ")));
@@ -84,6 +86,26 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return new ViewGameResultsScreen(App);
         }
 
+        public ViewGamesListScreen SelectGame(string gameText)
+        {
+            var item = FindGameListItem(gameText);
+            Mouse.Click(item);
+            return this;
+        }
+
+        public ViewGamesListScreen ClickDeleteGame()
+        {
+            Mouse.Click(DeleteGameButton);
+            return this;
+        }
+
+        public ViewGamesListScreen VerifyGameNotInList(string gameText)
+        {
+            TakeScreenshot();
+            Assert.IsFalse(FindGameListItem(gameText).TryFind(), gameText);
+            return this;
+        }
+
         private DateTime GenerateRandomDate(int minYear, int maxYear)
         {
             var randomDays = GenerateRandomInteger((maxYear - minYear) * 365);
@@ -105,6 +127,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             {
                 var ctl = new WpfButton(App);
                 ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "AddGameButton");
+                return ctl;
+            }
+        }
+
+        private WpfButton DeleteGameButton
+        {
+            get
+            {
+                var ctl = new WpfButton(App);
+                ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "DeleteGameButton");
                 return ctl;
             }
         }
