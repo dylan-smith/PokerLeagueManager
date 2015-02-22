@@ -7,6 +7,7 @@ using Moq;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
+using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
 using PokerLeagueManager.UI.Wpf.Views;
 
@@ -20,6 +21,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         private Mock<IMainWindow> _mockMainWindow = new Mock<IMainWindow>();
 
         private ViewGamesListViewModel _sut = null;
+        private NotifyPropertyChangedWatcher _watcher = null;
 
         [TestInitialize]
         public void TestInitialize()
@@ -30,13 +32,40 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void WhenDeletingGame_RefreshesGamesList()
+        {
+            var twoGamesList = new List<GetGamesListDto>();
+            twoGamesList.Add(new GetGamesListDto());
+            twoGamesList.Add(new GetGamesListDto());
+
+            var oneGamesList = new List<GetGamesListDto>();
+            oneGamesList.Add(new GetGamesListDto());
+
+            var gamesList = twoGamesList;
+
+            _mockQueryService.Setup(x => x.GetGamesList())
+                             .Returns(() => gamesList)
+                             .Callback(() => gamesList = oneGamesList);
+
+            _sut = CreateSUT();
+
+            Assert.AreEqual(2, _sut.Games.Count());
+
+            _sut.SelectedGameIndex = 0;
+            _sut.DeleteGameCommand.Execute(null);
+
+            Assert.IsTrue(_watcher.HasPropertyChanged("Games"));
+            Assert.AreEqual(1, _sut.Games.Count());
+        }
+
+        [TestMethod]
         public void WhenNoGames_ShowsEmptyList()
         {
             var emptyGamesList = new List<GetGamesListDto>();
 
             _mockQueryService.Setup(x => x.GetGamesList()).Returns(emptyGamesList);
 
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             Assert.AreEqual(0, _sut.Games.Count());
         }
@@ -54,7 +83,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             _mockQueryService.Setup(x => x.GetGamesList()).Returns(oneGameList);
 
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             Assert.AreEqual(1, _sut.Games.Count());
             Assert.AreEqual("12-Feb-2014 - Dylan [$100]", _sut.Games.First());
@@ -88,7 +117,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             _mockQueryService.Setup(x => x.GetGamesList()).Returns(threeGameList);
 
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             Assert.AreEqual(3, _sut.Games.Count());
             Assert.AreEqual("14-Feb-2014 - Dylan [$100]", _sut.Games.ElementAt(0));
@@ -102,7 +131,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockView = new Mock<IEnterGameResultsView>();
             Resolver.Container.RegisterInstance<IEnterGameResultsView>(mockView.Object);
 
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             _sut.AddGameCommand.Execute(null);
 
@@ -112,7 +141,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void AddGameCanExecute_ReturnsTrue()
         {
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             Assert.IsTrue(_sut.AddGameCommand.CanExecute(null));
         }
@@ -129,13 +158,20 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             _mockQueryService.Setup(q => q.GetGamesList()).Returns(gamesList);
 
-            _sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _sut = CreateSUT();
 
             _sut.SelectedGameIndex = 0;
             _sut.GameDoubleClickCommand.Execute(null);
 
             _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
             mockView.VerifySet(x => x.GameId = gameId);
+        }
+
+        private ViewGamesListViewModel CreateSUT()
+        {
+            var sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            _watcher = new NotifyPropertyChangedWatcher(sut);
+            return sut;
         }
     }
 }

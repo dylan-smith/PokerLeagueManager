@@ -58,8 +58,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             var gameId = GetSelectedGame().GameId;
             _CommandService.ExecuteCommand(new DeleteGameCommand() { GameId = gameId });
 
-            // Could just manually remove the one item from the collection instead of re-querying
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
+            OnPropertyChanged("Games");
         }
 
         private void GameDoubleClick()
