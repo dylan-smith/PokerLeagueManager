@@ -15,6 +15,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
-        <Button x:Name="DeleteGameButton" Command="{Binding DeleteGameCommand}" Content="Delete Game" HorizontalAlignment="Stretch" Margin="10,250,10,0" VerticalAlignment="Top" Height="40"/>
+        <Button x:Name="DeleteGameButton" Command="{Binding DeleteGameCommand}" Content="Delete Game" HorizontalAlignment="Stretch" Margin="10,0,10,10" Height="40" VerticalAlignment="Bottom"/>
     </Grid>
 </UserControl>
