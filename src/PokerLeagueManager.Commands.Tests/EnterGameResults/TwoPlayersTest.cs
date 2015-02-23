@@ -17,8 +17,8 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public void TwoPlayers()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 75 });
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 2, Winnings = 50, PayIn = 75 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 30 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 2, Winnings = 50, PayIn = 120 });
 
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }
@@ -28,8 +28,8 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
             yield return new GameCreatedEvent() { AggregateId = AnyGuid(), GameDate = _gameDate };
             yield return new VerifyEventsNow();
 
-            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 };
-            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 };
+            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Grant Hirose", Placing = 2, Winnings = 50, PayIn = 120 };
+            yield return new PlayerAddedToGameEvent() { AggregateId = AnyGuid(), PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 30 };
         }
     }
 }

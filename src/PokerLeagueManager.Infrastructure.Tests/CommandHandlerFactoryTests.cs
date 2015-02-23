@@ -1,18 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.IO;
-using System.Runtime.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PokerLeagueManager.Commands.Domain.Aggregates;
-using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Events;
-using PokerLeagueManager.Common.Utilities;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {
@@ -29,16 +21,18 @@ namespace PokerLeagueManager.Infrastructure.Tests
             testCommand.IPAddress = "12.34.56.78";
             testCommand.User = "dylans";
             testCommand.Timestamp = DateTime.Now;
-            
+
             var newPlayerA = new EnterGameResultsCommand.GamePlayer();
             newPlayerA.PlayerName = "Dylan Smith";
             newPlayerA.Placing = 1;
             newPlayerA.Winnings = 120;
-            
+            newPlayerA.PayIn = 60;
+
             var newPlayerB = new EnterGameResultsCommand.GamePlayer();
             newPlayerB.PlayerName = "Homer Simpson";
             newPlayerB.Placing = 2;
             newPlayerB.Winnings = 0;
+            newPlayerB.PayIn = 60;
 
             var players = new List<EnterGameResultsCommand.GamePlayer>();
             players.Add(newPlayerA);
@@ -73,11 +67,13 @@ namespace PokerLeagueManager.Infrastructure.Tests
             newPlayerA.PlayerName = "Dylan Smith";
             newPlayerA.Placing = 1;
             newPlayerA.Winnings = 120;
+            newPlayerA.PayIn = 60;
 
             var newPlayerB = new EnterGameResultsCommand.GamePlayer();
             newPlayerB.PlayerName = "Homer Simpson";
             newPlayerB.Placing = 2;
             newPlayerB.Winnings = 0;
+            newPlayerB.PayIn = 60;
 
             var players = new List<EnterGameResultsCommand.GamePlayer>();
             players.Add(newPlayerA);

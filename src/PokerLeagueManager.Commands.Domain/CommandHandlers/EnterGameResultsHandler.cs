@@ -25,7 +25,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
             {
                 foreach (var player in command.Players)
                 {
-                    game.AddPlayer(player.PlayerName, player.Placing, player.Winnings);
+                    game.AddPlayer(player.PlayerName, player.Placing, player.Winnings, player.PayIn);
                 }
             }
 

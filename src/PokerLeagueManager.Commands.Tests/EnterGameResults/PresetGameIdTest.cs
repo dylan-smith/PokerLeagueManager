@@ -27,8 +27,8 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public override IEnumerable<IEvent> ExpectedEvents()
         {
             yield return new GameCreatedEvent() { AggregateId = _gameId, GameDate = _gameDate };
-            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 };
-            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 };
+            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 75 };
+            yield return new PlayerAddedToGameEvent() { AggregateId = _gameId, PlayerName = "Grant Hirose", Placing = 2, Winnings = 50, PayIn = 75 };
         }
     }
 }

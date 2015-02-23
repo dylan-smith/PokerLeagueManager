@@ -64,6 +64,8 @@
     <Compile Include="DeleteGame\DeleteGameHappyPathTest.cs" />
     <Compile Include="EnterGameResults\DuplicatePlayersCaseInsensitiveTest.cs" />
     <Compile Include="EnterGameResults\OnePlayerTest.cs" />
+    <Compile Include="EnterGameResults\TotalPayinDoesNotEqualTotalWinningsTest.cs" />
+    <Compile Include="EnterGameResults\ZeroPayinTest.cs" />
     <Compile Include="EnterGameResults\ZeroPlacingTest.cs" />
     <Compile Include="EnterGameResults\DateTimeMaxValueGameDateTest.cs" />
     <Compile Include="EnterGameResults\DateTimeMinValueGameDateTest.cs" />

@@ -28,7 +28,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
         }
 
-        public void AddPlayer(string playerName, int placing, int winnings)
+        public void AddPlayer(string playerName, int placing, int winnings, int payin)
         {
             if (winnings < 0)
             {
@@ -38,6 +38,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             if (placing <= 0)
             {
                 throw new PlacingMustBeGreaterThanZeroException(placing, playerName);
+            }
+
+            if (payin <= 0)
+            {
+                throw new PayinMustBeGreaterThanZeroException(payin, playerName);
             }
 
             if (string.IsNullOrWhiteSpace(playerName))
@@ -50,7 +55,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new DuplicatePlayerNameException(playerName);
             }
 
-            this.PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings });
+            this.PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings, PayIn = payin });
         }
 
         public void ValidateGame()
@@ -71,6 +76,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                     throw new PlayerPlacingsNotInOrderException();
                 }
             }
+
+            if (_players.Sum(p => p.Winnings) != _players.Sum(p => p.Payin))
+            {
+                throw new WinningsDoesNotEqualPayinsException();
+            }
         }
 
         public void DeleteGame()
@@ -88,7 +98,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(PlayerAddedToGameEvent e)
         {
-            _players.Add(new Player(e.PlayerName, e.Placing, e.Winnings));
+            _players.Add(new Player() { PlayerName = e.PlayerName, Placing = e.Placing, Winnings = e.Winnings, Payin = e.PayIn });
         }
     }
 }

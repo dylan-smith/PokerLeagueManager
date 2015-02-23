@@ -14,5 +14,8 @@ namespace PokerLeagueManager.Common.Events
 
         [DataMember]
         public int Winnings { get; set; }
+
+        [DataMember]
+        public int PayIn { get; set; }
     }
 }
