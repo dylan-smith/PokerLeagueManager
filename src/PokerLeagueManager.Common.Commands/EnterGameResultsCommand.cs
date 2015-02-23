@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Common.Commands
 
         [DataMember]
         public DateTime GameDate { get; set; }
-        
+
         [DataMember]
         public IEnumerable<GamePlayer> Players { get; set; }
 
@@ -24,12 +24,15 @@ namespace PokerLeagueManager.Common.Commands
         {
             [DataMember]
             public string PlayerName { get; set; }
-            
+
             [DataMember]
             public int Placing { get; set; }
-            
+
             [DataMember]
             public int Winnings { get; set; }
+
+            [DataMember]
+            public int PayIn { get; set; }
         }
     }
 }
