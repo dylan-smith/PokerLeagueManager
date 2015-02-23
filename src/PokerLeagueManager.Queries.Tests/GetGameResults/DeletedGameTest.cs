@@ -19,11 +19,14 @@ namespace PokerLeagueManager.Queries.Tests
         private int _winnings1 = 123;
         private int _winnings2 = 10;
 
+        private int _payin1 = 100;
+        private int _payin2 = 33;
+
         public override IEnumerable<IEvent> Given()
         {
             yield return new GameCreatedEvent() { AggregateId = _gameId, GameDate = _gameDate };
-            yield return new PlayerAddedToGameEvent { AggregateId = _gameId, PlayerName = _player1, Placing = 1, Winnings = _winnings1 };
-            yield return new PlayerAddedToGameEvent { AggregateId = _gameId, PlayerName = _player2, Placing = 2, Winnings = _winnings2 };
+            yield return new PlayerAddedToGameEvent { AggregateId = _gameId, PlayerName = _player1, Placing = 1, Winnings = _winnings1, PayIn = _payin1 };
+            yield return new PlayerAddedToGameEvent { AggregateId = _gameId, PlayerName = _player2, Placing = 2, Winnings = _winnings2, PayIn = _payin2 };
             yield return new GameDeletedEvent() { AggregateId = _gameId };
         }
 

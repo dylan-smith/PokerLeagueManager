@@ -24,7 +24,8 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 {
                     PlayerName = e.PlayerName,
                     Placing = e.Placing,
-                    Winnings = e.Winnings
+                    Winnings = e.Winnings,
+                    Payin = e.PayIn
                 });
 
             QueryDataStore.SaveChanges();
