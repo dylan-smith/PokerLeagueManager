@@ -41,6 +41,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public string NewWinnings { get; set; }
 
+        public string NewPayIn { get; set; }
+
         public IEnumerable<string> Players
         {
             get
@@ -102,10 +104,12 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             this.NewPlayerName = string.Empty;
             this.NewPlacing = string.Empty;
             this.NewWinnings = "0";
+            this.NewPayIn = "0";
 
             OnPropertyChanged("NewPlayerName");
             OnPropertyChanged("NewPlacing");
             OnPropertyChanged("NewWinnings");
+            OnPropertyChanged("NewPayIn");
         }
 
         private bool CanAddPlayer()
@@ -128,6 +132,11 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             }
 
             if (!string.IsNullOrWhiteSpace(NewWinnings) && !int.TryParse(NewWinnings, out temp))
+            {
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(NewPayIn) && !int.TryParse(NewPayIn, out temp))
             {
                 return false;
             }
@@ -169,6 +178,15 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             else
             {
                 newPlayer.Winnings = int.Parse(NewWinnings);
+            }
+
+            if (string.IsNullOrWhiteSpace(NewPayIn))
+            {
+                newPlayer.PayIn = 0;
+            }
+            else
+            {
+                newPlayer.PayIn = int.Parse(NewPayIn);
             }
 
             _playerCommands.Add(newPlayer);
