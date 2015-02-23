@@ -37,7 +37,7 @@ namespace PokerLeagueManager.Common.DTO
             public int Winnings { get; set; }
 
             [DataMember]
-            public int Payin { get; set; }
+            public int PayIn { get; set; }
         }
     }
 }

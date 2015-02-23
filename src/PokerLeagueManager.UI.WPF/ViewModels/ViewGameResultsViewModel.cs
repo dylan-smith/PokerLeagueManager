@@ -45,7 +45,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 OnPropertyChanged("GameDate");
 
                 Players = gameResults.Players.OrderBy(p => p.Placing)
-                                             .Select(p => string.Format("{0} - {1}", p.Placing, p.PlayerName) + (p.Winnings > 0 ? string.Format(" [${0}]", p.Winnings) : string.Empty));
+                                             .Select(p => string.Format("{0} - {1} [Win: ${2}] [Pay: ${3}]", p.Placing, p.PlayerName, p.Winnings, p.PayIn));
                 OnPropertyChanged("Players");
             }
         }

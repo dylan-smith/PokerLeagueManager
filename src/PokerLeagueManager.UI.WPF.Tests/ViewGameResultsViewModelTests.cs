@@ -42,6 +42,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             player.Placing = 1;
             player.PlayerName = "King Kong";
             player.Winnings = 100;
+            player.PayIn = 20;
             testResultsDto.Players.Add(player);
 
             var mockQuerySvc = new Mock<IQueryService>();
@@ -52,7 +53,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.GameId = gameId;
 
             Assert.AreEqual(1, sut.Players.Count());
-            Assert.AreEqual("1 - King Kong [$100]", sut.Players.First());
+            Assert.AreEqual("1 - King Kong [Win: $100] [Pay: $20]", sut.Players.First());
         }
 
         [TestMethod]
@@ -88,9 +89,9 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var testResultsDto = new GetGameResultsDto();
             testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
 
-            var player1 = new GetGameResultsDto.PlayerDto() { Placing = 3, PlayerName = "King Kong", Winnings = 0 };
-            var player2 = new GetGameResultsDto.PlayerDto() { Placing = 1, PlayerName = "Donkey Kong", Winnings = 100 };
-            var player3 = new GetGameResultsDto.PlayerDto() { Placing = 2, PlayerName = "Diddy Kong", Winnings = 0 };
+            var player1 = new GetGameResultsDto.PlayerDto() { Placing = 3, PlayerName = "King Kong", Winnings = 0, PayIn = 40 };
+            var player2 = new GetGameResultsDto.PlayerDto() { Placing = 1, PlayerName = "Donkey Kong", Winnings = 100, PayIn = 40 };
+            var player3 = new GetGameResultsDto.PlayerDto() { Placing = 2, PlayerName = "Diddy Kong", Winnings = 0, PayIn = 20 };
 
             testResultsDto.Players.Add(player1);
             testResultsDto.Players.Add(player2);
@@ -104,9 +105,9 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.GameId = gameId;
 
             Assert.AreEqual(3, sut.Players.Count());
-            Assert.AreEqual("1 - Donkey Kong [$100]", sut.Players.ElementAt(0));
-            Assert.AreEqual("2 - Diddy Kong", sut.Players.ElementAt(1));
-            Assert.AreEqual("3 - King Kong", sut.Players.ElementAt(2));
+            Assert.AreEqual("1 - Donkey Kong [Win: $100] [Pay: $40]", sut.Players.ElementAt(0));
+            Assert.AreEqual("2 - Diddy Kong [Win: $0] [Pay: $20]", sut.Players.ElementAt(1));
+            Assert.AreEqual("3 - King Kong [Win: $0] [Pay: $40]", sut.Players.ElementAt(2));
         }
 
         [TestMethod]

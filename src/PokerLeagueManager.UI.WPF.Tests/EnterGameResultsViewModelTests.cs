@@ -49,6 +49,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = string.Empty;
             sut.NewPlacing = string.Empty;
             sut.NewWinnings = string.Empty;
+            sut.NewPayIn = string.Empty;
 
             Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -62,6 +63,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = string.Empty;
             sut.NewPlacing = "1";
             sut.NewWinnings = "100";
+            sut.NewPayIn = "20";
 
             Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -75,6 +77,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Homer Simpson";
             sut.NewPlacing = string.Empty;
             sut.NewWinnings = "100";
+            sut.NewPayIn = "20";
 
             Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -88,6 +91,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Anderson Silva";
             sut.NewPlacing = "5";
             sut.NewWinnings = string.Empty;
+            sut.NewPayIn = "20";
 
             Assert.IsTrue(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -101,6 +105,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Keira Knightly";
             sut.NewPlacing = "1";
             sut.NewWinnings = "225";
+            sut.NewPayIn = "20";
 
             Assert.IsTrue(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -114,6 +119,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Tom Brady";
             sut.NewPlacing = "1st";
             sut.NewWinnings = "150";
+            sut.NewPayIn = "20";
 
             Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -127,6 +133,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Tom Brady";
             sut.NewPlacing = "1";
             sut.NewWinnings = "One Hundred Dollars";
+            sut.NewPayIn = "20";
 
             Assert.IsFalse(sut.AddPlayerCommand.CanExecute(null));
         }
@@ -140,6 +147,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "1";
             sut.NewWinnings = "500";
+            sut.NewPayIn = "100";
 
             var watcher = new NotifyPropertyChangedWatcher(sut);
 
@@ -150,7 +158,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Assert.AreEqual("0", sut.NewWinnings);
 
             Assert.AreEqual(1, sut.Players.Count());
-            Assert.AreEqual("1 - Dylan Smith [$500]", sut.Players.First());
+            Assert.AreEqual("1 - Dylan Smith [Win: $500] [Pay: $100]", sut.Players.First());
 
             Assert.IsTrue(watcher.HasPropertyChanged("NewPlayerName"));
             Assert.IsTrue(watcher.HasPropertyChanged("NewPlacing"));
@@ -166,10 +174,11 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "1";
             sut.NewWinnings = string.Empty;
+            sut.NewPayIn = string.Empty;
 
             sut.AddPlayerCommand.Execute(null);
 
-            Assert.AreEqual("1 - Dylan Smith", sut.Players.First());
+            Assert.AreEqual("1 - Dylan Smith [Win: $0] [Pay: $0]", sut.Players.First());
         }
 
         [TestMethod]
@@ -202,6 +211,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "foo";
             sut.NewPlacing = "foo";
             sut.NewWinnings = "foo";
+            sut.NewPayIn = "foo";
 
             sut.SaveGameCommand.Execute(null);
 
@@ -231,11 +241,13 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Ryan Fritsch";
             sut.NewPlacing = "1";
             sut.NewWinnings = "200";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "2";
             sut.NewWinnings = "0";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             sut.SaveGameCommand.Execute(null);
@@ -253,9 +265,11 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             Assert.AreEqual(1, ryanPlayer.Placing);
             Assert.AreEqual(200, ryanPlayer.Winnings);
+            Assert.AreEqual(100, ryanPlayer.PayIn);
 
             Assert.AreEqual(2, dylanPlayer.Placing);
             Assert.AreEqual(0, dylanPlayer.Winnings);
+            Assert.AreEqual(100, dylanPlayer.PayIn);
 
             mockMainWindow.Verify(x => x.ShowView(It.IsAny<IViewGamesListView>()));
         }
@@ -269,16 +283,18 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan Smith";
             sut.NewPlacing = "2";
             sut.NewWinnings = "0";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             sut.NewPlayerName = "Ryan Fritsch";
             sut.NewPlacing = "1";
             sut.NewWinnings = "200";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             Assert.AreEqual(2, sut.Players.Count());
-            Assert.AreEqual("1 - Ryan Fritsch [$200]", sut.Players.ElementAt(0));
-            Assert.AreEqual("2 - Dylan Smith", sut.Players.ElementAt(1));
+            Assert.AreEqual("1 - Ryan Fritsch [Win: $200] [Pay: $100]", sut.Players.ElementAt(0));
+            Assert.AreEqual("2 - Dylan Smith [Win: $0] [Pay: $100]", sut.Players.ElementAt(1));
         }
 
         [TestMethod]
@@ -324,6 +340,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan";
             sut.NewPlacing = "1";
             sut.NewWinnings = "100";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             sut.SelectedPlayerIndex = -1;
@@ -339,6 +356,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan";
             sut.NewPlacing = "1";
             sut.NewWinnings = "100";
+            sut.NewPayIn = "100";
             sut.AddPlayerCommand.Execute(null);
 
             sut.SelectedPlayerIndex = 0;
@@ -363,16 +381,19 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.NewPlayerName = "Dylan";
             sut.NewPlacing = "1";
             sut.NewWinnings = "100";
+            sut.NewPayIn = "50";
             sut.AddPlayerCommand.Execute(null);
 
             sut.NewPlayerName = "Super Mario";
             sut.NewPlacing = "2";
             sut.NewWinnings = "50";
+            sut.NewPayIn = "50";
             sut.AddPlayerCommand.Execute(null);
 
             sut.NewPlayerName = "Yoshi";
             sut.NewPlacing = "3";
             sut.NewWinnings = "0";
+            sut.NewPayIn = "50";
             sut.AddPlayerCommand.Execute(null);
 
             sut.SelectedPlayerIndex = 1;
@@ -380,8 +401,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             sut.DeletePlayerCommand.Execute(null);
 
             Assert.AreEqual(2, sut.Players.Count());
-            Assert.AreEqual("1 - Dylan [$100]", sut.Players.ElementAt(0));
-            Assert.AreEqual("3 - Yoshi", sut.Players.ElementAt(1));
+            Assert.AreEqual("1 - Dylan [Win: $100] [Pay: $50]", sut.Players.ElementAt(0));
+            Assert.AreEqual("3 - Yoshi [Win: $0] [Pay: $50]", sut.Players.ElementAt(1));
         }
     }
 }

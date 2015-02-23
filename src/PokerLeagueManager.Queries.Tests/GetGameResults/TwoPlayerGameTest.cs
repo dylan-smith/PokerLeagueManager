@@ -40,8 +40,8 @@ namespace PokerLeagueManager.Queries.Tests
         public override IDataTransferObject ExpectedDto()
         {
             var expectedDto = new GetGameResultsDto() { DtoId = AnyGuid(), GameId = _gameId, GameDate = _gameDate };
-            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _player1, Placing = 1, Winnings = _winnings1, Payin = _payin1 });
-            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _player2, Placing = 2, Winnings = _winnings2, Payin = _payin2 });
+            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _player1, Placing = 1, Winnings = _winnings1, PayIn = _payin1 });
+            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _player2, Placing = 2, Winnings = _winnings2, PayIn = _payin2 });
 
             return expectedDto;
         }
