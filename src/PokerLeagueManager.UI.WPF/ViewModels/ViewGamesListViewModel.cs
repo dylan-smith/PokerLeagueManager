@@ -69,6 +69,11 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void GameDoubleClick()
         {
+            if (_games.Count() == 0 || SelectedGameIndex < 0)
+            {
+                return;
+            }
+
             var view = Resolver.Container.Resolve<IViewGameResultsView>();
             view.GameId = GetSelectedGame().GameId;
             _MainWindow.ShowView(view);

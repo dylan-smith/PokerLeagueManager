@@ -32,6 +32,39 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void WhenEmptyGameList_DoubleClickDoesNothing()
+        {
+            _mockQueryService.Setup(q => q.GetGamesList())
+                             .Returns(new List<GetGamesListDto>());
+
+            _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
+                           .Throws(new InvalidOperationException());
+
+            _sut = CreateSUT();
+
+            _sut.SelectedGameIndex = 0;
+            _sut.GameDoubleClickCommand.Execute(null);
+        }
+
+        [TestMethod]
+        public void WhenNoGameSelected_DoubleClickDoesNothing()
+        {
+            var gamesList = new List<GetGamesListDto>();
+            gamesList.Add(new GetGamesListDto());
+
+            _mockQueryService.Setup(q => q.GetGamesList())
+                             .Returns(gamesList);
+
+            _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
+                           .Throws(new InvalidOperationException());
+
+            _sut = CreateSUT();
+
+            _sut.SelectedGameIndex = -1;
+            _sut.GameDoubleClickCommand.Execute(null);
+        }
+
+        [TestMethod]
         public void WhenNoGameSelected_DeleteButtonDisabled()
         {
             var twoGamesList = new List<GetGamesListDto>();
