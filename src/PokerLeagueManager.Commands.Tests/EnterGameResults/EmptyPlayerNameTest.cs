@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public void EmptyPlayerName()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = string.Empty, Placing = 1, Winnings = 100 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = string.Empty, Placing = 1, Winnings = 100, PayIn = 100 });
 
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }

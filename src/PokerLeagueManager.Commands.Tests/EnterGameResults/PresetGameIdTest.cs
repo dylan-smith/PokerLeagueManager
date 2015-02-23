@@ -18,8 +18,8 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public void PresetGameId()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 });
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 2, Winnings = 50 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 75 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Grant Hirose", Placing = 2, Winnings = 50, PayIn = 75 });
 
             RunTest(new EnterGameResultsCommand() { GameId = _gameId, GameDate = _gameDate, Players = players });
         }

@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public void ZeroPlacing()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 0, Winnings = 100 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 0, Winnings = 100, PayIn = 100 });
 
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }

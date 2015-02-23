@@ -16,9 +16,9 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
         public void DuplicatePlayers()
         {
             var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100 });
-            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 2, Winnings = 0 });
-            
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 1, Winnings = 100, PayIn = 50 });
+            players.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Dylan Smith", Placing = 2, Winnings = 0, PayIn = 50 });
+
             RunTest(new EnterGameResultsCommand() { GameDate = _gameDate, Players = players });
         }
 
