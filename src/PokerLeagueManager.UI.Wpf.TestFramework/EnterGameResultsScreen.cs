@@ -127,6 +127,13 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public EnterGameResultsScreen VerifyPayInsDoNotEqualWinningsWarning()
+        {
+            TakeScreenshot();
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("PAY IN"), "Did not contain PAY IN: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
+        }
+
         public EnterGameResultsScreen VerifyPlayerNotInList(string playerName)
         {
             Assert.IsNull(GetPlayerListItem(playerName), string.Format("Player was found in list when it shouldn't be there: {0}", playerName));
