@@ -28,10 +28,12 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                            .EnterPlayerName("Jerry Seinfeld")
                            .EnterPlacing("1")
                            .EnterWinnings("130")
+                           .EnterPayIn("55")
                            .ClickAddPlayer()
                            .EnterPlayerName("Wayne Gretzky")
                            .EnterPlacing("2")
                            .EnterWinnings("-20")
+                           .EnterPayIn("55")
                            .ClickAddPlayer()
                            .ClickSaveGame();
 

@@ -75,7 +75,6 @@
     <Compile Include="NoGameDateTest.cs" />
     <Compile Include="DuplicatePlayerNamesCaseInsensitiveTest.cs" />
     <Compile Include="DuplicatePlayerNamesTest.cs" />
-    <Compile Include="TwoPlayersNoWinningsTest.cs" />
     <Compile Include="NoPlayersTest.cs" />
     <Compile Include="OnePlayerTest.cs" />
     <Compile Include="DuplicateGameDateTest.cs" />

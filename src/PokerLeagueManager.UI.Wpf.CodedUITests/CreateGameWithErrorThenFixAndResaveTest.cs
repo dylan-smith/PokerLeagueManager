@@ -28,6 +28,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                            .EnterPlayerName("Stephen Colbert")
                            .EnterPlacing("1")
                            .EnterWinnings("190")
+                           .EnterPayIn("100")
                            .ClickAddPlayer()
                            .ClickSaveGame();
 
@@ -35,6 +36,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                            .EnterPlayerName("Jon Stewart")
                            .EnterPlacing("2")
                            .EnterWinnings("0")
+                           .EnterPayIn("90")
                            .ClickAddPlayer()
                            .ClickSaveGame()
                            .VerifyGameInList(testDate + " - Stephen Colbert [$190]");

@@ -37,6 +37,12 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public EnterGameResultsScreen EnterPayIn(string payin)
+        {
+            PayInTextBox.Text = payin;
+            return this;
+        }
+
         public EnterGameResultsScreen ClickAddPlayer()
         {
             Mouse.Click(AddPlayerButton);
@@ -81,36 +87,42 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public EnterGameResultsScreen VerifyDuplicateGameDateWarning()
         {
+            TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("DATE"), "Did not contain DATE: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
 
         public EnterGameResultsScreen VerifyNotEnoughPlayersWarning()
         {
+            TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("2 PLAYERS"), "Did not contain 2 PLAYERS: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
 
         public EnterGameResultsScreen VerifyDuplicatePlayerWarning()
         {
+            TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
 
         public EnterGameResultsScreen VerifySaveGameIsDisabled()
         {
+            TakeScreenshot();
             Assert.IsFalse(SaveGameButton.Enabled);
             return this;
         }
 
         public EnterGameResultsScreen VerifyInvalidWinningsWarning()
         {
+            TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("WINNINGS"), "Did not contain WINNINGS: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
 
         public EnterGameResultsScreen VerifyInvalidPlacingWarning()
         {
+            TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("PLACING"), "Did not contain PLACING: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
@@ -123,6 +135,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public EnterGameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
         {
+            TakeScreenshot();
             var actualPlayers = PlayerListItems;
 
             foreach (var p in expectedPlayers)
@@ -175,6 +188,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             {
                 var ctl = new WpfEdit(App);
                 ctl.SearchProperties.Add(WpfEdit.PropertyNames.AutomationId, "WinningsTextBox");
+                return ctl;
+            }
+        }
+
+        private WpfEdit PayInTextBox
+        {
+            get
+            {
+                var ctl = new WpfEdit(App);
+                ctl.SearchProperties.Add(WpfEdit.PropertyNames.AutomationId, "PayInTextBox");
                 return ctl;
             }
         }

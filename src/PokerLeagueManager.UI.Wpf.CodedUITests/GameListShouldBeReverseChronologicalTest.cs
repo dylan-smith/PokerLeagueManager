@@ -21,16 +21,18 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         public void GameListShouldBeReverseChronological()
         {
             var testDate1 = _gamesListScreen.FindUnusedGameDate();
-            
+
             _gamesListScreen.ClickAddGame()
                             .EnterGameDate(testDate1)
                             .EnterPlayerName("Jerry Seinfeld")
                             .EnterPlacing("1")
                             .EnterWinnings("130")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .EnterPlayerName("Wayne Gretzky")
                             .EnterPlacing("2")
                             .EnterWinnings("20")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .ClickSaveGame();
 
@@ -41,10 +43,12 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterPlayerName("Jerry Seinfeld")
                             .EnterPlacing("1")
                             .EnterWinnings("130")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .EnterPlayerName("Wayne Gretzky")
                             .EnterPlacing("2")
                             .EnterWinnings("20")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .ClickSaveGame();
 
@@ -55,10 +59,12 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterPlayerName("Jerry Seinfeld")
                             .EnterPlacing("1")
                             .EnterWinnings("130")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .EnterPlayerName("Wayne Gretzky")
                             .EnterPlacing("2")
                             .EnterWinnings("20")
+                            .EnterPayIn("75")
                             .ClickAddPlayer()
                             .ClickSaveGame();
 
