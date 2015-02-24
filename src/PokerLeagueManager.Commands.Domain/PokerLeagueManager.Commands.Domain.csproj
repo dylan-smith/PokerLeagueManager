@@ -58,7 +58,7 @@
     <Compile Include="Aggregates\Game\Exceptions\PlayerNameMustNotBeBlankException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlacingMustBeGreaterThanZeroException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\InvalidGameDateException.cs" />
-    <Compile Include="Aggregates\Game\Exceptions\WinningsDoesNotEqualPayinsException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\WinningsDoesNotEqualPayInsException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\WinningsCannotBeNegativeException.cs" />
     <Compile Include="Aggregates\Game\Game.cs" />
     <Compile Include="Aggregates\Game\Player.cs" />

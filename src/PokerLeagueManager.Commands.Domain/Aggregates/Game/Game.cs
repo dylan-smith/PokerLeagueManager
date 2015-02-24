@@ -79,7 +79,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
             if (_players.Sum(p => p.Winnings) != _players.Sum(p => p.Payin))
             {
-                throw new WinningsDoesNotEqualPayinsException();
+                throw new WinningsDoesNotEqualPayInsException();
             }
         }
 

@@ -24,7 +24,7 @@ namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 
         public override Exception ExpectedException()
         {
-            return new WinningsDoesNotEqualPayinsException();
+            return new WinningsDoesNotEqualPayInsException();
         }
     }
 }

@@ -3,10 +3,10 @@
 namespace PokerLeagueManager.Commands.Domain.Exceptions
 {
     [Serializable]
-    public class WinningsDoesNotEqualPayinsException : Exception
+    public class WinningsDoesNotEqualPayInsException : Exception
     {
-        public WinningsDoesNotEqualPayinsException()
-            : base("The total player Winnings must be equal to the total player Payins")
+        public WinningsDoesNotEqualPayInsException()
+            : base("The total player Winnings must be equal to the total player Pay Ins")
         {
         }
     }
