@@ -23,7 +23,7 @@ namespace PokerLeagueManager.Common.DTO
 
         public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
         {
-            throw new NotImplementedException();
+            return base.Channel.GetPlayerStatistics();
         }
     }
 }

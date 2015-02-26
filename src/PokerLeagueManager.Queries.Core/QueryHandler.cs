@@ -34,7 +34,7 @@ namespace PokerLeagueManager.Queries.Core
 
         public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
         {
-            throw new NotImplementedException();
+            return _queryDataStore.GetData<GetPlayerStatisticsDto>();
         }
     }
 }

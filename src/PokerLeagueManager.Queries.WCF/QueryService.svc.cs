@@ -32,7 +32,7 @@ namespace PokerLeagueManager.Queries.WCF
 
         public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
         {
-            throw new NotImplementedException();
+            return _queryHandler.GetPlayerStatistics();
         }
     }
 }
