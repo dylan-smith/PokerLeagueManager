@@ -21,6 +21,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         {
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
 
+            PlayersCommand = new RelayCommand(x => NavigateToPlayersView());
             AddGameCommand = new RelayCommand(x => AddGame());
             DeleteGameCommand = new RelayCommand(x => DeleteGame(), x => CanDeleteGame());
             GameDoubleClickCommand = new RelayCommand(x => GameDoubleClick());
@@ -46,11 +47,19 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public int SelectedGameIndex { get; set; }
 
+        public System.Windows.Input.ICommand PlayersCommand { get; set; }
+
         public System.Windows.Input.ICommand AddGameCommand { get; set; }
 
         public System.Windows.Input.ICommand DeleteGameCommand { get; set; }
 
         public System.Windows.Input.ICommand GameDoubleClickCommand { get; set; }
+
+        private void NavigateToPlayersView()
+        {
+            var view = Resolver.Container.Resolve<IPlayerStatisticsView>();
+            _MainWindow.ShowView(view);
+        }
 
         private void AddGame()
         {
