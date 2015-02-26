@@ -31,5 +31,10 @@ namespace PokerLeagueManager.Queries.Core
         {
             return _queryDataStore.GetData<GetGameResultsDto>().First(x => x.GameId == gameId);
         }
+
+        public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

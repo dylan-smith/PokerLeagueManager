@@ -29,5 +29,10 @@ namespace PokerLeagueManager.Queries.WCF
         {
             return _queryHandler.GetGameResults(gameId);
         }
+
+        public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

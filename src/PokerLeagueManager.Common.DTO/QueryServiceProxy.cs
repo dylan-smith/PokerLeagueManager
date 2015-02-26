@@ -20,5 +20,10 @@ namespace PokerLeagueManager.Common.DTO
         {
             return base.Channel.GetGameResults(gameId);
         }
+
+        public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
