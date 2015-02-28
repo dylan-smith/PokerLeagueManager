@@ -32,6 +32,19 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void WhenClickPlayers_ShowGamesListView()
+        {
+            var mockView = new Mock<IPlayerStatisticsView>();
+            Resolver.Container.RegisterInstance<IPlayerStatisticsView>(mockView.Object);
+
+            _sut = CreateSUT();
+
+            _sut.PlayersCommand.Execute(null);
+
+            _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+        }
+
+        [TestMethod]
         public void WhenEmptyGameList_DoubleClickDoesNothing()
         {
             _mockQueryService.Setup(q => q.GetGamesList())

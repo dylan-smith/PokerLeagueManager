@@ -23,7 +23,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             GamesCommand = new RelayCommand(x => NavigateToGamesView());
 
             Height = 400;
-            Width = 385;
+            Width = 500;
             WindowTitle = "Player Statistics";
         }
 
@@ -33,7 +33,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             {
                 return _players.OrderByDescending(p => p.Winnings)
                              .Select(p => string.Format(
-                                 "{0} - Games Played: {1} - Winnings: ${2} - Pay In: ${3} - Profit: {4} - Profit Per Game: {5}",
+                                 "{0} - Games Played: {1} - Winnings: ${2} - Pay In: ${3} - Profit: ${4} - Profit Per Game: ${5}",
                                  p.PlayerName,
                                  p.GamesPlayed,
                                  p.Winnings,
