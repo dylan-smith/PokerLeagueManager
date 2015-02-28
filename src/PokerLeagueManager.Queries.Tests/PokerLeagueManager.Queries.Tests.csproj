@@ -75,6 +75,7 @@
     <Compile Include="GetGamesList\TwoGamesThenDeleteTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />
     <Compile Include="GetGamesList\ZeroGamesTest.cs" />
+    <Compile Include="GetPlayerStatistics\ThreeGamesFourPlayersTest.cs" />
     <Compile Include="Infrastructure\BaseQueryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
