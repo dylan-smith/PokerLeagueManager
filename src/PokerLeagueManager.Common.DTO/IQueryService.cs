@@ -18,5 +18,8 @@ namespace PokerLeagueManager.Common.DTO
 
         [OperationContract]
         IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics();
+
+        [OperationContract]
+        IEnumerable<GetPlayerGamesDto> GetPlayerGames(string playerName);
     }
 }
