@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\IPlayerGamesViewModel.cs" />
     <Compile Include="ViewModels\ViewGameResultsViewModel.cs" />
     <Compile Include="ViewModels\PlayerStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\PlayerGamesViewModel.cs" />
     <Compile Include="ViewModels\ViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\IViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\EnterGameResultsViewModel.cs" />

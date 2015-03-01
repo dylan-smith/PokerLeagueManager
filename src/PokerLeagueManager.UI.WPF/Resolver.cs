@@ -29,11 +29,13 @@ namespace PokerLeagueManager.UI.Wpf
             UnitySingleton.Container.RegisterType<IViewGamesListViewModel, ViewGamesListViewModel>();
             UnitySingleton.Container.RegisterType<IViewGameResultsViewModel, ViewGameResultsViewModel>();
             UnitySingleton.Container.RegisterType<IPlayerStatisticsViewModel, PlayerStatisticsViewModel>();
+            UnitySingleton.Container.RegisterType<IPlayerGamesViewModel, PlayerGamesViewModel>();
 
             UnitySingleton.Container.RegisterType<IViewGamesListView, ViewGamesListView>();
             UnitySingleton.Container.RegisterType<IEnterGameResultsView, EnterGameResultsView>();
             UnitySingleton.Container.RegisterType<IViewGameResultsView, ViewGameResultsView>();
             UnitySingleton.Container.RegisterType<IPlayerStatisticsView, PlayerStatisticsView>();
+            UnitySingleton.Container.RegisterType<IPlayerGamesView, PlayerGamesView>();
 
             UnitySingleton.Container.RegisterType<ILog>(new InjectionFactory(x => LogManager.GetLogger(string.Empty)));
 

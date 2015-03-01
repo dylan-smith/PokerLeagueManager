@@ -9,6 +9,6 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         string PlayerName { get; set; }
 
-        IEnumerable<string> Players { get; }
+        IEnumerable<string> Games { get; }
     }
 }
