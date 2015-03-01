@@ -74,6 +74,8 @@
     <Build Include="Tables\GetGameResultsDto_PlayerDto.sql" />
     <Build Include="Tables\GetPlayerStatisticsDto.sql" />
     <Build Include="Tables\LookupGamePlayersDto.sql" />
+    <Build Include="Tables\LookupGameDatesDto.sql" />
+    <Build Include="Tables\GetPlayerGamesDto.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">

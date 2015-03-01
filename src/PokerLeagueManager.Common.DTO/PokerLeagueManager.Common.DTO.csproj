@@ -58,6 +58,7 @@
     <Compile Include="DataTransferObjects\GetPlayerStatisticsDto.cs" />
     <Compile Include="DataTransferObjects\GetGamesListDto.cs" />
     <Compile Include="DataTransferObjects\GetGameCountByDateDto.cs" />
+    <Compile Include="DataTransferObjects\Lookups\LookupGameDatesDto.cs" />
     <Compile Include="DataTransferObjects\Lookups\LookupGamePlayersDto.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />
