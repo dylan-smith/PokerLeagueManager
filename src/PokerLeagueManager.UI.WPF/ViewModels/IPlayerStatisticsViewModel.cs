@@ -7,6 +7,10 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         System.Windows.Input.ICommand GamesCommand { get; set; }
 
+        System.Windows.Input.ICommand PlayerDoubleClickCommand { get; set; }
+
         IEnumerable<string> Players { get; }
+
+        int SelectedPlayerIndex { get; set; }
     }
 }

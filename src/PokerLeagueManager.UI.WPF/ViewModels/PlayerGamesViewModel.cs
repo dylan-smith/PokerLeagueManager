@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using log4net;
@@ -13,7 +12,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class PlayerGamesViewModel : BaseViewModel, INotifyPropertyChanged, IPlayerGamesViewModel
     {
-        private ObservableCollection<GetPlayerGamesDto> _games;
+        public IEnumerable<string> Games { get; set; }
 
         private string _playerName;
 
@@ -37,17 +36,13 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             set
             {
                 _playerName = value;
+                OnPropertyChanged("PlayerName");
 
-                _games = new ObservableCollection<GetPlayerGamesDto>(_QueryService.GetPlayerGames(_playerName));
-            }
-        }
+                var games = _QueryService.GetPlayerGames(_playerName);
 
-        public IEnumerable<string> Games
-        {
-            get
-            {
-                return _games.OrderByDescending(g => g.GameDate)
+                Games = games.OrderByDescending(g => g.GameDate)
                              .Select(g => string.Format("{0} - Placing: {1} - Winnings: ${2} - Pay In: ${3}", g.GameDate.ToString("dd-MMM-yyyy"), g.Placing, g.Winnings, g.PayIn));
+                OnPropertyChanged("Games");
             }
         }
 

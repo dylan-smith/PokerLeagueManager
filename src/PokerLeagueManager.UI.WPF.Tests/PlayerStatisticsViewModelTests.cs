@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,6 +27,60 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             _mockCommandService = new Mock<ICommandService>();
             _mockQueryService = new Mock<IQueryService>();
             _mockMainWindow = new Mock<IMainWindow>();
+        }
+
+        [TestMethod]
+        public void WhenEmptyPlayerList_DoubleClickDoesNothing()
+        {
+            _mockQueryService.Setup(q => q.GetPlayerStatistics())
+                             .Returns(new List<GetPlayerStatisticsDto>());
+
+            _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
+                           .Throws(new InvalidOperationException());
+
+            _sut = CreateSUT();
+
+            _sut.SelectedPlayerIndex = 0;
+            _sut.PlayerDoubleClickCommand.Execute(null);
+        }
+
+        [TestMethod]
+        public void WhenNoPlayerSelected_DoubleClickDoesNothing()
+        {
+            var playersList = new List<GetPlayerStatisticsDto>();
+            playersList.Add(new GetPlayerStatisticsDto());
+
+            _mockQueryService.Setup(q => q.GetPlayerStatistics())
+                             .Returns(playersList);
+
+            _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
+                           .Throws(new InvalidOperationException());
+
+            _sut = CreateSUT();
+
+            _sut.SelectedPlayerIndex = -1;
+            _sut.PlayerDoubleClickCommand.Execute(null);
+        }
+
+        [TestMethod]
+        public void DoubleClickPlayer_ShowsPlayerGamesView()
+        {
+            var mockView = new Mock<IPlayerGamesView>();
+            Resolver.Container.RegisterInstance<IPlayerGamesView>(mockView.Object);
+
+            var playerName = "Daffy Duck";
+            var playersList = new List<GetPlayerStatisticsDto>();
+            playersList.Add(new GetPlayerStatisticsDto() { PlayerName = playerName });
+
+            _mockQueryService.Setup(q => q.GetPlayerStatistics()).Returns(playersList);
+
+            _sut = CreateSUT();
+
+            _sut.SelectedPlayerIndex = 0;
+            _sut.PlayerDoubleClickCommand.Execute(null);
+
+            _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+            mockView.VerifySet(x => x.PlayerName = playerName);
         }
 
         [TestMethod]
