@@ -89,12 +89,14 @@
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="ViewModels\IViewGameResultsViewModel.cs" />
     <Compile Include="ViewModels\IPlayerStatisticsViewModel.cs" />
+    <Compile Include="ViewModels\IPlayerGamesViewModel.cs" />
     <Compile Include="ViewModels\ViewGameResultsViewModel.cs" />
     <Compile Include="ViewModels\PlayerStatisticsViewModel.cs" />
     <Compile Include="ViewModels\ViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\IViewGamesListViewModel.cs" />
     <Compile Include="ViewModels\EnterGameResultsViewModel.cs" />
     <Compile Include="ViewModels\IEnterGameResultsViewModel.cs" />
+    <Compile Include="Views\IPlayerGamesView.cs" />
     <Compile Include="Views\IViewGameResultsView.cs" />
     <Compile Include="Views\IPlayerStatisticsView.cs" />
     <Compile Include="Views\ViewGameResultsView.xaml.cs">
@@ -108,6 +110,9 @@
     <Compile Include="Views\IViewGamesListView.cs" />
     <Compile Include="Views\PlayerStatisticsView.xaml.cs">
       <DependentUpon>PlayerStatisticsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlayerGamesView.xaml.cs">
+      <DependentUpon>PlayerGamesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewGamesListView.xaml.cs">
       <DependentUpon>ViewGamesListView.xaml</DependentUpon>
@@ -133,6 +138,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\PlayerStatisticsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PlayerGamesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
