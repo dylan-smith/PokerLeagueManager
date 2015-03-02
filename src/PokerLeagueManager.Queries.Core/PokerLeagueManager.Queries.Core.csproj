@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\GetGameResultsHandler.cs" />
+    <Compile Include="EventHandlers\GetGamesWithPlayerHandler.cs" />
     <Compile Include="EventHandlers\GetPlayerGamesHandler.cs" />
     <Compile Include="EventHandlers\LookupGameDatesHandler.cs" />
     <Compile Include="EventHandlers\LookupGamePlayersHandler.cs" />
