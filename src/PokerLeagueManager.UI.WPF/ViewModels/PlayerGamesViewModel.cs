@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using log4net;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
@@ -14,12 +15,15 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         public IEnumerable<string> Games { get; set; }
 
+        public string NewPlayerName { get; set; }
+
         private string _playerName;
 
         public PlayerGamesViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
             CloseCommand = new RelayCommand(x => Close());
+            RenamePlayerCommand = new RelayCommand(x => RenamePlayer(), x => CanRenamePlayer());
 
             Height = 400;
             Width = 385;
@@ -52,6 +56,24 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         {
             var view = Resolver.Container.Resolve<IPlayerStatisticsView>();
             _MainWindow.ShowView(view);
+        }
+
+        public System.Windows.Input.ICommand RenamePlayerCommand { get; set; }
+
+        private void RenamePlayer()
+        {
+            var cmd = new RenamePlayerCommand();
+            cmd.OldPlayerName = PlayerName;
+            cmd.NewPlayerName = NewPlayerName;
+
+            base.ExecuteCommand(cmd);
+
+            PlayerName = NewPlayerName;
+        }
+
+        private bool CanRenamePlayer()
+        {
+            return !string.IsNullOrWhiteSpace(NewPlayerName);
         }
     }
 }
