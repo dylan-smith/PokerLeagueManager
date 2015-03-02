@@ -5,7 +5,7 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<PlayerAddedToGameEvent>, IHandlesEvent<GameDeletedEvent>
+    public class GetGamesListHandler : BaseHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<PlayerAddedToGameEvent>, IHandlesEvent<GameDeletedEvent>, IHandlesEvent<PlayerRenamedEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
@@ -36,6 +36,18 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
             var dto = QueryDataStore.GetData<GetGamesListDto>().Single(x => x.GameId == e.AggregateId);
 
             QueryDataStore.Delete<GetGamesListDto>(dto);
+        }
+
+        public void Handle(PlayerRenamedEvent e)
+        {
+            var games = QueryDataStore.GetData<GetGamesListDto>().Where(x => x.Winner == e.OldPlayerName);
+
+            foreach (var g in games)
+            {
+                g.Winner = e.NewPlayerName;
+            }
+
+            QueryDataStore.SaveChanges();
         }
     }
 }

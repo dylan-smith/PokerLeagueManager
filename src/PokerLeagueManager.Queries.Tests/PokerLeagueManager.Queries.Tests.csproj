@@ -72,6 +72,7 @@
     <Compile Include="GetGameResults\EmptyGameIdTest.cs" />
     <Compile Include="GetGameResults\DeletedGameTest.cs" />
     <Compile Include="GetGameResults\TwoPlayerGameTest.cs" />
+    <Compile Include="GetGamesList\PlayerRenamedTest.cs" />
     <Compile Include="GetGamesList\TwoGamesThenDeleteTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />
     <Compile Include="GetGamesList\ZeroGamesTest.cs" />
