@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlayerRenamedEvent.cs" />
     <Compile Include="GameDeletedEvent.cs" />
     <Compile Include="GameCreatedEvent.cs" />
     <Compile Include="Infrastructure\BaseEvent.cs" />

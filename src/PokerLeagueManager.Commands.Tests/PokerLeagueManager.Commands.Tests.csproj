@@ -84,6 +84,8 @@
     <Compile Include="EnterGameResults\NoPlayersTest.cs" />
     <Compile Include="Infrastructure\VerifyEventsNow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenamePlayer\DeletedGameTest.cs" />
+    <Compile Include="RenamePlayer\ThreeGamesTwoAffectedTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">

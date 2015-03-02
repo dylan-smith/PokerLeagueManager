@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RenamePlayerCommand.cs" />
     <Compile Include="DeleteGameCommand.cs" />
     <Compile Include="EnterGameResultsCommand.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />

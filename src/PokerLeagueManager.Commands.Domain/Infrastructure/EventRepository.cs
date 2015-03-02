@@ -125,6 +125,14 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
+        public void PublishEvents(IEnumerable<IAggregateRoot> aggRoots, ICommand c)
+        {
+            foreach (var a in aggRoots)
+            {
+                PublishEvents(a, c);
+            }
+        }
+
         public void PublishAllUnpublishedEvents()
         {
             var allEvents = _databaseLayer.GetDataTable("SELECT EventData, EventType FROM Events WHERE Published = 0 ORDER BY EventTimestamp");

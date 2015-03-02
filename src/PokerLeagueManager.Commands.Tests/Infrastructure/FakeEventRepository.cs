@@ -37,6 +37,14 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             }
         }
 
+        public void PublishEvents(IEnumerable<IAggregateRoot> aggRoots, ICommand c)
+        {
+            foreach (var a in aggRoots)
+            {
+                PublishEvents(a, c);
+            }
+        }
+
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)
         {
             PublishEvents(aggRoot, c);

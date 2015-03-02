@@ -88,6 +88,23 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             base.PublishEvent(new GameDeletedEvent() { AggregateId = base.AggregateId });
         }
 
+        public void RenamePlayer(string oldPlayerName, string newPlayerName)
+        {
+            var duplicatePlayer = _players.FirstOrDefault(p => p.PlayerName == newPlayerName);
+
+            if (duplicatePlayer != null)
+            {
+                throw new DuplicatePlayerNameException(newPlayerName);
+            }
+
+            var oldPlayer = _players.FirstOrDefault(p => p.PlayerName == oldPlayerName);
+
+            if (oldPlayer != null)
+            {
+                base.PublishEvent(new PlayerRenamedEvent() { AggregateId = base.AggregateId, OldPlayerName = oldPlayerName, NewPlayerName = newPlayerName });
+            }
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
@@ -99,6 +116,12 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         private void ApplyEvent(PlayerAddedToGameEvent e)
         {
             _players.Add(new Player() { PlayerName = e.PlayerName, Placing = e.Placing, Winnings = e.Winnings, Payin = e.PayIn });
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(PlayerRenamedEvent e)
+        {
+            _players.Single(p => p.PlayerName == e.OldPlayerName).PlayerName = e.NewPlayerName;
         }
     }
 }
