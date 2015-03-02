@@ -81,6 +81,7 @@
     <Compile Include="GetGamesWithPlayer\ThreeGamesTest.cs" />
     <Compile Include="GetPlayerGames\DeletedGameTest.cs" />
     <Compile Include="GetPlayerGames\ThreeGamesTest.cs" />
+    <Compile Include="GetPlayerStatistics\PlayerRenamedTest.cs" />
     <Compile Include="GetPlayerStatistics\ThreeGamesOneDeletedTest.cs" />
     <Compile Include="GetPlayerStatistics\ThreeGamesFourPlayersTest.cs" />
     <Compile Include="Infrastructure\BaseQueryTest.cs" />
