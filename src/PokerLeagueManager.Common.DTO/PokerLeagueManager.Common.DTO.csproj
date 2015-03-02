@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTransferObjects\GetGameResultsDto.cs" />
+    <Compile Include="DataTransferObjects\GetGamesWithPlayerDto.cs" />
     <Compile Include="DataTransferObjects\GetPlayerGamesDto.cs" />
     <Compile Include="DataTransferObjects\GetPlayerStatisticsDto.cs" />
     <Compile Include="DataTransferObjects\GetGamesListDto.cs" />

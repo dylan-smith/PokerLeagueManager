@@ -39,5 +39,10 @@ namespace PokerLeagueManager.Queries.WCF
         {
             return _queryHandler.GetPlayerGames(playerName);
         }
+
+        public IEnumerable<GetGamesWithPlayerDto> GetGamesWithPlayer(string playerName)
+        {
+            return _queryHandler.GetGamesWithPlayer(playerName);
+        }
     }
 }
