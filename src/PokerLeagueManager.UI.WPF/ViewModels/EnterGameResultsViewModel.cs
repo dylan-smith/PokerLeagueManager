@@ -95,7 +95,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void Cancel()
         {
-            _MainWindow.ShowView(Resolver.Container.Resolve<IViewGamesListView>());
+            _MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
         }
 
         private void ClearNewPlayer()

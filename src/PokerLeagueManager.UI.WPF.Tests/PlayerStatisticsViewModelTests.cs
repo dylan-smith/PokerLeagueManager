@@ -165,8 +165,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenClickGames_ShowGamesListView()
         {
-            var mockView = new Mock<IViewGamesListView>();
-            Resolver.Container.RegisterInstance<IViewGamesListView>(mockView.Object);
+            var mockView = new Mock<IGamesListView>();
+            Resolver.Container.RegisterInstance<IGamesListView>(mockView.Object);
 
             _sut = CreateSUT();
 

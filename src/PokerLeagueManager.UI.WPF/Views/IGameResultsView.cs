@@ -2,7 +2,7 @@
 
 namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public interface IViewGameResultsView
+    public interface IGameResultsView
     {
         Guid GameId { get; set; }
     }

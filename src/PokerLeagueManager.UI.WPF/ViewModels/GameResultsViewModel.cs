@@ -11,11 +11,11 @@ using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
-    public class ViewGameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IViewGameResultsViewModel
+    public class GameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IGameResultsViewModel
     {
         public IEnumerable<string> Players { get; private set; }
 
-        public ViewGameResultsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
+        public GameResultsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
             CloseCommand = new RelayCommand(x => this.Close());
@@ -54,7 +54,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void Close()
         {
-            _MainWindow.ShowView(Resolver.Container.Resolve<IViewGamesListView>());
+            _MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
         }
     }
 }

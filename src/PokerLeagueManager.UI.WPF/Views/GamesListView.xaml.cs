@@ -3,9 +3,9 @@ using PokerLeagueManager.UI.Wpf.ViewModels;
 
 namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public partial class ViewGamesListView : UserControl, IViewGamesListView
+    public partial class GamesListView : UserControl, IGamesListView
     {
-        public ViewGamesListView(IViewGamesListViewModel viewModel)
+        public GamesListView(IGamesListViewModel viewModel)
         {
             this.DataContext = viewModel;
             InitializeComponent();

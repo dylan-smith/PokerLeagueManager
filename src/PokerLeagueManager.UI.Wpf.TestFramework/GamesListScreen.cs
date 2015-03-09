@@ -6,9 +6,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokerLeagueManager.UI.Wpf.TestFramework
 {
-    public class ViewGamesListScreen : BaseScreen
+    public class GamesListScreen : BaseScreen
     {
-        public ViewGamesListScreen(ApplicationUnderTest app)
+        public GamesListScreen(ApplicationUnderTest app)
             : base(app)
         {
         }
@@ -19,7 +19,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return new EnterGameResultsScreen(App);
         }
 
-        public ViewGamesListScreen VerifyGameInList(string gameDescription)
+        public GamesListScreen VerifyGameInList(string gameDescription)
         {
             TakeScreenshot();
             Assert.IsTrue(FindGameListItem(gameDescription).TryFind(), gameDescription);
@@ -77,29 +77,29 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
         }
 
-        public ViewGameResultsScreen DoubleClickGame(string gameText)
+        public GameResultsScreen DoubleClickGame(string gameText)
         {
             var item = FindGameListItem(gameText);
 
             Mouse.DoubleClick(item);
 
-            return new ViewGameResultsScreen(App);
+            return new GameResultsScreen(App);
         }
 
-        public ViewGamesListScreen SelectGame(string gameText)
+        public GamesListScreen SelectGame(string gameText)
         {
             var item = FindGameListItem(gameText);
             Mouse.Click(item);
             return this;
         }
 
-        public ViewGamesListScreen ClickDeleteGame()
+        public GamesListScreen ClickDeleteGame()
         {
             Mouse.Click(DeleteGameButton);
             return this;
         }
 
-        public ViewGamesListScreen VerifyGameNotInList(string gameText)
+        public GamesListScreen VerifyGameNotInList(string gameText)
         {
             TakeScreenshot();
             Assert.IsFalse(FindGameListItem(gameText).TryFind(), gameText);

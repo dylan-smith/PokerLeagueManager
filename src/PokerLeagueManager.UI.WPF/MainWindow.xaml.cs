@@ -22,7 +22,7 @@ namespace PokerLeagueManager.UI.Wpf
             Resolver.Container.RegisterInstance<IMainWindow>(this);
             _logger = Resolver.Container.Resolve<ILog>();
 
-            ShowView(Resolver.Container.Resolve<ViewGamesListView>());
+            ShowView(Resolver.Container.Resolve<GamesListView>());
         }
 
         public void ShowView(object view)

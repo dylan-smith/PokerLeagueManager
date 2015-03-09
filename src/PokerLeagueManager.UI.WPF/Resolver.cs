@@ -26,14 +26,14 @@ namespace PokerLeagueManager.UI.Wpf
         public static void Bootstrap()
         {
             UnitySingleton.Container.RegisterType<IEnterGameResultsViewModel, EnterGameResultsViewModel>();
-            UnitySingleton.Container.RegisterType<IViewGamesListViewModel, ViewGamesListViewModel>();
-            UnitySingleton.Container.RegisterType<IViewGameResultsViewModel, ViewGameResultsViewModel>();
+            UnitySingleton.Container.RegisterType<IGamesListViewModel, GamesListViewModel>();
+            UnitySingleton.Container.RegisterType<IGameResultsViewModel, GameResultsViewModel>();
             UnitySingleton.Container.RegisterType<IPlayerStatisticsViewModel, PlayerStatisticsViewModel>();
             UnitySingleton.Container.RegisterType<IPlayerGamesViewModel, PlayerGamesViewModel>();
 
-            UnitySingleton.Container.RegisterType<IViewGamesListView, ViewGamesListView>();
+            UnitySingleton.Container.RegisterType<IGamesListView, GamesListView>();
             UnitySingleton.Container.RegisterType<IEnterGameResultsView, EnterGameResultsView>();
-            UnitySingleton.Container.RegisterType<IViewGameResultsView, ViewGameResultsView>();
+            UnitySingleton.Container.RegisterType<IGameResultsView, GameResultsView>();
             UnitySingleton.Container.RegisterType<IPlayerStatisticsView, PlayerStatisticsView>();
             UnitySingleton.Container.RegisterType<IPlayerGamesView, PlayerGamesView>();
 

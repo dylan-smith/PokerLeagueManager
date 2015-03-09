@@ -12,11 +12,11 @@ using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
-    public class ViewGamesListViewModel : BaseViewModel, INotifyPropertyChanged, IViewGamesListViewModel
+    public class GamesListViewModel : BaseViewModel, INotifyPropertyChanged, IGamesListViewModel
     {
         private ObservableCollection<GetGamesListDto> _games;
 
-        public ViewGamesListViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
+        public GamesListViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
             _games = new ObservableCollection<GetGamesListDto>(_QueryService.GetGamesList());
@@ -83,7 +83,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 return;
             }
 
-            var view = Resolver.Container.Resolve<IViewGameResultsView>();
+            var view = Resolver.Container.Resolve<IGameResultsView>();
             view.GameId = GetSelectedGame().GameId;
             _MainWindow.ShowView(view);
         }

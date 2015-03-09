@@ -71,10 +71,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ViewGameResultsViewModelTests.cs" />
+    <Compile Include="GameResultsViewModelTests.cs" />
     <Compile Include="PlayerStatisticsViewModelTests.cs" />
     <Compile Include="PlayerGamesViewModelTests.cs" />
-    <Compile Include="ViewGamesListViewModelTests.cs" />
+    <Compile Include="GamesListViewModelTests.cs" />
     <Compile Include="EnterGameResultsViewModelTests.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\FakeCommandService.cs" />

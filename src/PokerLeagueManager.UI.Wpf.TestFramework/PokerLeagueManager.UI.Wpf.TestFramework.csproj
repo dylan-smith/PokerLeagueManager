@@ -64,10 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseScreen.cs" />
-    <Compile Include="ViewGameResultsScreen.cs" />
+    <Compile Include="GameResultsScreen.cs" />
     <Compile Include="EnterGameResultsScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewGamesListScreen.cs" />
+    <Compile Include="GamesListScreen.cs" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

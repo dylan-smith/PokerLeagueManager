@@ -5,20 +5,20 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokerLeagueManager.UI.Wpf.TestFramework
 {
-    public class ViewGameResultsScreen : BaseScreen
+    public class GameResultsScreen : BaseScreen
     {
-        public ViewGameResultsScreen(ApplicationUnderTest app)
+        public GameResultsScreen(ApplicationUnderTest app)
             : base(app)
         {
         }
 
-        public ViewGamesListScreen ClickClose()
+        public GamesListScreen ClickClose()
         {
             Mouse.Click(CloseButton);
-            return new ViewGamesListScreen(App);
+            return new GamesListScreen(App);
         }
 
-        public ViewGameResultsScreen VerifyGameDate(string gameDate)
+        public GameResultsScreen VerifyGameDate(string gameDate)
         {
             Assert.AreEqual(gameDate, GameDateTextBox.Text);
             return this;
@@ -40,7 +40,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             }
         }
 
-        public ViewGameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
+        public GameResultsScreen VerifyPlayerList(params string[] expectedPlayers)
         {
             var actualPlayers = PlayerListItems;
 

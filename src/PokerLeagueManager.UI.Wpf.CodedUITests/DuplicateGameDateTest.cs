@@ -8,13 +8,13 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
     public class DuplicateGameDateTest
     {
         private ApplicationUnderTest _app;
-        private ViewGamesListScreen _gamesListScreen;
+        private GamesListScreen _gamesListScreen;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _app = ApplicationUnderTest.Launch(@"C:\PokerLeagueManager.UI.Wpf\PokerLeagueManager.UI.Wpf.exe");
-            _gamesListScreen = new ViewGamesListScreen(_app);
+            _gamesListScreen = new GamesListScreen(_app);
         }
 
         [TestMethod]

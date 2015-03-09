@@ -200,8 +200,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var fakeCommandService = new FakeCommandService();
             var mockMainWindow = new Mock<IMainWindow>();
-            var mockViewGamesListView = new Mock<IViewGamesListView>();
-            Resolver.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
+            var mockViewGamesListView = new Mock<IGamesListView>();
+            Resolver.Container.RegisterInstance<IGamesListView>(mockViewGamesListView.Object);
 
             var sut = new EnterGameResultsViewModel(fakeCommandService, new Mock<IQueryService>().Object, mockMainWindow.Object, _mockLogger);
 
@@ -221,7 +221,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Assert.AreEqual(testGameDate, actualCommand.GameDate);
             Assert.AreEqual(0, actualCommand.Players.Count());
 
-            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IViewGamesListView>()));
+            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IGamesListView>()));
         }
 
         [TestMethod]
@@ -229,8 +229,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var fakeCommandService = new FakeCommandService();
             var mockMainWindow = new Mock<IMainWindow>();
-            var mockViewGamesListView = new Mock<IViewGamesListView>();
-            Resolver.Container.RegisterInstance<IViewGamesListView>(mockViewGamesListView.Object);
+            var mockViewGamesListView = new Mock<IGamesListView>();
+            Resolver.Container.RegisterInstance<IGamesListView>(mockViewGamesListView.Object);
 
             var sut = new EnterGameResultsViewModel(fakeCommandService, new Mock<IQueryService>().Object, mockMainWindow.Object, _mockLogger);
 
@@ -271,7 +271,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Assert.AreEqual(0, dylanPlayer.Winnings);
             Assert.AreEqual(100, dylanPlayer.PayIn);
 
-            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IViewGamesListView>()));
+            mockMainWindow.Verify(x => x.ShowView(It.IsAny<IGamesListView>()));
         }
 
         [TestMethod]
@@ -314,8 +314,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var mockMainWindow = new Mock<IMainWindow>();
 
-            var mockView = new Mock<IViewGamesListView>();
-            Resolver.Container.RegisterInstance<IViewGamesListView>(mockView.Object);
+            var mockView = new Mock<IGamesListView>();
+            Resolver.Container.RegisterInstance<IGamesListView>(mockView.Object);
 
             var sut = new EnterGameResultsViewModel(null, new Mock<IQueryService>().Object, mockMainWindow.Object, _mockLogger);
 

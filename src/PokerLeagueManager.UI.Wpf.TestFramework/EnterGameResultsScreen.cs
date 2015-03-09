@@ -67,16 +67,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
-        public ViewGamesListScreen ClickSaveGame()
+        public GamesListScreen ClickSaveGame()
         {
             Mouse.Click(SaveGameButton);
-            return new ViewGamesListScreen(App);
+            return new GamesListScreen(App);
         }
 
-        public ViewGamesListScreen ClickCancel()
+        public GamesListScreen ClickCancel()
         {
             Mouse.Click(CancelButton);
-            return new ViewGamesListScreen(App);
+            return new GamesListScreen(App);
         }
 
         public EnterGameResultsScreen DismissWarningDialog()

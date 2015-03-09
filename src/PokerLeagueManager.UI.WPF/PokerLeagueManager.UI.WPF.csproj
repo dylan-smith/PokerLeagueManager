@@ -87,38 +87,38 @@
     <Compile Include="Infrastructure\BaseViewModel.cs" />
     <Compile Include="Infrastructure\IMainWindow.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
-    <Compile Include="ViewModels\IViewGameResultsViewModel.cs" />
+    <Compile Include="ViewModels\IGameResultsViewModel.cs" />
     <Compile Include="ViewModels\IPlayerStatisticsViewModel.cs" />
     <Compile Include="ViewModels\IPlayerGamesViewModel.cs" />
-    <Compile Include="ViewModels\ViewGameResultsViewModel.cs" />
+    <Compile Include="ViewModels\GameResultsViewModel.cs" />
     <Compile Include="ViewModels\PlayerStatisticsViewModel.cs" />
     <Compile Include="ViewModels\PlayerGamesViewModel.cs" />
-    <Compile Include="ViewModels\ViewGamesListViewModel.cs" />
-    <Compile Include="ViewModels\IViewGamesListViewModel.cs" />
+    <Compile Include="ViewModels\GamesListViewModel.cs" />
+    <Compile Include="ViewModels\IGamesListViewModel.cs" />
     <Compile Include="ViewModels\EnterGameResultsViewModel.cs" />
     <Compile Include="ViewModels\IEnterGameResultsViewModel.cs" />
     <Compile Include="Views\IPlayerGamesView.cs" />
-    <Compile Include="Views\IViewGameResultsView.cs" />
+    <Compile Include="Views\IGameResultsView.cs" />
     <Compile Include="Views\IPlayerStatisticsView.cs" />
-    <Compile Include="Views\ViewGameResultsView.xaml.cs">
-      <DependentUpon>ViewGameResultsView.xaml</DependentUpon>
+    <Compile Include="Views\GameResultsView.xaml.cs">
+      <DependentUpon>GameResultsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EnterGameResultsView.xaml.cs">
       <DependentUpon>EnterGameResultsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resolver.cs" />
     <Compile Include="Views\IEnterGameResultsView.cs" />
-    <Compile Include="Views\IViewGamesListView.cs" />
+    <Compile Include="Views\IGamesListView.cs" />
     <Compile Include="Views\PlayerStatisticsView.xaml.cs">
       <DependentUpon>PlayerStatisticsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlayerGamesView.xaml.cs">
       <DependentUpon>PlayerGamesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ViewGamesListView.xaml.cs">
-      <DependentUpon>ViewGamesListView.xaml</DependentUpon>
+    <Compile Include="Views\GamesListView.xaml.cs">
+      <DependentUpon>GamesListView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\ViewGameResultsView.xaml">
+    <Page Include="Views\GameResultsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -146,7 +146,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ViewGamesListView.xaml">
+    <Page Include="Views\GamesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

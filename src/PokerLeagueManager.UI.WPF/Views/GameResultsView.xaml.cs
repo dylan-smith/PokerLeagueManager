@@ -4,11 +4,11 @@ using PokerLeagueManager.UI.Wpf.ViewModels;
 
 namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public partial class ViewGameResultsView : UserControl, IViewGameResultsView
+    public partial class GameResultsView : UserControl, IGameResultsView
     {
-        private IViewGameResultsViewModel _viewModel;
+        private IGameResultsViewModel _viewModel;
 
-        public ViewGameResultsView(IViewGameResultsViewModel viewModel)
+        public GameResultsView(IGameResultsViewModel viewModel)
         {
             this.DataContext = viewModel;
             _viewModel = viewModel;

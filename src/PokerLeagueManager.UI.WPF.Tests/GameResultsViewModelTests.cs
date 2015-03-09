@@ -12,7 +12,7 @@ using PokerLeagueManager.UI.Wpf.Views;
 namespace PokerLeagueManager.UI.Wpf.Tests
 {
     [TestClass]
-    public class ViewGameResultsViewModelTests
+    public class GameResultsViewModelTests
     {
         [TestMethod]
         public void WhenGameIdIsSet_GameDateIsSet()
@@ -24,7 +24,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockQuerySvc = new Mock<IQueryService>();
             mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
 
-            var sut = new ViewGameResultsViewModel(null, mockQuerySvc.Object, null, null);
+            var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
             sut.GameId = gameId;
 
@@ -48,7 +48,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockQuerySvc = new Mock<IQueryService>();
             mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
 
-            var sut = new ViewGameResultsViewModel(null, mockQuerySvc.Object, null, null);
+            var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
             sut.GameId = gameId;
 
@@ -72,7 +72,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockQuerySvc = new Mock<IQueryService>();
             mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
 
-            var sut = new ViewGameResultsViewModel(null, mockQuerySvc.Object, null, null);
+            var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
             var watcher = new NotifyPropertyChangedWatcher(sut);
 
@@ -100,7 +100,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockQuerySvc = new Mock<IQueryService>();
             mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
 
-            var sut = new ViewGameResultsViewModel(null, mockQuerySvc.Object, null, null);
+            var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
             sut.GameId = gameId;
 
@@ -115,10 +115,10 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var mockMainWindow = new Mock<IMainWindow>();
 
-            var mockView = new Mock<IViewGamesListView>();
-            Resolver.Container.RegisterInstance<IViewGamesListView>(mockView.Object);
+            var mockView = new Mock<IGamesListView>();
+            Resolver.Container.RegisterInstance<IGamesListView>(mockView.Object);
 
-            var sut = new ViewGameResultsViewModel(null, null, mockMainWindow.Object, null);
+            var sut = new GameResultsViewModel(null, null, mockMainWindow.Object, null);
 
             sut.CloseCommand.Execute(null);
 

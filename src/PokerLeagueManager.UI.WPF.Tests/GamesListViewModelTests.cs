@@ -14,13 +14,13 @@ using PokerLeagueManager.UI.Wpf.Views;
 namespace PokerLeagueManager.UI.Wpf.Tests
 {
     [TestClass]
-    public class ViewGamesListViewModelTests
+    public class GamesListViewModelTests
     {
         private Mock<ICommandService> _mockCommandService = new Mock<ICommandService>();
         private Mock<IQueryService> _mockQueryService = new Mock<IQueryService>();
         private Mock<IMainWindow> _mockMainWindow = new Mock<IMainWindow>();
 
-        private ViewGamesListViewModel _sut = null;
+        private GamesListViewModel _sut = null;
         private NotifyPropertyChangedWatcher _watcher = null;
 
         [TestInitialize]
@@ -227,8 +227,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void DoubleClickGame_ShowsViewGameResultsView()
         {
-            var mockView = new Mock<IViewGameResultsView>();
-            Resolver.Container.RegisterInstance<IViewGameResultsView>(mockView.Object);
+            var mockView = new Mock<IGameResultsView>();
+            Resolver.Container.RegisterInstance<IGameResultsView>(mockView.Object);
 
             var gameId = Guid.NewGuid();
             var gamesList = new List<GetGamesListDto>();
@@ -245,9 +245,9 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             mockView.VerifySet(x => x.GameId = gameId);
         }
 
-        private ViewGamesListViewModel CreateSUT()
+        private GamesListViewModel CreateSUT()
         {
-            var sut = new ViewGamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            var sut = new GamesListViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
             _watcher = new NotifyPropertyChangedWatcher(sut);
             return sut;
         }

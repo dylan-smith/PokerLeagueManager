@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
-    public interface IViewGameResultsViewModel : INotifyPropertyChanged
+    public interface IGameResultsViewModel : INotifyPropertyChanged
     {
         System.Windows.Input.ICommand CloseCommand { get; set; }
 

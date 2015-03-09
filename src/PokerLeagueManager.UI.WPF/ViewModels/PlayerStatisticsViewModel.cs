@@ -52,7 +52,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void NavigateToGamesView()
         {
-            var view = Resolver.Container.Resolve<IViewGamesListView>();
+            var view = Resolver.Container.Resolve<IGamesListView>();
             _MainWindow.ShowView(view);
         }
 
