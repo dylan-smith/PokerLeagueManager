@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         public void Handle(PlayerAddedToGameEvent e)
         {
             var dto = new GetGamesWithPlayerDto();
-            dto.GameId = e.AggregateId;
+            dto.GameId = e.GameId;
             dto.PlayerName = e.PlayerName;
 
             QueryDataStore.Insert<GetGamesWithPlayerDto>(dto);
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameDeletedEvent e)
         {
-            var dtos = QueryDataStore.GetData<GetGamesWithPlayerDto>().Where(x => x.GameId == e.AggregateId).ToList();
+            var dtos = QueryDataStore.GetData<GetGamesWithPlayerDto>().Where(x => x.GameId == e.GameId).ToList();
 
             foreach (var d in dtos)
             {

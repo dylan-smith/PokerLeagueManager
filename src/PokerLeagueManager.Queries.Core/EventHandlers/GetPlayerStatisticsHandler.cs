@@ -30,7 +30,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameDeletedEvent e)
         {
-            var players = QueryDataStore.GetData<LookupGamePlayersDto>().Where(x => x.GameId == e.AggregateId);
+            var players = QueryDataStore.GetData<LookupGamePlayersDto>().Where(x => x.GameId == e.GameId);
 
             foreach (var p in players)
             {

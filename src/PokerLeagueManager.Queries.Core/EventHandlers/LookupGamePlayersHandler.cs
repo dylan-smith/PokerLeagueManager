@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             var dto = new LookupGamePlayersDto();
 
-            dto.GameId = e.AggregateId;
+            dto.GameId = e.GameId;
             dto.Winnings = e.Winnings;
             dto.PayIn = e.PayIn;
             dto.PlayerName = e.PlayerName;

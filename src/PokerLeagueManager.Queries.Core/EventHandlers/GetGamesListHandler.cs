@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             QueryDataStore.Insert(new GetGamesListDto()
             {
-                GameId = e.AggregateId,
+                GameId = e.GameId,
                 GameDate = e.GameDate,
                 Winnings = 0,
                 Winner = string.Empty
@@ -20,7 +20,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(PlayerAddedToGameEvent e)
         {
-            var game = QueryDataStore.GetData<GetGamesListDto>().First(x => x.GameId == e.AggregateId);
+            var game = QueryDataStore.GetData<GetGamesListDto>().First(x => x.GameId == e.GameId);
 
             if (e.Placing == 1)
             {
@@ -33,7 +33,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameDeletedEvent e)
         {
-            var dto = QueryDataStore.GetData<GetGamesListDto>().Single(x => x.GameId == e.AggregateId);
+            var dto = QueryDataStore.GetData<GetGamesListDto>().Single(x => x.GameId == e.GameId);
 
             QueryDataStore.Delete<GetGamesListDto>(dto);
         }

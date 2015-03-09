@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             QueryDataStore.Insert(new GetGameCountByDateDto()
             {
-                GameId = e.AggregateId,
+                GameId = e.GameId,
                 GameYear = e.GameDate.Year,
                 GameMonth = e.GameDate.Month,
                 GameDay = e.GameDate.Day
@@ -20,7 +20,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameDeletedEvent e)
         {
-            var dto = QueryDataStore.GetData<GetGameCountByDateDto>().Single(d => d.GameId == e.AggregateId);
+            var dto = QueryDataStore.GetData<GetGameCountByDateDto>().Single(d => d.GameId == e.GameId);
             QueryDataStore.Delete<GetGameCountByDateDto>(dto);
         }
     }

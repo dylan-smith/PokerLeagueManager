@@ -11,14 +11,14 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             QueryDataStore.Insert(new GetGameResultsDto()
             {
-                GameId = e.AggregateId,
+                GameId = e.GameId,
                 GameDate = e.GameDate
             });
         }
 
         public void Handle(PlayerAddedToGameEvent e)
         {
-            var game = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.AggregateId);
+            var game = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.GameId);
 
             game.Players.Add(new GetGameResultsDto.PlayerDto()
                 {
@@ -33,13 +33,13 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameDeletedEvent e)
         {
-            var dto = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.AggregateId);
+            var dto = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.GameId);
             QueryDataStore.Delete<GetGameResultsDto>(dto);
         }
 
         public void Handle(PlayerRenamedEvent e)
         {
-            var dto = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.AggregateId);
+            var dto = QueryDataStore.GetData<GetGameResultsDto>().Single(x => x.GameId == e.GameId);
 
             var renamedPlayer = dto.Players.First(p => p.PlayerName == e.OldPlayerName);
 

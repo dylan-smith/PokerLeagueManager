@@ -109,7 +109,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
         {
-            AggregateId = e.AggregateId;
+            base.AggregateId = e.AggregateId;
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]

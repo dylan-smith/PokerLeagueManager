@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             var dto = new LookupGameDatesDto();
 
-            dto.GameId = e.AggregateId;
+            dto.GameId = e.GameId;
             dto.GameDate = e.GameDate;
 
             QueryDataStore.Insert<LookupGameDatesDto>(dto);
