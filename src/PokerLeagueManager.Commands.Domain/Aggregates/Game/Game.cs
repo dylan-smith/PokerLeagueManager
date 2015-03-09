@@ -90,6 +90,11 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         public void RenamePlayer(string oldPlayerName, string newPlayerName)
         {
+            if (string.IsNullOrWhiteSpace(newPlayerName))
+            {
+                throw new PlayerNameMustNotBeBlankException();
+            }
+
             var duplicatePlayer = _players.FirstOrDefault(p => p.PlayerName.ToUpper().Trim() == newPlayerName.ToUpper().Trim());
 
             if (duplicatePlayer != null)
