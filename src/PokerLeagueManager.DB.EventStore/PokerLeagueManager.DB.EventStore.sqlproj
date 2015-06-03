@@ -92,6 +92,12 @@
     </None>
     <None Include="Scripts\SampleEvents.sql" />
     <None Include="Scripts\Subscribers.sql" />
+    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.AZURESIMPLE.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.AZURECOMPLEX.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="PublishEnvironment">

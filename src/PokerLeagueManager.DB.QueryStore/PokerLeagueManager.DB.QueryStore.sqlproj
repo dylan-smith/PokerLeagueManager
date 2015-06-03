@@ -86,5 +86,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.DEV.publish.xml" />
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.AZURESIMPLE.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.AZURECOMPLEX.publish.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
