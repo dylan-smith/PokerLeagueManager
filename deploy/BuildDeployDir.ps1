@@ -109,7 +109,7 @@ $zipFileName = "$deploy_dir\$tfsBuildNumber.zip"
 
 Add-Type -Assembly System.IO.Compression.FileSystem
 $compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
-[System.IO.Compression.ZipFile]::CreateFromDirectory($deploy_dir,$zipFileName,$compressionLevel,$true)
+[System.IO.Compression.ZipFile]::CreateFromDirectory($build_env_dir,$zipFileName,$compressionLevel,$true)
 
-$ctx = New-AzureStorageContext -StorageAccountName dylanpokerstorage -StorageAccountKey 
+$ctx = New-AzureStorageContext -StorageAccountName dylanpokerstorage -StorageAccountKey efo1eHJJAouO4n/73Xc4EJRHBdu/r+n4iChmw61ThRMwQhJi1nztBXTxUpc5meTZD8OUwsqCx4I6BfJFnpLp3g==
 Set-AzureStorageBlobContent -File "$zipFileName" -Container "builds" -Context $ctx
