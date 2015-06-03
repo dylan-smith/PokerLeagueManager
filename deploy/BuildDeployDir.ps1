@@ -1,3 +1,7 @@
+Param(
+	[string]$tfsBuildNumber
+)
+
 $build_outputs = "BuildOutputs"
 $deploy_dir = "Deployment"
 mkdir $deploy_dir
@@ -98,3 +102,14 @@ copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe.config
 ############################
 
 copy -path "$build_outputs\deploy\config\*" -dest "$deploy_dir\" -Force -Recurse
+
+############################
+
+$zipFileName = "$deploy_dir\$tfsBuildNumber.zip"
+
+Add-Type -Assembly System.IO.Compression.FileSystem
+$compressionLevel = [System.IO.Compression.CompressionLevel]::Optimal
+[System.IO.Compression.ZipFile]::CreateFromDirectory($deploy_dir,$zipFileName,$compressionLevel,$true)
+
+$ctx = New-AzureStorageContext -StorageAccountName dylanpokerstorage -StorageAccountKey 
+Set-AzureStorageBlobContent -File "$zipFileName" -Container "builds" -Context $ctx
