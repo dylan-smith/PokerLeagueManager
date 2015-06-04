@@ -185,7 +185,7 @@ mkdir "$query_db_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$query_db_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$query_db_server_dir\Deploy.cmd"
 
-mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
+mkdir "$query_db_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$query_db_server_dir\PokerLeagueManager.DB.QueryStore\"
 copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.AZURECOMPLEX.publish.xml" -dest "$query_db_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 
