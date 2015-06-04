@@ -153,9 +153,9 @@ copy -path "$build_outputs\PokerLeagueManager.Utilities.ProcessEvents.exe.config
 ### AzureComplex Environment ###
 
 $azurecomplex_env_dir = "$deploy_dir\AzureComplex Environment"
-mkdir "$build_env_dir"
+mkdir "$azurecomplex_env_dir"
 
-$command_web_server_dir = "$build_env_dir\Command Web Server"
+$command_web_server_dir = "$azurecomplex_env_dir\Command Web Server"
 mkdir "$command_web_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$command_web_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$command_web_server_dir\Deploy.cmd"
@@ -163,7 +163,7 @@ copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$command_web_server_dir\Dep
 mkdir "$command_web_server_dir\PokerLeagueManager.Commands.WCF"
 copy -path "$build_outputs\_PublishedWebsites\PokerLeagueManager.Commands.WCF_Package\*" -dest "$command_web_server_dir\PokerLeagueManager.Commands.WCF\"
 
-$query_web_server_dir = "$build_env_dir\Query Web Server"
+$query_web_server_dir = "$azurecomplex_env_dir\Query Web Server"
 mkdir "$query_web_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$query_web_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$query_web_server_dir\Deploy.cmd"
@@ -171,7 +171,7 @@ copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$query_web_server_dir\Deplo
 mkdir "$query_web_server_dir\PokerLeagueManager.Queries.WCF"
 copy -path "$build_outputs\_PublishedWebsites\PokerLeagueManager.Queries.WCF_Package\*" -dest "$query_web_server_dir\PokerLeagueManager.Queries.WCF\"
 
-$event_db_server_dir = "$build_env_dir\Event DB Server"
+$event_db_server_dir = "$azurecomplex_env_dir\Event DB Server"
 mkdir "$event_db_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$event_db_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$event_db_server_dir\Deploy.cmd"
@@ -180,7 +180,7 @@ mkdir "$event_db_server_dir\PokerLeagueManager.DB.EventStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.dacpac" -dest "$event_db_server_dir\PokerLeagueManager.DB.EventStore\"
 copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.AZURECOMPLEX.publish.xml" -dest "$event_db_server_dir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
 
-$query_db_server_dir = "$build_env_dir\Query DB Server"
+$query_db_server_dir = "$azurecomplex_env_dir\Query DB Server"
 mkdir "$query_db_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$query_db_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$query_db_server_dir\Deploy.cmd"
@@ -189,7 +189,7 @@ mkdir "$build_server_dir\PokerLeagueManager.DB.QueryStore"
 copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$query_db_server_dir\PokerLeagueManager.DB.QueryStore\"
 copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.AZURECOMPLEX.publish.xml" -dest "$query_db_server_dir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 
-$client_server_dir = "$build_env_dir\Client Server"
+$client_server_dir = "$azurecomplex_env_dir\Client Server"
 mkdir "$client_server_dir"
 copy -path "$build_outputs\Deploy\Deploy.ps1" -dest "$client_server_dir\Deploy.ps1"
 copy -path "$build_outputs\Deploy\Deploy.cmd" -dest "$client_server_dir\Deploy.cmd"
