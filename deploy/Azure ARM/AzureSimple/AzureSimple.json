@@ -1,6 +1,11 @@
 ﻿{
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
+    "parameters": {
+        "tfsBuildNumber": {
+            "type": "string"
+        }
+    },
     "variables": {
         "location": "[resourceGroup().location]",
         "nicName": "myVMNic",
@@ -169,9 +174,9 @@
                 "settings": {
                     "fileUris": [
                         "https://dylanpokerstorage.blob.core.windows.net/scripts/VMExtension.ps1",
-                        "https://dylanpokerstorage.blob.core.windows.net/builds/Gated Build_20150604.3-AZURESIMPLE.zip"
+                        "[concat('https://dylanpokerstorage.blob.core.windows.net/builds/Gated Build_', parameters('tfsBuildNumber'), '-AZURESIMPLE.zip')]"
                     ],
-                    "commandToExecute": "powershell -ExecutionPolicy Unrestricted -file VMExtension.ps1 -tfsBuildNumber \"Gated Build_20150604.3-AZURESIMPLE\" -deployScript \"AzureSimple Environment\\Azure Server\\Deploy.ps1\""
+                    "commandToExecute": "[concat('powershell -ExecutionPolicy Unrestricted -file VMExtension.ps1 -tfsBuildNumber \"Gated Build_', parameters('tfsBuildNumber'), '-AZURESIMPLE\" -deployScript \"AzureSimple Environment\\Azure Server\\Deploy.ps1\"')]"
                 },
                 "protectedSettings": {
                     "storageAccountName": "dylanpokerstorage",
