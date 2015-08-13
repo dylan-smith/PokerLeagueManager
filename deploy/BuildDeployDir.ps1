@@ -34,16 +34,16 @@ function Copy-QueriesWCF([string]$TargetDir){
 	copy -path "$build_outputs\_PublishedWebsites\PokerLeagueManager.Queries.WCF_Package\*" -dest "$TargetDir\PokerLeagueManager.Queries.WCF\"
 }
 
-function Copy-DBEventStore([string]$TargetDir){
+function Copy-DBEventStore([string]$TargetDir, [string]$EnvName){
 	mkdir "$TargetDir\PokerLeagueManager.DB.EventStore"
 	copy -path "$build_outputs\PokerLeagueManager.DB.EventStore.dacpac" -dest "$TargetDir\PokerLeagueManager.DB.EventStore\"
-	copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.localhost.publish.xml" -dest "$TargetDir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
+	copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.EventStore.$EnvName.publish.xml" -dest "$TargetDir\PokerLeagueManager.DB.EventStore\PokerLeagueManager.DB.EventStore.publish.xml"
 }
 
-function Copy-DBQueryStore([string]$TargetDir){
+function Copy-DBQueryStore([string]$TargetDir, [string]$EnvName){
 	mkdir "$TargetDir\PokerLeagueManager.DB.QueryStore"
 	copy -path "$build_outputs\PokerLeagueManager.DB.QueryStore.dacpac" -dest "$TargetDir\PokerLeagueManager.DB.QueryStore\"
-	copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.localhost.publish.xml" -dest "$TargetDir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
+	copy -path "$build_outputs\Publish Profiles\PokerLeagueManager.DB.QueryStore.$EnvName.publish.xml" -dest "$TargetDir\PokerLeagueManager.DB.QueryStore\PokerLeagueManager.DB.QueryStore.publish.xml"
 }
 
 function Copy-UIWPF([string]$TargetDir){
@@ -85,8 +85,8 @@ Write-Host $ServerDir
 
 Copy-CommandsWCF $ServerDir
 Copy-QueriesWCF $ServerDir
-Copy-DBEventStore $ServerDir
-Copy-DBQueryStore $ServerDir
+Copy-DBEventStore $ServerDir $EnvName
+Copy-DBQueryStore $ServerDir $EnvName
 Copy-UIWPF $ServerDir
 Copy-UtilitiesProcessEvents $ServerDir
 
@@ -103,8 +103,8 @@ $ServerDir = Create-ServerDir $EnvDir $ServerName
 
 Copy-CommandsWCF $ServerDir
 Copy-QueriesWCF $ServerDir
-Copy-DBEventStore $ServerDir
-Copy-DBQueryStore $ServerDir
+Copy-DBEventStore $ServerDir $EnvName
+Copy-DBQueryStore $ServerDir $EnvName
 Copy-UIWPF $ServerDir
 Copy-UtilitiesProcessEvents $ServerDir
 
@@ -121,8 +121,8 @@ $ServerDir = Create-ServerDir $EnvDir $ServerName
 
 Copy-CommandsWCF $ServerDir
 Copy-QueriesWCF $ServerDir
-Copy-DBEventStore $ServerDir
-Copy-DBQueryStore $ServerDir
+Copy-DBEventStore $ServerDir $EnvName
+Copy-DBQueryStore $ServerDir $EnvName
 Copy-UIWPF $ServerDir
 Copy-UtilitiesProcessEvents $ServerDir
 
@@ -144,11 +144,11 @@ Copy-QueriesWCF $ServerDir
 
 $ServerName = "Event DB Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName
-Copy-DBEventStore $ServerDir
+Copy-DBEventStore $ServerDir $EnvName
 
 $ServerName = "Query DB Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName
-Copy-DBQueryStore $ServerDir
+Copy-DBQueryStore $ServerDir $EnvName
 
 $ServerName = "Client Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName

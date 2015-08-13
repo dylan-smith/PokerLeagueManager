@@ -82,7 +82,7 @@
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.localhost.publish.xml">
+    <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.LOCAL.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.DEV.publish.xml" />
