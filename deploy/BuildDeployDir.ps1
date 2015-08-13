@@ -145,6 +145,7 @@ Copy-QueriesWCF $ServerDir
 $ServerName = "Event DB Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName
 Copy-DBEventStore $ServerDir $EnvName
+Copy-UtilitiesProcessEvents $ServerDir
 
 $ServerName = "Query DB Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName
@@ -153,7 +154,7 @@ Copy-DBQueryStore $ServerDir $EnvName
 $ServerName = "Client Server"
 $ServerDir = Create-ServerDir $EnvDir $ServerName
 Copy-UIWPF $ServerDir
-Copy-UtilitiesProcessEvents $ServerDir
+
 
 ############################
 
