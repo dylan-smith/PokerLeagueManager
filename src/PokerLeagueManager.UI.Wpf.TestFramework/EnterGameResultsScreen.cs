@@ -19,6 +19,17 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public EnterGameResultsScreen AddPlayer(string playerName, string placing, string winnings, string payIn)
+        {
+            EnterPlayerName(playerName);
+            EnterPlacing(placing);
+            EnterWinnings(winnings);
+            EnterPayIn(payIn);
+            ClickAddPlayer();
+
+            return this;
+        }
+
         public EnterGameResultsScreen EnterPlayerName(string playerName)
         {
             PlayerNameTextBox.Text = playerName;
