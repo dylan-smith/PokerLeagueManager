@@ -106,6 +106,12 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public PlayerStatisticsScreen ClickPlayerStatistics()
+        {
+            Mouse.Click(PlayerStatisticsButton);
+            return new PlayerStatisticsScreen(App);
+        }
+
         private DateTime GenerateRandomDate(int minYear, int maxYear)
         {
             var randomDays = GenerateRandomInteger((maxYear - minYear) * 365);
@@ -158,6 +164,16 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
             var ctl = new WpfListItem(gamesList);
             return ctl.FindMatchingControls();
+        }
+
+        private WpfButton PlayerStatisticsButton
+        {
+            get
+            {
+                var ctl = new WpfButton(App);
+                ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "PlayerStatisticsButton");
+                return ctl;
+            }
         }
     }
 }

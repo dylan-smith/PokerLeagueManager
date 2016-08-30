@@ -66,6 +66,8 @@
     <Compile Include="BaseScreen.cs" />
     <Compile Include="GameResultsScreen.cs" />
     <Compile Include="EnterGameResultsScreen.cs" />
+    <Compile Include="PlayerGamesScreen.cs" />
+    <Compile Include="PlayerStatisticsScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GamesListScreen.cs" />
   </ItemGroup>
