@@ -40,22 +40,32 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 stats.Winnings -= p.Winnings;
                 stats.PayIn -= p.PayIn;
                 stats.Profit -= p.Winnings - p.PayIn;
-                stats.ProfitPerGame = stats.Profit == 0 ? 0 : stats.Profit / stats.GamesPlayed;
-
-                QueryDataStore.SaveChanges();
+                stats.ProfitPerGame = stats.GamesPlayed == 0 ? 0 : stats.Profit / stats.GamesPlayed;
             }
+
+            QueryDataStore.SaveChanges();
         }
 
         public void Handle(PlayerRenamedEvent e)
         {
-            var players = QueryDataStore.GetData<GetPlayerStatisticsDto>().Where(x => x.PlayerName == e.OldPlayerName).ToList();
+            var oldPlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().Single(x => x.PlayerName == e.OldPlayerName);
+            var mergePlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName == e.NewPlayerName);
 
-            foreach (var p in players)
+            if (mergePlayer == null)
             {
-                p.PlayerName = e.NewPlayerName;
+                oldPlayer.PlayerName = e.NewPlayerName;
+                QueryDataStore.SaveChanges();
             }
+            else
+            {
+                mergePlayer.GamesPlayed += oldPlayer.GamesPlayed;
+                mergePlayer.Winnings += oldPlayer.Winnings;
+                mergePlayer.PayIn += oldPlayer.PayIn;
+                mergePlayer.Profit += oldPlayer.Profit;
+                mergePlayer.ProfitPerGame = mergePlayer.GamesPlayed == 0 ? 0 : mergePlayer.Profit / mergePlayer.GamesPlayed;
 
-            QueryDataStore.SaveChanges();
+                QueryDataStore.Delete(oldPlayer);
+            }
         }
 
         private void AddGameToPlayer(GetPlayerStatisticsDto player, PlayerAddedToGameEvent e)
