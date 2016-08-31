@@ -176,6 +176,7 @@ namespace PokerLeagueManager.Common.Tests
                         if (!AreValuesEqual(valueA, valueB))
                         {
                             result = false;
+                            notMatchMessage = "[" + valueA.ToString() + "] does not match [" + valueB.ToString() + "]";
                             break;
                         }
                     }
