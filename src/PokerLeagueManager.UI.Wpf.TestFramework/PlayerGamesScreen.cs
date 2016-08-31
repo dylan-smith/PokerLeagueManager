@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UITesting;
+using Microsoft.VisualStudio.TestTools.UITesting.WinControls;
 using Microsoft.VisualStudio.TestTools.UITesting.WpfControls;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -17,6 +18,19 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         {
             TakeScreenshot();
             RenamePlayerButton.Find();
+        }
+
+        public PlayerGamesScreen VerifyDuplicatePlayerWarning()
+        {
+            TakeScreenshot();
+            Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
+            return this;
+        }
+
+        public PlayerGamesScreen DismissWarningDialog()
+        {
+            Mouse.Click(ActionFailedOkButton);
+            return this;
         }
 
         public PlayerGamesScreen EnterNewPlayerName(string newPlayerName)
@@ -41,6 +55,35 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         {
             Mouse.Click(CloseButton);
             return new PlayerStatisticsScreen(App);
+        }
+
+        private WinWindow ActionFailedMessageBox
+        {
+            get
+            {
+                var ctl = new WinWindow();
+                ctl.SearchProperties.Add(WinWindow.PropertyNames.Name, "Action Failed");
+                return ctl;
+            }
+        }
+
+        private WinText ActionFailedMessage
+        {
+            get
+            {
+                var ctl = new WinText(ActionFailedMessageBox);
+                return ctl;
+            }
+        }
+
+        private WinButton ActionFailedOkButton
+        {
+            get
+            {
+                var ctl = new WinButton(ActionFailedMessageBox);
+                ctl.SearchProperties.Add(WinButton.PropertyNames.Name, "OK");
+                return ctl;
+            }
         }
 
         private WpfButton CloseButton
