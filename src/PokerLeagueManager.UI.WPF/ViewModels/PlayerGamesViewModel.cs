@@ -66,9 +66,10 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             cmd.OldPlayerName = PlayerName;
             cmd.NewPlayerName = NewPlayerName;
 
-            base.ExecuteCommand(cmd);
-
-            PlayerName = NewPlayerName;
+            if (base.ExecuteCommand(cmd))
+            {
+                PlayerName = NewPlayerName;
+            }
         }
 
         private bool CanRenamePlayer()

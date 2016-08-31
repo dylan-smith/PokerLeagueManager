@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
+using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PokerLeagueManager.Commands.Domain.Exceptions;
+using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
@@ -18,6 +22,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         private Mock<ICommandService> _mockCommandService = new Mock<ICommandService>();
         private Mock<IQueryService> _mockQueryService = new Mock<IQueryService>();
         private Mock<IMainWindow> _mockMainWindow = new Mock<IMainWindow>();
+        private Mock<ILog> _mockLogger = new Mock<ILog>();
 
         private PlayerGamesViewModel _sut = null;
 
@@ -40,6 +45,23 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             _sut.CloseCommand.Execute(null);
 
             _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+        }
+
+        [TestMethod]
+        public void WhenRenameToDuplicate_ShowWarning()
+        {
+            var customException = new DuplicatePlayerNameException("Macho Man");
+            var ex = new FaultException<ExceptionDetail>(new ExceptionDetail(customException));
+            _mockCommandService.Setup(x => x.ExecuteCommand(It.IsAny<RenamePlayerCommand>())).Throws(ex);
+
+            _sut = CreateSUT();
+            _sut.PlayerName = "Hulk Hogan";
+            _sut.NewPlayerName = "Macho Man";
+
+            _sut.RenamePlayerCommand.Execute(null);
+
+            _mockMainWindow.Verify(x => x.ShowWarning("Action Failed", customException.Message));
+            Assert.AreEqual("Hulk Hogan", _sut.PlayerName);
         }
 
         [TestMethod]
@@ -122,7 +144,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
         private PlayerGamesViewModel CreateSUT()
         {
-            var sut = new PlayerGamesViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, null);
+            var sut = new PlayerGamesViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, _mockLogger.Object);
             return sut;
         }
     }

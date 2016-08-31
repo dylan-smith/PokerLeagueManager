@@ -55,6 +55,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -82,6 +83,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">
+      <Project>{D702BDB7-9F99-4509-82AF-632689AFF7D0}</Project>
+      <Name>PokerLeagueManager.Commands.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.Commands\PokerLeagueManager.Common.Commands.csproj">
       <Project>{a466419b-e149-4027-bf0a-b1156f50c67d}</Project>
       <Name>PokerLeagueManager.Common.Commands</Name>
