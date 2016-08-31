@@ -26,6 +26,20 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public GamesListScreen DeleteAllGames()
+        {
+            var gameItem = FindGameListItem();
+
+            while (gameItem.TryFind())
+            {
+                Mouse.Click(gameItem);
+                Mouse.Click(DeleteGameButton);
+                gameItem = FindGameListItem();
+            }
+
+            return this;
+        }
+
         public override void VerifyScreen()
         {
             TakeScreenshot();
@@ -145,6 +159,14 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
                 ctl.SearchProperties.Add(WpfButton.PropertyNames.AutomationId, "DeleteGameButton");
                 return ctl;
             }
+        }
+
+        private WpfListItem FindGameListItem()
+        {
+            var gamesList = new WpfList(App);
+            gamesList.SearchProperties.Add(WpfList.PropertyNames.AutomationId, "GamesListBox");
+
+            return new WpfListItem(gamesList);
         }
 
         private WpfListItem FindGameListItem(string gameDescription)

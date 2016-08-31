@@ -66,6 +66,7 @@
     <Compile Include="CreateGameWithFourPlayersTest.cs" />
     <Compile Include="CreateGameAndViewResultsTest.cs" />
     <Compile Include="CreateGameAndDeleteGameTest.cs" />
+    <Compile Include="RenamePlayerToMergeTest.cs" />
     <Compile Include="RenamePlayerHappyPathTest.cs" />
     <Compile Include="WinningsAndPayinsDoNotMatchTest.cs" />
     <Compile Include="DeletePlayerFromGameTest.cs" />

@@ -18,6 +18,17 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public PlayerStatisticsScreen VerifyPlayerInList(string playerName, int gamesPlayed)
+        {
+            TakeScreenshot();
+
+            var listItem = FindPlayerListItem(playerName);
+            Assert.IsTrue(listItem.TryFind(), playerName);
+            Assert.IsTrue(listItem.DisplayText.Contains("Games Played: " + gamesPlayed.ToString()));
+
+            return this;
+        }
+
         public PlayerGamesScreen DoubleClickPlayer(string playerName)
         {
             var item = FindPlayerListItem(playerName);
