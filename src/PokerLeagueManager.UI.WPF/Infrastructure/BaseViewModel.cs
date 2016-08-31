@@ -68,8 +68,6 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
 
         private bool HandleException(Exception ex)
         {
-            var actionSucceeded = false;
-            
             var fault = ex as FaultException<ExceptionDetail>;
 
             if (fault != null)
@@ -82,7 +80,7 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
                     if (fault.Detail.Type.Contains("PublishEventFailedException"))
                     {
                         _MainWindow.ShowWarning("Action Succeeded", fault.Detail.Message);
-                        actionSucceeded = true;
+                        return true;
                     }
                     else
                     {
@@ -102,7 +100,7 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
                 _MainWindow.ShowError("Action Failed", ex.Message);
             }
 
-            return actionSucceeded;
+            return false;
         }
     }
 }
