@@ -29,6 +29,14 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public PlayerStatisticsScreen VerifyPlayerListCount(int expectedCount)
+        {
+            TakeScreenshot();
+
+            Assert.AreEqual(expectedCount, FindAllPlayerListItems().Count);
+            return this;
+        }
+
         public PlayerGamesScreen DoubleClickPlayer(string playerName)
         {
             var item = FindPlayerListItem(playerName);
@@ -45,6 +53,15 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             var ctl = new WpfListItem(playersList);
             ctl.SearchProperties.Add(WpfListItem.PropertyNames.Name, playerName, PropertyExpressionOperator.Contains);
             return ctl;
+        }
+
+        private UITestControlCollection FindAllPlayerListItems()
+        {
+            var playersList = new WpfList(App);
+            playersList.SearchProperties.Add(WpfList.PropertyNames.AutomationId, "PlayersListBox");
+
+            var ctl = new WpfListItem(playersList);
+            return ctl.FindMatchingControls();
         }
     }
 }

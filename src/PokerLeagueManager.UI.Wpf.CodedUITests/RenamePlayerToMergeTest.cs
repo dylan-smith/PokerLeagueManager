@@ -44,7 +44,8 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .ClickRenamePlayer()
                             .VerifyPlayerName("hulk hogan")
                             .ClickClose()
-                            .VerifyPlayerInList("Hulk Hogan", gamesPlayed: 2);
+                            .VerifyPlayerInList("Hulk Hogan", gamesPlayed: 2)
+                            .VerifyPlayerListCount(2);
         }
     }
 }
