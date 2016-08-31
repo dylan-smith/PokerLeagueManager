@@ -31,15 +31,15 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerStatistics
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId1, PlayerName = _player4, Placing = 4, Winnings = 0, PayIn = 30 };
 
             yield return new GameCreatedEvent() { AggregateId = _gameId2, GameDate = DateTime.Now };
-            yield return new PlayerAddedToGameEvent { AggregateId = _gameId2, PlayerName = _player4, Placing = 1, Winnings = 50, PayIn = 20 };
-            yield return new PlayerAddedToGameEvent { AggregateId = _gameId2, PlayerName = _player1, Placing = 2, Winnings = 10, PayIn = 20 };
+            yield return new PlayerAddedToGameEvent { AggregateId = _gameId2, PlayerName = _player4.ToLower(), Placing = 1, Winnings = 50, PayIn = 20 };
+            yield return new PlayerAddedToGameEvent { AggregateId = _gameId2, PlayerName = _player1.ToLower(), Placing = 2, Winnings = 10, PayIn = 20 };
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId2, PlayerName = _player5, Placing = 3, Winnings = 0, PayIn = 20 };
 
             yield return new GameCreatedEvent() { AggregateId = _gameId3, GameDate = DateTime.Now };
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId3, PlayerName = _player3, Placing = 1, Winnings = 60, PayIn = 40 };
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId3, PlayerName = _player2, Placing = 2, Winnings = 0, PayIn = 20 };
 
-            yield return new PlayerRenamedEvent() { AggregateId = _gameId2, OldPlayerName = _player5, NewPlayerName = _player3 };
+            yield return new PlayerRenamedEvent() { AggregateId = _gameId2, OldPlayerName = _player5, NewPlayerName = _player3.ToLower() };
         }
 
         [TestMethod]

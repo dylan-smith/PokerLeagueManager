@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
     {
         public void Handle(PlayerAddedToGameEvent e)
         {
-            var player = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName == e.PlayerName);
+            var player = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName.ToUpper() == e.PlayerName.ToUpper());
 
             if (player == null)
             {
@@ -34,7 +34,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
             foreach (var p in players)
             {
-                var stats = QueryDataStore.GetData<GetPlayerStatisticsDto>().First(x => x.PlayerName == p.PlayerName);
+                var stats = QueryDataStore.GetData<GetPlayerStatisticsDto>().Single(x => x.PlayerName.ToUpper() == p.PlayerName.ToUpper());
 
                 stats.GamesPlayed--;
                 stats.Winnings -= p.Winnings;
@@ -48,8 +48,8 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(PlayerRenamedEvent e)
         {
-            var oldPlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().Single(x => x.PlayerName == e.OldPlayerName);
-            var mergePlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName == e.NewPlayerName);
+            var oldPlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().Single(x => x.PlayerName.ToUpper() == e.OldPlayerName.ToUpper());
+            var mergePlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName.ToUpper() == e.NewPlayerName.ToUpper());
 
             if (mergePlayer == null)
             {
@@ -70,7 +70,12 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         private void AddGameToPlayer(GetPlayerStatisticsDto player, PlayerAddedToGameEvent e)
         {
-            player.PlayerName = e.PlayerName;
+            // TODO: change this to use the elvis operator - can't do until I upgrade the build
+            if (player.PlayerName == null || player.PlayerName.ToUpper() != e.PlayerName.ToUpper())
+            {
+                player.PlayerName = e.PlayerName;
+            }
+
             player.GamesPlayed++;
             player.Winnings += e.Winnings;
             player.PayIn += e.PayIn;
