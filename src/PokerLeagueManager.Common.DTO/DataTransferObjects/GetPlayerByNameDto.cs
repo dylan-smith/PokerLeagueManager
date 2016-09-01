@@ -9,5 +9,8 @@ namespace PokerLeagueManager.Common.DTO
     {
         [DataMember]
         public string PlayerName { get; set; }
+
+        [DataMember]
+        public int GameCount { get; set; }
     }
 }

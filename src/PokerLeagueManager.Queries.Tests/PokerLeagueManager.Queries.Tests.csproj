@@ -80,6 +80,12 @@
     <Compile Include="GetGamesWithPlayer\DeletedGameTest.cs" />
     <Compile Include="GetGamesWithPlayer\PlayerRenamedTest.cs" />
     <Compile Include="GetGamesWithPlayer\ThreeGamesTest.cs" />
+    <Compile Include="GetPlayerByName\CaseInsensitiveTest.cs" />
+    <Compile Include="GetPlayerByName\PlayerDeletedOneOutOfTwoGamesTest.cs" />
+    <Compile Include="GetPlayerByName\PlayerDeletedTest.cs" />
+    <Compile Include="GetPlayerByName\PlayerRenamedAddsNewNameTest.cs" />
+    <Compile Include="GetPlayerByName\PlayerRenamedRemovesOldNameTest.cs" />
+    <Compile Include="GetPlayerByName\PlayerExistsTest.cs" />
     <Compile Include="GetPlayerGames\DeletedGameTest.cs" />
     <Compile Include="GetPlayerGames\PlayerRenamedTest.cs" />
     <Compile Include="GetPlayerGames\ThreeGamesTest.cs" />
