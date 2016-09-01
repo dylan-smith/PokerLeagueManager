@@ -18,14 +18,14 @@ using PokerLeagueManager.UI.Wpf.Views;
 namespace PokerLeagueManager.UI.Wpf.Tests
 {
     [TestClass]
-    public class PlayerGamesViewModelTests
+    public class PlayerDetailsViewModelTests
     {
         private Mock<ICommandService> _mockCommandService = new Mock<ICommandService>();
         private Mock<IQueryService> _mockQueryService = new Mock<IQueryService>();
         private Mock<IMainWindow> _mockMainWindow = new Mock<IMainWindow>();
         private Mock<ILog> _mockLogger = new Mock<ILog>();
 
-        private PlayerGamesViewModel _sut = null;
+        private PlayerDetailsViewModel _sut = null;
 
         [TestInitialize]
         public void TestInitialize()
@@ -179,9 +179,9 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Assert.AreEqual("12-Feb-2014 - Placing: 3 - Winnings: $10 - Pay In: $20", _sut.Games.ElementAt(2));
         }
 
-        private PlayerGamesViewModel CreateSUT()
+        private PlayerDetailsViewModel CreateSUT()
         {
-            var sut = new PlayerGamesViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, _mockLogger.Object);
+            var sut = new PlayerDetailsViewModel(_mockCommandService.Object, _mockQueryService.Object, _mockMainWindow.Object, _mockLogger.Object);
             return sut;
         }
     }

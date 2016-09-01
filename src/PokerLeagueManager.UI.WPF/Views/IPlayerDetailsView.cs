@@ -1,6 +1,6 @@
 ﻿namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public interface IPlayerGamesView
+    public interface IPlayerDetailsView
     {
         string PlayerName { get; set; }
     }

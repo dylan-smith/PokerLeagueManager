@@ -63,10 +63,10 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
-        public void DoubleClickPlayer_ShowsPlayerGamesView()
+        public void DoubleClickPlayer_ShowsPlayerDetailsView()
         {
-            var mockView = new Mock<IPlayerGamesView>();
-            Resolver.Container.RegisterInstance<IPlayerGamesView>(mockView.Object);
+            var mockView = new Mock<IPlayerDetailsView>();
+            Resolver.Container.RegisterInstance<IPlayerDetailsView>(mockView.Object);
 
             var playerName = "Daffy Duck";
             var playersList = new List<GetPlayerStatisticsDto>();

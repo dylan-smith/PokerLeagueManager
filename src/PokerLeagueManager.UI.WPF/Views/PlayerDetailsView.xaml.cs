@@ -3,11 +3,11 @@ using PokerLeagueManager.UI.Wpf.ViewModels;
 
 namespace PokerLeagueManager.UI.Wpf.Views
 {
-    public partial class PlayerGamesView : UserControl, IPlayerGamesView
+    public partial class PlayerDetailsView : UserControl, IPlayerDetailsView
     {
-        private IPlayerGamesViewModel _viewModel;
+        private IPlayerDetailsViewModel _viewModel;
 
-        public PlayerGamesView(IPlayerGamesViewModel viewModel)
+        public PlayerDetailsView(IPlayerDetailsViewModel viewModel)
         {
             this.DataContext = viewModel;
             _viewModel = viewModel;

@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="GameResultsViewModelTests.cs" />
     <Compile Include="PlayerStatisticsViewModelTests.cs" />
-    <Compile Include="PlayerGamesViewModelTests.cs" />
+    <Compile Include="PlayerDetailsViewModelTests.cs" />
     <Compile Include="GamesListViewModelTests.cs" />
     <Compile Include="EnterGameResultsViewModelTests.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />

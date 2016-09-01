@@ -12,7 +12,7 @@ using PokerLeagueManager.UI.Wpf.Views;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
-    public class PlayerGamesViewModel : BaseViewModel, INotifyPropertyChanged, IPlayerGamesViewModel
+    public class PlayerDetailsViewModel : BaseViewModel, INotifyPropertyChanged, IPlayerDetailsViewModel
     {
         public IEnumerable<string> Games { get; set; }
 
@@ -20,7 +20,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private string _playerName;
 
-        public PlayerGamesViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
+        public PlayerDetailsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
             CloseCommand = new RelayCommand(x => Close());

@@ -63,7 +63,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 return;
             }
 
-            var view = Resolver.Container.Resolve<IPlayerGamesView>();
+            var view = Resolver.Container.Resolve<IPlayerDetailsView>();
             view.PlayerName = GetSelectedPlayer().PlayerName;
             _MainWindow.ShowView(view);
         }

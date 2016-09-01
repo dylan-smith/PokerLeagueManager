@@ -52,12 +52,12 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
-        public PlayerGamesScreen DoubleClickPlayer(string playerName)
+        public PlayerDetailsScreen DoubleClickPlayer(string playerName)
         {
             var item = FindPlayerListItem(playerName);
             Mouse.DoubleClick(item);
 
-            return new PlayerGamesScreen(App);
+            return new PlayerDetailsScreen(App);
         }
 
         private WpfListItem FindPlayerListItem(string playerName)

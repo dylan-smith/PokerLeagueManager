@@ -7,9 +7,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PokerLeagueManager.UI.Wpf.TestFramework
 {
-    public class PlayerGamesScreen : BaseScreen
+    public class PlayerDetailsScreen : BaseScreen
     {
-        public PlayerGamesScreen(ApplicationUnderTest app)
+        public PlayerDetailsScreen(ApplicationUnderTest app)
             : base(app)
         {
         }
@@ -20,38 +20,38 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             RenamePlayerButton.Find();
         }
 
-        public PlayerGamesScreen VerifyDuplicatePlayerWarning()
+        public PlayerDetailsScreen VerifyDuplicatePlayerWarning()
         {
             TakeScreenshot();
             Assert.IsTrue(ActionFailedMessage.DisplayText.ToUpper().Contains("CANNOT ADD THE SAME PLAYER"), "Did not contain CANNOT ADD THE SAME PLAYER: " + ActionFailedMessage.DisplayText.ToUpper());
             return this;
         }
 
-        public PlayerGamesScreen DismissWarningDialog()
+        public PlayerDetailsScreen DismissWarningDialog()
         {
             Mouse.Click(ActionFailedOkButton);
             return this;
         }
 
-        public PlayerGamesScreen ClickConfirmMerge()
+        public PlayerDetailsScreen ClickConfirmMerge()
         {
             Mouse.Click(ConfirmMergeOkButton);
             return this;
         }
 
-        public PlayerGamesScreen EnterNewPlayerName(string newPlayerName)
+        public PlayerDetailsScreen EnterNewPlayerName(string newPlayerName)
         {
             NewPlayerNameTextBox.Text = newPlayerName;
             return this;
         }
 
-        public PlayerGamesScreen ClickRenamePlayer()
+        public PlayerDetailsScreen ClickRenamePlayer()
         {
             Mouse.Click(RenamePlayerButton);
             return this;
         }
 
-        public PlayerGamesScreen VerifyPlayerName(string playerName)
+        public PlayerDetailsScreen VerifyPlayerName(string playerName)
         {
             Assert.AreEqual(playerName, PlayerNameTextBox.Text);
             return this;

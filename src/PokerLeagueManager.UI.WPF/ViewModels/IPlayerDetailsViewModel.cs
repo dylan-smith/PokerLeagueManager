@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
-    public interface IPlayerGamesViewModel : INotifyPropertyChanged
+    public interface IPlayerDetailsViewModel : INotifyPropertyChanged
     {
         System.Windows.Input.ICommand CloseCommand { get; set; }
 
