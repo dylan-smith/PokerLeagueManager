@@ -35,5 +35,10 @@ namespace PokerLeagueManager.Common.DTO
         {
             return base.Channel.GetGamesWithPlayer(playerName);
         }
+
+        public GetPlayerByNameDto GetPlayerByName(string playerName)
+        {
+            return base.Channel.GetPlayerByName(playerName);
+        }
     }
 }

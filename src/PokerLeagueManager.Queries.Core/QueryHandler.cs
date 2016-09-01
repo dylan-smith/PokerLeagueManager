@@ -46,5 +46,10 @@ namespace PokerLeagueManager.Queries.Core
         {
             return _queryDataStore.GetData<GetGamesWithPlayerDto>().Where(g => g.PlayerName.ToUpper().Trim() == playerName.ToUpper().Trim());
         }
+
+        public GetPlayerByNameDto GetPlayerByName(string playerName)
+        {
+            return _queryDataStore.GetData<GetPlayerByNameDto>().FirstOrDefault(p => p.PlayerName.ToUpper().Trim() == playerName.ToUpper().Trim());
+        }
     }
 }

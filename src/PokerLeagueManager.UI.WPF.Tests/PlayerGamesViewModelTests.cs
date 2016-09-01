@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Windows;
 using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -45,6 +46,42 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             _sut.CloseCommand.Execute(null);
 
             _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
+        }
+
+        [TestMethod]
+        public void WhenRenameMerge_ShowConfirmation()
+        {
+            var playerDto = new GetPlayerByNameDto();
+            _mockQueryService.Setup(q => q.GetPlayerByName("Ronald McDonald")).Returns(playerDto);
+            _mockMainWindow.Setup(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>())).Returns(MessageBoxResult.OK);
+
+            _sut = CreateSUT();
+            _sut.PlayerName = "Burger King";
+            _sut.NewPlayerName = "Ronald McDonald";
+
+            _sut.RenamePlayerCommand.Execute(null);
+
+            _mockMainWindow.Verify(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>()));
+            _mockCommandService.Verify(c => c.ExecuteCommand(It.IsAny<RenamePlayerCommand>()));
+            Assert.AreEqual("Ronald McDonald", _sut.PlayerName);
+        }
+
+        [TestMethod]
+        public void WhenRenameMergeWithoutConfirmation_DoNotExecuteCommand()
+        {
+            var playerDto = new GetPlayerByNameDto();
+            _mockQueryService.Setup(q => q.GetPlayerByName("Ronald McDonald")).Returns(playerDto);
+            _mockMainWindow.Setup(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>())).Returns(MessageBoxResult.Cancel);
+
+            _sut = CreateSUT();
+            _sut.PlayerName = "Burger King";
+            _sut.NewPlayerName = "Ronald McDonald";
+
+            _sut.RenamePlayerCommand.Execute(null);
+
+            _mockMainWindow.Verify(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>()));
+            _mockCommandService.Verify(c => c.ExecuteCommand(It.IsAny<RenamePlayerCommand>()), Times.Never());
+            Assert.AreEqual("Burger King", _sut.PlayerName);
         }
 
         [TestMethod]

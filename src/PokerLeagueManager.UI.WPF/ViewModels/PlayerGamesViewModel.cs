@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using log4net;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Commands;
@@ -62,6 +63,18 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void RenamePlayer()
         {
+            var matchingPlayer = _QueryService.GetPlayerByName(NewPlayerName);
+
+            if (matchingPlayer != null)
+            {
+                var result = _MainWindow.ShowConfirmation("Confirm Player Merge?", "There is an existing player with the same name [" + matchingPlayer.PlayerName + "]. If you continue with the rename the results of these 2 players will be merged.  This cannot be undone.  Do you wish to continue with the rename/merge?");
+
+                if (result == MessageBoxResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             var cmd = new RenamePlayerCommand();
             cmd.OldPlayerName = PlayerName;
             cmd.NewPlayerName = NewPlayerName;

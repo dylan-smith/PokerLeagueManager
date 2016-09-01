@@ -24,5 +24,8 @@ namespace PokerLeagueManager.Common.DTO
 
         [OperationContract]
         IEnumerable<GetGamesWithPlayerDto> GetGamesWithPlayer(string playerName);
+
+        [OperationContract]
+        GetPlayerByNameDto GetPlayerByName(string playerName);
     }
 }

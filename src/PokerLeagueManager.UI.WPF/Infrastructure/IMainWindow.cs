@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace PokerLeagueManager.UI.Wpf.Infrastructure
@@ -14,6 +15,8 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
         void ShowWarning(string title, string message);
 
         void ShowError(string title, string message);
+
+        MessageBoxResult ShowConfirmation(string title, string message);
 
         void SetWidth(int width);
 

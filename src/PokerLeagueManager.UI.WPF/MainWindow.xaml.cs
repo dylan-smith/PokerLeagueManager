@@ -51,6 +51,11 @@ namespace PokerLeagueManager.UI.Wpf
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
+        public MessageBoxResult ShowConfirmation(string title, string message)
+        {
+            return MessageBox.Show(message, title, MessageBoxButton.OKCancel, MessageBoxImage.Information);
+        }
+
         public void SetWidth(int width)
         {
             this.Width = width;
