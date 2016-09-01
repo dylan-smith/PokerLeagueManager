@@ -32,6 +32,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .DoubleClickPlayer("Mister Rogers")
                             .EnterNewPlayerName("peewee herman")
                             .ClickRenamePlayer()
+                            .ClickConfirmMerge()
                             .VerifyDuplicatePlayerWarning()
                             .DismissWarningDialog()
                             .VerifyPlayerName("Mister Rogers");

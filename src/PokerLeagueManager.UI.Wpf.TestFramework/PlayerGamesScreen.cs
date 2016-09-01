@@ -33,6 +33,12 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public PlayerGamesScreen ClickConfirmMerge()
+        {
+            Mouse.Click(ConfirmMergeOkButton);
+            return this;
+        }
+
         public PlayerGamesScreen EnterNewPlayerName(string newPlayerName)
         {
             NewPlayerNameTextBox.Text = newPlayerName;
@@ -81,6 +87,26 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             get
             {
                 var ctl = new WinButton(ActionFailedMessageBox);
+                ctl.SearchProperties.Add(WinButton.PropertyNames.Name, "OK");
+                return ctl;
+            }
+        }
+
+        private WinWindow ConfirmMergeMessageBox
+        {
+            get
+            {
+                var ctl = new WinWindow();
+                ctl.SearchProperties.Add(WinWindow.PropertyNames.Name, "Confirm Player Merge?");
+                return ctl;
+            }
+        }
+
+        private WinButton ConfirmMergeOkButton
+        {
+            get
+            {
+                var ctl = new WinButton(ConfirmMergeMessageBox);
                 ctl.SearchProperties.Add(WinButton.PropertyNames.Name, "OK");
                 return ctl;
             }

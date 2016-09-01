@@ -20,6 +20,8 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         [TestMethod]
         public void RenamePlayer()
         {
+            _gamesListScreen.DeleteAllGames();
+
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
             _gamesListScreen.ClickAddGame()
