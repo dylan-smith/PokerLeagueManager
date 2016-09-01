@@ -57,10 +57,49 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             return this;
         }
 
+        public PlayerDetailsScreen VerifyGameCount(int expectedCount)
+        {
+            var allGameListItems = FindGameListItems();
+            Assert.AreEqual(expectedCount, allGameListItems.Count);
+            return this;
+        }
+
+        public PlayerDetailsScreen VerifyGameInList(DateTime gameDate, int placing, int winnings, int payIn)
+        {
+            TakeScreenshot();
+
+            var listItem = FindGameListItem(gameDate.ToString("dd-MMM-yyyy"));
+            Assert.IsTrue(listItem.TryFind(), "No Game could be found with a matching date [" + gameDate.ToString("dd-MMM-yyyy") + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Placing: " + placing.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Placing: " + placing.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Winnings: $" + winnings.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Winnings: $" + winnings.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Pay In: $" + payIn.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Pay In: $" + payIn.ToString() + "]");
+
+            return this;
+        }
+
         public PlayerStatisticsScreen ClickClose()
         {
             Mouse.Click(CloseButton);
             return new PlayerStatisticsScreen(App);
+        }
+
+        private UITestControlCollection FindGameListItems()
+        {
+            var gameList = new WpfList(App);
+            gameList.SearchProperties.Add(WpfList.PropertyNames.AutomationId, "GamesListBox");
+
+            var ctl = new WpfListItem(gameList);
+            return ctl.FindMatchingControls();
+        }
+
+        private WpfListItem FindGameListItem(string gameDate)
+        {
+            var gameList = new WpfList(App);
+            gameList.SearchProperties.Add(WpfList.PropertyNames.AutomationId, "GamesListBox");
+
+            var ctl = new WpfListItem(gameList);
+            ctl.SearchProperties.Add(WpfListItem.PropertyNames.Name, gameDate, PropertyExpressionOperator.Contains);
+            return ctl;
         }
 
         private WinWindow ActionFailedMessageBox

@@ -68,6 +68,7 @@
     <Compile Include="CreateGameAndDeleteGameTest.cs" />
     <Compile Include="RenamePlayerDuplicatePlayersInGameTest.cs" />
     <Compile Include="PlayerStatisticsTest.cs" />
+    <Compile Include="PlayerDetailsTest.cs" />
     <Compile Include="RenamePlayerToMergeTest.cs" />
     <Compile Include="RenamePlayerTest.cs" />
     <Compile Include="WinningsAndPayinsDoNotMatchTest.cs" />
