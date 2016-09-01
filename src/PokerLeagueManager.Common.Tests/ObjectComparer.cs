@@ -114,6 +114,16 @@ namespace PokerLeagueManager.Common.Tests
 
         private static void CompareObjects(object expected, object actual, int i)
         {
+            if (expected == null && actual == null)
+            {
+                return;
+            }
+
+            if (expected == null || actual == null)
+            {
+                throw new AssertFailedException("The expected and actual do not match. One is null and the other is not.");
+            }
+
             if (expected.GetType() != actual.GetType())
             {
                 throw new AssertFailedException(string.Format("The expected and actual do not match: The objects at index #{0} have different types ({1} vs {2})", i.ToString(), expected.GetType().Name, actual.GetType().Name));
