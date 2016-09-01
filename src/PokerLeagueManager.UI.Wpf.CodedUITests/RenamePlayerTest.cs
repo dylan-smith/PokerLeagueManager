@@ -5,7 +5,7 @@ using PokerLeagueManager.UI.Wpf.TestFramework;
 namespace PokerLeagueManager.UI.Wpf.CodedUITests
 {
     [CodedUITest]
-    public class RenamePlayerHappyPathTest
+    public class RenamePlayerTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void RenamePlayerHappyPath()
+        public void RenamePlayer()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 

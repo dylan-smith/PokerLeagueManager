@@ -67,8 +67,9 @@
     <Compile Include="CreateGameAndViewResultsTest.cs" />
     <Compile Include="CreateGameAndDeleteGameTest.cs" />
     <Compile Include="RenamePlayerDuplicatePlayersInGameTest.cs" />
+    <Compile Include="PlayerStatisticsTest.cs" />
     <Compile Include="RenamePlayerToMergeTest.cs" />
-    <Compile Include="RenamePlayerHappyPathTest.cs" />
+    <Compile Include="RenamePlayerTest.cs" />
     <Compile Include="WinningsAndPayinsDoNotMatchTest.cs" />
     <Compile Include="DeletePlayerFromGameTest.cs" />
     <Compile Include="GameListShouldBeReverseChronologicalTest.cs" />

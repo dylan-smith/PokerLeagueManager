@@ -23,8 +23,23 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             TakeScreenshot();
 
             var listItem = FindPlayerListItem(playerName);
-            Assert.IsTrue(listItem.TryFind(), playerName);
+            Assert.IsTrue(listItem.TryFind());
             Assert.IsTrue(listItem.DisplayText.Contains("Games Played: " + gamesPlayed.ToString()));
+
+            return this;
+        }
+
+        public PlayerStatisticsScreen VerifyPlayerInList(string playerName, int gamesPlayed, int winnings, int payIn, int profit, double profitPerGame)
+        {
+            TakeScreenshot();
+
+            var listItem = FindPlayerListItem(playerName);
+            Assert.IsTrue(listItem.TryFind());
+            Assert.IsTrue(listItem.DisplayText.Contains("Games Played: " + gamesPlayed.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Games Played: " + gamesPlayed.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Winnings: $" + winnings.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Winnings: $" + winnings.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Pay In: $" + payIn.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Pay In: $" + payIn.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Profit: $" + profit.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Profit: $" + profit.ToString() + "]");
+            Assert.IsTrue(listItem.DisplayText.Contains("Profit Per Game: $" + profitPerGame.ToString()), "[" + listItem.DisplayText + "] does not contain [" + "Profit Per Game: $" + profitPerGame.ToString() + "]");
 
             return this;
         }
