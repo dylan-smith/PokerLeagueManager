@@ -40,7 +40,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 stats.Winnings -= p.Winnings;
                 stats.PayIn -= p.PayIn;
                 stats.Profit -= p.Winnings - p.PayIn;
-                stats.ProfitPerGame = stats.GamesPlayed == 0 ? 0 : stats.Profit / stats.GamesPlayed;
+                stats.ProfitPerGame = stats.GamesPlayed == 0 ? 0 : (double)stats.Profit / stats.GamesPlayed;
 
                 if (stats.GamesPlayed == 0)
                 {
@@ -67,7 +67,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 mergePlayer.Winnings += oldPlayer.Winnings;
                 mergePlayer.PayIn += oldPlayer.PayIn;
                 mergePlayer.Profit += oldPlayer.Profit;
-                mergePlayer.ProfitPerGame = mergePlayer.GamesPlayed == 0 ? 0 : mergePlayer.Profit / mergePlayer.GamesPlayed;
+                mergePlayer.ProfitPerGame = mergePlayer.GamesPlayed == 0 ? 0 : (double)mergePlayer.Profit / mergePlayer.GamesPlayed;
 
                 QueryDataStore.Delete(oldPlayer);
             }
@@ -85,7 +85,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
             player.Winnings += e.Winnings;
             player.PayIn += e.PayIn;
             player.Profit += e.Winnings - e.PayIn;
-            player.ProfitPerGame = player.Profit / player.GamesPlayed;
+            player.ProfitPerGame = (double)player.Profit / player.GamesPlayed;
         }
     }
 }

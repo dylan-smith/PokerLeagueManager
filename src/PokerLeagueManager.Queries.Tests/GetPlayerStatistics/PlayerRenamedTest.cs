@@ -53,7 +53,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerStatistics
         {
             yield return new GetPlayerStatisticsDto() { DtoId = AnyGuid(), PlayerName = _player1, GamesPlayed = 2, Winnings = 110, PayIn = 40, Profit = 70, ProfitPerGame = 35 };
             yield return new GetPlayerStatisticsDto() { DtoId = AnyGuid(), PlayerName = _player2, GamesPlayed = 2, Winnings = 20, PayIn = 70, Profit = -50, ProfitPerGame = -25 };
-            yield return new GetPlayerStatisticsDto() { DtoId = AnyGuid(), PlayerName = _newPlayerName, GamesPlayed = 3, Winnings = 60, PayIn = 80, Profit = -20, ProfitPerGame = -20 / 3 };
+            yield return new GetPlayerStatisticsDto() { DtoId = AnyGuid(), PlayerName = _newPlayerName, GamesPlayed = 3, Winnings = 60, PayIn = 80, Profit = -20, ProfitPerGame = -20.0 / 3.0 };
             yield return new GetPlayerStatisticsDto() { DtoId = AnyGuid(), PlayerName = _player4, GamesPlayed = 2, Winnings = 50, PayIn = 50, Profit = 0, ProfitPerGame = 0 };
         }
     }
