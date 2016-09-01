@@ -41,6 +41,23 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         }
 
         [TestMethod]
+        public void WhenAddPlayerIsClicked_PlayerNameGetsFocus()
+        {
+            var mockMainWindow = new Mock<IMainWindow>();
+            var sut = new EnterGameResultsViewModel(new FakeCommandService(), new Mock<IQueryService>().Object, mockMainWindow.Object, _mockLogger);
+            var watcher = new NotifyPropertyChangedWatcher(sut);
+
+            sut.NewPlayerName = "Anderson Silva";
+            sut.NewPlacing = "5";
+            sut.NewWinnings = string.Empty;
+            sut.NewPayIn = "20";
+            sut.AddPlayerCommand.Execute(null);
+
+            Assert.IsTrue(sut.IsPlayerNameFocused);
+            Assert.IsTrue(watcher.HasPropertyChanged("IsPlayerNameFocused"));
+        }
+
+        [TestMethod]
         public void WhenPlayerDataIsEmpty_AddPlayerCommandCanExecuteIsFalse()
         {
             var mockMainWindow = new Mock<IMainWindow>();

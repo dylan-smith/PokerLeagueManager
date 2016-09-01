@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Infrastructure\BaseViewModel.cs" />
+    <Compile Include="Infrastructure\FocusExtension.cs" />
     <Compile Include="Infrastructure\IMainWindow.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
     <Compile Include="ViewModels\IGameResultsViewModel.cs" />

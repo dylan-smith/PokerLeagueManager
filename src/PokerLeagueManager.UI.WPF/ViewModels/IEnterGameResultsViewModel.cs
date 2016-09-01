@@ -21,5 +21,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         string NewWinnings { get; set; }
 
         IEnumerable<string> Players { get; }
+
+        bool IsPlayerNameFocused { get; set; }
     }
 }

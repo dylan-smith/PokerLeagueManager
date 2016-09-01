@@ -62,6 +62,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public int SelectedPlayerIndex { get; set; }
 
+        public bool IsPlayerNameFocused { get; set; }
+
         private void ResetPlayerCommands()
         {
             _playerCommands = new ObservableCollection<EnterGameResultsCommand.GamePlayer>();
@@ -191,6 +193,9 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             _playerCommands.Add(newPlayer);
 
             ClearNewPlayer();
+
+            IsPlayerNameFocused = true;
+            OnPropertyChanged("IsPlayerNameFocused");
         }
     }
 }

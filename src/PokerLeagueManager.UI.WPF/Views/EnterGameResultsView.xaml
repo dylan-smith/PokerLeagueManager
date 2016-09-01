@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:infra="clr-namespace:PokerLeagueManager.UI.Wpf.Infrastructure"
              mc:Ignorable="d"
              MinHeight="250"
              MinWidth="470"
@@ -10,7 +11,7 @@
     <Grid Width="472">
         <Label Content="Game Date:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" />
         <DatePicker x:Name="GameDatePicker" SelectedDate="{Binding Path=GameDate, Mode=TwoWay}" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Width="197" Height="25" />
-        <TextBox x:Name="PlayerNameTextBox" Text="{Binding Path=NewPlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <TextBox x:Name="PlayerNameTextBox" infra:FocusExtension.IsFocused="{Binding IsPlayerNameFocused, Mode=TwoWay}" Text="{Binding Path=NewPlayerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="10,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
         <TextBox x:Name="PlacingTextBox" Text="{Binding Path=NewPlacing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="168,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50"/>
         <TextBox x:Name="WinningsTextBox" Text="{Binding Path=NewWinnings, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="223,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
         <TextBox x:Name="PayInTextBox" Text="{Binding NewPayIn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="23" Margin="288,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
