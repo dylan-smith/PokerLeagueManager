@@ -12,7 +12,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion);
 
-        T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot;
+        T GetAggregateById<T>(Guid aggregateId)
+            where T : IAggregateRoot;
 
         bool DoesAggregateExist(Guid aggregateId);
 

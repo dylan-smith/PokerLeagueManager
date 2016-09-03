@@ -17,7 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
                 g.RenamePlayer(command.OldPlayerName, command.NewPlayerName);
             }
 
-            this.Repository.PublishEvents(aggregates, command);
+            Repository.PublishEvents(aggregates, command);
         }
     }
 }

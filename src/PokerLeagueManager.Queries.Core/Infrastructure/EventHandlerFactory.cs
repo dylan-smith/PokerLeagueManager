@@ -22,7 +22,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             _idempotencyChecker.DatabaseLayer = _databaseLayer;
         }
 
-        public void HandleEvent<T>(T e) where T : IEvent
+        public void HandleEvent<T>(T e)
+            where T : IEvent
         {
             if (e == null)
             {
@@ -55,7 +56,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             generic.Invoke(this, new object[] { e });
         }
 
-        private IEnumerable<IHandlesEvent<T>> FindEventHandlers<T>() where T : IEvent
+        private IEnumerable<IHandlesEvent<T>> FindEventHandlers<T>()
+            where T : IEvent
         {
             var matchingTypes = typeof(IHandlesEvent<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 

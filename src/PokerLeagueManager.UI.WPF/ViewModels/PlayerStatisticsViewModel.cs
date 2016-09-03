@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public PlayerStatisticsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
-            _players = new ObservableCollection<GetPlayerStatisticsDto>(_QueryService.GetPlayerStatistics());
+            _players = new ObservableCollection<GetPlayerStatisticsDto>(QueryService.GetPlayerStatistics());
 
             GamesCommand = new RelayCommand(x => NavigateToGamesView());
             PlayerDoubleClickCommand = new RelayCommand(x => PlayerDoubleClick());
@@ -53,7 +53,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         private void NavigateToGamesView()
         {
             var view = Resolver.Container.Resolve<IGamesListView>();
-            _MainWindow.ShowView(view);
+            MainWindow.ShowView(view);
         }
 
         private void PlayerDoubleClick()
@@ -65,7 +65,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
             var view = Resolver.Container.Resolve<IPlayerDetailsView>();
             view.PlayerName = GetSelectedPlayer().PlayerName;
-            _MainWindow.ShowView(view);
+            MainWindow.ShowView(view);
         }
 
         private GetPlayerStatisticsDto GetSelectedPlayer()

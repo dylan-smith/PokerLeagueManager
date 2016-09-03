@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 
             game.DeleteGame();
 
-            this.Repository.PublishEvents(game, command);
+            Repository.PublishEvents(game, command);
         }
     }
 }

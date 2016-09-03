@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Queries.Tests
     {
         private Guid _gameId1 = Guid.NewGuid();
         private Guid _gameId2 = Guid.NewGuid();
-        
+
         private DateTime _gameDate1 = DateTime.Parse("17-Feb-2014");
         private DateTime _gameDate2 = DateTime.Parse("24-Feb-2014");
 

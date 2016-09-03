@@ -9,7 +9,8 @@ namespace PokerLeagueManager.Common.DTO.Infrastructure
 {
     public class DtoFactory : IDtoFactory
     {
-        public T Create<T>(DataRow row) where T : IDataTransferObject
+        public T Create<T>(DataRow row)
+            where T : IDataTransferObject
         {
             if (row == null)
             {

@@ -9,12 +9,12 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
     {
         public void Execute(EnterGameResultsCommand command)
         {
-            if (this.Repository.DoesAggregateExist(command.GameId))
+            if (Repository.DoesAggregateExist(command.GameId))
             {
                 throw new ArgumentException("Cannot enter game results for a previously existing Game Id", "GameId");
             }
 
-            if (this.QueryService.GetGameCountByDate(command.GameDate) > 0)
+            if (QueryService.GetGameCountByDate(command.GameDate) > 0)
             {
                 throw new ArgumentException("Cannot enter multiple game results for the same date", "GameDate");
             }
@@ -31,7 +31,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 
             game.ValidateGame();
 
-            this.Repository.PublishEvents(game, command);
+            Repository.PublishEvents(game, command);
         }
     }
 }

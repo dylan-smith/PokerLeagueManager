@@ -11,14 +11,14 @@ namespace PokerLeagueManager.Common.Utilities
     public class XmlReaderFacade : IDisposable
     {
         private StringReader _reader;
-        
+
         public XmlReaderFacade(string data)
         {
             _reader = new StringReader(data);
 
             try
             {
-                this.XmlReader = XmlReader.Create(_reader);
+                XmlReader = XmlReader.Create(_reader);
             }
             catch
             {
@@ -42,9 +42,9 @@ namespace PokerLeagueManager.Common.Utilities
 
         protected virtual void Dispose(bool disposing)
         {
-            if (this.XmlReader != null)
+            if (XmlReader != null)
             {
-                this.XmlReader.Dispose();
+                XmlReader.Dispose();
                 _reader = null;
             }
 

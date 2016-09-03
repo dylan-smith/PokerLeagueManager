@@ -22,10 +22,10 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         {
             ResetPlayerCommands();
 
-            AddPlayerCommand = new RelayCommand(x => this.AddPlayer(), x => this.CanAddPlayer());
-            DeletePlayerCommand = new RelayCommand(x => this.DeletePlayer(), x => this.CanDeletePlayer());
-            SaveGameCommand = new RelayCommand(x => this.SaveGame(), x => this.CanSaveGame());
-            CancelCommand = new RelayCommand(x => this.Cancel());
+            AddPlayerCommand = new RelayCommand(x => AddPlayer(), x => CanAddPlayer());
+            DeletePlayerCommand = new RelayCommand(x => DeletePlayer(), x => CanDeletePlayer());
+            SaveGameCommand = new RelayCommand(x => SaveGame(), x => CanSaveGame());
+            CancelCommand = new RelayCommand(x => Cancel());
 
             ClearNewPlayer();
 
@@ -84,7 +84,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
             var gameCommand = new EnterGameResultsCommand();
 
-            gameCommand.GameDate = this.GameDate.GetValueOrDefault();
+            gameCommand.GameDate = GameDate.GetValueOrDefault();
             gameCommand.Players = _playerCommands;
 
             var commandResult = ExecuteCommand(gameCommand);
@@ -97,15 +97,15 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void Cancel()
         {
-            _MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
+            MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
         }
 
         private void ClearNewPlayer()
         {
-            this.NewPlayerName = string.Empty;
-            this.NewPlacing = string.Empty;
-            this.NewWinnings = "0";
-            this.NewPayIn = "0";
+            NewPlayerName = string.Empty;
+            NewPlacing = string.Empty;
+            NewWinnings = "0";
+            NewPayIn = "0";
 
             OnPropertyChanged("NewPlayerName");
             OnPropertyChanged("NewPlacing");

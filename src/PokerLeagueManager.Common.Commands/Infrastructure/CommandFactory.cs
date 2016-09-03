@@ -18,18 +18,20 @@ namespace PokerLeagueManager.Common.Commands.Infrastructure
             _dateTimeService = dateTimeService;
         }
 
-        public T Create<T>() where T : ICommand, new()
+        public T Create<T>()
+            where T : ICommand, new()
         {
             var result = new T();
 
             return Create(result);
         }
 
-        public T Create<T>(T cmd) where T : ICommand
+        public T Create<T>(T cmd)
+            where T : ICommand
         {
-            if (_currentContext != null && 
-                _currentContext.ClaimsPrincipal != null && 
-                _currentContext.ClaimsPrincipal.Identity != null && 
+            if (_currentContext != null &&
+                _currentContext.ClaimsPrincipal != null &&
+                _currentContext.ClaimsPrincipal.Identity != null &&
                 !string.IsNullOrWhiteSpace(_currentContext.ClaimsPrincipal.Identity.Name))
             {
                 cmd.User = _currentContext.ClaimsPrincipal.Identity.Name;

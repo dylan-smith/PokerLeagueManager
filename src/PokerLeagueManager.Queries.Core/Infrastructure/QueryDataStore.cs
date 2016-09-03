@@ -17,14 +17,16 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             Database.SetInitializer<QueryDataStore>(null);
         }
 
-        public void Insert<T>(T dto) where T : class, IDataTransferObject
+        public void Insert<T>(T dto)
+            where T : class, IDataTransferObject
         {
             var dtoSet = base.Set<T>();
             dtoSet.Add(dto);
             base.SaveChanges();
         }
 
-        public IEnumerable<T> GetData<T>() where T : class, IDataTransferObject
+        public IEnumerable<T> GetData<T>()
+            where T : class, IDataTransferObject
         {
             var allICollections = typeof(T).GetProperties().Where(p => p.PropertyType.Name == typeof(ICollection<>).Name);
             var dtoCollections = allICollections.Where(c => typeof(IDataTransferObject).IsAssignableFrom(c.PropertyType.GenericTypeArguments.First()));
@@ -45,7 +47,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             return results.ToList();
         }
 
-        public void Delete<T>(Guid dtoId) where T : class, IDataTransferObject
+        public void Delete<T>(Guid dtoId)
+            where T : class, IDataTransferObject
         {
             var dtoSet = base.Set<T>();
             var dtoToDelete = dtoSet.Single(d => d.DtoId == dtoId);
@@ -53,7 +56,8 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             base.SaveChanges();
         }
 
-        public void Delete<T>(T dto) where T : class, IDataTransferObject
+        public void Delete<T>(T dto)
+            where T : class, IDataTransferObject
         {
             var dtoSet = base.Set<T>();
             dtoSet.Remove(dto);

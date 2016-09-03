@@ -45,7 +45,8 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return new QueryHandler(queryDataStore);
         }
 
-        public void RunTest<T>(Func<IQueryService, T> query) where T : class
+        public void RunTest<T>(Func<IQueryService, T> query)
+            where T : class
         {
             var queryService = SetupQueryService();
 

@@ -7,7 +7,7 @@ namespace PokerLeagueManager.UI.Wpf.Views
     {
         public EnterGameResultsView(IEnterGameResultsViewModel viewModel)
         {
-            this.DataContext = viewModel;
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

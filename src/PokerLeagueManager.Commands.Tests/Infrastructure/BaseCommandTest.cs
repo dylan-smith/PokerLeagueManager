@@ -48,7 +48,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             var commandRepository = new Mock<ICommandRepository>();
 
             HandleEvents(repository.InitialEvents, queryDataStore);
-            
+
             Exception caughtException = null;
             var commandHandlerFactory = new CommandHandlerFactory(repository, queryService, commandRepository.Object);
 

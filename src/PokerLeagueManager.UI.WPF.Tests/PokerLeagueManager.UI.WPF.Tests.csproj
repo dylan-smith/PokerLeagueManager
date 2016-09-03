@@ -91,11 +91,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GameResultsViewModelTests.cs" />
+    <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="PlayerStatisticsViewModelTests.cs" />
     <Compile Include="PlayerDetailsViewModelTests.cs" />
     <Compile Include="GamesListViewModelTests.cs" />
     <Compile Include="EnterGameResultsViewModelTests.cs" />
-    <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\FakeCommandService.cs" />
     <Compile Include="Infrastructure\NotifyPropertyChangedWatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

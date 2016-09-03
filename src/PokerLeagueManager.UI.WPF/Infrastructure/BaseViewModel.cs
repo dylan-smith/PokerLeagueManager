@@ -11,10 +11,10 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
     {
         public BaseViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
         {
-            _MainWindow = mainWindow;
-            _CommandService = commandService;
-            _QueryService = queryService;
-            _Logger = logger;
+            MainWindow = mainWindow;
+            CommandService = commandService;
+            QueryService = queryService;
+            Logger = logger;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -25,20 +25,20 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
 
         public string WindowTitle { get; set; }
 
-        protected IMainWindow _MainWindow { get; private set; }
+        protected IMainWindow MainWindow { get; private set; }
 
-        protected ICommandService _CommandService { get; private set; }
+        protected ICommandService CommandService { get; private set; }
 
-        protected IQueryService _QueryService { get; private set; }
+        protected IQueryService QueryService { get; private set; }
 
-        protected ILog _Logger { get; private set; }
+        protected ILog Logger { get; private set; }
 
         protected bool ExecuteCommand(ICommand command)
         {
             try
             {
-                _Logger.Info(string.Format("Executing Command {0} [{1}]", command.GetType().Name, command.CommandId.ToString()));
-                _CommandService.ExecuteCommand(command);
+                Logger.Info(string.Format("Executing Command {0} [{1}]", command.GetType().Name, command.CommandId.ToString()));
+                CommandService.ExecuteCommand(command);
                 return true;
             }
             catch (Exception ex)
@@ -51,10 +51,10 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
         {
             VerifyPropertyName(propertyName);
 
-            if (this.PropertyChanged != null)
+            if (PropertyChanged != null)
             {
                 var e = new PropertyChangedEventArgs(propertyName);
-                this.PropertyChanged(this, e);
+                PropertyChanged(this, e);
             }
         }
 
@@ -74,30 +74,30 @@ namespace PokerLeagueManager.UI.Wpf.Infrastructure
             {
                 if (fault.Detail.Type.StartsWith("PokerLeagueManager"))
                 {
-                    _Logger.Warn(fault.Detail.Type);
-                    _Logger.Warn(fault.Detail.Message);
+                    Logger.Warn(fault.Detail.Type);
+                    Logger.Warn(fault.Detail.Message);
 
                     if (fault.Detail.Type.Contains("PublishEventFailedException"))
                     {
-                        _MainWindow.ShowWarning("Action Succeeded", fault.Detail.Message);
+                        MainWindow.ShowWarning("Action Succeeded", fault.Detail.Message);
                         return true;
                     }
                     else
                     {
-                        _MainWindow.ShowWarning("Action Failed", fault.Detail.Message);
+                        MainWindow.ShowWarning("Action Failed", fault.Detail.Message);
                     }
                 }
                 else
                 {
-                    _Logger.Error(fault.Detail.Type);
-                    _Logger.Error(fault.Detail.Message);
-                    _MainWindow.ShowError("Action Failed", fault.Detail.Message);
+                    Logger.Error(fault.Detail.Type);
+                    Logger.Error(fault.Detail.Message);
+                    MainWindow.ShowError("Action Failed", fault.Detail.Message);
                 }
             }
             else
             {
-                _Logger.Error("Command Failed", ex);
-                _MainWindow.ShowError("Action Failed", ex.Message);
+                Logger.Error("Command Failed", ex);
+                MainWindow.ShowError("Action Failed", ex.Message);
             }
 
             return false;

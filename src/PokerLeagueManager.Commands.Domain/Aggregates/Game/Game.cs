@@ -21,7 +21,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
             gameId = gameId == Guid.Empty ? Guid.NewGuid() : gameId;
 
-            this.PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
+            PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
         }
 
         private Game()
@@ -55,7 +55,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new DuplicatePlayerNameException(playerName);
             }
 
-            this.PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings, PayIn = payin });
+            PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings, PayIn = payin });
         }
 
         public void ValidateGame()

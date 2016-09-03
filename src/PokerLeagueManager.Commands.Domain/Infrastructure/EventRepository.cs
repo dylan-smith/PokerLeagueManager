@@ -56,7 +56,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
+        public T GetAggregateById<T>(Guid aggregateId)
+            where T : IAggregateRoot
         {
             if (aggregateId == Guid.Empty)
             {

@@ -21,7 +21,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             _commandRepository = commandRepository;
         }
 
-        public void ExecuteCommand<T>(T command) where T : ICommand
+        public void ExecuteCommand<T>(T command)
+            where T : ICommand
         {
             if (command == null)
             {
@@ -64,7 +65,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
-        private IHandlesCommand<T> FindCommandHandler<T>() where T : ICommand
+        private IHandlesCommand<T> FindCommandHandler<T>()
+            where T : ICommand
         {
             var matchingTypes = typeof(IHandlesCommand<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 

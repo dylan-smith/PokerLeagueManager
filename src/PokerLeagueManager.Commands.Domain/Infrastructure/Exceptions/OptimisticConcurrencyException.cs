@@ -6,11 +6,13 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
     [Serializable]
     public class OptimisticConcurrencyException : Exception
     {
-        public OptimisticConcurrencyException(IAggregateRoot aggRoot, Guid originalVersion) : this(aggRoot, originalVersion, aggRoot.AggregateVersion)
+        public OptimisticConcurrencyException(IAggregateRoot aggRoot, Guid originalVersion)
+            : this(aggRoot, originalVersion, aggRoot.AggregateVersion)
         {
         }
 
-        public OptimisticConcurrencyException(IAggregateRoot aggRoot, Guid originalVersion, Guid currentVersion) : base(CreateMessage(aggRoot, originalVersion, currentVersion))
+        public OptimisticConcurrencyException(IAggregateRoot aggRoot, Guid originalVersion, Guid currentVersion)
+            : base(CreateMessage(aggRoot, originalVersion, currentVersion))
         {
         }
 

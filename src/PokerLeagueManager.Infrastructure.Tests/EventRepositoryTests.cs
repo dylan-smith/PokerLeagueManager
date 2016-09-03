@@ -20,7 +20,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
         public void AggregateVersionIsSetToLatestEventId()
         {
             var testAggregateId = Guid.NewGuid();
-            
+
             var firstEvent = new GameCreatedEvent() { AggregateId = testAggregateId, GameDate = DateTime.Now };
             var secondEvent = new PlayerAddedToGameEvent() { AggregateId = testAggregateId, PlayerName = "Dylan", Placing = 1, Winnings = 150 };
 
@@ -32,8 +32,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
             mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>(), It.IsAny<object[]>())).Returns(testEvents);
 
             var sut = new EventRepository(
-                mockDatabaseLayer.Object, 
-                null, 
+                mockDatabaseLayer.Object,
+                null,
                 null,
                 null);
 

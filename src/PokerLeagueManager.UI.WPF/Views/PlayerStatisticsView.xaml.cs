@@ -7,7 +7,7 @@ namespace PokerLeagueManager.UI.Wpf.Views
     {
         public PlayerStatisticsView(IPlayerStatisticsViewModel viewModel)
         {
-            this.DataContext = viewModel;
+            DataContext = viewModel;
             InitializeComponent();
         }
     }

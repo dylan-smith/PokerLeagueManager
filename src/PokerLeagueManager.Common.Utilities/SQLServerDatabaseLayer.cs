@@ -89,7 +89,7 @@ namespace PokerLeagueManager.Common.Utilities
 
         public object ExecuteScalar(string sql, params object[] sqlArgs)
         {
-            var myCommand = this.PrepareCommand(sql, sqlArgs);
+            var myCommand = PrepareCommand(sql, sqlArgs);
             object result = default(object);
 
             ExecuteWithConnection(() => result = myCommand.ExecuteScalar());

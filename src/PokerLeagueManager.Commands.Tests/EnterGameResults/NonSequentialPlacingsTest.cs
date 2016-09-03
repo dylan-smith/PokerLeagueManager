@@ -8,7 +8,7 @@ using PokerLeagueManager.Common.Commands;
 namespace PokerLeagueManager.Commands.Tests.EnterGameResults
 {
     [TestClass]
-    public class NonSequentialPlacingTest : BaseCommandTest
+    public class NonSequentialPlacingsTest : BaseCommandTest
     {
         private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 

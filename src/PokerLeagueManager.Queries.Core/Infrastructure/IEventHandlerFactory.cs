@@ -6,6 +6,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
     {
         void HandleEvent(IEvent e);
 
-        void HandleEvent<T>(T e) where T : IEvent;
+        void HandleEvent<T>(T e)
+            where T : IEvent;
     }
 }

@@ -48,3 +48,7 @@ Desktop.ini
 
 # VS 2015 folder
 .vs
+
+# TFS Crap
+.vspscc
+.vssscc

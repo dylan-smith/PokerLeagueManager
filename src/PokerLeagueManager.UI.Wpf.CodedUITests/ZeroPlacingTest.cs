@@ -23,7 +23,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
             var enterGameScreen = _gamesListScreen.ClickAddGame();
-                            
+
             enterGameScreen.EnterGameDate(testDate)
                            .EnterPlayerName("Jerry Seinfeld")
                            .EnterPlacing("0")

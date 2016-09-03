@@ -27,18 +27,18 @@ namespace PokerLeagueManager.UI.Wpf
 
         public void ShowView(object view)
         {
-            this.Content = view;
+            Content = view;
 
             var viewControl = (UserControl)view;
-            this.MinHeight = viewControl.MinHeight + 30;
-            this.MinWidth = viewControl.MinWidth + 30;
-            this.MaxHeight = viewControl.MaxHeight + 30;
-            this.MaxWidth = viewControl.MaxWidth + 30;
+            MinHeight = viewControl.MinHeight + 30;
+            MinWidth = viewControl.MinWidth + 30;
+            MaxHeight = viewControl.MaxHeight + 30;
+            MaxWidth = viewControl.MaxWidth + 30;
 
             var viewModel = (BaseViewModel)viewControl.DataContext;
-            this.Height = viewModel.Height + 30;
-            this.Width = viewModel.Width + 30;
-            this.Title = viewModel.WindowTitle;
+            Height = viewModel.Height + 30;
+            Width = viewModel.Width + 30;
+            Title = viewModel.WindowTitle;
         }
 
         public void ShowWarning(string title, string message)
@@ -58,37 +58,37 @@ namespace PokerLeagueManager.UI.Wpf
 
         public void SetWidth(int width)
         {
-            this.Width = width;
+            Width = width;
         }
 
         public void SetHeight(int height)
         {
-            this.Height = height;
+            Height = height;
         }
 
         public void SetMinWidth(int minWidth)
         {
-            this.MinWidth = minWidth;
+            MinWidth = minWidth;
         }
 
         public void SetMinHeight(int minHeight)
         {
-            this.MinHeight = minHeight;
+            MinHeight = minHeight;
         }
 
         public void SetMaxWidth(int maxWidth)
         {
-            this.MaxWidth = maxWidth;
+            MaxWidth = maxWidth;
         }
 
         public void SetMaxHeight(int maxHeight)
         {
-            this.MaxHeight = maxHeight;
+            MaxHeight = maxHeight;
         }
 
         public void SetWindowTitle(string title)
         {
-            this.Title = title;
+            Title = title;
         }
 
         private void GlobalExceptionHandler(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

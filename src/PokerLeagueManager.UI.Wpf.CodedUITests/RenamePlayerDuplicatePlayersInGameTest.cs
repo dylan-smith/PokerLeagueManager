@@ -5,7 +5,7 @@ using PokerLeagueManager.UI.Wpf.TestFramework;
 namespace PokerLeagueManager.UI.Wpf.CodedUITests
 {
     [CodedUITest]
-    public class RenamePlayerDuplicatePlayerInGameTest
+    public class RenamePlayerDuplicatePlayersInGameTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;

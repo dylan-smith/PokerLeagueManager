@@ -50,7 +50,8 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             PublishEvents(aggRoot, c);
         }
 
-        public T GetAggregateById<T>(Guid aggregateId) where T : IAggregateRoot
+        public T GetAggregateById<T>(Guid aggregateId)
+            where T : IAggregateRoot
         {
             T aggRootInstance = default(T);
 

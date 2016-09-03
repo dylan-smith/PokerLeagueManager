@@ -13,20 +13,20 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 {
     public class GameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IGameResultsViewModel
     {
-        public IEnumerable<string> Players { get; private set; }
+        private Guid _gameId;
 
         public GameResultsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
-            CloseCommand = new RelayCommand(x => this.Close());
+            CloseCommand = new RelayCommand(x => Close());
 
             Height = 400;
             WindowTitle = "View Game Results";
         }
 
-        public string GameDate { get; set; }
+        public IEnumerable<string> Players { get; private set; }
 
-        private Guid _gameId;
+        public string GameDate { get; set; }
 
         public Guid GameId
         {
@@ -39,7 +39,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             {
                 _gameId = value;
 
-                var gameResults = _QueryService.GetGameResults(_gameId);
+                var gameResults = QueryService.GetGameResults(_gameId);
 
                 GameDate = gameResults.GameDate.ToString("d-MMM-yyyy");
                 OnPropertyChanged("GameDate");
@@ -54,7 +54,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void Close()
         {
-            _MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
+            MainWindow.ShowView(Resolver.Container.Resolve<IGamesListView>());
         }
     }
 }

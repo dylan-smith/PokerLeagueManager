@@ -9,6 +9,8 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
             App = app;
         }
 
+        protected ApplicationUnderTest App { get; set; }
+
         public void TakeScreenshot()
         {
             Keyboard.SendKeys("{DOWN}");
@@ -18,7 +20,5 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
         {
             TakeScreenshot();
         }
-
-        protected ApplicationUnderTest App { get; set; }
     }
 }
