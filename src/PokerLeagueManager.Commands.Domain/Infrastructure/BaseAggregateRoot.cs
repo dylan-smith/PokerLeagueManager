@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

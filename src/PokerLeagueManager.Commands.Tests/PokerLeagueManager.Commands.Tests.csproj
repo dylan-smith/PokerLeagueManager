@@ -101,25 +101,13 @@
       <Project>{d702bdb7-9f99-4509-82af-632689aff7d0}</Project>
       <Name>PokerLeagueManager.Commands.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Commands\PokerLeagueManager.Common.Commands.csproj">
-      <Project>{a466419b-e149-4027-bf0a-b1156f50c67d}</Project>
-      <Name>PokerLeagueManager.Common.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
-      <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
-      <Name>PokerLeagueManager.Common.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Events\PokerLeagueManager.Common.Events.csproj">
-      <Project>{f658c3b6-604d-4e32-b2f6-7078761f32a9}</Project>
-      <Name>PokerLeagueManager.Common.Events</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common.Tests\PokerLeagueManager.Common.Tests.csproj">
       <Project>{8ade28f5-e0e5-4130-b882-28958bbf6ee0}</Project>
       <Name>PokerLeagueManager.Common.Tests</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
-      <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
-      <Name>PokerLeagueManager.Common.Utilities</Name>
+    <ProjectReference Include="..\PokerLeagueManager.Common\PokerLeagueManager.Common.csproj">
+      <Project>{de404a65-ab5d-409f-bb18-919ef139b4c9}</Project>
+      <Name>PokerLeagueManager.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Queries.Core\PokerLeagueManager.Queries.Core.csproj">
       <Project>{7c0d835a-1cda-41da-b203-b0ee2f17063a}</Project>

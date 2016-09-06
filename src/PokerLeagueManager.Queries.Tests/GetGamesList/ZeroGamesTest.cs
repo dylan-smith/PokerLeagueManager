@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests

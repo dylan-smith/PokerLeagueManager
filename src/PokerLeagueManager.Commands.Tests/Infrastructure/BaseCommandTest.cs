@@ -4,10 +4,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Common.Tests;
-using PokerLeagueManager.Common.Utilities;
 using PokerLeagueManager.Queries.Core;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 

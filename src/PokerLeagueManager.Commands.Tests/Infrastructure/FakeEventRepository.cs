@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {

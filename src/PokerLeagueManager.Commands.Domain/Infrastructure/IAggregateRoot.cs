@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

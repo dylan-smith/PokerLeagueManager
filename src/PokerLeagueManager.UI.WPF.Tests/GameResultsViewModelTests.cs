@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Tests.Infrastructure;

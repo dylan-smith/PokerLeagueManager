@@ -1,4 +1,4 @@
-﻿using PokerLeagueManager.Common.DTO;
+﻿using PokerLeagueManager.Common;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

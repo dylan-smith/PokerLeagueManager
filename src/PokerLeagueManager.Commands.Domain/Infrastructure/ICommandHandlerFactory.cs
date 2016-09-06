@@ -1,4 +1,4 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
+﻿using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

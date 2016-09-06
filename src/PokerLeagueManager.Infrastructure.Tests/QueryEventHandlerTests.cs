@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.DTO.Infrastructure;
 using PokerLeagueManager.Common.Events;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Infrastructure.Tests

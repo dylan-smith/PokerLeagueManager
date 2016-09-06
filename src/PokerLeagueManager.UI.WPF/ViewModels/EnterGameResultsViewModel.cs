@@ -5,9 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using log4net;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
 

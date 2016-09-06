@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

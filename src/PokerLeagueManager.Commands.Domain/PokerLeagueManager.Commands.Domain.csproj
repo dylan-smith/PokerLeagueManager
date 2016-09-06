@@ -102,24 +102,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Commands\PokerLeagueManager.Common.Commands.csproj">
-      <Project>{a466419b-e149-4027-bf0a-b1156f50c67d}</Project>
-      <Name>PokerLeagueManager.Common.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.DTO\PokerLeagueManager.Common.DTO.csproj">
-      <Project>{8bd579ae-83b3-417f-8606-cbd9d0e8184a}</Project>
-      <Name>PokerLeagueManager.Common.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Events\PokerLeagueManager.Common.Events.csproj">
-      <Project>{f658c3b6-604d-4e32-b2f6-7078761f32a9}</Project>
-      <Name>PokerLeagueManager.Common.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PokerLeagueManager.Common.Utilities\PokerLeagueManager.Common.Utilities.csproj">
-      <Project>{85de34bd-9901-4008-90e6-adbc61401408}</Project>
-      <Name>PokerLeagueManager.Common.Utilities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +113,12 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PokerLeagueManager.Common\PokerLeagueManager.Common.csproj">
+      <Project>{de404a65-ab5d-409f-bb18-919ef139b4c9}</Project>
+      <Name>PokerLeagueManager.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>

@@ -1,5 +1,5 @@
 ﻿using System.ServiceModel;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

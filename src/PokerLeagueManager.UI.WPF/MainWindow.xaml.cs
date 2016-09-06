@@ -1,10 +1,7 @@
-﻿using System;
-using System.ServiceModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using log4net;
 using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Commands.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
 

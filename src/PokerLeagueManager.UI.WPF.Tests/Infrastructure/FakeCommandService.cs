@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.UI.Wpf.Tests.Infrastructure
 {

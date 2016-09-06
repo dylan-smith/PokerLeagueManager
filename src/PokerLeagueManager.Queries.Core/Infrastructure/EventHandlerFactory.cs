@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

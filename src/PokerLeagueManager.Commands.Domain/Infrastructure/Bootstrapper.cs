@@ -1,7 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -19,10 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 UnitySingleton.Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>();
                 UnitySingleton.Container.RegisterType<ICommandRepository, CommandRepository>();
 
-                PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
-                PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
-                PokerLeagueManager.Common.Events.Infrastructure.Bootstrapper.Bootstrap();
-                PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
+                PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();
 
                 _hasBootstrapped = true;
             }

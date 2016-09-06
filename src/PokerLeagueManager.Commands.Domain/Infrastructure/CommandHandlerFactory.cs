@@ -2,9 +2,8 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

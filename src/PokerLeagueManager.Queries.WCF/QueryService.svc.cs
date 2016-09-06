@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Practices.Unity;
+using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Queries.WCF.Infrastructure;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Utilities.ProcessEvents
 {
@@ -23,7 +23,7 @@ namespace PokerLeagueManager.Utilities.ProcessEvents
         public static void Bootstrap()
         {
             PokerLeagueManager.Commands.Domain.Infrastructure.Bootstrapper.Bootstrap();
-            PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();
 
             _hasBootstrapped = true;
         }

@@ -6,9 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.WCF.Infrastructure

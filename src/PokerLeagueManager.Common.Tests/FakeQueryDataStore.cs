@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Common.Tests

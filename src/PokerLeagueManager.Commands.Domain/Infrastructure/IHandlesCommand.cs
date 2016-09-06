@@ -1,5 +1,5 @@
-﻿using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.DTO;
+﻿using PokerLeagueManager.Common;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

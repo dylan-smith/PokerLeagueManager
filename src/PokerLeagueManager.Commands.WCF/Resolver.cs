@@ -1,5 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.WCF
 {
@@ -23,9 +23,7 @@ namespace PokerLeagueManager.Commands.WCF
         public static void Bootstrap()
         {
             PokerLeagueManager.Commands.Domain.Infrastructure.Bootstrapper.Bootstrap();
-            PokerLeagueManager.Common.Commands.Infrastructure.Bootstrapper.Bootstrap();
-            PokerLeagueManager.Common.DTO.Infrastructure.Bootstrapper.Bootstrap();
-            PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
+            PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();
 
             _hasBootstrapped = true;
         }

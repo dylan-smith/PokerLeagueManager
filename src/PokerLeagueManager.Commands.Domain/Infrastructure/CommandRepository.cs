@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
@@ -21,7 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public void LogCommand(Common.Commands.Infrastructure.ICommand command)
+        public void LogCommand(Common.Infrastructure.ICommand command)
         {
             _databaseLayer.ExecuteNonQuery(
                 "INSERT INTO Commands(CommandId, CommandDateTime, UserName, IpAddress, CommandData) VALUES(@CommandId, @CommandDateTime, @UserName, @IpAddress, @CommandData)",
@@ -34,7 +30,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1115:ParameterMustFollowComma", Justification = "For the DatabaseLayer calls this makes more sense.")]
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1117:ParametersMustBeOnSameLineOrSeparateLines", Justification = "Reviewed.")]
-        public void LogFailedCommand(Common.Commands.Infrastructure.ICommand command, Exception ex)
+        public void LogFailedCommand(Common.Infrastructure.ICommand command, Exception ex)
         {
             _databaseLayer.ExecuteNonQuery(
                 "UPDATE Commands SET ExceptionDetails = @ExceptionDetails WHERE CommandId = @CommandId",

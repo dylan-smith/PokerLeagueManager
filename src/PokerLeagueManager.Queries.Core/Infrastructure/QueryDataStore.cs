@@ -5,7 +5,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.DTO.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

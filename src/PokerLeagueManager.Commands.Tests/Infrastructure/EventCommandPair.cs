@@ -1,6 +1,5 @@
 ﻿using System;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.Events.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure
 {

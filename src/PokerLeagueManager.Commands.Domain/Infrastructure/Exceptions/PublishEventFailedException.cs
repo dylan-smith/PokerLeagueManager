@@ -1,6 +1,5 @@
 ﻿using System;
-using PokerLeagueManager.Commands.Domain.Infrastructure;
-using PokerLeagueManager.Common.Commands.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {

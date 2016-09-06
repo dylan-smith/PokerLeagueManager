@@ -2,8 +2,8 @@
 using System.ComponentModel;
 using System.ServiceModel;
 using log4net;
-using PokerLeagueManager.Common.Commands.Infrastructure;
-using PokerLeagueManager.Common.DTO;
+using PokerLeagueManager.Common;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.UI.Wpf.Infrastructure
 {

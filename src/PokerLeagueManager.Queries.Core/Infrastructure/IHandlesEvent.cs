@@ -1,4 +1,4 @@
-﻿using PokerLeagueManager.Common.Events.Infrastructure;
+﻿using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

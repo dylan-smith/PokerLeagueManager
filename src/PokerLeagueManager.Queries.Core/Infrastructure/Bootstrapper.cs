@@ -1,6 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.Utilities;
+using PokerLeagueManager.Common;
+using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
@@ -17,7 +17,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 UnitySingleton.Container.RegisterType<IQueryService, QueryHandler>();
                 UnitySingleton.Container.RegisterType<IIdempotencyChecker, IdempotencyChecker>();
 
-                PokerLeagueManager.Common.Utilities.Bootstrapper.Bootstrap();
+                PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();
 
                 _hasBootstrapped = true;
             }
