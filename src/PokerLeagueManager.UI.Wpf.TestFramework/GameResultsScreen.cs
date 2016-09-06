@@ -26,7 +26,7 @@ namespace PokerLeagueManager.UI.Wpf.TestFramework
 
         public override void VerifyScreen()
         {
-            TakeScreenshot(); 
+            TakeScreenshot();
             CloseButton.Find();
         }
 
