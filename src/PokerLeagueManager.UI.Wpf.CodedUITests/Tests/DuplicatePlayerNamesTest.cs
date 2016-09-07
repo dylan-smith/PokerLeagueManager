@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class NoGameDateTest
+    public class DuplicatePlayerNamesTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,20 +18,29 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void NoGameDate()
+        public void DuplicatePlayerNames()
         {
+            var testDate = _gamesListScreen.FindUnusedGameDate();
+
             var enterGameScreen = _gamesListScreen.ClickAddGame();
 
-            enterGameScreen.EnterPlayerName("Jerry Seinfeld")
+            enterGameScreen.EnterGameDate(testDate)
+                           .EnterPlayerName("Jennifer Aniston")
                            .EnterPlacing("1")
                            .EnterWinnings("130")
+                           .EnterPayIn("75")
                            .ClickAddPlayer()
-                           .EnterPlayerName("Wayne Gretzky")
+                           .EnterPlayerName("Jennifer Aniston")
                            .EnterPlacing("2")
                            .EnterWinnings("20")
-                           .ClickAddPlayer();
+                           .EnterPayIn("75")
+                           .ClickAddPlayer()
+                           .ClickSaveGame();
 
-            enterGameScreen.VerifySaveGameIsDisabled();
+            enterGameScreen.VerifyDuplicatePlayerWarning();
+
+            enterGameScreen.DismissWarningDialog()
+                           .VerifyScreen();
         }
     }
 }

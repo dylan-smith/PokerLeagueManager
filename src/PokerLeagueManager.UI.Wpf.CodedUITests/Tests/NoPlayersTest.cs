@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class OnePlayerTest
+    public class NoPlayersTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,18 +18,13 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void OnePlayer()
+        public void NoPlayers()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
             var enterGameScreen = _gamesListScreen.ClickAddGame();
 
             enterGameScreen.EnterGameDate(testDate)
-                           .EnterPlayerName("Jerry Seinfeld")
-                           .EnterPlacing("1")
-                           .EnterWinnings("130")
-                           .EnterPayIn("130")
-                           .ClickAddPlayer()
                            .ClickSaveGame();
 
             enterGameScreen.VerifyNotEnoughPlayersWarning();

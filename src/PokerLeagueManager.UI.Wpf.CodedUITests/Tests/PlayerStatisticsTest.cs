@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
     public class PlayerStatisticsTest

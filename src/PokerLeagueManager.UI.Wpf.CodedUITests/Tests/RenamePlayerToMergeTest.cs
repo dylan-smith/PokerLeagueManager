@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class RenamePlayerTest
+    public class RenamePlayerToMergeTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void RenamePlayer()
+        public void RenamePlayerToMerge()
         {
             _gamesListScreen.DeleteAllGames();
 
@@ -28,14 +28,25 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterGameDate(testDate)
                             .AddPlayer("Peewee Herman", placing: "1", winnings: "130", payIn: "75")
                             .AddPlayer("Mister Rogers", placing: "2", winnings: "20", payIn: "75")
-                            .ClickSaveGame()
-                            .ClickPlayerStatistics()
+                            .ClickSaveGame();
+
+            testDate = _gamesListScreen.FindUnusedGameDate();
+
+            _gamesListScreen.ClickAddGame()
+                            .EnterGameDate(testDate)
+                            .AddPlayer("Peewee Herman", placing: "1", winnings: "130", payIn: "75")
+                            .AddPlayer("Hulk Hogan", placing: "2", winnings: "20", payIn: "75")
+                            .ClickSaveGame();
+
+            _gamesListScreen.ClickPlayerStatistics()
                             .DoubleClickPlayer("Mister Rogers")
-                            .EnterNewPlayerName("Mr Dressup")
+                            .EnterNewPlayerName("hulk hogan")
                             .ClickRenamePlayer()
-                            .VerifyPlayerName("Mr Dressup")
+                            .ClickConfirmMerge()
+                            .VerifyPlayerName("hulk hogan")
                             .ClickClose()
-                            .VerifyPlayerInList("Mr Dressup");
+                            .VerifyPlayerInList("Hulk Hogan", gamesPlayed: 2)
+                            .VerifyPlayerListCount(2);
         }
     }
 }

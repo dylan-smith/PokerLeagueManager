@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class ZeroPlacingTest
+    public class NegativeWinningsTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void ZeroPlacing()
+        public void NegativeWinnings()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
@@ -26,16 +26,18 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
 
             enterGameScreen.EnterGameDate(testDate)
                            .EnterPlayerName("Jerry Seinfeld")
-                           .EnterPlacing("0")
+                           .EnterPlacing("1")
                            .EnterWinnings("130")
+                           .EnterPayIn("55")
                            .ClickAddPlayer()
                            .EnterPlayerName("Wayne Gretzky")
-                           .EnterPlacing("1")
-                           .EnterWinnings("20")
+                           .EnterPlacing("2")
+                           .EnterWinnings("-20")
+                           .EnterPayIn("55")
                            .ClickAddPlayer()
                            .ClickSaveGame();
 
-            enterGameScreen.VerifyInvalidPlacingWarning();
+            enterGameScreen.VerifyInvalidWinningsWarning();
 
             enterGameScreen.DismissWarningDialog()
                            .VerifyScreen();

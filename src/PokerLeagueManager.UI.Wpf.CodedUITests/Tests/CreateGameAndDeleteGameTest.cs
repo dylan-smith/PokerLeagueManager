@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UITesting;
+﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class CreateGameAndViewResultsTest
+    public class CreateGameAndDeleteGameTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -19,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void CreateGameAndViewResults()
+        public void CreateGameAndDeleteGame()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
@@ -36,12 +35,9 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterPayIn("75")
                             .ClickAddPlayer()
                             .ClickSaveGame()
-                            .VerifyGameInList(testDate + " - Jerry Seinfeld [$130]")
-                            .DoubleClickGame(testDate + " - Jerry Seinfeld [$130]")
-                            .VerifyGameDate(DateTime.Parse(testDate).ToString("d-MMM-yyyy"))
-                            .VerifyPlayerList("1 - Jerry Seinfeld [Win: $130] [Pay: $75]", "2 - Wayne Gretzky [Win: $20] [Pay: $75]")
-                            .ClickClose()
-                            .VerifyScreen();
+                            .SelectGame(testDate + " - Jerry Seinfeld [$130]")
+                            .ClickDeleteGame()
+                            .VerifyGameNotInList(testDate + " - Jerry Seinfeld [$130]");
         }
     }
 }

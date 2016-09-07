@@ -40,8 +40,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Common.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.CodedUITests", "PokerLeagueManager.UI.Wpf.CodedUITests\PokerLeagueManager.UI.Wpf.CodedUITests.csproj", "{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.TestFramework", "PokerLeagueManager.UI.Wpf.TestFramework\PokerLeagueManager.UI.Wpf.TestFramework.csproj", "{772509F8-6B0B-4676-82F7-8F37EE6F60EE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Common", "PokerLeagueManager.Common\PokerLeagueManager.Common.csproj", "{DE404A65-AB5D-409F-BB18-919EF139B4C9}"
 EndProject
 Global
@@ -114,10 +112,6 @@ Global
 		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{772509F8-6B0B-4676-82F7-8F37EE6F60EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -137,10 +131,9 @@ Global
 		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
-		{772509F8-6B0B-4676-82F7-8F37EE6F60EE} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 18
+		SccNumberOfProjects = 17
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://pokerleaguemanager.visualstudio.com/
 		SccLocalPath0 = .
@@ -199,12 +192,8 @@ Global
 		SccProjectTopLevelParentUniqueName15 = PokerLeagueManager.sln
 		SccProjectName15 = PokerLeagueManager.UI.Wpf.CodedUITests
 		SccLocalPath15 = PokerLeagueManager.UI.Wpf.CodedUITests
-		SccProjectUniqueName16 = PokerLeagueManager.UI.Wpf.TestFramework\\PokerLeagueManager.UI.Wpf.TestFramework.csproj
-		SccProjectTopLevelParentUniqueName16 = PokerLeagueManager.sln
-		SccProjectName16 = PokerLeagueManager.UI.Wpf.TestFramework
-		SccLocalPath16 = PokerLeagueManager.UI.Wpf.TestFramework
-		SccProjectUniqueName17 = PokerLeagueManager.Common\\PokerLeagueManager.Common.csproj
-		SccProjectName17 = PokerLeagueManager.Common
-		SccLocalPath17 = PokerLeagueManager.Common
+		SccProjectUniqueName16 = PokerLeagueManager.Common\\PokerLeagueManager.Common.csproj
+		SccProjectName16 = PokerLeagueManager.Common
+		SccLocalPath16 = PokerLeagueManager.Common
 	EndGlobalSection
 EndGlobal

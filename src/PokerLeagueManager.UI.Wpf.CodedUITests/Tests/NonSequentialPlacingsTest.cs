@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class DeletePlayerFromGameTest
+    public class NonSequentialPlacingsTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void DeletePlayerFromGame()
+        public void NonSequentialPlacings()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
@@ -28,20 +28,19 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                            .EnterPlayerName("Jerry Seinfeld")
                            .EnterPlacing("1")
                            .EnterWinnings("130")
-                           .EnterPayIn("130")
+                           .EnterPayIn("75")
                            .ClickAddPlayer()
                            .EnterPlayerName("Wayne Gretzky")
-                           .EnterPlacing("2")
+                           .EnterPlacing("3")
                            .EnterWinnings("20")
-                           .EnterPayIn("20")
+                           .EnterPayIn("75")
                            .ClickAddPlayer()
-                           .ClickPlayer("Wayne Gretzky")
-                           .ClickDeletePlayer()
                            .ClickSaveGame();
 
-            enterGameScreen.VerifyNotEnoughPlayersWarning()
-                           .DismissWarningDialog()
-                           .VerifyPlayerNotInList("Wayne Gretzky");
+            enterGameScreen.VerifyInvalidPlacingWarning();
+
+            enterGameScreen.DismissWarningDialog()
+                           .VerifyScreen();
         }
     }
 }

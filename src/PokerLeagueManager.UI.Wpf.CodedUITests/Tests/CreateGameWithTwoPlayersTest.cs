@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class CreateGameAndDeleteGameTest
+    public class CreateGameWithTwoPlayersTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,7 +18,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void CreateGameAndDeleteGame()
+        public void CreateGameWithTwoPlayers()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
@@ -35,9 +35,7 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
                             .EnterPayIn("75")
                             .ClickAddPlayer()
                             .ClickSaveGame()
-                            .SelectGame(testDate + " - Jerry Seinfeld [$130]")
-                            .ClickDeleteGame()
-                            .VerifyGameNotInList(testDate + " - Jerry Seinfeld [$130]");
+                            .VerifyGameInList(testDate + " - Jerry Seinfeld [$130]");
         }
     }
 }

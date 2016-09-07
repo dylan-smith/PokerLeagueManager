@@ -1,11 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UITesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PokerLeagueManager.UI.Wpf.TestFramework;
+using PokerLeagueManager.UI.Wpf.CodedUITests.TestFramework;
 
-namespace PokerLeagueManager.UI.Wpf.CodedUITests
+namespace PokerLeagueManager.UI.Wpf.CodedUITests.Tests
 {
     [CodedUITest]
-    public class NegativeWinningsTest
+    public class CreateGameWithErrorThenFixAndResaveTest
     {
         private ApplicationUnderTest _app;
         private GamesListScreen _gamesListScreen;
@@ -18,29 +18,28 @@ namespace PokerLeagueManager.UI.Wpf.CodedUITests
         }
 
         [TestMethod]
-        public void NegativeWinnings()
+        public void CreateGameWithErrorThenFixAndResave()
         {
             var testDate = _gamesListScreen.FindUnusedGameDate();
 
             var enterGameScreen = _gamesListScreen.ClickAddGame();
 
             enterGameScreen.EnterGameDate(testDate)
-                           .EnterPlayerName("Jerry Seinfeld")
+                           .EnterPlayerName("Stephen Colbert")
                            .EnterPlacing("1")
-                           .EnterWinnings("130")
-                           .EnterPayIn("55")
-                           .ClickAddPlayer()
-                           .EnterPlayerName("Wayne Gretzky")
-                           .EnterPlacing("2")
-                           .EnterWinnings("-20")
-                           .EnterPayIn("55")
+                           .EnterWinnings("190")
+                           .EnterPayIn("100")
                            .ClickAddPlayer()
                            .ClickSaveGame();
 
-            enterGameScreen.VerifyInvalidWinningsWarning();
-
             enterGameScreen.DismissWarningDialog()
-                           .VerifyScreen();
+                           .EnterPlayerName("Jon Stewart")
+                           .EnterPlacing("2")
+                           .EnterWinnings("0")
+                           .EnterPayIn("90")
+                           .ClickAddPlayer()
+                           .ClickSaveGame()
+                           .VerifyGameInList(testDate + " - Stephen Colbert [$190]");
         }
     }
 }

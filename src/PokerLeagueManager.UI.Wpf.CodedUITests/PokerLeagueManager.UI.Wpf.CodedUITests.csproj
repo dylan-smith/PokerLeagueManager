@@ -65,35 +65,36 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CreateGameWithFourPlayersTest.cs" />
-    <Compile Include="CreateGameAndViewResultsTest.cs" />
-    <Compile Include="CreateGameAndDeleteGameTest.cs" />
-    <Compile Include="RenamePlayerDuplicatePlayersInGameTest.cs" />
-    <Compile Include="PlayerStatisticsTest.cs" />
-    <Compile Include="PlayerDetailsTest.cs" />
-    <Compile Include="RenamePlayerToMergeTest.cs" />
-    <Compile Include="RenamePlayerTest.cs" />
-    <Compile Include="WinningsAndPayinsDoNotMatchTest.cs" />
-    <Compile Include="DeletePlayerFromGameTest.cs" />
-    <Compile Include="GameListShouldBeReverseChronologicalTest.cs" />
-    <Compile Include="NonSequentialPlacingsTest.cs" />
-    <Compile Include="CreateGameWithErrorThenFixAndResaveTest.cs" />
-    <Compile Include="ZeroPlacingTest.cs" />
-    <Compile Include="NegativeWinningsTest.cs" />
-    <Compile Include="NoGameDateTest.cs" />
-    <Compile Include="DuplicatePlayerNamesCaseInsensitiveTest.cs" />
-    <Compile Include="DuplicatePlayerNamesTest.cs" />
-    <Compile Include="NoPlayersTest.cs" />
-    <Compile Include="OnePlayerTest.cs" />
-    <Compile Include="DuplicateGameDateTest.cs" />
-    <Compile Include="CreateGameWithTwoPlayersTest.cs" />
+    <Compile Include="Infrastructure\BaseScreen.cs" />
+    <Compile Include="Infrastructure\GlobalSuppressions.cs" />
+    <Compile Include="TestFramework\EnterGameResultsScreen.cs" />
+    <Compile Include="TestFramework\GameResultsScreen.cs" />
+    <Compile Include="TestFramework\GamesListScreen.cs" />
+    <Compile Include="TestFramework\PlayerDetailsScreen.cs" />
+    <Compile Include="TestFramework\PlayerStatisticsScreen.cs" />
+    <Compile Include="Tests\CreateGameWithFourPlayersTest.cs" />
+    <Compile Include="Tests\CreateGameAndViewResultsTest.cs" />
+    <Compile Include="Tests\CreateGameAndDeleteGameTest.cs" />
+    <Compile Include="Tests\RenamePlayerDuplicatePlayersInGameTest.cs" />
+    <Compile Include="Tests\PlayerStatisticsTest.cs" />
+    <Compile Include="Tests\PlayerDetailsTest.cs" />
+    <Compile Include="Tests\RenamePlayerToMergeTest.cs" />
+    <Compile Include="Tests\RenamePlayerTest.cs" />
+    <Compile Include="Tests\WinningsAndPayinsDoNotMatchTest.cs" />
+    <Compile Include="Tests\DeletePlayerFromGameTest.cs" />
+    <Compile Include="Tests\GameListShouldBeReverseChronologicalTest.cs" />
+    <Compile Include="Tests\NonSequentialPlacingsTest.cs" />
+    <Compile Include="Tests\CreateGameWithErrorThenFixAndResaveTest.cs" />
+    <Compile Include="Tests\ZeroPlacingTest.cs" />
+    <Compile Include="Tests\NegativeWinningsTest.cs" />
+    <Compile Include="Tests\NoGameDateTest.cs" />
+    <Compile Include="Tests\DuplicatePlayerNamesCaseInsensitiveTest.cs" />
+    <Compile Include="Tests\DuplicatePlayerNamesTest.cs" />
+    <Compile Include="Tests\NoPlayersTest.cs" />
+    <Compile Include="Tests\OnePlayerTest.cs" />
+    <Compile Include="Tests\DuplicateGameDateTest.cs" />
+    <Compile Include="Tests\CreateGameWithTwoPlayersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PokerLeagueManager.UI.Wpf.TestFramework\PokerLeagueManager.UI.Wpf.TestFramework.csproj">
-      <Project>{772509f8-6b0b-4676-82f7-8f37ee6f60ee}</Project>
-      <Name>PokerLeagueManager.UI.Wpf.TestFramework</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
