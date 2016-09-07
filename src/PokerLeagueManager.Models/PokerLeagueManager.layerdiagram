@@ -3,9 +3,6 @@
   <layers>
     <layer Id="5b5176ec-3fc3-4d57-9c66-7a71b7dc14a6" name="WPF Client">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="ac96e2bb-3815-4be0-a281-081f548e6759" direction="Forward">
-          <layerMoniker Id="749acc9e-e380-44ea-9b81-b16e54c0b9e7" />
-        </dependencyFromLayerToLayer>
         <dependencyFromLayerToLayer Id="fc3cca49-717c-4980-a533-158bec319dda" direction="Forward">
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
         </dependencyFromLayerToLayer>
@@ -25,60 +22,8 @@
     </layer>
     <layer Id="a30058f5-1952-4ebc-9bb8-3f2fa29a8987" name="Event Store" />
     <layer Id="1e657365-2ad1-4901-8a8d-9d25dceff379" name="Query Store" />
-    <layer Id="749acc9e-e380-44ea-9b81-b16e54c0b9e7" name="Command Shared Components">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="145e11be-edde-4f80-800d-544a4f4fae55" direction="Forward">
-          <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
-      <childLayers>
-        <layer Id="7ac28591-0773-4141-b504-0dce8dbe7623" name="Commands">
-          <references>
-            <reference Id="1ee4b84f-8764-4937-bab7-33b0ccfabc89" name="PokerLeagueManager‎.Common‎.Commands">
-              <ArtifactNode Label="PokerLeagueManager‎.Common‎.Commands" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Common.Commands)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Commands)" Label="PokerLeagueManager.Common.Commands.dll" Category="CodeSchema_Assembly">
-                <LinkCategory Ref="Dsl.NamespaceUsedInAssembly" />
-              </ExpandedNode>
-              <ExpandedNode Id="(Namespace=PokerLeagueManager.Common.Commands)" Label="PokerLeagueManager‎.Common‎.Commands" Category="CodeSchema_Namespace">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-        <layer Id="3436f2a8-4fb2-4f90-9be1-9657e5058686" name="Command Service Proxy">
-          <dependencyToLayers>
-            <dependencyFromLayerToLayer Id="2c497db0-f346-4f26-8950-9269a906d9c2" direction="Forward">
-              <layerMoniker Id="7ac28591-0773-4141-b504-0dce8dbe7623" />
-            </dependencyFromLayerToLayer>
-          </dependencyToLayers>
-          <references>
-            <reference Id="04d075b5-ea13-4387-8f41-9b71726d7151" name="CommandServiceProxy">
-              <ArtifactNode Label="CommandServiceProxy" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Common.Commands/bin/Debug/PokerLeagueManager.Common.Commands.dll Namespace=PokerLeagueManager.Common.Commands.Infrastructure Type=CommandServiceProxy)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Commands Namespace=PokerLeagueManager.Common.Commands.Infrastructure Type=CommandServiceProxy)" Label="CommandServiceProxy" Category="CodeSchema_Class">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-      </childLayers>
-      <references>
-        <reference Id="1800580f-ca50-4932-8503-ed347aa45d34" name="PokerLeagueManager.Common.Commands">
-          <ArtifactNode Label="PokerLeagueManager.Common.Commands" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Common.Commands/PokerLeagueManager.Common.Commands.csproj)">
-            <Category Ref="File" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Commands)" Label="PokerLeagueManager.Common.Commands.dll" Category="CodeSchema_Assembly">
-            <Category Ref="FileSystem.Category.FileOfType.dll" />
-            <LinkCategory Ref="Produces" />
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
     <layer Id="2168bcbb-ea7a-49f0-9a3f-bd5d92f82751" name="Command WCF Service">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="00dd5b99-23d8-4da9-aa01-9d4e2375a0f3" direction="Forward">
-          <layerMoniker Id="749acc9e-e380-44ea-9b81-b16e54c0b9e7" />
-        </dependencyFromLayerToLayer>
         <dependencyFromLayerToLayer Id="a9719683-fea3-4863-9bff-d9b1325a9e5e" direction="Forward">
           <layerMoniker Id="7e2e34fb-eed4-4f01-a2df-33aa28fed6ef" />
         </dependencyFromLayerToLayer>
@@ -113,14 +58,8 @@
     </layer>
     <layer Id="7e2e34fb-eed4-4f01-a2df-33aa28fed6ef" name="Domain Layer">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="49ed18b4-a719-47b3-81a5-55c995371a95" direction="Forward">
-          <layerMoniker Id="749acc9e-e380-44ea-9b81-b16e54c0b9e7" />
-        </dependencyFromLayerToLayer>
         <dependencyFromLayerToLayer Id="03dd8718-7d5f-4745-afca-689c88eda2cf" direction="Forward">
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="229529af-5d82-45a8-8df0-51a3c8ca8889" direction="Forward">
-          <layerMoniker Id="5b40b246-da05-4b11-897b-d25b127a7b7e" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
       <childLayers>
@@ -214,9 +153,6 @@
     </layer>
     <layer Id="365f41ce-ba37-4972-a796-7be811ce95e6" name="Query Layer">
       <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="becdc1d3-a949-4ba1-a1fd-f884761103f0" direction="Forward">
-          <layerMoniker Id="5b40b246-da05-4b11-897b-d25b127a7b7e" />
-        </dependencyFromLayerToLayer>
         <dependencyFromLayerToLayer Id="ba0a2a05-e7e0-45f1-ad7a-52e6b5b2b40c" direction="Forward">
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
         </dependencyFromLayerToLayer>
@@ -290,40 +226,6 @@
         </reference>
       </references>
     </layer>
-    <layer Id="5b40b246-da05-4b11-897b-d25b127a7b7e" name="Event Shared Components">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="4e0ee663-e56b-481a-8a17-ac459c41fb15" direction="Forward">
-          <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
-      <childLayers>
-        <layer Id="5551e1ad-597b-4d2f-a1ce-be70ce1b2735" name="Events">
-          <references>
-            <reference Id="8f2316d9-0710-44a0-bcdb-f9c563c4119d" name="PokerLeagueManager‎.Common‎.Events">
-              <ArtifactNode Label="PokerLeagueManager‎.Common‎.Events" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Common.Events)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Events)" Label="PokerLeagueManager.Common.Events.dll" Category="CodeSchema_Assembly">
-                <LinkCategory Ref="Dsl.NamespaceUsedInAssembly" />
-              </ExpandedNode>
-              <ExpandedNode Id="(Namespace=PokerLeagueManager.Common.Events)" Label="PokerLeagueManager‎.Common‎.Events" Category="CodeSchema_Namespace">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-      </childLayers>
-      <references>
-        <reference Id="d04ec3a8-5cd3-4c5a-bdcf-15a64e8cabca" name="PokerLeagueManager.Common.Events">
-          <ArtifactNode Label="PokerLeagueManager.Common.Events" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Common.Events/PokerLeagueManager.Common.Events.csproj)">
-            <Category Ref="File" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Events)" Label="PokerLeagueManager.Common.Events.dll" Category="CodeSchema_Assembly">
-            <Category Ref="FileSystem.Category.FileOfType.dll" />
-            <LinkCategory Ref="Produces" />
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-      </references>
-    </layer>
     <layer Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" name="Shared Components">
       <childLayers>
         <layer Id="ed3d8cef-9913-4cfa-9fde-48bda1192b22" name="Data Transfer Objects">
@@ -339,22 +241,27 @@
             </reference>
           </references>
         </layer>
-        <layer Id="4cd6f961-2d4c-4228-9dfe-ffb866903635" name="Query Service Proxy">
-          <dependencyToLayers>
-            <dependencyFromLayerToLayer Id="f7afdcd5-dfd1-41ec-b35a-9ffc58984d34" direction="Forward">
-              <layerMoniker Id="ed3d8cef-9913-4cfa-9fde-48bda1192b22" />
-            </dependencyFromLayerToLayer>
-          </dependencyToLayers>
+        <layer Id="5551e1ad-597b-4d2f-a1ce-be70ce1b2735" name="Events">
           <references>
-            <reference Id="e9c7ea35-d6c9-4541-b504-28876213bfd2" name="IQueryService">
-              <ArtifactNode Label="IQueryService" Category="CodeSchema_Interface" Id="(Assembly=../PokerLeagueManager.Common.DTO/bin/Debug/PokerLeagueManager.Common.DTO.dll Namespace=PokerLeagueManager.Common.DTO Type=IQueryService)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.DTO Namespace=PokerLeagueManager.Common.DTO Type=IQueryService)" Label="IQueryService" Category="CodeSchema_Interface">
+            <reference Id="8f2316d9-0710-44a0-bcdb-f9c563c4119d" name="PokerLeagueManager‎.Common‎.Events">
+              <ArtifactNode Label="PokerLeagueManager‎.Common‎.Events" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Common.Events)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Events)" Label="PokerLeagueManager.Common.Events.dll" Category="CodeSchema_Assembly">
+                <LinkCategory Ref="Dsl.NamespaceUsedInAssembly" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Namespace=PokerLeagueManager.Common.Events)" Label="PokerLeagueManager‎.Common‎.Events" Category="CodeSchema_Namespace">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
             </reference>
-            <reference Id="9f41269d-a719-4b20-9108-6fde45da6a04" name="QueryServiceProxy">
-              <ArtifactNode Label="QueryServiceProxy" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Common.DTO/bin/Debug/PokerLeagueManager.Common.DTO.dll Namespace=PokerLeagueManager.Common.DTO Type=QueryServiceProxy)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.DTO Namespace=PokerLeagueManager.Common.DTO Type=QueryServiceProxy)" Label="QueryServiceProxy" Category="CodeSchema_Class">
+          </references>
+        </layer>
+        <layer Id="7ac28591-0773-4141-b504-0dce8dbe7623" name="Commands">
+          <references>
+            <reference Id="1ee4b84f-8764-4937-bab7-33b0ccfabc89" name="PokerLeagueManager‎.Common‎.Commands">
+              <ArtifactNode Label="PokerLeagueManager‎.Common‎.Commands" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Common.Commands)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Commands)" Label="PokerLeagueManager.Common.Commands.dll" Category="CodeSchema_Assembly">
+                <LinkCategory Ref="Dsl.NamespaceUsedInAssembly" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Namespace=PokerLeagueManager.Common.Commands)" Label="PokerLeagueManager‎.Common‎.Commands" Category="CodeSchema_Namespace">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
             </reference>
@@ -362,21 +269,11 @@
         </layer>
       </childLayers>
       <references>
-        <reference Id="33a45386-6f8a-4baf-8f7a-0b5b3a56cdb3" name="PokerLeagueManager.Common.DTO">
-          <ArtifactNode Label="PokerLeagueManager.Common.DTO" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Common.DTO/PokerLeagueManager.Common.DTO.csproj)">
+        <reference Id="d7593535-d683-43d8-9553-8304ecf90dfc" name="PokerLeagueManager.Common">
+          <ArtifactNode Label="PokerLeagueManager.Common" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Common/PokerLeagueManager.Common.csproj)">
             <Category Ref="File" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.DTO)" Label="PokerLeagueManager.Common.DTO.dll" Category="CodeSchema_Assembly">
-            <Category Ref="FileSystem.Category.FileOfType.dll" />
-            <LinkCategory Ref="Produces" />
-            <LinkCategory Ref="Represents" />
-          </ExpandedNode>
-        </reference>
-        <reference Id="df72a253-cc34-4b79-80d2-141d85679fbd" name="PokerLeagueManager.Common.Utilities">
-          <ArtifactNode Label="PokerLeagueManager.Common.Utilities" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Common.Utilities/PokerLeagueManager.Common.Utilities.csproj)">
-            <Category Ref="File" />
-          </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Common.Utilities)" Label="PokerLeagueManager.Common.Utilities.dll" Category="CodeSchema_Assembly">
+          <ExpandedNode Id="(Assembly=PokerLeagueManager.Common)" Label="PokerLeagueManager.Common.dll" Category="CodeSchema_Assembly">
             <Category Ref="FileSystem.Category.FileOfType.dll" />
             <LinkCategory Ref="Produces" />
             <LinkCategory Ref="Represents" />
@@ -388,9 +285,6 @@
       <dependencyToLayers>
         <dependencyFromLayerToLayer Id="0ad7b7f4-9a8b-4d58-8bc6-5fbae013bc3b" direction="Forward">
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
-        </dependencyFromLayerToLayer>
-        <dependencyFromLayerToLayer Id="36d56950-867f-4b14-be5d-1feeb1de3bf7" direction="Forward">
-          <layerMoniker Id="5b40b246-da05-4b11-897b-d25b127a7b7e" />
         </dependencyFromLayerToLayer>
         <dependencyFromLayerToLayer Id="4ca5974e-e9d0-41a5-8c73-db2af133791a" direction="Forward">
           <layerMoniker Id="365f41ce-ba37-4972-a796-7be811ce95e6" />
