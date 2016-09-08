@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EventHandlers\GetPlayerByNameHandler.cs" />
-    <Compile Include="EventHandlers\GetGameResultsHandler.cs" />
+    <Compile Include="EventHandlers\GetGamePlayersHandler.cs" />
     <Compile Include="EventHandlers\GetGamesWithPlayerHandler.cs" />
     <Compile Include="EventHandlers\GetPlayerGamesHandler.cs" />
     <Compile Include="EventHandlers\LookupGameDatesHandler.cs" />

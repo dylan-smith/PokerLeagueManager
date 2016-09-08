@@ -72,8 +72,7 @@
   <ItemGroup>
     <Build Include="dbo\EventsProcessed.sql" />
     <Build Include="DTO\GetGameCountByDateDto.sql" />
-    <Build Include="DTO\GetGameResultsDto.sql" />
-    <Build Include="DTO\GetGameResultsDto_PlayerDto.sql" />
+    <Build Include="DTO\GetGamePlayersDto.sql" />
     <Build Include="DTO\GetGamesListDto.sql" />
     <Build Include="DTO\GetGameWithPlayersDto.sql" />
     <Build Include="DTO\GetPlayerByNameDto.sql" />

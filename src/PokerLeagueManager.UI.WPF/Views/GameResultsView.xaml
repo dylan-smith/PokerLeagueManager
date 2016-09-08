@@ -9,7 +9,7 @@
              d:DesignHeight="380">
     <Grid>
         <Label Content="Game Date:" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Height="25" />
-        <TextBox x:Name="GameDateTextBox" Text="{Binding GameDate, FallbackValue='1-Jan-2015'}" HorizontalAlignment="Stretch" Height="23" Margin="93,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Background="#FFDDDDDD"/>
+        <TextBox x:Name="GameDateTextBox" Text="{Binding GameDateText, Mode=OneWay, FallbackValue='1-Jan-2015'}" HorizontalAlignment="Stretch" Height="23" Margin="93,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True" Background="#FFDDDDDD"/>
         <ListBox x:Name="PlayersListBox" ItemsSource="{Binding Players}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,40,10,60"  />
         <Button x:Name="CloseButton" Command="{Binding CloseCommand}" Content="Close" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10,0,10,10" Height="40"/>
     </Grid>

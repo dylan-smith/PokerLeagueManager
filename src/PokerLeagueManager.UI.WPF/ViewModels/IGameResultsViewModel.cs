@@ -8,7 +8,9 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     {
         System.Windows.Input.ICommand CloseCommand { get; set; }
 
-        string GameDate { get; set; }
+        DateTime GameDate { get; set; }
+
+        string GameDateText { get; }
 
         IEnumerable<string> Players { get; }
 

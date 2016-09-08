@@ -22,5 +22,11 @@ namespace PokerLeagueManager.UI.Wpf.Views
 
             set { _viewModel.GameId = value; }
         }
+
+        public DateTime GameDate
+        {
+            get { return _viewModel.GameDate; }
+            set { _viewModel.GameDate = value; }
+        }
     }
 }

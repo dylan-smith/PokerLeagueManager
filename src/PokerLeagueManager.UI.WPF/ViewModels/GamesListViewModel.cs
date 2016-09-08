@@ -86,6 +86,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
             var view = Resolver.Container.Resolve<IGameResultsView>();
             view.GameId = GetSelectedGame().GameId;
+            view.GameDate = GetSelectedGame().GameDate;
             MainWindow.ShowView(view);
         }
 

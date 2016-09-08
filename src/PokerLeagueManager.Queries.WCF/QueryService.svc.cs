@@ -26,9 +26,9 @@ namespace PokerLeagueManager.Queries.WCF
             return _queryHandler.GetGamesList();
         }
 
-        public GetGameResultsDto GetGameResults(Guid gameId)
+        public IEnumerable<GetGamePlayersDto> GetGamePlayers(Guid gameId)
         {
-            return _queryHandler.GetGameResults(gameId);
+            return _queryHandler.GetGamePlayers(gameId);
         }
 
         public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()

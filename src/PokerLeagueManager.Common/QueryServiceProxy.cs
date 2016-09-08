@@ -17,9 +17,9 @@ namespace PokerLeagueManager.Common
             return base.Channel.GetGamesList();
         }
 
-        public GetGameResultsDto GetGameResults(Guid gameId)
+        public IEnumerable<GetGamePlayersDto> GetGamePlayers(Guid gameId)
         {
-            return base.Channel.GetGameResults(gameId);
+            return base.Channel.GetGamePlayers(gameId);
         }
 
         public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()

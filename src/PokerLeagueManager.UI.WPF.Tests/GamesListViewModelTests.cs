@@ -232,8 +232,9 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             Resolver.Container.RegisterInstance<IGameResultsView>(mockView.Object);
 
             var gameId = Guid.NewGuid();
+            var gameDate = DateTime.Now;
             var gamesList = new List<GetGamesListDto>();
-            gamesList.Add(new GetGamesListDto() { GameId = gameId });
+            gamesList.Add(new GetGamesListDto() { GameId = gameId, GameDate = gameDate });
 
             _mockQueryService.Setup(q => q.GetGamesList()).Returns(gamesList);
 
@@ -244,6 +245,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             _mockMainWindow.Verify(x => x.ShowView(mockView.Object));
             mockView.VerifySet(x => x.GameId = gameId);
+            mockView.VerifySet(x => x.GameDate = gameDate);
         }
 
         private GamesListViewModel CreateSUT()

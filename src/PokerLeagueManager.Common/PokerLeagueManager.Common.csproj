@@ -71,7 +71,7 @@
     <Compile Include="Commands\EnterGameResultsCommand.cs" />
     <Compile Include="Commands\RenamePlayerCommand.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
-    <Compile Include="DTO\GetGameResultsDto.cs" />
+    <Compile Include="DTO\GetGamePlayersDto.cs" />
     <Compile Include="DTO\GetGamesListDto.cs" />
     <Compile Include="DTO\GetGamesWithPlayerDto.cs" />
     <Compile Include="DTO\GetPlayerByNameDto.cs" />

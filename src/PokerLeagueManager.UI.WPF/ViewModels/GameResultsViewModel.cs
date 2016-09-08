@@ -14,6 +14,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
     public class GameResultsViewModel : BaseViewModel, INotifyPropertyChanged, IGameResultsViewModel
     {
         private Guid _gameId;
+        private DateTime _gameDate;
 
         public GameResultsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
@@ -26,7 +27,27 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         public IEnumerable<string> Players { get; private set; }
 
-        public string GameDate { get; set; }
+        public DateTime GameDate
+        {
+            get
+            {
+                return _gameDate;
+            }
+
+            set
+            {
+                _gameDate = value;
+                OnPropertyChanged("GameDateText");
+            }
+        }
+
+        public string GameDateText
+        {
+            get
+            {
+                return GameDate.ToString("d-MMM-yyyy");
+            }
+        }
 
         public Guid GameId
         {
@@ -39,12 +60,9 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             {
                 _gameId = value;
 
-                var gameResults = QueryService.GetGameResults(_gameId);
+                var gamePlayers = QueryService.GetGamePlayers(_gameId);
 
-                GameDate = gameResults.GameDate.ToString("d-MMM-yyyy");
-                OnPropertyChanged("GameDate");
-
-                Players = gameResults.Players.OrderBy(p => p.Placing)
+                Players = gamePlayers.OrderBy(p => p.Placing)
                                              .Select(p => string.Format("{0} - {1} [Win: ${2}] [Pay: ${3}]", p.Placing, p.PlayerName, p.Winnings, p.PayIn));
                 OnPropertyChanged("Players");
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,38 +17,33 @@ namespace PokerLeagueManager.UI.Wpf.Tests
     public class GameResultsViewModelTests
     {
         [TestMethod]
-        public void WhenGameIdIsSet_GameDateIsSet()
+        public void WhenGameDateIsSet_GameDateTextIsSet()
         {
-            var gameId = Guid.NewGuid();
-            var testResultsDto = new GetGameResultsDto();
-            testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
+            var sut = new GameResultsViewModel(null, null, null, null);
+            var watcher = new NotifyPropertyChangedWatcher(sut);
 
-            var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
+            sut.GameDate = DateTime.Parse("01-Jan-2015");
 
-            var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
-
-            sut.GameId = gameId;
-
-            Assert.AreEqual("1-Jan-2015", sut.GameDate);
+            Assert.AreEqual("1-Jan-2015", sut.GameDateText);
+            Assert.IsTrue(watcher.HasPropertyChanged("GameDateText"));
         }
 
         [TestMethod]
         public void WhenGameIdIsSet_PlayersIsUpdated()
         {
             var gameId = Guid.NewGuid();
-            var testResultsDto = new GetGameResultsDto();
-            testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
 
-            var player = new GetGameResultsDto.PlayerDto();
+            var player = new GetGamePlayersDto();
+            player.GameId = gameId;
             player.Placing = 1;
             player.PlayerName = "King Kong";
             player.Winnings = 100;
             player.PayIn = 20;
-            testResultsDto.Players.Add(player);
+
+            var testResultsDto = new List<GetGamePlayersDto>() { player };
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
+            mockQuerySvc.Setup(x => x.GetGamePlayers(gameId)).Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
@@ -61,17 +57,18 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         public void WhenGameIdIsSet_NotifyPropertyChangedShouldFire()
         {
             var gameId = Guid.NewGuid();
-            var testResultsDto = new GetGameResultsDto();
-            testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
 
-            var player = new GetGameResultsDto.PlayerDto();
+            var player = new GetGamePlayersDto();
+            player.GameId = gameId;
             player.Placing = 1;
             player.PlayerName = "King Kong";
             player.Winnings = 100;
-            testResultsDto.Players.Add(player);
+            player.PayIn = 20;
+
+            var testResultsDto = new List<GetGamePlayersDto>() { player };
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
+            mockQuerySvc.Setup(x => x.GetGamePlayers(gameId)).Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 
@@ -79,7 +76,6 @@ namespace PokerLeagueManager.UI.Wpf.Tests
 
             sut.GameId = gameId;
 
-            Assert.IsTrue(watcher.HasPropertyChanged("GameDate"));
             Assert.IsTrue(watcher.HasPropertyChanged("Players"));
         }
 
@@ -87,19 +83,18 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         public void PlayersAreShownInOrderByPlacing()
         {
             var gameId = Guid.NewGuid();
-            var testResultsDto = new GetGameResultsDto();
-            testResultsDto.GameDate = DateTime.Parse("1-Jan-2015");
+            var testResultsDto = new List<GetGamePlayersDto>();
 
-            var player1 = new GetGameResultsDto.PlayerDto() { Placing = 3, PlayerName = "King Kong", Winnings = 0, PayIn = 40 };
-            var player2 = new GetGameResultsDto.PlayerDto() { Placing = 1, PlayerName = "Donkey Kong", Winnings = 100, PayIn = 40 };
-            var player3 = new GetGameResultsDto.PlayerDto() { Placing = 2, PlayerName = "Diddy Kong", Winnings = 0, PayIn = 20 };
+            var player1 = new GetGamePlayersDto() { Placing = 3, GameId = gameId, PlayerName = "King Kong", Winnings = 0, PayIn = 40 };
+            var player2 = new GetGamePlayersDto() { Placing = 1, GameId = gameId, PlayerName = "Donkey Kong", Winnings = 100, PayIn = 40 };
+            var player3 = new GetGamePlayersDto() { Placing = 2, GameId = gameId, PlayerName = "Diddy Kong", Winnings = 0, PayIn = 20 };
 
-            testResultsDto.Players.Add(player1);
-            testResultsDto.Players.Add(player2);
-            testResultsDto.Players.Add(player3);
+            testResultsDto.Add(player1);
+            testResultsDto.Add(player2);
+            testResultsDto.Add(player3);
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.GetGameResults(gameId)).Returns(testResultsDto);
+            mockQuerySvc.Setup(x => x.GetGamePlayers(gameId)).Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
 

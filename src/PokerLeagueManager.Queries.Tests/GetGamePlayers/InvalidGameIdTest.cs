@@ -8,7 +8,7 @@ using PokerLeagueManager.Queries.Tests.Infrastructure;
 namespace PokerLeagueManager.Queries.Tests
 {
     [TestClass]
-    public class EmptyGameIdTest : BaseQueryTest
+    public class InvalidGameIdTest : BaseQueryTest
     {
         private Guid _gameId = Guid.NewGuid();
         private DateTime _gameDate = DateTime.Parse("17-Feb-2014");
@@ -30,14 +30,14 @@ namespace PokerLeagueManager.Queries.Tests
         }
 
         [TestMethod]
-        public void GetGameResults_EmptyGameId()
+        public void GetGameResults_InvalidGameId()
         {
-            RunTest(x => x.GetGameResults(Guid.Empty));
+            RunTest(x => x.GetGamePlayers(Guid.NewGuid()));
         }
 
-        public override Exception ExpectedException()
+        public override IEnumerable<IDataTransferObject> ExpectedDtos()
         {
-            return new InvalidOperationException();
+            return new List<IDataTransferObject>();
         }
     }
 }

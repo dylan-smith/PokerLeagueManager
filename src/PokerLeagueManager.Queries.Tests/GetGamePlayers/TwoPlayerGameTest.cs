@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
@@ -8,7 +9,7 @@ using PokerLeagueManager.Queries.Tests.Infrastructure;
 namespace PokerLeagueManager.Queries.Tests
 {
     [TestClass]
-    public class InvalidGameIdTest : BaseQueryTest
+    public class TwoPlayerGameTest : BaseQueryTest
     {
         private Guid _gameId = Guid.NewGuid();
         private DateTime _gameDate = DateTime.Parse("17-Feb-2014");
@@ -30,14 +31,15 @@ namespace PokerLeagueManager.Queries.Tests
         }
 
         [TestMethod]
-        public void GetGameResults_InvalidGameId()
+        public void GetGameResults_TwoPlayerGame()
         {
-            RunTest(x => x.GetGameResults(Guid.NewGuid()));
+            RunTest(x => x.GetGamePlayers(_gameId));
         }
 
-        public override Exception ExpectedException()
+        public override IEnumerable<IDataTransferObject> ExpectedDtos()
         {
-            return new InvalidOperationException();
+            yield return new GetGamePlayersDto() { DtoId = AnyGuid(), GameId = _gameId, PlayerName = _player1, Placing = 1, Winnings = _winnings1, PayIn = _payin1 };
+            yield return new GetGamePlayersDto() { DtoId = AnyGuid(), GameId = _gameId, PlayerName = _player2, Placing = 2, Winnings = _winnings2, PayIn = _payin2 };
         }
     }
 }

@@ -75,11 +75,11 @@
     <Compile Include="GetGameCountByDate\TwoGamesThenDeleteOneTest.cs" />
     <Compile Include="GetGameCountByDate\TwoGamesOnDateOneDifferentTest.cs" />
     <Compile Include="GetGameCountByDate\ZeroGamesTest.cs" />
-    <Compile Include="GetGameResults\InvalidGameIdTest.cs" />
-    <Compile Include="GetGameResults\EmptyGameIdTest.cs" />
-    <Compile Include="GetGameResults\DeletedGameTest.cs" />
-    <Compile Include="GetGameResults\RenamePlayerTest.cs" />
-    <Compile Include="GetGameResults\TwoPlayerGameTest.cs" />
+    <Compile Include="GetGamePlayers\InvalidGameIdTest.cs" />
+    <Compile Include="GetGamePlayers\EmptyGameIdTest.cs" />
+    <Compile Include="GetGamePlayers\DeletedGameTest.cs" />
+    <Compile Include="GetGamePlayers\RenamePlayerTest.cs" />
+    <Compile Include="GetGamePlayers\TwoPlayerGameTest.cs" />
     <Compile Include="GetGamesList\PlayerRenamedTest.cs" />
     <Compile Include="GetGamesList\TwoGamesThenDeleteTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />

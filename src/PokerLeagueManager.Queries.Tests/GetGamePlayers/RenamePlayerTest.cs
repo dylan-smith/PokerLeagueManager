@@ -37,16 +37,13 @@ namespace PokerLeagueManager.Queries.Tests
         [TestMethod]
         public void GetGameResults_RenamePlayer()
         {
-            RunTest(x => x.GetGameResults(_gameId));
+            RunTest(x => x.GetGamePlayers(_gameId));
         }
 
-        public override IDataTransferObject ExpectedDto()
+        public override IEnumerable<IDataTransferObject> ExpectedDtos()
         {
-            var expectedDto = new GetGameResultsDto() { DtoId = AnyGuid(), GameId = _gameId, GameDate = _gameDate };
-            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _player1, Placing = 1, Winnings = _winnings1, PayIn = _payin1 });
-            expectedDto.Players.Add(new GetGameResultsDto.PlayerDto() { DtoId = AnyGuid(), PlayerName = _newPlayerName, Placing = 2, Winnings = _winnings2, PayIn = _payin2 });
-
-            return expectedDto;
+            yield return new GetGamePlayersDto() { DtoId = AnyGuid(), GameId = _gameId, PlayerName = _player1, Placing = 1, Winnings = _winnings1, PayIn = _payin1 };
+            yield return new GetGamePlayersDto { DtoId = AnyGuid(), GameId = _gameId, PlayerName = _newPlayerName, Placing = 2, Winnings = _winnings2, PayIn = _payin2 };
         }
     }
 }

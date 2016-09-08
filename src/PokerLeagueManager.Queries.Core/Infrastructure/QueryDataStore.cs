@@ -69,23 +69,14 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             AddAllDtoToModel(modelBuilder);
-            modelBuilder.Types().Configure(x => x.ToTable(GetTableName(x.ClrType)));
             base.Configuration.LazyLoadingEnabled = false;
-
-            modelBuilder.Entity<GetGameResultsDto>()
-                .HasMany(e => e.Players)
-                .WithRequired()
-                .WillCascadeOnDelete();
 
             base.OnModelCreating(modelBuilder);
         }
 
         private string GetTableName(Type type)
         {
-            var result = type.FullName.Substring(type.FullName.LastIndexOf(".") + 1);
-            result = result.Replace("+", "_");
-
-            return result;
+            return type.FullName.Substring(type.FullName.LastIndexOf(".") + 1);
         }
 
         private void AddAllDtoToModel(DbModelBuilder modelBuilder)
