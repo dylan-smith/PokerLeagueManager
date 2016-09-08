@@ -21,15 +21,15 @@ namespace PokerLeagueManager.Common.Tests
             _dataStore[typeof(T)].Add(dto);
         }
 
-        public IEnumerable<T> GetData<T>()
+        public IQueryable<T> GetData<T>()
             where T : class, IDataTransferObject
         {
             if (!_dataStore.ContainsKey(typeof(T)))
             {
-                return new List<T>();
+                return new List<T>().AsQueryable<T>();
             }
 
-            return _dataStore[typeof(T)].Cast<T>();
+            return _dataStore[typeof(T)].Cast<T>().AsQueryable<T>();
         }
 
         public void Delete<T>(Guid dtoId)

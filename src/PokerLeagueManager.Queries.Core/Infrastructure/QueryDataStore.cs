@@ -26,7 +26,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             base.SaveChanges();
         }
 
-        public IEnumerable<T> GetData<T>()
+        public IQueryable<T> GetData<T>()
             where T : class, IDataTransferObject
         {
             var allICollections = typeof(T).GetProperties().Where(p => p.PropertyType.Name == typeof(ICollection<>).Name);
@@ -45,7 +45,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 results = results.Include(prop.Name);
             }
 
-            return results.ToList();
+            return results;
         }
 
         public void Delete<T>(Guid dtoId)
