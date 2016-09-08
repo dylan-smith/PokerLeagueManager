@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[LookupGameDatesDto]
+﻿CREATE TABLE [Lookups].[LookupGameDatesDto]
 (
 	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[GameId] UNIQUEIDENTIFIER NOT NULL,

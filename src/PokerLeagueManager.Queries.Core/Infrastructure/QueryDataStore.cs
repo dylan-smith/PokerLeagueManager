@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using PokerLeagueManager.Common.DTO;
@@ -98,8 +99,21 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             foreach (var dto in dtoTypes)
             {
-                entityMethod.MakeGenericMethod(dto)
-                            .Invoke(modelBuilder, new object[] { });
+                var typeConfig = entityMethod.MakeGenericMethod(dto)
+                                             .Invoke(modelBuilder, new object[] { });
+
+                var tableName = GetTableName(dto);
+                var genericType = typeof(EntityTypeConfiguration<>).MakeGenericType(dto);
+                var toTableMethod = genericType.GetMethod("ToTable", new Type[2] { typeof(string), typeof(string) });
+
+                if (tableName.StartsWith("Lookup"))
+                {
+                    toTableMethod.Invoke(typeConfig, new object[] { tableName, "Lookups" });
+                }
+                else
+                {
+                    toTableMethod.Invoke(typeConfig, new object[] { tableName, "DTO" });
+                }
             }
         }
     }

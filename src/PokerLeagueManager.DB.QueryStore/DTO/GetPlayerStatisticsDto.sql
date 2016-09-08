@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[GetPlayerStatisticsDto]
+﻿CREATE TABLE [DTO].[GetPlayerStatisticsDto]
 (
 	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
 	[PlayerName] VARCHAR(MAX) NOT NULL, 

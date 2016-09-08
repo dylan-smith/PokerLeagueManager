@@ -63,21 +63,26 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
-    <Folder Include="Tables" />
+    <Folder Include="dbo" />
     <Folder Include="Publish Profiles" />
+    <Folder Include="Security" />
+    <Folder Include="DTO" />
+    <Folder Include="Lookups" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\EventsProcessed.sql" />
-    <Build Include="Tables\GetGameCountByDateDto.sql" />
-    <Build Include="Tables\GetGamesListDto.sql" />
-    <Build Include="Tables\GetGameResultsDto.sql" />
-    <Build Include="Tables\GetGameResultsDto_PlayerDto.sql" />
-    <Build Include="Tables\GetPlayerStatisticsDto.sql" />
-    <Build Include="Tables\LookupGamePlayersDto.sql" />
-    <Build Include="Tables\LookupGameDatesDto.sql" />
-    <Build Include="Tables\GetPlayerGamesDto.sql" />
-    <Build Include="Tables\GetGameWithPlayersDto.sql" />
-    <Build Include="Tables\GetPlayerByNameDto.sql" />
+    <Build Include="dbo\EventsProcessed.sql" />
+    <Build Include="DTO\GetGameCountByDateDto.sql" />
+    <Build Include="DTO\GetGameResultsDto.sql" />
+    <Build Include="DTO\GetGameResultsDto_PlayerDto.sql" />
+    <Build Include="DTO\GetGamesListDto.sql" />
+    <Build Include="DTO\GetGameWithPlayersDto.sql" />
+    <Build Include="DTO\GetPlayerByNameDto.sql" />
+    <Build Include="DTO\GetPlayerGamesDto.sql" />
+    <Build Include="DTO\GetPlayerStatisticsDto.sql" />
+    <Build Include="Lookups\LookupGameDatesDto.sql" />
+    <Build Include="Lookups\LookupGamePlayersDto.sql" />
+    <Build Include="Security\Lookups.sql" />
+    <Build Include="Security\DTO.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Publish Profiles\PokerLeagueManager.DB.QueryStore.BUILD.publish.xml">

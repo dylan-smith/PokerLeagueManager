@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[GetPlayerGamesDto]
+﻿CREATE TABLE [DTO].[GetPlayerGamesDto]
 (
     [DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     [GameId] UNIQUEIDENTIFIER NOT NULL, 
