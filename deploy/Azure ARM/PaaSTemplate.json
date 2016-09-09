@@ -82,8 +82,8 @@
           "location": "[variables('location')]",
           "name": "AllowAllIps",
           "properties": {
-            "endIpAddress": "0.0.0.0",
-            "startIpAddress": "255.255.255.255"
+            "endIpAddress": "255.255.255.255",
+            "startIpAddress": "0.0.0.0"
           }
         }
       ]
@@ -125,7 +125,7 @@
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
           "properties": {
             "default": {
-              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('eventDatabaseNameDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
+              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('eventDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
           }
