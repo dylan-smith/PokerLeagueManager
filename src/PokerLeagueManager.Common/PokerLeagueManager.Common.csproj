@@ -86,13 +86,17 @@
     <Compile Include="Infrastructure\BaseCommand.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />
     <Compile Include="Infrastructure\BaseEvent.cs" />
+    <Compile Include="Infrastructure\BaseQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\IQueryFactory.cs" />
+    <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />
     <Compile Include="Infrastructure\CommandServiceProxy.cs" />
     <Compile Include="Infrastructure\CommandTypeProvider.cs" />
     <Compile Include="Infrastructure\DtoFactory.cs" />
     <Compile Include="Infrastructure\EventTypeProvider.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />
+    <Compile Include="Infrastructure\IQuery.cs" />
     <Compile Include="Infrastructure\ICommand.cs" />
     <Compile Include="Infrastructure\ICommandFactory.cs" />
     <Compile Include="Infrastructure\ICommandService.cs" />
@@ -111,6 +115,13 @@
     <Compile Include="Infrastructure\GuidService.cs" />
     <Compile Include="Infrastructure\IDateTimeService.cs" />
     <Compile Include="Infrastructure\IGuidService.cs" />
+    <Compile Include="Queries\GetGameCountByDateQuery.cs" />
+    <Compile Include="Queries\GetGamePlayersQuery.cs" />
+    <Compile Include="Queries\GetGamesListQuery.cs" />
+    <Compile Include="Queries\GetGamesWithPlayerQuery.cs" />
+    <Compile Include="Queries\GetPlayerByNameQuery.cs" />
+    <Compile Include="Queries\GetPlayerGamesQuery.cs" />
+    <Compile Include="Queries\GetPlayerStatisticsQuery.cs" />
     <Compile Include="QueryServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup />
