@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Wpf.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Common", "PokerLeagueManager.Common\PokerLeagueManager.Common.csproj", "{DE404A65-AB5D-409F-BB18-919EF139B4C9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Utilities.GenerateSampleData", "PokerLeagueManager.Utilities.GenerateSampleData\PokerLeagueManager.Utilities.GenerateSampleData.csproj", "{DF8BC97D-1035-4947-9379-C693D620600C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,10 @@ Global
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE404A65-AB5D-409F-BB18-919EF139B4C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF8BC97D-1035-4947-9379-C693D620600C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8BC97D-1035-4947-9379-C693D620600C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8BC97D-1035-4947-9379-C693D620600C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8BC97D-1035-4947-9379-C693D620600C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -131,69 +137,6 @@ Global
 		{70F1C695-ADFB-4D3D-BEEF-10D64C66D7C6} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{8ADE28F5-E0E5-4130-B882-28958BBF6EE0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
 		{FDC967AA-8EFC-4DAE-ADC0-DF94178FC5F0} = {F89680D5-25BE-4A81-BC13-04EE6E2B7347}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://pokerleaguemanager.visualstudio.com/
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = PokerLeagueManager.UI.WPF\\PokerLeagueManager.UI.Wpf.csproj
-		SccProjectName1 = PokerLeagueManager.UI.WPF
-		SccLocalPath1 = PokerLeagueManager.UI.WPF
-		SccProjectUniqueName2 = PokerLeagueManager.Commands.WCF\\PokerLeagueManager.Commands.WCF.csproj
-		SccProjectTopLevelParentUniqueName2 = PokerLeagueManager.sln
-		SccProjectName2 = PokerLeagueManager.Commands.WCF
-		SccLocalPath2 = PokerLeagueManager.Commands.WCF
-		SccProjectUniqueName3 = PokerLeagueManager.Commands.Domain\\PokerLeagueManager.Commands.Domain.csproj
-		SccProjectName3 = PokerLeagueManager.Commands.Domain
-		SccLocalPath3 = PokerLeagueManager.Commands.Domain
-		SccProjectUniqueName4 = PokerLeagueManager.Queries.WCF\\PokerLeagueManager.Queries.WCF.csproj
-		SccProjectName4 = PokerLeagueManager.Queries.WCF
-		SccLocalPath4 = PokerLeagueManager.Queries.WCF
-		SccProjectUniqueName5 = PokerLeagueManager.DB.EventStore\\PokerLeagueManager.DB.EventStore.sqlproj
-		SccProjectTopLevelParentUniqueName5 = PokerLeagueManager.sln
-		SccProjectName5 = PokerLeagueManager.DB.EventStore
-		SccLocalPath5 = PokerLeagueManager.DB.EventStore
-		SccProjectUniqueName6 = PokerLeagueManager.DB.QueryStore\\PokerLeagueManager.DB.QueryStore.sqlproj
-		SccProjectName6 = PokerLeagueManager.DB.QueryStore
-		SccLocalPath6 = PokerLeagueManager.DB.QueryStore
-		SccProjectUniqueName7 = PokerLeagueManager.Queries.Core\\PokerLeagueManager.Queries.Core.csproj
-		SccProjectName7 = PokerLeagueManager.Queries.Core
-		SccLocalPath7 = PokerLeagueManager.Queries.Core
-		SccProjectUniqueName8 = PokerLeagueManager.Commands.Tests\\PokerLeagueManager.Commands.Tests.csproj
-		SccProjectTopLevelParentUniqueName8 = PokerLeagueManager.sln
-		SccProjectName8 = PokerLeagueManager.Commands.Tests
-		SccLocalPath8 = PokerLeagueManager.Commands.Tests
-		SccProjectUniqueName9 = PokerLeagueManager.Infrastructure.Tests\\PokerLeagueManager.Infrastructure.Tests.csproj
-		SccProjectTopLevelParentUniqueName9 = PokerLeagueManager.sln
-		SccProjectName9 = PokerLeagueManager.Infrastructure.Tests
-		SccLocalPath9 = PokerLeagueManager.Infrastructure.Tests
-		SccProjectUniqueName10 = PokerLeagueManager.UI.WPF.Tests\\PokerLeagueManager.UI.Wpf.Tests.csproj
-		SccProjectTopLevelParentUniqueName10 = PokerLeagueManager.sln
-		SccProjectName10 = PokerLeagueManager.UI.WPF.Tests
-		SccLocalPath10 = PokerLeagueManager.UI.WPF.Tests
-		SccProjectUniqueName11 = PokerLeagueManager.Models\\PokerLeagueManager.Models.modelproj
-		SccProjectTopLevelParentUniqueName11 = PokerLeagueManager.sln
-		SccProjectName11 = PokerLeagueManager.Models
-		SccLocalPath11 = PokerLeagueManager.Models
-		SccProjectUniqueName12 = PokerLeagueManager.Utilities.ProcessEvents\\PokerLeagueManager.Utilities.ProcessEvents.csproj
-		SccProjectTopLevelParentUniqueName12 = PokerLeagueManager.sln
-		SccProjectName12 = PokerLeagueManager.Utilities.ProcessEvents
-		SccLocalPath12 = PokerLeagueManager.Utilities.ProcessEvents
-		SccProjectUniqueName13 = PokerLeagueManager.Queries.Tests\\PokerLeagueManager.Queries.Tests.csproj
-		SccProjectTopLevelParentUniqueName13 = PokerLeagueManager.sln
-		SccProjectName13 = PokerLeagueManager.Queries.Tests
-		SccLocalPath13 = PokerLeagueManager.Queries.Tests
-		SccProjectUniqueName14 = PokerLeagueManager.Common.Tests\\PokerLeagueManager.Common.Tests.csproj
-		SccProjectTopLevelParentUniqueName14 = PokerLeagueManager.sln
-		SccProjectName14 = PokerLeagueManager.Common.Tests
-		SccLocalPath14 = PokerLeagueManager.Common.Tests
-		SccProjectUniqueName15 = PokerLeagueManager.UI.Wpf.CodedUITests\\PokerLeagueManager.UI.Wpf.CodedUITests.csproj
-		SccProjectTopLevelParentUniqueName15 = PokerLeagueManager.sln
-		SccProjectName15 = PokerLeagueManager.UI.Wpf.CodedUITests
-		SccLocalPath15 = PokerLeagueManager.UI.Wpf.CodedUITests
-		SccProjectUniqueName16 = PokerLeagueManager.Common\\PokerLeagueManager.Common.csproj
-		SccProjectName16 = PokerLeagueManager.Common
-		SccLocalPath16 = PokerLeagueManager.Common
+		{DF8BC97D-1035-4947-9379-C693D620600C} = {93A7F75E-5AE9-4D87-9EF1-98324A1AFFA8}
 	EndGlobalSection
 EndGlobal
