@@ -17,13 +17,14 @@ namespace PokerLeagueManager.Utilities.GenerateSampleData
 
             var serviceUrl = args[0];
 
-            var svc = new CommandServiceProxy();
-
-            svc.Endpoint.Address = new EndpointAddress(serviceUrl);
-
-            foreach (var cmd in GetSampleDataCommands())
+            using (var svc = new CommandServiceProxy())
             {
-                svc.ExecuteCommand(cmd);
+                svc.Endpoint.Address = new EndpointAddress(serviceUrl);
+
+                foreach (var cmd in GetSampleDataCommands())
+                {
+                    svc.ExecuteCommand(cmd);
+                }
             }
         }
 
