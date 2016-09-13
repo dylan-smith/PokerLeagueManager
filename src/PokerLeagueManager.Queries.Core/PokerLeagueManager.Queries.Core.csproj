@@ -73,17 +73,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventHandlers\GetPlayerByNameHandler.cs" />
-    <Compile Include="EventHandlers\GetGamePlayersHandler.cs" />
-    <Compile Include="EventHandlers\GetGamesWithPlayerHandler.cs" />
-    <Compile Include="EventHandlers\GetPlayerGamesHandler.cs" />
-    <Compile Include="EventHandlers\LookupGameDatesHandler.cs" />
-    <Compile Include="EventHandlers\LookupGamePlayersHandler.cs" />
-    <Compile Include="EventHandlers\GetPlayerStatisticsHandler.cs" />
-    <Compile Include="EventHandlers\GetGamesListHandler.cs" />
-    <Compile Include="EventHandlers\GetGameCountByDateHandler.cs" />
+    <Compile Include="EventHandlers\GetPlayerByNameEventHandler.cs" />
+    <Compile Include="EventHandlers\GetGamePlayersEventHandler.cs" />
+    <Compile Include="EventHandlers\GetGamesWithPlayerEventHandler.cs" />
+    <Compile Include="EventHandlers\GetPlayerGamesEventHandler.cs" />
+    <Compile Include="EventHandlers\LookupGameDatesEventHandler.cs" />
+    <Compile Include="EventHandlers\LookupGamePlayersEventHandler.cs" />
+    <Compile Include="EventHandlers\GetPlayerStatisticsEventHandler.cs" />
+    <Compile Include="EventHandlers\GetGamesListEventHandler.cs" />
+    <Compile Include="EventHandlers\GetGameCountByDateEventHandler.cs" />
     <Compile Include="Infrastructure\BaseQueryHandler.cs" />
-    <Compile Include="Infrastructure\BaseHandler.cs" />
+    <Compile Include="Infrastructure\BaseEventHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\EventHandlerFactory.cs" />
     <Compile Include="Infrastructure\IdempotencyChecker.cs" />
