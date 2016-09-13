@@ -40,7 +40,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(PlayerRenamedEvent e)
         {
-            var games = QueryDataStore.GetData<GetGamesListDto>().Where(x => x.Winner == e.OldPlayerName);
+            var games = QueryDataStore.GetData<GetGamesListDto>().Where(x => x.Winner == e.OldPlayerName).ToList();
 
             foreach (var g in games)
             {

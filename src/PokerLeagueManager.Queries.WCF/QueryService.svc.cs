@@ -1,54 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Queries.WCF.Infrastructure;
+using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.WCF
 {
     public class QueryService : IQueryService
     {
-        private IQueryService _queryHandler;
-
-        public QueryService()
+        public IDataTransferObject ExecuteQueryDto(IQuery query)
         {
-            _queryHandler = Resolver.Container.Resolve<IQueryService>();
+            return (IDataTransferObject)ExecuteQuery(query);
         }
 
-        public int GetGameCountByDate(DateTime gameDate)
+        public int ExecuteQueryInt(IQuery query)
         {
-            return _queryHandler.GetGameCountByDate(gameDate);
+            return (int)ExecuteQuery(query);
         }
 
-        public IEnumerable<GetGamesListDto> GetGamesList()
+        public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
         {
-            return _queryHandler.GetGamesList();
+            return (IEnumerable<IDataTransferObject>)ExecuteQuery(query);
         }
 
-        public IEnumerable<GetGamePlayersDto> GetGamePlayers(Guid gameId)
+        private object ExecuteQuery(IQuery query)
         {
-            return _queryHandler.GetGamePlayers(gameId);
-        }
+            Resolver.Container.RegisterInstance<OperationContext>(OperationContext.Current);
 
-        public IEnumerable<GetPlayerStatisticsDto> GetPlayerStatistics()
-        {
-            return _queryHandler.GetPlayerStatistics();
-        }
-
-        public IEnumerable<GetPlayerGamesDto> GetPlayerGames(string playerName)
-        {
-            return _queryHandler.GetPlayerGames(playerName);
-        }
-
-        public IEnumerable<GetGamesWithPlayerDto> GetGamesWithPlayer(string playerName)
-        {
-            return _queryHandler.GetGamesWithPlayer(playerName);
-        }
-
-        public GetPlayerByNameDto GetPlayerByName(string playerName)
-        {
-            return _queryHandler.GetPlayerByName(playerName);
+            var queryHandlerFactory = Resolver.Container.Resolve<IQueryHandlerFactory>();
+            var queryFactory = Resolver.Container.Resolve<IQueryFactory>();
+            var result = queryHandlerFactory.ExecuteQuery(queryFactory.Create(query));
+            return result;
         }
     }
 }

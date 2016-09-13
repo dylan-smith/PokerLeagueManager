@@ -5,6 +5,8 @@ using Moq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 
 namespace PokerLeagueManager.Infrastructure.Tests
 {
@@ -41,10 +43,13 @@ namespace PokerLeagueManager.Infrastructure.Tests
             testCommand.Players = players;
 
             var mockCommandRepository = new Mock<ICommandRepository>();
+            var mockQueryService = new Mock<IQueryService>();
+
+            mockQueryService.Setup(q => q.ExecuteQueryInt(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
 
             var sut = new CommandHandlerFactory(
                 new Mock<IEventRepository>().Object,
-                new Mock<IQueryService>().Object,
+                mockQueryService.Object,
                 mockCommandRepository.Object);
 
             sut.ExecuteCommand(testCommand);
@@ -84,6 +89,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var mockCommandRepository = new Mock<ICommandRepository>();
             var mockEventRepository = new Mock<IEventRepository>();
             var mockQueryService = new Mock<IQueryService>();
+
+            mockQueryService.Setup(q => q.ExecuteQueryInt(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
 
             var sut = new CommandHandlerFactory(
                 mockEventRepository.Object,

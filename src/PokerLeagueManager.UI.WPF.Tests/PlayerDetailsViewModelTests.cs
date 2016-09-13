@@ -12,6 +12,7 @@ using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.ViewModels;
 using PokerLeagueManager.UI.Wpf.Views;
@@ -53,7 +54,10 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         public void WhenRenameMerge_ShowConfirmation()
         {
             var playerDto = new GetPlayerByNameDto();
-            _mockQueryService.Setup(q => q.GetPlayerByName("Ronald McDonald")).Returns(playerDto);
+            _mockQueryService.Setup(q => q.ExecuteQueryDto(It.Is<GetPlayerByNameQuery>(x => x.PlayerName == "Ronald McDonald")))
+                             .Returns(playerDto);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerGamesQuery>()))
+                             .Returns(new List<GetPlayerGamesDto>());
             _mockMainWindow.Setup(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>())).Returns(MessageBoxResult.OK);
 
             _sut = CreateSUT();
@@ -71,7 +75,10 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         public void WhenRenameMergeWithoutConfirmation_DoNotExecuteCommand()
         {
             var playerDto = new GetPlayerByNameDto();
-            _mockQueryService.Setup(q => q.GetPlayerByName("Ronald McDonald")).Returns(playerDto);
+            _mockQueryService.Setup(q => q.ExecuteQueryDto(It.Is<GetPlayerByNameQuery>(x => x.PlayerName == "Ronald McDonald")))
+                             .Returns(playerDto);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerGamesQuery>()))
+                             .Returns(new List<GetPlayerGamesDto>());
             _mockMainWindow.Setup(w => w.ShowConfirmation(It.IsAny<string>(), It.IsAny<string>())).Returns(MessageBoxResult.Cancel);
 
             _sut = CreateSUT();
@@ -90,7 +97,10 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var customException = new DuplicatePlayerNameException("Macho Man");
             var ex = new FaultException<ExceptionDetail>(new ExceptionDetail(customException));
-            _mockCommandService.Setup(x => x.ExecuteCommand(It.IsAny<RenamePlayerCommand>())).Throws(ex);
+            _mockCommandService.Setup(x => x.ExecuteCommand(It.IsAny<RenamePlayerCommand>()))
+                               .Throws(ex);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerGamesQuery>()))
+                             .Returns(new List<GetPlayerGamesDto>());
 
             _sut = CreateSUT();
             _sut.PlayerName = "Hulk Hogan";
@@ -107,7 +117,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var emptyGamesList = new List<GetPlayerGamesDto>();
 
-            _mockQueryService.Setup(x => x.GetPlayerGames("Darcy Lussier")).Returns(emptyGamesList);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.Is<GetPlayerGamesQuery>(x => x.PlayerName == "Darcy Lussier")))
+                             .Returns(emptyGamesList);
 
             _sut = CreateSUT();
             _sut.PlayerName = "Darcy Lussier";
@@ -128,7 +139,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 PayIn = 20
             });
 
-            _mockQueryService.Setup(x => x.GetPlayerGames("Darcy Lussier")).Returns(oneGameList);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.Is<GetPlayerGamesQuery>(x => x.PlayerName == "Darcy Lussier")))
+                             .Returns(oneGameList);
 
             _sut = CreateSUT();
             _sut.PlayerName = "Darcy Lussier";
@@ -169,7 +181,8 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 PayIn = 40
             });
 
-            _mockQueryService.Setup(x => x.GetPlayerGames("Darcy Lussier")).Returns(threeGameList);
+            _mockQueryService.Setup(q => q.ExecuteQueryList(It.Is<GetPlayerGamesQuery>(x => x.PlayerName == "Darcy Lussier")))
+                             .Returns(threeGameList);
 
             _sut = CreateSUT();
             _sut.PlayerName = "Darcy Lussier";

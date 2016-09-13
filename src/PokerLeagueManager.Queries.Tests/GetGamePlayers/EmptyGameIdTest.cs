@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests
@@ -32,7 +34,8 @@ namespace PokerLeagueManager.Queries.Tests
         [TestMethod]
         public void GetGameResults_EmptyGameId()
         {
-            RunTest(x => x.GetGamePlayers(Guid.Empty));
+            var query = new GetGamePlayersQuery() { GameId = Guid.Empty };
+            RunTest<IEnumerable<GetGamePlayersDto>>(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()

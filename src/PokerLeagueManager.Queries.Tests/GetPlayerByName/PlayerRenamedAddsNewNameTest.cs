@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
@@ -36,7 +37,8 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
         [TestMethod]
         public void GetPlayerByName_PlayerRenamedAddsNewName()
         {
-            RunTest(x => x.GetPlayerByName(_newPlayerName));
+            var query = new GetPlayerByNameQuery() { PlayerName = _newPlayerName };
+            RunTest<GetPlayerByNameDto>(query);
         }
 
         public override IDataTransferObject ExpectedDto()

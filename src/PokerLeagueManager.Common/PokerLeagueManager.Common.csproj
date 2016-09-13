@@ -88,6 +88,9 @@
     <Compile Include="Infrastructure\BaseEvent.cs" />
     <Compile Include="Infrastructure\BaseQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\DtoTypeProvider.cs" />
+    <Compile Include="QueryServiceExtensions.cs" />
+    <Compile Include="Infrastructure\QueryTypeProvider.cs" />
     <Compile Include="Infrastructure\IQueryFactory.cs" />
     <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />
@@ -109,7 +112,7 @@
     <Compile Include="Infrastructure\SqlServerDatabaseLayer.cs" />
     <Compile Include="Infrastructure\UnitySingleton.cs" />
     <Compile Include="Infrastructure\XmlReaderFacade.cs" />
-    <Compile Include="IQueryService.cs" />
+    <Compile Include="Infrastructure\IQueryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\DateTimeService.cs" />
     <Compile Include="Infrastructure\GuidService.cs" />
@@ -122,7 +125,7 @@
     <Compile Include="Queries\GetPlayerByNameQuery.cs" />
     <Compile Include="Queries\GetPlayerGamesQuery.cs" />
     <Compile Include="Queries\GetPlayerStatisticsQuery.cs" />
-    <Compile Include="QueryServiceProxy.cs" />
+    <Compile Include="Infrastructure\QueryServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

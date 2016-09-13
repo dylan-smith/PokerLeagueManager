@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
@@ -33,7 +34,8 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
         [TestMethod]
         public void GetPlayerByName_CaseInsensitive()
         {
-            RunTest(x => x.GetPlayerByName("  dylan "));
+            var query = new GetPlayerByNameQuery() { PlayerName = "  dylan " };
+            RunTest<GetPlayerByNameDto>(query);
         }
 
         public override IDataTransferObject ExpectedDto()

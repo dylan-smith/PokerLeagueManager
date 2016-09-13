@@ -40,10 +40,10 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
 
             HandleEvents(Given(), queryDataStore);
 
-            return new QueryHandler(queryDataStore);
+            return new QueryHandlerFactory(queryDataStore);
         }
 
-        public void RunTest<T>(Func<IQueryService, T> query)
+        public void RunTest<T>(IQuery query)
             where T : class
         {
             var queryService = SetupQueryService();
@@ -54,7 +54,14 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
 
             try
             {
-                result = query(queryService);
+                if (typeof(IEnumerable).IsAssignableFrom(typeof(T)))
+                {
+                    result = (T)queryService.ExecuteQueryList(query);
+                }
+                else
+                {
+                    result = (T)queryService.ExecuteQueryDto(query);
+                }
             }
             catch (Exception e)
             {

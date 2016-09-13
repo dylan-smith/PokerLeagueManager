@@ -85,7 +85,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Infrastructure\EventService.svc" />
+    <Content Include="EventService.svc" />
     <Content Include="QueryService.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -93,10 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Infrastructure\EventService.svc.cs">
+    <Compile Include="EventService.svc.cs">
       <DependentUpon>EventService.svc</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Resolver.cs" />
+    <Compile Include="Resolver.cs" />
     <Compile Include="QueryService.svc.cs">
       <DependentUpon>QueryService.svc</DependentUpon>
     </Compile>

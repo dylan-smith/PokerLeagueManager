@@ -8,6 +8,7 @@ using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.UI.Wpf.Infrastructure;
 using PokerLeagueManager.UI.Wpf.Views;
 

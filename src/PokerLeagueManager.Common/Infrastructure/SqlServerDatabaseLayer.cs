@@ -137,7 +137,7 @@ namespace PokerLeagueManager.Common.Infrastructure
                         }
 
                         _connection.Dispose();
-                        _transaction.Dispose();
+                        _transaction?.Dispose();
                     }
                 }
             }

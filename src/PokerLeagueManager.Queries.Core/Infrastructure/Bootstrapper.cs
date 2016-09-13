@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             {
                 UnitySingleton.Container.RegisterType<IEventHandlerFactory, EventHandlerFactory>();
                 UnitySingleton.Container.RegisterType<IQueryDataStore, QueryDataStore>();
-                UnitySingleton.Container.RegisterType<IQueryService, QueryHandler>();
+                UnitySingleton.Container.RegisterType<IQueryHandlerFactory, QueryHandlerFactory>();
                 UnitySingleton.Container.RegisterType<IIdempotencyChecker, IdempotencyChecker>();
 
                 PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();

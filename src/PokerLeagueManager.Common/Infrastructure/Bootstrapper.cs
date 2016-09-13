@@ -19,8 +19,10 @@ namespace PokerLeagueManager.Common.Infrastructure
                 UnitySingleton.Container.RegisterType<ICommandFactory, CommandFactory>();
                 UnitySingleton.Container.RegisterType<ICommandService, CommandServiceProxy>();
 
-                UnitySingleton.Container.RegisterType<IDtoFactory, DtoFactory>();
+                UnitySingleton.Container.RegisterType<IQueryFactory, QueryFactory>();
                 UnitySingleton.Container.RegisterType<IQueryService, QueryServiceProxy>();
+
+                UnitySingleton.Container.RegisterType<IDtoFactory, DtoFactory>();
 
                 _hasBootstrapped = true;
             }

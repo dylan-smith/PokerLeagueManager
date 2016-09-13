@@ -41,7 +41,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             repository.InitialEvents = Given();
 
             var queryDataStore = new FakeQueryDataStore();
-            var queryService = new QueryHandler(queryDataStore);
+            var queryService = new QueryHandlerFactory(queryDataStore);
 
             var commandRepository = new Mock<ICommandRepository>();
 

@@ -64,7 +64,6 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
-    <Folder Include="Scripts" />
     <Folder Include="Stored Procedures" />
     <Folder Include="Publish Profiles" />
   </ItemGroup>
@@ -78,9 +77,6 @@
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.BUILD.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -90,8 +86,6 @@
     <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.DEV.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\SampleEvents.sql" />
-    <None Include="Scripts\Subscribers.sql" />
     <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.AZURESIMPLE.publish.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

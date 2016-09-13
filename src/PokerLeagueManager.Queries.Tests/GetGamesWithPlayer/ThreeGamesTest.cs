@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests.GetGamesWithPlayer
@@ -41,7 +42,8 @@ namespace PokerLeagueManager.Queries.Tests.GetGamesWithPlayer
         [TestMethod]
         public void GetGamesWithPlayer_ThreeGames()
         {
-            RunTest(x => x.GetGamesWithPlayer(_player1));
+            var query = new GetGamesWithPlayerQuery() { PlayerName = _player1 };
+            RunTest<IEnumerable<GetGamesWithPlayerDto>>(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()
