@@ -21,7 +21,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public GamesListViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
-            _games = new ObservableCollection<GetGamesListDto>(QueryService.GetGamesList());
+            _games = new GetGamesListQuery().Execute(QueryService);
 
             PlayersCommand = new RelayCommand(x => NavigateToPlayersView());
             AddGameCommand = new RelayCommand(x => AddGame());

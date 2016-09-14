@@ -11,6 +11,15 @@ namespace PokerLeagueManager.Common.Queries
     [DataContract]
     public class GetGameCountByDateQuery : BaseQuery, IQuery<int>
     {
+        public GetGameCountByDateQuery()
+        {
+        }
+
+        public GetGameCountByDateQuery(DateTime gameDate)
+        {
+            GameDate = gameDate;
+        }
+
         [DataMember]
         public DateTime GameDate { get; set; }
     }

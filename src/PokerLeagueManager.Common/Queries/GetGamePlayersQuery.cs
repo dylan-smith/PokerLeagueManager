@@ -12,6 +12,15 @@ namespace PokerLeagueManager.Common.Queries
     [DataContract]
     public class GetGamePlayersQuery : BaseQuery, IQuery<IEnumerable<GetGamePlayersDto>>
     {
+        public GetGamePlayersQuery()
+        {
+        }
+
+        public GetGamePlayersQuery(Guid gameId)
+        {
+            GameId = gameId;
+        }
+
         [DataMember]
         public Guid GameId { get; set; }
     }
