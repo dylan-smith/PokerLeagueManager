@@ -25,7 +25,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 throw new ArgumentNullException("query", "Cannot execute a null Query.");
             }
 
-            return FindQueryHandler<TQuery, TResult>().Execute(query);
+            return ExecuteQueryHandler<TQuery, TResult>(query);
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
@@ -40,7 +40,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 throw new Exception("Unexpected Exception. Could not find the ExecuteQuery method via Reflection.");
             }
 
-            MethodInfo generic = executeQueryMethod.First().MakeGenericMethod(query.GetType(), typeof(TResult));
+            var generic = executeQueryMethod.First().MakeGenericMethod(query.GetType(), typeof(TResult));
 
             try
             {
@@ -86,6 +86,31 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             result.Repository = _queryDataStore;
 
             return result;
+        }
+
+        private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
+            where TQuery : IQuery
+        {
+            var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
+
+            if (matchingTypes.Count() == 0)
+            {
+                throw new ArgumentException(string.Format("Could not find Query Handler for {0}", typeof(TQuery).Name));
+            }
+
+            if (matchingTypes.Count() > 1)
+            {
+                throw new ArgumentException(string.Format("Found more than 1 Query Handler for {0}", typeof(TQuery).Name));
+            }
+
+            var queryHandlerType = matchingTypes.First();
+            var handler = UnitySingleton.Container.Resolve(queryHandlerType, null);
+
+            var repoProperty = queryHandlerType.GetProperty("Repository");
+            var executeMethod = queryHandlerType.GetMethod("Execute");
+
+            repoProperty.SetValue(handler, _queryDataStore);
+            return (TResult)executeMethod.Invoke(handler, new object[] { query });
         }
     }
 }
