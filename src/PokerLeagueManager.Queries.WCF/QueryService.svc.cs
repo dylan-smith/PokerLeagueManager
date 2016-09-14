@@ -10,26 +10,26 @@ namespace PokerLeagueManager.Queries.WCF
     {
         public IDataTransferObject ExecuteQueryDto(IQuery query)
         {
-            return (IDataTransferObject)ExecuteQuery(query);
+            return ExecuteQuery<IDataTransferObject>(query);
         }
 
         public int ExecuteQueryInt(IQuery query)
         {
-            return (int)ExecuteQuery(query);
+            return ExecuteQuery<int>(query);
         }
 
         public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
         {
-            return (IEnumerable<IDataTransferObject>)ExecuteQuery(query);
+            return ExecuteQuery<IEnumerable<IDataTransferObject>>(query);
         }
 
-        private object ExecuteQuery(IQuery query)
+        private TResult ExecuteQuery<TResult>(IQuery query)
         {
             Resolver.Container.RegisterInstance<OperationContext>(OperationContext.Current);
 
             var queryHandlerFactory = Resolver.Container.Resolve<IQueryHandlerFactory>();
             var queryFactory = Resolver.Container.Resolve<IQueryFactory>();
-            var result = queryHandlerFactory.ExecuteQuery(queryFactory.Create(query));
+            var result = queryHandlerFactory.ExecuteQuery<TResult>(queryFactory.Create(query));
             return result;
         }
     }

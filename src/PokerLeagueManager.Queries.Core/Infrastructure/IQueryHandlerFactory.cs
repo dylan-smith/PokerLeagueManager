@@ -4,9 +4,9 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public interface IQueryHandlerFactory
     {
-        object ExecuteQuery<T>(T query)
-            where T : IQuery;
+        TResult ExecuteQuery<TQuery, TResult>(TQuery query)
+            where TQuery : IQuery;
 
-        object ExecuteQuery(IQuery query);
+        TResult ExecuteQuery<TResult>(IQuery query);
     }
 }

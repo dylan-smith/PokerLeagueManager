@@ -4,11 +4,11 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public interface IHandlesQuery<T>
-        where T : IQuery
+    public interface IHandlesQuery<TQuery, TResult>
+        where TQuery : IQuery
     {
         IQueryDataStore Repository { get; set; }
 
-        object Execute(T query);
+        TResult Execute(TQuery query);
     }
 }
