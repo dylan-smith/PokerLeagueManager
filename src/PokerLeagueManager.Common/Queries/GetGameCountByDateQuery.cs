@@ -9,7 +9,7 @@ using PokerLeagueManager.Common.Infrastructure;
 namespace PokerLeagueManager.Common.Queries
 {
     [DataContract]
-    public class GetGameCountByDateQuery : BaseQuery
+    public class GetGameCountByDateQuery : BaseQuery, IQuery<int>
     {
         [DataMember]
         public DateTime GameDate { get; set; }

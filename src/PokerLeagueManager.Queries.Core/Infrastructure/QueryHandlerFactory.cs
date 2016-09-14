@@ -18,7 +18,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         }
 
         public TResult ExecuteQuery<TQuery, TResult>(TQuery query)
-            where TQuery : IQuery
+            where TQuery : IQuery<TResult>
         {
             if (query == null)
             {
@@ -31,16 +31,21 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
         public TResult ExecuteQuery<TResult>(IQuery query)
         {
-            var executeQueryMethod = from m in typeof(QueryHandlerFactory).GetMethods()
-                                       where m.Name == "ExecuteQuery" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition && m.GetGenericArguments().Length == 2
-                                       select m;
+            var executeQueryMethods = from m in typeof(QueryHandlerFactory).GetMethods()
+                                     where m.Name == "ExecuteQuery" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition && m.GetGenericArguments().Length == 2
+                                     select m;
 
-            if (executeQueryMethod.Count() != 1)
+            if (executeQueryMethods.Count() != 1)
             {
                 throw new Exception("Unexpected Exception. Could not find the ExecuteQuery method via Reflection.");
             }
 
-            var generic = executeQueryMethod.First().MakeGenericMethod(query.GetType(), typeof(TResult));
+            var executeQueryMethod = executeQueryMethods.First();
+            var queryType = query.GetType();
+            var genericInterface = queryType.GetInterfaces().First(i => i.IsGenericType);
+            var queryReturnType = genericInterface.GenericTypeArguments[0];
+
+            var generic = executeQueryMethod.MakeGenericMethod(queryType, queryReturnType);
 
             try
             {
@@ -67,29 +72,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             return ExecuteQuery<int>(query);
         }
 
-        private IHandlesQuery<TQuery, TResult> FindQueryHandler<TQuery, TResult>()
-            where TQuery : IQuery
-        {
-            var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
-
-            if (matchingTypes.Count() == 0)
-            {
-                throw new ArgumentException(string.Format("Could not find Query Handler for {0}", typeof(TQuery).Name));
-            }
-
-            if (matchingTypes.Count() > 1)
-            {
-                throw new ArgumentException(string.Format("Found more than 1 Query Handler for {0}", typeof(TQuery).Name));
-            }
-
-            var result = (IHandlesQuery<TQuery, TResult>)UnitySingleton.Container.Resolve(matchingTypes.First(), null);
-            result.Repository = _queryDataStore;
-
-            return result;
-        }
-
         private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
-            where TQuery : IQuery
         {
             var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
 

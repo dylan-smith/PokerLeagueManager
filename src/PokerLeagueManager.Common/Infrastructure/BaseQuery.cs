@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace PokerLeagueManager.Common.Infrastructure
 {
     [DataContract]
-    public class BaseQuery : IQuery
+    public class BaseQuery
     {
         public BaseQuery()
         {

@@ -4,12 +4,13 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Common.Queries
 {
     [DataContract]
-    public class GetGamePlayersQuery : BaseQuery
+    public class GetGamePlayersQuery : BaseQuery, IQuery<IEnumerable<GetGamePlayersDto>>
     {
         [DataMember]
         public Guid GameId { get; set; }

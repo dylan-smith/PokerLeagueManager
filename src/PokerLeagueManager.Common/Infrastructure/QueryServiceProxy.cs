@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace PokerLeagueManager.Common.Infrastructure
@@ -10,14 +11,14 @@ namespace PokerLeagueManager.Common.Infrastructure
             return base.Channel.ExecuteQueryDto(query);
         }
 
-        public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
-        {
-            return base.Channel.ExecuteQueryList(query);
-        }
-
         public int ExecuteQueryInt(IQuery query)
         {
             return base.Channel.ExecuteQueryInt(query);
+        }
+
+        public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
+        {
+            return base.Channel.ExecuteQueryList(query);
         }
     }
 }
