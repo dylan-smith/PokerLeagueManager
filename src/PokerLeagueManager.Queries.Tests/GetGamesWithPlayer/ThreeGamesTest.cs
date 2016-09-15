@@ -43,7 +43,7 @@ namespace PokerLeagueManager.Queries.Tests.GetGamesWithPlayer
         public void GetGamesWithPlayer_ThreeGames()
         {
             var query = new GetGamesWithPlayerQuery() { PlayerName = _player1 };
-            RunTest<IEnumerable<GetGamesWithPlayerDto>>(query);
+            RunTest(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()

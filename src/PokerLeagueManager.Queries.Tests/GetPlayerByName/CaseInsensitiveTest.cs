@@ -35,7 +35,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
         public void GetPlayerByName_CaseInsensitive()
         {
             var query = new GetPlayerByNameQuery() { PlayerName = "  dylan " };
-            RunTest<GetPlayerByNameDto>(query);
+            RunTest(query);
         }
 
         public override IDataTransferObject ExpectedDto()

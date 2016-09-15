@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
         public void GetPlayerByName_PlayerRenamedAddsNewName()
         {
             var query = new GetPlayerByNameQuery() { PlayerName = _newPlayerName };
-            RunTest<GetPlayerByNameDto>(query);
+            RunTest(query);
         }
 
         public override IDataTransferObject ExpectedDto()

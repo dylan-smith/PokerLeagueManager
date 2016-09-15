@@ -44,7 +44,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerGames
         public void GetPlayerGames_DeletedGame()
         {
             var query = new GetPlayerGamesQuery() { PlayerName = _player3 };
-            RunTest<IEnumerable<GetPlayerGamesDto>>(query);
+            RunTest(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()

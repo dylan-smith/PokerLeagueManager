@@ -35,7 +35,7 @@ namespace PokerLeagueManager.Queries.Tests
         public void GetGameResults_InvalidGameId()
         {
             var query = new GetGamePlayersQuery() { GameId = Guid.NewGuid() };
-            RunTest<IEnumerable<GetGamePlayersDto>>(query);
+            RunTest(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()

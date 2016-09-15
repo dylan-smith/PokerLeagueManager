@@ -43,7 +43,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerStatistics
         public void GetPlayerStatistics_ThreeGamesFourPlayers()
         {
             var query = new GetPlayerStatisticsQuery();
-            RunTest<IEnumerable<GetPlayerStatisticsDto>>(query);
+            RunTest(query);
         }
 
         public override IEnumerable<IDataTransferObject> ExpectedDtos()

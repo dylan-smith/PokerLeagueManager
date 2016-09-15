@@ -35,7 +35,7 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerByName
         public void GetPlayerByName_PlayerExists()
         {
             var query = new GetPlayerByNameQuery() { PlayerName = _player1 };
-            RunTest<GetPlayerByNameDto>(query);
+            RunTest(query);
         }
 
         public override IDataTransferObject ExpectedDto()

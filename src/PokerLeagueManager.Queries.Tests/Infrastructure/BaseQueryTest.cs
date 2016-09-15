@@ -43,8 +43,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
             return new QueryHandlerFactory(queryDataStore);
         }
 
-        public void RunTest<T>(IQuery query)
-            where T : class
+        public void RunTest<T>(IQuery<T> query)
         {
             var queryService = SetupQueryService();
 
@@ -54,14 +53,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
 
             try
             {
-                if (typeof(IEnumerable).IsAssignableFrom(typeof(T)))
-                {
-                    result = (T)queryService.ExecuteQueryList(query);
-                }
-                else
-                {
-                    result = (T)queryService.ExecuteQueryDto(query);
-                }
+                result = query.Execute(queryService);
             }
             catch (Exception e)
             {
