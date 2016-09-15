@@ -45,7 +45,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
                 _playerName = value;
                 OnPropertyChanged("PlayerName");
 
-                var games = QueryService.GetPlayerGames(_playerName);
+                var games = new GetPlayerGamesQuery(_playerName).Execute(QueryService);
 
                 Games = games.OrderByDescending(g => g.GameDate)
                              .Select(g => string.Format("{0} - Placing: {1} - Winnings: ${2} - Pay In: ${3}", g.GameDate.ToString("dd-MMM-yyyy"), g.Placing, g.Winnings, g.PayIn));
@@ -65,7 +65,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
 
         private void RenamePlayer()
         {
-            var matchingPlayer = QueryService.GetPlayerByName(NewPlayerName);
+            var matchingPlayer = new GetPlayerByNameQuery(NewPlayerName).Execute(QueryService);
 
             if (matchingPlayer != null)
             {

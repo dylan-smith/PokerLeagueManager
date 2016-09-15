@@ -3,6 +3,7 @@ using PokerLeagueManager.Commands.Domain.Aggregates;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Commands;
+using PokerLeagueManager.Common.Queries;
 
 namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 {
@@ -10,7 +11,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
     {
         public void Execute(RenamePlayerCommand command)
         {
-            var games = QueryService.GetGamesWithPlayer(command.OldPlayerName);
+            var games = new GetGamesWithPlayerQuery(command.OldPlayerName).Execute(QueryService);
             var aggregates = games.Select(g => Repository.GetAggregateById<Game>(g.GameId)).ToList();
 
             foreach (var g in aggregates)

@@ -90,7 +90,6 @@
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DtoTypeProvider.cs" />
     <Compile Include="QueryExtensions.cs" />
-    <Compile Include="QueryServiceExtensions.cs" />
     <Compile Include="Infrastructure\QueryTypeProvider.cs" />
     <Compile Include="Infrastructure\IQueryFactory.cs" />
     <Compile Include="Infrastructure\QueryFactory.cs" />

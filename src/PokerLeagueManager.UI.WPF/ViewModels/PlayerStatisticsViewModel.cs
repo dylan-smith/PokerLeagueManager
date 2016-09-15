@@ -20,7 +20,8 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public PlayerStatisticsViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
-            _players = new ObservableCollection<GetPlayerStatisticsDto>(QueryService.GetPlayerStatistics());
+            var playerStats = new GetPlayerStatisticsQuery().Execute(QueryService);
+            _players = new ObservableCollection<GetPlayerStatisticsDto>(playerStats);
 
             GamesCommand = new RelayCommand(x => NavigateToGamesView());
             PlayerDoubleClickCommand = new RelayCommand(x => PlayerDoubleClick());

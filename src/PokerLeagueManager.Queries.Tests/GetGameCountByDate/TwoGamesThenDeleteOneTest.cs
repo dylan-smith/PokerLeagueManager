@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
+using PokerLeagueManager.Common.Queries;
 using PokerLeagueManager.Queries.Tests.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
@@ -27,8 +28,10 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
         [TestMethod]
         public void GetGameCountByDate_TwoGamesThenDeleteOne()
         {
-            var result1 = SetupQueryService().GetGameCountByDate(_gameDate1);
-            var result2 = SetupQueryService().GetGameCountByDate(_gameDate2);
+            var querySvc = SetupQueryService();
+
+            var result1 = new GetGameCountByDateQuery(_gameDate1).Execute(querySvc);
+            var result2 = new GetGameCountByDateQuery(_gameDate2).Execute(querySvc);
 
             Assert.AreEqual(0, result1);
             Assert.AreEqual(1, result2);
