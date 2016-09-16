@@ -2,11 +2,8 @@
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public interface IQueryHandlerFactory
+    public interface IQueryHandlerFactory : IQueryService
     {
-        TResult ExecuteQuery<TQuery, TResult>(TQuery query)
-            where TQuery : IQuery<TResult>;
-
-        TResult ExecuteQuery<TResult>(IQuery query);
+        TResult Execute<TResult>(IQuery query);
     }
 }

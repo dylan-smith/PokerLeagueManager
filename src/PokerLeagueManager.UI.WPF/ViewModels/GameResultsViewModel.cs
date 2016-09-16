@@ -62,7 +62,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             {
                 _gameId = value;
 
-                var gamePlayers = new GetGamePlayersQuery(_gameId).Execute(QueryService);
+                var gamePlayers = QueryService.Execute(new GetGamePlayersQuery(_gameId));
 
                 Players = gamePlayers.OrderBy(p => p.Placing)
                                              .Select(p => string.Format("{0} - {1} [Win: ${2}] [Pay: ${3}]", p.Placing, p.PlayerName, p.Winnings, p.PayIn));

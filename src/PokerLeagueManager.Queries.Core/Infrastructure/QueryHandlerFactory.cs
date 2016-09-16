@@ -8,7 +8,7 @@ using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public class QueryHandlerFactory : IQueryHandlerFactory, IQueryService
+    public class QueryHandlerFactory : IQueryHandlerFactory
     {
         private IQueryDataStore _queryDataStore;
 
@@ -17,35 +17,35 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             _queryDataStore = queryDataStore;
         }
 
-        public TResult ExecuteQuery<TQuery, TResult>(TQuery query)
-            where TQuery : IQuery<TResult>
+        public TResult Execute<TResult>(IQuery<TResult> query)
+        {
+            return Execute<TResult>((IQuery)query);
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
+        public TResult Execute<TResult>(IQuery query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException("query", "Cannot execute a null Query.");
             }
 
-            return ExecuteQueryHandler<TQuery, TResult>(query);
-        }
+            var executeQueryHandlerMethods = from m in typeof(QueryHandlerFactory).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+                                             where m.Name == "ExecuteQueryHandler" && m.ContainsGenericParameters &&
+                                                   m.IsGenericMethod && m.IsGenericMethodDefinition && m.GetGenericArguments().Count() == 2
+                                             select m;
 
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
-        public TResult ExecuteQuery<TResult>(IQuery query)
-        {
-            var executeQueryMethods = from m in typeof(QueryHandlerFactory).GetMethods()
-                                     where m.Name == "ExecuteQuery" && m.ContainsGenericParameters && m.IsGenericMethod && m.IsGenericMethodDefinition && m.GetGenericArguments().Length == 2
-                                     select m;
-
-            if (executeQueryMethods.Count() != 1)
+            if (executeQueryHandlerMethods.Count() != 1)
             {
-                throw new Exception("Unexpected Exception. Could not find the ExecuteQuery method via Reflection.");
+                throw new Exception("Unexpected Exception. Could not find the ExecuteQueryHandler method via Reflection.");
             }
 
-            var executeQueryMethod = executeQueryMethods.First();
+            var executeQueryHandlerMethod = executeQueryHandlerMethods.First();
             var queryType = query.GetType();
             var genericInterface = queryType.GetInterfaces().First(i => i.IsGenericType);
             var queryReturnType = genericInterface.GenericTypeArguments[0];
 
-            var generic = executeQueryMethod.MakeGenericMethod(queryType, queryReturnType);
+            var generic = executeQueryHandlerMethod.MakeGenericMethod(queryType, queryReturnType);
 
             try
             {
@@ -59,20 +59,21 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
         public IDataTransferObject ExecuteQueryDto(IQuery query)
         {
-            return ExecuteQuery<IDataTransferObject>(query);
+            return Execute<IDataTransferObject>(query);
         }
 
         public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
         {
-            return ExecuteQuery<IEnumerable<IDataTransferObject>>(query);
+            return Execute<IEnumerable<IDataTransferObject>>(query);
         }
 
         public int ExecuteQueryInt(IQuery query)
         {
-            return ExecuteQuery<int>(query);
+            return Execute<int>(query);
         }
 
         private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
+            where TQuery : IQuery<TResult>
         {
             var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
 

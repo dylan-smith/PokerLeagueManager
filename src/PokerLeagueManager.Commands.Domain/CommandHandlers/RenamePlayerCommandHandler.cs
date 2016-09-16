@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
     {
         public void Execute(RenamePlayerCommand command)
         {
-            var games = new GetGamesWithPlayerQuery(command.OldPlayerName).Execute(QueryService);
+            var games = QueryService.Execute(new GetGamesWithPlayerQuery(command.OldPlayerName));
             var aggregates = games.Select(g => Repository.GetAggregateById<Game>(g.GameId)).ToList();
 
             foreach (var g in aggregates)

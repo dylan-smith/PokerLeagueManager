@@ -53,7 +53,7 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
 
             try
             {
-                result = query.Execute(queryService);
+                result = queryService.Execute(query);
             }
             catch (Exception e)
             {

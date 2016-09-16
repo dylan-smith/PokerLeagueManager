@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Infrastructure;
@@ -8,6 +9,11 @@ namespace PokerLeagueManager.Queries.WCF
 {
     public class QueryService : IQueryService
     {
+        public TResult Execute<TResult>(IQuery<TResult> query)
+        {
+            return ExecuteQuery<TResult>(query);
+        }
+
         public IDataTransferObject ExecuteQueryDto(IQuery query)
         {
             return ExecuteQuery<IDataTransferObject>(query);
@@ -29,7 +35,7 @@ namespace PokerLeagueManager.Queries.WCF
 
             var queryHandlerFactory = Resolver.Container.Resolve<IQueryHandlerFactory>();
             var queryFactory = Resolver.Container.Resolve<IQueryFactory>();
-            var result = queryHandlerFactory.ExecuteQuery<TResult>(queryFactory.Create(query));
+            var result = queryHandlerFactory.Execute<TResult>(queryFactory.Create(query));
             return result;
         }
     }

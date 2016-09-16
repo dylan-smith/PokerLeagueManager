@@ -16,7 +16,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
                 throw new ArgumentException("Cannot enter game results for a previously existing Game Id", "GameId");
             }
 
-            var gameCount = new GetGameCountByDateQuery(command.GameDate).Execute(QueryService);
+            var gameCount = QueryService.Execute(new GetGameCountByDateQuery(command.GameDate));
             if (gameCount > 0)
             {
                 throw new ArgumentException("Cannot enter multiple game results for the same date", "GameDate");

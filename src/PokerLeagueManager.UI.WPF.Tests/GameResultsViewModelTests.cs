@@ -45,7 +45,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var testResultsDto = new List<GetGamePlayersDto>() { player };
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.ExecuteQueryList(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
+            mockQuerySvc.Setup(x => x.Execute(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
                         .Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
@@ -71,7 +71,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var testResultsDto = new List<GetGamePlayersDto>() { player };
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.ExecuteQueryList(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
+            mockQuerySvc.Setup(x => x.Execute(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
                         .Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);
@@ -98,7 +98,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             testResultsDto.Add(player3);
 
             var mockQuerySvc = new Mock<IQueryService>();
-            mockQuerySvc.Setup(x => x.ExecuteQueryList(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
+            mockQuerySvc.Setup(x => x.Execute(It.Is<GetGamePlayersQuery>(q => q.GameId == gameId)))
                         .Returns(testResultsDto);
 
             var sut = new GameResultsViewModel(null, mockQuerySvc.Object, null, null);

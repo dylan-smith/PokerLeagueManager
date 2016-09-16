@@ -21,7 +21,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
         public GamesListViewModel(ICommandService commandService, IQueryService queryService, IMainWindow mainWindow, ILog logger)
             : base(commandService, queryService, mainWindow, logger)
         {
-            var gamesList = new GetGamesListQuery().Execute(QueryService);
+            var gamesList = QueryService.Execute(new GetGamesListQuery());
             _games = new ObservableCollection<GetGamesListDto>(gamesList);
 
             PlayersCommand = new RelayCommand(x => NavigateToPlayersView());
@@ -75,7 +75,7 @@ namespace PokerLeagueManager.UI.Wpf.ViewModels
             var gameId = GetSelectedGame().GameId;
             CommandService.ExecuteCommand(new DeleteGameCommand() { GameId = gameId });
 
-            var gamesList = new GetGamesListQuery().Execute(QueryService);
+            var gamesList = QueryService.Execute(new GetGamesListQuery());
             _games = new ObservableCollection<GetGamesListDto>(gamesList);
             OnPropertyChanged("Games");
         }

@@ -30,8 +30,8 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
         {
             var querySvc = SetupQueryService();
 
-            var result1 = new GetGameCountByDateQuery(_gameDate1).Execute(querySvc);
-            var result2 = new GetGameCountByDateQuery(_gameDate2).Execute(querySvc);
+            var result1 = querySvc.Execute(new GetGameCountByDateQuery(_gameDate1));
+            var result2 = querySvc.Execute(new GetGameCountByDateQuery(_gameDate2));
 
             Assert.AreEqual(0, result1);
             Assert.AreEqual(1, result2);

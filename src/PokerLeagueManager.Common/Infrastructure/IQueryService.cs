@@ -17,5 +17,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "int", Justification = "Couldnt think of a better name")]
         [OperationContract]
         int ExecuteQueryInt(IQuery query);
+
+        TResult Execute<TResult>(IQuery<TResult> query);
     }
 }

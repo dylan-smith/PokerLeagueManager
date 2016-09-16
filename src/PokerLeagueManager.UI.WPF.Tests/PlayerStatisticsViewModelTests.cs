@@ -34,7 +34,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         [TestMethod]
         public void WhenEmptyPlayerList_DoubleClickDoesNothing()
         {
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(new List<GetPlayerStatisticsDto>());
 
             _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
@@ -52,7 +52,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var playersList = new List<GetPlayerStatisticsDto>();
             playersList.Add(new GetPlayerStatisticsDto());
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(playersList);
 
             _mockMainWindow.Setup(w => w.ShowView(It.IsAny<object>()))
@@ -74,7 +74,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var playersList = new List<GetPlayerStatisticsDto>();
             playersList.Add(new GetPlayerStatisticsDto() { PlayerName = playerName });
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(playersList);
 
             _sut = CreateSUT();
@@ -91,7 +91,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
         {
             var emptyPlayersList = new List<GetPlayerStatisticsDto>();
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(emptyPlayersList);
 
             _sut = CreateSUT();
@@ -113,7 +113,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 ProfitPerGame = 30
             });
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(onePlayerList);
 
             _sut = CreateSUT();
@@ -157,7 +157,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
                 ProfitPerGame = 128
             });
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(threePlayerList);
 
             _sut = CreateSUT();
@@ -174,7 +174,7 @@ namespace PokerLeagueManager.UI.Wpf.Tests
             var mockView = new Mock<IGamesListView>();
             Resolver.Container.RegisterInstance<IGamesListView>(mockView.Object);
 
-            _mockQueryService.Setup(q => q.ExecuteQueryList(It.IsAny<GetPlayerStatisticsQuery>()))
+            _mockQueryService.Setup(q => q.Execute(It.IsAny<GetPlayerStatisticsQuery>()))
                              .Returns(new List<GetPlayerStatisticsDto>());
 
             _sut = CreateSUT();

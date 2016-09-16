@@ -24,7 +24,7 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
         [TestMethod]
         public void GetGameCountByDate_TwoGamesOnDateOneDifferent()
         {
-            var result = new GetGameCountByDateQuery(_gameDate).Execute(SetupQueryService());
+            var result = SetupQueryService().Execute(new GetGameCountByDateQuery(_gameDate));
 
             Assert.AreEqual(2, result);
         }
