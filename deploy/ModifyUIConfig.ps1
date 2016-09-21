@@ -4,6 +4,10 @@
     [string]$configPath
 )
 
+Write-Output "queryServiceUrl: $queryServiceUrl"
+Write-Output "commandServiceUrl: $commandServiceUrl"
+Write-Output "configPath: $configPath"
+
 $config = [xml](Get-Content $configPath)
 
 $querySetting = $config.configuration.appSettings.add | where {$_.Key -eq 'QueryServiceUrl'}
