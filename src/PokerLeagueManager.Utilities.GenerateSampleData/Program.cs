@@ -80,6 +80,12 @@ namespace PokerLeagueManager.Utilities.GenerateSampleData
 
             results.Add(game3);
 
+            // Rename Shane to Shaner
+            var renameCommand = new RenamePlayerCommand();
+            renameCommand.OldPlayerName = "Shane Wilkins";
+            renameCommand.NewPlayerName = "Shaner";
+            results.Add(renameCommand);
+
             return results;
         }
     }
