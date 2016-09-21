@@ -129,6 +129,15 @@
               "type": "SQLAzure"
             }
           }
+        },
+		{
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
+          "properties": {
+            "QueryServiceUrl": "http://queryservice-dylantest729.azurewebsites.net/QueryService.svc"
+          }
         }
       ]
     },

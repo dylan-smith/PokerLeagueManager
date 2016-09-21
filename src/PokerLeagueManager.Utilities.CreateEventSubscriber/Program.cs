@@ -11,12 +11,25 @@ namespace PokerLeagueManager.Utilities.CreateEventSubscriber
     {
         static void Main(string[] args)
         {
-            var targetDatabaseServer = args[0];
-            var subscriberUrl = args[1];
-
             using (var db = new SqlServerDatabaseLayer())
             {
-                db.ConnectionString = $"Data Source={targetDatabaseServer};Initial Catalog=PokerLeagueManager.DB.EventStore;Integrated Security=True;Pooling=False";
+                var databaseServer = args[0];
+                var database = args[1];
+
+                if (args.Length > 3)
+                {
+                    var databaseUser = args[2];
+                    var databasePassword = args[3];
+
+                    db.ConnectionString = $"Data Source = {databaseServer}; Initial Catalog = {database}; User Id = {databaseUser}; Password = {databasePassword};";
+                }
+                else
+                {
+                    db.ConnectionString = $"Data Source = {databaseServer}; Initial Catalog = {database}; Integrated Security = True; Pooling = False";
+                }
+
+                var subscriberUrl = args[args.Length - 1];
+                
                 db.ExecuteNonQuery($"INSERT INTO Subscribers(SubscriberId, SubscriberUrl) VALUES(newid(), '{subscriberUrl}')");
             }
         }
