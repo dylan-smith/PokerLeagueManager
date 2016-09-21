@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using PokerLeagueManager.Common.DTO;
 using PokerLeagueManager.Common.Infrastructure;
@@ -12,10 +13,14 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class QueryDataStore : DbContext, IQueryDataStore
     {
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "foo", Justification = "Needed to fix problem with EF references being copied")]
         public QueryDataStore()
             : base("default")
         {
             Database.SetInitializer<QueryDataStore>(null);
+
+            // Do not remove this line, or the references won't be properly picked up by consumer projects
+            var foo = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
         public void Insert<T>(T dto)
