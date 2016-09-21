@@ -64,8 +64,6 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
-    <Folder Include="Stored Procedures" />
-    <Folder Include="Publish Profiles" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\AggregateLocks.sql" />
@@ -75,22 +73,5 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="PokerLeagueManager.DB.EventStore.refactorlog" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.BUILD.publish.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.LOCAL.publish.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.DEV.publish.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.AZURESIMPLE.publish.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Publish Profiles\PokerLeagueManager.DB.EventStore.AZURECOMPLEX.publish.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
