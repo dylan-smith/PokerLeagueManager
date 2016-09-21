@@ -183,9 +183,9 @@
             </dependencyFromLayerToLayer>
           </dependencyToLayers>
           <references>
-            <reference Id="4634d72a-bc4b-49cc-893d-a5ff1ec40b01" name="QueryHandler">
-              <ArtifactNode Label="QueryHandler" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.Core/bin/Debug/PokerLeagueManager.Queries.Core.dll Namespace=PokerLeagueManager.Queries.Core Type=QueryHandler)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.Core Namespace=PokerLeagueManager.Queries.Core Type=QueryHandler)" Label="QueryHandler" Category="CodeSchema_Class">
+            <reference Id="635ffb6e-4c9c-42b6-ba73-43f25abcc554" name="PokerLeagueManager.Queries.Core.QueryHandlers">
+              <ArtifactNode Label="PokerLeagueManager.Queries.Core.QueryHandlers" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Queries.Core.QueryHandlers)" />
+              <ExpandedNode Id="(Namespace=PokerLeagueManager.Queries.Core.QueryHandlers)" Label="PokerLeagueManager.Queries.Core.QueryHandlers" Category="CodeSchema_Namespace">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
             </reference>
@@ -267,6 +267,21 @@
             </reference>
           </references>
         </layer>
+        <layer Id="ab4d3c62-72d7-43ba-95fb-39b4b3b94d77" name="Queries">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="58d3ccd3-7fd2-4359-98a8-63c490d02831" direction="Forward">
+              <layerMoniker Id="ed3d8cef-9913-4cfa-9fde-48bda1192b22" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="8e770883-5f06-4623-a3ff-a47281080d85" name="PokerLeagueManager.Common.Queries">
+              <ArtifactNode Label="PokerLeagueManager.Common.Queries" Category="CodeSchema_Namespace" Id="(Namespace=PokerLeagueManager.Common.Queries)" />
+              <ExpandedNode Id="(Namespace=PokerLeagueManager.Common.Queries)" Label="PokerLeagueManager.Common.Queries" Category="CodeSchema_Namespace">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
       </childLayers>
       <references>
         <reference Id="d7593535-d683-43d8-9553-8304ecf90dfc" name="PokerLeagueManager.Common">
@@ -293,9 +308,9 @@
       <childLayers>
         <layer Id="aa10006f-b69f-41e1-881f-0dd777d1f14a" name="Event Handler Service">
           <references>
-            <reference Id="f5f54f98-3477-4efb-b7ad-a8378ffea79a" name="EventService">
-              <ArtifactNode Label="EventService" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.WCF/bin/PokerLeagueManager.Queries.WCF.dll Namespace=PokerLeagueManager.Queries.WCF.Infrastructure Type=EventService)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WCF Namespace=PokerLeagueManager.Queries.WCF.Infrastructure Type=EventService)" Label="EventService" Category="CodeSchema_Class">
+            <reference Id="fae26d39-7c57-4b8d-be95-8b94b1b38d40" name="EventService">
+              <ArtifactNode Label="EventService" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.WCF/bin/PokerLeagueManager.Queries.WCF.dll Namespace=PokerLeagueManager.Queries.WCF Type=EventService)" />
+              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WCF Namespace=PokerLeagueManager.Queries.WCF Type=EventService)" Label="EventService" Category="CodeSchema_Class">
                 <LinkCategory Ref="Represents" />
               </ExpandedNode>
             </reference>
