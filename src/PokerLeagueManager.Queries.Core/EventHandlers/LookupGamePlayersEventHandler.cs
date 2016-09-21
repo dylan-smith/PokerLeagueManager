@@ -21,12 +21,9 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(PlayerRenamedEvent e)
         {
-            var players = QueryDataStore.GetData<LookupGamePlayersDto>().Where(x => x.PlayerName == e.OldPlayerName).ToList();
+            var player = QueryDataStore.GetData<LookupGamePlayersDto>().Single(x => x.PlayerName == e.OldPlayerName && x.GameId == e.GameId);
 
-            foreach (var p in players)
-            {
-                p.PlayerName = e.NewPlayerName;
-            }
+            player.PlayerName = e.NewPlayerName;
 
             QueryDataStore.SaveChanges();
         }

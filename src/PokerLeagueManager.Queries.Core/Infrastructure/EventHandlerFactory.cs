@@ -36,7 +36,12 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             _databaseLayer.ExecuteInTransaction(() =>
                 {
-                    foreach (var handler in FindEventHandlers<T>())
+                    foreach (var handler in FindEventHandlers<T>().Where(x => !x.GetType().Name.StartsWith("Lookup")))
+                    {
+                        handler.Handle(e);
+                    }
+
+                    foreach (var handler in FindEventHandlers<T>().Where(x => x.GetType().Name.StartsWith("Lookup")))
                     {
                         handler.Handle(e);
                     }

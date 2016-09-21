@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.QueryHandlers
     {
         public IEnumerable<GetGamesWithPlayerDto> Execute(GetGamesWithPlayerQuery query)
         {
-            return Repository.GetData<GetGamesWithPlayerDto>().Where(g => g.PlayerName.ToUpper().Trim() == query.PlayerName.ToUpper().Trim());
+            return Repository.GetData<GetGamesWithPlayerDto>().Where(g => g.PlayerName.ToUpper().Trim() == query.PlayerName.ToUpper().Trim()).ToList();
         }
     }
 }

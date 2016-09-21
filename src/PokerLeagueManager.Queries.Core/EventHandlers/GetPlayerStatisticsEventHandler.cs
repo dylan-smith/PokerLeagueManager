@@ -18,7 +18,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
                 AddGameToPlayer(player, e);
 
-                QueryDataStore.Insert<GetPlayerStatisticsDto>(player);
+                QueryDataStore.Insert(player);
             }
             else
             {
@@ -54,28 +54,39 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         public void Handle(PlayerRenamedEvent e)
         {
             var oldPlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().Single(x => x.PlayerName.ToUpper() == e.OldPlayerName.ToUpper());
-            var mergePlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName.ToUpper() == e.NewPlayerName.ToUpper());
+            var stats = QueryDataStore.GetData<LookupGamePlayersDto>().Single(x => x.PlayerName.ToUpper() == e.OldPlayerName.ToUpper() && x.GameId == e.GameId);
 
-            if (mergePlayer == null)
-            {
-                oldPlayer.PlayerName = e.NewPlayerName;
-                QueryDataStore.SaveChanges();
-            }
-            else
-            {
-                mergePlayer.GamesPlayed += oldPlayer.GamesPlayed;
-                mergePlayer.Winnings += oldPlayer.Winnings;
-                mergePlayer.PayIn += oldPlayer.PayIn;
-                mergePlayer.Profit += oldPlayer.Profit;
-                mergePlayer.ProfitPerGame = mergePlayer.GamesPlayed == 0 ? 0 : (double)mergePlayer.Profit / mergePlayer.GamesPlayed;
+            oldPlayer.GamesPlayed--;
+            oldPlayer.Winnings -= stats.Winnings;
+            oldPlayer.PayIn -= stats.PayIn;
+            oldPlayer.Profit -= stats.Winnings - stats.PayIn;
+            oldPlayer.ProfitPerGame = oldPlayer.GamesPlayed == 0 ? 0 : (double)oldPlayer.Profit / oldPlayer.GamesPlayed;
 
+            if (oldPlayer.GamesPlayed == 0)
+            {
                 QueryDataStore.Delete(oldPlayer);
             }
+
+            var newPlayer = QueryDataStore.GetData<GetPlayerStatisticsDto>().FirstOrDefault(x => x.PlayerName.ToUpper() == e.NewPlayerName.ToUpper());
+
+            if (newPlayer == null)
+            {
+                newPlayer = new GetPlayerStatisticsDto();
+                newPlayer.PlayerName = e.NewPlayerName;
+                QueryDataStore.Insert(newPlayer);
+            }
+
+            newPlayer.GamesPlayed++;
+            newPlayer.Winnings += stats.Winnings;
+            newPlayer.PayIn += stats.PayIn;
+            newPlayer.Profit += stats.Winnings - stats.PayIn;
+            newPlayer.ProfitPerGame = newPlayer.GamesPlayed == 0 ? 0 : (double)newPlayer.Profit / newPlayer.GamesPlayed;
+
+            QueryDataStore.SaveChanges();
         }
 
         private void AddGameToPlayer(GetPlayerStatisticsDto player, PlayerAddedToGameEvent e)
         {
-            // TODO: change this to use the elvis operator - can't do until I upgrade the build
             if (player.PlayerName == null || player.PlayerName.ToUpper() != e.PlayerName.ToUpper())
             {
                 player.PlayerName = e.PlayerName;

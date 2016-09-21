@@ -40,7 +40,9 @@ namespace PokerLeagueManager.Queries.Tests.GetPlayerStatistics
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId3, PlayerName = _player3, Placing = 1, Winnings = 60, PayIn = 40 };
             yield return new PlayerAddedToGameEvent { AggregateId = _gameId3, PlayerName = _player2, Placing = 2, Winnings = 0, PayIn = 20 };
 
+            yield return new PlayerRenamedEvent() { AggregateId = _gameId1, OldPlayerName = _player3, NewPlayerName = _newPlayerName };
             yield return new PlayerRenamedEvent() { AggregateId = _gameId2, OldPlayerName = _player3, NewPlayerName = _newPlayerName };
+            yield return new PlayerRenamedEvent() { AggregateId = _gameId3, OldPlayerName = _player3, NewPlayerName = _newPlayerName };
         }
 
         [TestMethod]
