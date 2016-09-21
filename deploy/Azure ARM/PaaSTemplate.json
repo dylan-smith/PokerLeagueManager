@@ -136,7 +136,7 @@
           "name": "appsettings",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
           "properties": {
-            "QueryServiceUrl": "http://queryservice-dylantest729.azurewebsites.net/QueryService.svc"
+            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
           }
         }
       ]
