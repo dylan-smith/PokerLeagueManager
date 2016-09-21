@@ -57,7 +57,7 @@ namespace PokerLeagueManager.Utilities.GenerateSampleData
             game2.GameDate = DateTime.Parse("14-Jul-2016");
 
             var players2 = new List<EnterGameResultsCommand.GamePlayer>();
-            players2.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Shane Wilkins", Placing = 1, Winnings = 100, PayIn = 30 });
+            players2.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Shane Wilkins", Placing = 1, Winnings = 90, PayIn = 30 });
             players2.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Ryan Fritsch", Placing = 2, Winnings = 50, PayIn = 20 });
             players2.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Tim Saunders", Placing = 3, Winnings = 0, PayIn = 20 });
             players2.Add(new EnterGameResultsCommand.GamePlayer() { PlayerName = "Jeff DS", Placing = 4, Winnings = 0, PayIn = 30 });
