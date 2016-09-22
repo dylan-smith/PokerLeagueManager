@@ -192,16 +192,8 @@
           "name": "appsettings",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('webSiteName'))]" ],
           "properties": {
-            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
-          }
-        },
-		{
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "appsettings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('webSiteName'))]" ],
-          "properties": {
-            "CommandServiceUrl": "[concat('http://', variables('commandWebSiteName'), '.azurewebsites.net/CommandService.svc')]"
+            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]",
+			"CommandServiceUrl": "[concat('http://', variables('commandWebSiteName'), '.azurewebsites.net/CommandService.svc')]"
           }
         }
       ]
