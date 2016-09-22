@@ -23,14 +23,11 @@ namespace PokerLeagueManager.Common.Infrastructure
                    select t;
         }
 
-        public static MethodInfo[] GetExtensionMethods(this Type t)
+        public static MethodInfo[] GetLinqExtensionMethods(this Type t)
         {
             List<Type> assemblyTypes = new List<Type>();
 
-            foreach (Assembly item in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                assemblyTypes.AddRange(item.GetTypes());
-            }
+            assemblyTypes.AddRange(typeof(System.Linq.Enumerable).Assembly.GetTypes());
 
             var query = from type in assemblyTypes
                         where type.IsSealed && !type.IsGenericType && !type.IsNested
@@ -41,9 +38,9 @@ namespace PokerLeagueManager.Common.Infrastructure
             return query.ToArray<MethodInfo>();
         }
 
-        public static MethodInfo GetExtensionMethod(this Type t, string methodName)
+        public static MethodInfo GetLinqExtensionMethod(this Type t, string methodName)
         {
-            var mi = t.GetExtensionMethods().Where(m => m.Name == methodName);
+            var mi = t.GetLinqExtensionMethods().Where(m => m.Name == methodName);
 
             if (mi.Count<MethodInfo>() <= 0)
             {

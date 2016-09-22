@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Recent Games";
+}
+
+<script src="~/Scripts/ngControllers/GamesListController.js"></script>
+
+<h2>Recent Games</h2>
+
+<div ng-controller="GamesListController">
+    <div class="panel panel-info" ng-repeat="game in Games | orderBy:'-GameDate'">
+        <div class="panel-heading clickable" ng-click="GameClicked(game)">
+            <h1>{{ game.GameDate | date:'longDate' }}</h1>
+
+            <div class="text-right">
+                <div>Winner: {{ game.Winner }}</div>
+                <div>Winnings: {{ game.Winnings }}</div>
+            </div>
+        </div>
+        <div id="GAME-{{ game.GameId }}" class="panel-body" ng-show="game.Visible">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Place</th>
+                        <th>Name</th>
+                        <th>Winnings</th>
+                        <th>Pay In</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="player in game.Players | orderBy:'+Placing'">
+                        <td>{{ player.Placing }}</td>
+                        <td>{{ player.PlayerName }}</td>
+                        <td>{{ player.Winnings | currency }}</td>
+                        <td>{{ player.PayIn | currency }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

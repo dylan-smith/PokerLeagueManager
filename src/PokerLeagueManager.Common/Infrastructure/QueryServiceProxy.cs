@@ -42,7 +42,7 @@ namespace PokerLeagueManager.Common.Infrastructure
             {
                 var resultType = typeof(TResult);
                 var dtoType = resultType.GenericTypeArguments[0];
-                var castMethod = typeof(IEnumerable).GetExtensionMethod("Cast");
+                var castMethod = typeof(IEnumerable).GetLinqExtensionMethod("Cast");
                 var genericCastMethod = castMethod.MakeGenericMethod(dtoType);
 
                 var dtoList = ExecuteQueryList(query);
