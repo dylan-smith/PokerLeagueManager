@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace PokerLeagueManager.UI.Web.Controllers
 {
-    //[Authorize]
+    // [Authorize]
     public class PokerController : Controller
     {
         public ActionResult Index()

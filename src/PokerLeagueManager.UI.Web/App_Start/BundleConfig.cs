@@ -5,6 +5,10 @@ namespace PokerLeagueManager.UI.Web
 {
     public class BundleConfig
     {
+        private BundleConfig()
+        {
+        }
+
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
