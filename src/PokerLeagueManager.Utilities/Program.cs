@@ -1,21 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Practices.Unity;
+using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Utilities.GenerateSampleData
+namespace PokerLeagueManager.Utilities
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            if (args.Length != 1)
+            var action = args[0];
+
+            switch (action)
             {
-                throw new ArgumentException("Expected 1 argument", "args");
+                case "CreateEventSubscriber":
+                    CreateEventSubscriber(args);
+                    break;
+                case "GenerateSampleData":
+                    GenerateSampleData(args);
+                    break;
+                case "ProcessEvents":
+                    ProcessEvents();
+                    break;
+                default:
+                    throw new ArgumentException("Unrecognized Action");
+            }
+        }
+
+        private static void ProcessEvents()
+        {
+            Resolver.Container.Resolve<IEventRepository>().PublishAllUnpublishedEvents();
+        }
+
+        private static void GenerateSampleData(string[] args)
+        {
+            if (args.Length != 2)
+            {
+                throw new ArgumentException("Expected 2 arguments", "args");
             }
 
-            var serviceUrl = args[0];
+            var serviceUrl = args[1];
 
             Console.WriteLine($"serviceUrl: {serviceUrl}");
 
@@ -28,6 +58,31 @@ namespace PokerLeagueManager.Utilities.GenerateSampleData
                     Console.WriteLine($"Executing Command: {cmd.GetType().Name}");
                     svc.ExecuteCommand(cmd);
                 }
+            }
+        }
+
+        private static void CreateEventSubscriber(string[] args)
+        {
+            using (var db = new SqlServerDatabaseLayer())
+            {
+                var databaseServer = args[1];
+                var database = args[2];
+
+                if (args.Length > 4)
+                {
+                    var databaseUser = args[3];
+                    var databasePassword = args[4];
+
+                    db.ConnectionString = $"Data Source = {databaseServer}; Initial Catalog = {database}; User Id = {databaseUser}; Password = {databasePassword};";
+                }
+                else
+                {
+                    db.ConnectionString = $"Data Source = {databaseServer}; Initial Catalog = {database}; Integrated Security = True; Pooling = False";
+                }
+
+                var subscriberUrl = args[args.Length - 1];
+
+                db.ExecuteNonQuery($"INSERT INTO Subscribers(SubscriberId, SubscriberUrl) VALUES(newid(), '{subscriberUrl}')");
             }
         }
 
