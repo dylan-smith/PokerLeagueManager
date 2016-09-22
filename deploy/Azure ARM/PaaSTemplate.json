@@ -19,7 +19,7 @@
     "webHostingPlanName": "[resourceGroup().name]",
     "queryWebSiteName": "[concat('QueryService-', resourceGroup().name)]",
 	"commandWebSiteName": "[concat('CommandService-', resourceGroup().name)]",
-	"webSiteName": "[resourceGroup().name)]",
+	"webSiteName": "[resourceGroup().name]",
     "webSku": "Free",
     "webWorkerSize": "0"
   },
