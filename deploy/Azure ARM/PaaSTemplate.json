@@ -19,6 +19,7 @@
     "webHostingPlanName": "[resourceGroup().name]",
     "queryWebSiteName": "[concat('QueryService-', resourceGroup().name)]",
 	"commandWebSiteName": "[concat('CommandService-', resourceGroup().name)]",
+	"WebSiteName": "[resourceGroup().name)]",
     "webSku": "Free",
     "webWorkerSize": "0"
   },
@@ -149,7 +150,7 @@
       "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
       "tags": {
         "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Command Website"
+        "displayName": "Query Website"
       },
       "properties": {
         "name": "[variables('queryWebSiteName')]",
@@ -166,6 +167,41 @@
               "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
+          }
+        }
+      ]
+    },
+	{
+      "apiVersion": "2015-08-01",
+      "name": "[variables('WebSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[variables('location')]",
+      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
+        "displayName": "User Website"
+      },
+      "properties": {
+        "name": "[variables('WebSiteName')]",
+        "serverFarmId": "[variables('webHostingPlanName')]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('WebSiteName'))]" ],
+          "properties": {
+            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
+          }
+        },
+		{
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('WebSiteName'))]" ],
+          "properties": {
+            "CommandServiceUrl": "[concat('http://', variables('commandWebSiteName'), '.azurewebsites.net/CommandService.svc')]"
           }
         }
       ]
