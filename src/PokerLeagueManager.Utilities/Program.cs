@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Practices.Unity;
-using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Infrastructure;
 
@@ -25,17 +20,9 @@ namespace PokerLeagueManager.Utilities
                 case "GenerateSampleData":
                     GenerateSampleData(args);
                     break;
-                case "ProcessEvents":
-                    ProcessEvents();
-                    break;
                 default:
                     throw new ArgumentException("Unrecognized Action");
             }
-        }
-
-        private static void ProcessEvents()
-        {
-            Resolver.Container.Resolve<IEventRepository>().PublishAllUnpublishedEvents();
         }
 
         private static void GenerateSampleData(string[] args)
