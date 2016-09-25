@@ -32,7 +32,8 @@ namespace PokerLeagueManager.UI.Web
                       "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                      "~/Scripts/angular.js"));
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular_1_router.js"));
         }
     }
 }

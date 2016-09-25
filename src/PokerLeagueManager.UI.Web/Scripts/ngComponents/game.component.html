@@ -1,0 +1,30 @@
+﻿<div class="panel panel-info">
+    <div class="panel-heading clickable" ng-click="vm.gameClicked()">
+        <h1>{{ vm.GameDate | date:'longDate' }}</h1>
+
+        <div class="text-right">
+            <div>Winner: {{ vm.Winner }}</div>
+            <div>Winnings: {{ vm.Winnings }}</div>
+        </div>
+    </div>
+    <div class="panel-body" ng-show="vm.Visible">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Place</th>
+                    <th>Name</th>
+                    <th>Winnings</th>
+                    <th>Pay In</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="player in vm.Players | orderBy:'+Placing'">
+                    <td>{{ player.Placing }}</td>
+                    <td>{{ player.PlayerName }}</td>
+                    <td>{{ player.Winnings | currency }}</td>
+                    <td>{{ player.PayIn | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -225,6 +225,7 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular_1_router.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\errors.json" />
@@ -1003,7 +1004,13 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\ngControllers\GamesListController.js" />
+    <Content Include="Scripts\ngComponents\game.component.html" />
+    <Content Include="Scripts\ngComponents\game.component.js" />
+    <Content Include="Scripts\ngComponents\gameList.component.html" />
+    <Content Include="Scripts\ngComponents\gameList.component.js" />
+    <Content Include="Scripts\ngComponents\module.js" />
+    <Content Include="Scripts\ngComponents\pokerApp.component.html" />
+    <Content Include="Scripts\ngComponents\pokerApp.component.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
