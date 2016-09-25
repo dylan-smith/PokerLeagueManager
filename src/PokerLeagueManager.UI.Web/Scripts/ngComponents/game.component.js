@@ -6,7 +6,7 @@
 
         vm.gameClicked = function () {
             if (!vm.Visible) {
-                $http.get("/api/query/GetGamePlayers?gameId=" + vm.GameId)
+                $http.get("/api/query/GetGamePlayers?gameId=" + vm.game.GameId)
                      .then(function (response) {
                          vm.Players = response.data;
                          vm.Visible = true;
@@ -18,11 +18,6 @@
         }
 
         vm.Visible = false;
-        vm.GameId = vm.value.GameId;
-        vm.Players = vm.value.Players;
-        vm.GameDate = vm.value.GameDate;
-        vm.Winner = vm.value.Winner;
-        vm.Winnings = vm.value.Winnings;
     }
 
     var module = angular.module("poker");
@@ -30,7 +25,7 @@
     module.component("game", {
         templateUrl: "/Scripts/ngComponents/game.component.html",
         bindings: {
-            value: "<",
+            game: "<",
         },
         controllerAs: "vm",
         controller: ["$http", gameController]

@@ -1,10 +1,10 @@
 ﻿<div class="panel panel-info">
     <div class="panel-heading clickable" ng-click="vm.gameClicked()">
-        <h1>{{ vm.GameDate | date:'longDate' }}</h1>
+        <h1>{{ vm.game.GameDate | date:'longDate' }}</h1>
 
         <div class="text-right">
-            <div>Winner: {{ vm.Winner }}</div>
-            <div>Winnings: {{ vm.Winnings }}</div>
+            <div>Winner: {{ vm.game.Winner }}</div>
+            <div>Winnings: {{ vm.game.Winnings }}</div>
         </div>
     </div>
     <div class="panel-body" ng-show="vm.Visible">
