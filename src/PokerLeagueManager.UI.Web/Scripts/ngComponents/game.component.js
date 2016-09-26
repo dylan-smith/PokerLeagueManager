@@ -5,19 +5,19 @@
         var vm = this;
 
         vm.gameClicked = function () {
-            if (!vm.Visible) {
+            if (!vm.Expanded) {
                 $http.get("/api/query/GetGamePlayers?gameId=" + vm.game.GameId)
                      .then(function (response) {
                          vm.Players = response.data;
-                         vm.Visible = true;
+                         vm.Expanded = true;
                      });
             }
             else {
-                vm.Visible = false;
+                vm.Expanded = false;
             }
         }
 
-        vm.Visible = false;
+        vm.Expanded = false;
     }
 
     var module = angular.module("poker");
