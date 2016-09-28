@@ -4,12 +4,8 @@
     function gameListController($http) {
         var vm = this;
 
-        var gamesReturned = function (response) {
-            vm.Games = response.data;
-        }
-
         $http.get("/api/query/GetGamesList")
-            .then(gamesReturned);
+            .then(vm.Games = response.data);
     }
 
     var module = angular.module("poker");
