@@ -1,13 +1,14 @@
-﻿<div class="panel panel-info">
-    <div class="panel-heading clickable" ng-click="vm.gameClicked()">
-        <h1>{{ vm.game.GameDate | date:'longDate' }}</h1>
-
-        <div class="text-right">
+﻿<div class="panel panel-info container">
+    <div class="panel-heading clickable row vertical-align" ng-click="vm.gameClicked()">
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <h1>{{ vm.game.GameDate | date:'longDate' }}</h1>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
             <div>Winner: {{ vm.game.Winner }}</div>
             <div>Winnings: {{ vm.game.Winnings }}</div>
         </div>
     </div>
-    <div class="panel-body" ng-show="vm.Expanded">
+    <div class="panel-body row" ng-show="vm.Expanded">
         <table class="table table-striped">
             <thead>
                 <tr>
