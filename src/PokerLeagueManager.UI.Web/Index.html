@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html ng-app="poker">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker League Manager</title>
+
+    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <link href="/Content/Site.css" rel="stylesheet">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Home">Application name</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home">Home</a></li>
+                    <li><a href="/Home/About">About</a></li>
+                    <li><a href="/Home/Contact">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/Account/SignIn" id="loginLink">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        
+        <poker-app></poker-app>
+        
+        <hr />
+        <footer>
+            <p>&copy; 2016 - Poker League Manager</p>
+        </footer>
+    </div>
+
+    <script src="/Scripts/jquery-3.1.0.js"></script>
+    <script src="/Scripts/respond.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular_1_router.js"></script>
+
+    <script src="/Scripts/ngComponents/module.js"></script>
+    <script src="/Scripts/ngComponents/pokerApp.component.js"></script>
+    <script src="/Scripts/ngComponents/gameList.component.js"></script>
+    <script src="/Scripts/ngComponents/game.component.js"></script>
+</body>
+</html>
