@@ -5,7 +5,9 @@
         var vm = this;
 
         $http.get("/api/query/GetGamesList")
-            .then(vm.Games = response.data);
+             .then(function (response) {
+                 vm.Games = response.data;
+             });
     }
 
     var module = angular.module("poker");
