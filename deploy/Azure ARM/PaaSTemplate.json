@@ -139,6 +139,46 @@
           "properties": {
             "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
           }
+        },
+		{
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "logs",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
+          "properties": {
+            "applicationLogs": {
+			  "fileSystem": {
+			  	"level": "Warning"
+			  },
+			  "azureTableStorage": {
+			  	"level": "Off",
+			  	"sasUrl": null
+			  },
+			  "azureBlobStorage": {
+			  	"level": "Off",
+			  	"sasUrl": null,
+			  	"retentionInDays": null
+			  }
+			},
+			"httpLogs": {
+			  "fileSystem": {
+			  	"retentionInMb": 35,
+			  	"retentionInDays": null,
+			  	"enabled": true
+			  },
+			  "azureBlobStorage": {
+			  	"sasUrl": null,
+			  	"retentionInDays": null,
+			  	"enabled": false
+			  }
+			},
+			"failedRequestsTracing": {
+			  "enabled": true
+			},
+			"detailedErrorMessages": {
+			  "enabled": true
+			}
+          }
         }
       ]
     },
@@ -167,6 +207,46 @@
               "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
+          }
+        },
+		{
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "logs",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryWebSiteName'))]" ],
+          "properties": {
+            "applicationLogs": {
+			  "fileSystem": {
+			  	"level": "Warning"
+			  },
+			  "azureTableStorage": {
+			  	"level": "Off",
+			  	"sasUrl": null
+			  },
+			  "azureBlobStorage": {
+			  	"level": "Off",
+			  	"sasUrl": null,
+			  	"retentionInDays": null
+			  }
+			},
+			"httpLogs": {
+			  "fileSystem": {
+			  	"retentionInMb": 35,
+			  	"retentionInDays": null,
+			  	"enabled": true
+			  },
+			  "azureBlobStorage": {
+			  	"sasUrl": null,
+			  	"retentionInDays": null,
+			  	"enabled": false
+			  }
+			},
+			"failedRequestsTracing": {
+			  "enabled": true
+			},
+			"detailedErrorMessages": {
+			  "enabled": true
+			}
           }
         }
       ]
