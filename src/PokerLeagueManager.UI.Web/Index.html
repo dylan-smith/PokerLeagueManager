@@ -4,8 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poker League Manager</title>
-
-    <link href="/Content/bootstrap.css" rel="stylesheet">
+    <style>
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide {
+            display: none !important;
+        }
+    </style>
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="/Content/Site.css" rel="stylesheet">
 </head>
 <body>
@@ -41,11 +47,11 @@
         </footer>
     </div>
 
-    <script src="/Scripts/jquery-3.1.0.js"></script>
-    <script src="/Scripts/respond.js"></script>
-    <script src="/Scripts/bootstrap.js"></script>
-    <script src="/Scripts/angular.js"></script>
-    <script src="/Scripts/angular_1_router.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/respond/dest/respond.src.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-component-router/angular_1_router.js"></script>
 
     <script src="/Scripts/ngComponents/module.js"></script>
     <script src="/Scripts/ngComponents/pokerApp.component.js"></script>
