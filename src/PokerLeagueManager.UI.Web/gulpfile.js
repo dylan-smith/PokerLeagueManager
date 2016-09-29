@@ -38,7 +38,7 @@ gulp.task('templatecache', function () {
             empty: true
         }))
         .pipe(plug.angularTemplatecache('templates.js', {
-            module: 'pokerApp',
+            module: 'poker',
             standalone: false,
             root: '/components'
         }))
