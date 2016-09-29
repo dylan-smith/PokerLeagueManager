@@ -32,17 +32,16 @@ gulp.task('analyze', function () {
 gulp.task('templatecache', function () {
     log('Creating an AngularJS $templateCache');
 
-    return gulp
-        .src(paths.htmltemplates)
-        .pipe(plug.minifyHtml({
-            empty: true
-        }))
-        .pipe(plug.angularTemplatecache('templates.js', {
-            module: 'poker',
-            standalone: false,
-            root: '/components'
-        }))
-        .pipe(gulp.dest(paths.build));
+    return gulp.src(paths.htmltemplates)
+               .pipe(plug.minifyHtml({
+                   empty: true
+               }))
+               .pipe(plug.angularTemplatecache('templates.js', {
+                   module: 'poker',
+                   standalone: false,
+                   root: '/components'
+               }))
+               .pipe(gulp.dest(paths.build));
 });
 
 /**
@@ -53,19 +52,19 @@ gulp.task('js', ['analyze', 'templatecache'], function () {
     log('Bundling, minifying, and copying the app\'s JavaScript');
 
     var source = [].concat(paths.js, paths.build + 'templates.js');
-    return gulp
-        .src(source)
-        .pipe(plug.concat('pokerApp.min.js'))
-        .pipe(plug.ngAnnotate({
-            add: true,
-            single_quotes: true
-        }))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.uglify({
-            mangle: true
-        }))
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(gulp.dest(paths.build));
+
+    return gulp.src(source)
+               .pipe(plug.concat('pokerApp.min.js'))
+               .pipe(plug.ngAnnotate({
+                   add: true,
+                   single_quotes: true
+               }))
+               .pipe(plug.bytediff.start())
+               .pipe(plug.uglify({
+                   mangle: true
+               }))
+               .pipe(plug.bytediff.stop(bytediffFormatter))
+               .pipe(gulp.dest(paths.build));
 });
 
 /**
@@ -76,11 +75,11 @@ gulp.task('vendorjs', function () {
     log('Bundling, minifying, and copying the Vendor JavaScript');
 
     return gulp.src(paths.vendorjs)
-        .pipe(plug.concat('vendor.min.js'))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.uglify())
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(gulp.dest(paths.build));
+               .pipe(plug.concat('vendor.min.js'))
+               .pipe(plug.bytediff.start())
+               .pipe(plug.uglify())
+               .pipe(plug.bytediff.stop(bytediffFormatter))
+               .pipe(gulp.dest(paths.build));
 });
 
 /**
@@ -91,12 +90,12 @@ gulp.task('css', function () {
     log('Bundling, minifying, and copying the app\'s CSS');
 
     return gulp.src(paths.css)
-        .pipe(plug.concat('pokerApp.min.css')) // Before bytediff or after
-        .pipe(plug.autoprefixer('last 2 version', '> 5%'))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.minifyCss({}))
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(gulp.dest(paths.build));
+               .pipe(plug.concat('pokerApp.min.css')) // Before bytediff or after
+               .pipe(plug.autoprefixer('last 2 version', '> 5%'))
+               .pipe(plug.bytediff.start())
+               .pipe(plug.minifyCss({}))
+               .pipe(plug.bytediff.stop(bytediffFormatter))
+               .pipe(gulp.dest(paths.build));
 });
 
 /**
@@ -107,11 +106,11 @@ gulp.task('vendorcss', function () {
     log('Compressing, bundling, copying vendor CSS');
 
     return gulp.src(paths.vendorcss)
-        .pipe(plug.concat('vendor.min.css'))
-        .pipe(plug.bytediff.start())
-        .pipe(plug.minifyCss({}))
-        .pipe(plug.bytediff.stop(bytediffFormatter))
-        .pipe(gulp.dest(paths.build));
+               .pipe(plug.concat('vendor.min.css'))
+               .pipe(plug.bytediff.start())
+               .pipe(plug.minifyCss({}))
+               .pipe(plug.bytediff.stop(bytediffFormatter))
+               .pipe(gulp.dest(paths.build));
 });
 
 /**
@@ -127,29 +126,27 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
     var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
     var indexFilter = plug.filter(['index.html']);
 
-    var stream = gulp
-        // Write the revisioned files
-        .src([].concat(minified, index)) // add all built min files and index.html
-        .pipe(minFilter) // filter the stream to minified css and js
-        .pipe(plug.rev()) // create files with rev's
-        .pipe(plug.revDeleteOriginal())
-        .pipe(gulp.dest(paths.build)) // write the rev files
-        .pipe(minFilter.restore()) // remove filter, back to original stream
+    return gulp.src([].concat(minified, index)) // add all built min files and index.html
+               .pipe(minFilter) // filter the stream to minified css and js
+               .pipe(plug.rev()) // create files with rev's
+               .pipe(plug.revDeleteOriginal())
+               .pipe(gulp.dest(paths.build)) // write the rev files
+               .pipe(minFilter.restore()) // remove filter, back to original stream
 
-    // inject the files into index.html
-    .pipe(indexFilter) // filter to index.html
-    .pipe(inject('vendor.min.css', 'inject-vendor'))
-        .pipe(inject('pokerApp.min.css'))
-        .pipe(inject('vendor.min.js', 'inject-vendor'))
-        .pipe(inject('pokerApp.min.js'))
-        .pipe(gulp.dest(paths.build)) // write the rev files
-    .pipe(indexFilter.restore()) // remove filter, back to original stream
+               // inject the files into index.html
+               .pipe(indexFilter) // filter to index.html
+               .pipe(inject('vendor.min.css', 'inject-vendor'))
+               .pipe(inject('pokerApp.min.css'))
+               .pipe(inject('vendor.min.js', 'inject-vendor'))
+               .pipe(inject('pokerApp.min.js'))
+               .pipe(gulp.dest(paths.build)) // write the rev files
+               .pipe(indexFilter.restore()) // remove filter, back to original stream
 
-    // replace the files referenced in index.html with the rev'd files
-    .pipe(plug.revReplace()) // Substitute in new filenames
-    .pipe(gulp.dest(paths.build)) // write the index.html file changes
-    .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
-    .pipe(gulp.dest(paths.build)); // write the manifest
+               // replace the files referenced in index.html with the rev'd files
+               .pipe(plug.revReplace()) // Substitute in new filenames
+               .pipe(gulp.dest(paths.build)) // write the index.html file changes
+               .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
+               .pipe(gulp.dest(paths.build)); // write the manifest
 
     function inject(path, name) {
         var pathGlob = paths.build + path;
@@ -177,11 +174,15 @@ gulp.task('build', ['rev-and-inject'], function () {
     }));
 });
 
+gulp.task('cleanIntermediates', function (cb) {
+    del(paths.intermediateFiles, cb);
+})
+
 /**
  * Build the optimized app
  * @return {Stream}
  */
-gulp.task('default', plug.sequence('clean', 'build'))
+gulp.task('default', plug.sequence('clean', 'build', 'cleanIntermediates'))
 
 /**
  * Remove all files from the build folder
@@ -216,12 +217,10 @@ gulp.task('watch', function () {
     var css = ['gulpfile.js'].concat(paths.css, paths.vendorcss);
     var js = ['gulpfile.js'].concat(paths.js);
 
-    gulp
-        .watch(js, ['js', 'vendorjs'])
+    gulp.watch(js, ['js', 'vendorjs'])
         .on('change', logWatch);
 
-    gulp
-        .watch(css, ['css', 'vendorcss'])
+    gulp.watch(css, ['css', 'vendorcss'])
         .on('change', logWatch);
 
     // TODO: Need to watch templates
@@ -243,10 +242,9 @@ function analyzejshint(sources, overrideRcFile) {
     var jshintrcFile = overrideRcFile || './.jshintrc';
     log('Running JSHint');
     log(sources);
-    return gulp
-        .src(sources)
-        .pipe(plug.jshint(jshintrcFile))
-        .pipe(plug.jshint.reporter('jshint-stylish'));
+    return gulp.src(sources)
+               .pipe(plug.jshint(jshintrcFile))
+               .pipe(plug.jshint.reporter('jshint-stylish'));
 }
 
 /**
@@ -256,10 +254,9 @@ function analyzejshint(sources, overrideRcFile) {
  */
 function analyzejscs(sources) {
     log('Running JSCS');
-    return gulp
-        .src(sources)
-        .pipe(plug.jscs('./.jscsrc'))
-        .pipe(plug.jscsStylish());
+    return gulp.src(sources)
+               .pipe(plug.jscs('./.jscsrc'))
+               .pipe(plug.jscsStylish());
 }
 
 /**
