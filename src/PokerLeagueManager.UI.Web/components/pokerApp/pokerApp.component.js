@@ -1,13 +1,13 @@
 ﻿(function () {
-    "use strict";
+    'use strict';
 
-    var module = angular.module("poker");
+    var module = angular.module('poker');
 
-    module.component("pokerApp", {
-        templateUrl: "/components/pokerApp/pokerApp.component.html",
+    module.component('pokerApp', {
+        templateUrl: '/components/pokerApp/pokerApp.component.html',
         $routeConfig: [
-            { path: "/", component: "gameList", name: "Home" },
-            { path: "/**", redirectTo: ["Home", ""] }
+            { path: '/', component: 'gameList', name: 'Home' },
+            { path: '/**', redirectTo: ['Home', ''] }
         ]
     });
 }());

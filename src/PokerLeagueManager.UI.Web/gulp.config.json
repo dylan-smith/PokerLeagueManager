@@ -1,0 +1,30 @@
+﻿{
+  "html": "./index.html",
+  "htmltemplates": "./components/**/*.html",
+  "vendorjs": [
+    "./bower_components/jquery/dist/jquery.min.js",
+    "./bower_components/respond/dest/respond.min.js",
+    "./bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "./bower_components/angular/angular.min.js",
+    "./bower_components/angular-component-router/angular_1_router.js"
+  ],
+  "vendorcss": [
+    "./bower_components/bootstrap/dist/css/bootstrap.min.css"
+  ],
+  "css": [
+    "./css/*.css"
+  ],
+  "js": [
+    "./js/**/*.js",
+    "./components/**/*.js"
+  ],
+  "build": "./build/",
+  "intermediateFiles": [
+    "./build/pokerApp.min.css",
+    "./build/pokerApp.min.js",
+    "./build/vendor.min.css",
+    "./build/vendor.min.js",
+    "./build/rev-manifest.json",
+    "./build/templates.js"
+  ]
+}

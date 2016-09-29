@@ -1,6 +1,6 @@
 ﻿(function () {
-    "use strict";
+    'use strict';
 
-    var module = angular.module("poker", ["ngComponentRouter"]);
-    module.value("$routerRootComponent", "pokerApp");
+    var module = angular.module('poker', ['ngComponentRouter']);
+    module.value('$routerRootComponent', 'pokerApp');
 }());
