@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PokerLeagueManager.UI.Web")]
+[assembly: AssemblyTitle("PokerLeagueManager.Queries.WebApi")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft Corporation")]
-[assembly: AssemblyProduct("PokerLeagueManager.UI.Web")]
+[assembly: AssemblyProduct("PokerLeagueManager.Queries.WebApi")]
 [assembly: AssemblyCopyright("Copyright © Microsoft Corporation 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: CLSCompliant(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7c9372f0-ea1e-4f69-8294-679fbcf764be")]
+[assembly: Guid("43107351-440b-425e-b1e9-96c4f64f03f7")]
 
 // Version information for an assembly consists of the following four values:
 //

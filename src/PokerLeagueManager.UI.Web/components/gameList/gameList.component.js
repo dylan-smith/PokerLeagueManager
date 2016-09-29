@@ -4,7 +4,7 @@
     function gameListController($http) {
         var vm = this;
 
-        $http.get("/api/query/GetGamesList")
+        $http.get("http://localhost:14271/api/query/GetGamesList")
              .then(function (response) {
                  vm.Games = response.data;
              });
@@ -13,7 +13,7 @@
     var module = angular.module("poker");
 
     module.component("gameList", {
-        templateUrl: "/Scripts/ngComponents/gameList.component.html",
+        templateUrl: "/components/gameList/gameList.component.html",
         controllerAs: "vm",
         controller: ["$http", gameListController]
     });

@@ -6,7 +6,7 @@
 
         vm.gameClicked = function () {
             if (!vm.Expanded) {
-                $http.get("/api/query/GetGamePlayers?gameId=" + vm.game.GameId)
+                $http.get("http://localhost:14271/api/query/GetGamePlayers?gameId=" + vm.game.GameId)
                      .then(function (response) {
                          vm.Players = response.data;
                          vm.Expanded = true;
@@ -23,7 +23,7 @@
     var module = angular.module("poker");
 
     module.component("game", {
-        templateUrl: "/Scripts/ngComponents/game.component.html",
+        templateUrl: "/components/game/game.component.html",
         bindings: {
             game: "<",
         },
