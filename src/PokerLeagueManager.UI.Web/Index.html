@@ -11,8 +11,13 @@
             display: none !important;
         }
     </style>
+    <!-- inject-vendor:css -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- endinject -->
+
+    <!-- inject:css -->
     <link href="/css/Site.css" rel="stylesheet">
+    <!-- endinject -->
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -46,16 +51,20 @@
             <p>&copy; 2016 - Poker League Manager</p>
         </footer>
     </div>
-
+    
+    <!-- inject-vendor:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/respond/dest/respond.src.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/angular-component-router/angular_1_router.js"></script>
+    <!-- endinject -->
 
+    <!-- inject:js -->
     <script src="/js/module.js"></script>
     <script src="/components/pokerApp/pokerApp.component.js"></script>
     <script src="/components/gameList/gameList.component.js"></script>
     <script src="/components/game/game.component.js"></script>
+    <!-- endinject -->
 </body>
 </html>
