@@ -167,11 +167,6 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
  */
 gulp.task('build', ['rev-and-inject'], function () {
     log('Building the optimized app');
-
-    return gulp.src('').pipe(plug.notify({
-        onLast: true,
-        message: 'Deployed code!'
-    }));
 });
 
 gulp.task('cleanIntermediates', function (cb) {
