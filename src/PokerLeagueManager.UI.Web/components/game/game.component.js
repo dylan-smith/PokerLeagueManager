@@ -1,13 +1,13 @@
 ﻿(function () {
     'use strict';
 
-    function gameController($http) {
+    function gameController($http, QUERY_URL) {
         /*jshint validthis: true */
         var vm = this;
 
         vm.gameClicked = function () {
             if (!vm.Expanded) {
-                $http.get('http://localhost:14271/api/query/GetGamePlayers?gameId=' + vm.game.GameId)
+                $http.get(QUERY_URL + '/api/query/GetGamePlayers?gameId=' + vm.game.GameId)
                      .then(function (response) {
                          vm.Players = response.data;
                          vm.Expanded = true;
@@ -29,6 +29,6 @@
             game: '<',
         },
         controllerAs: 'vm',
-        controller: ['$http', gameController]
+        controller: ['$http', 'QUERY_URL', gameController]
     });
 }());

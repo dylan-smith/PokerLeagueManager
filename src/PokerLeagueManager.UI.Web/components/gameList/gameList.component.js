@@ -1,11 +1,11 @@
 ﻿(function () {
     'use strict';
 
-    function gameListController($http) {
+    function gameListController($http, QUERY_URL) {
         /*jshint validthis: true */
         var vm = this;
 
-        $http.get('http://localhost:14271/api/query/GetGamesList')
+        $http.get(QUERY_URL + '/api/query/GetGamesList')
              .then(function (response) {
                  vm.Games = response.data;
              });
@@ -16,6 +16,6 @@
     module.component('gameList', {
         templateUrl: '/components/gameList/gameList.component.html',
         controllerAs: 'vm',
-        controller: ['$http', gameListController]
+        controller: ['$http', 'QUERY_URL', gameListController]
     });
 }());
