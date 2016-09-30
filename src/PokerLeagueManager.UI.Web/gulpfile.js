@@ -197,18 +197,6 @@ gulp.task('clean', function (cb) {
 });
 
 /**
- * Remove all files from the build folder
- * One way to run clean before all tasks is to run
- * from the cmd line: gulp clean && gulp build
- * @return {Stream}
- */
-gulp.task('cleanNodeModules', function (cb) {
-    log('Cleaning: ' + plug.util.colors.blue('./node_modules'));
-
-    del('./node_modules', cb);
-});
-
-/**
  * Watch files and build
  */
 gulp.task('watch', function () {
