@@ -57,21 +57,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             }
         }
 
-        public IDataTransferObject ExecuteQueryDto(IQuery query)
-        {
-            return Execute<IDataTransferObject>(query);
-        }
-
-        public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
-        {
-            return Execute<IEnumerable<IDataTransferObject>>(query);
-        }
-
-        public int ExecuteQueryInt(IQuery query)
-        {
-            return Execute<int>(query);
-        }
-
         private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
             where TQuery : IQuery<TResult>
         {

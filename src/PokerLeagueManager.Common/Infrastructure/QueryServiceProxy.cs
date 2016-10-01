@@ -15,46 +15,11 @@ namespace PokerLeagueManager.Common.Infrastructure
             base.Endpoint.Address = new EndpointAddress(queryUrl);
         }
 
-        public IDataTransferObject ExecuteQueryDto(IQuery query)
-        {
-            return base.Channel.ExecuteQueryDto(query);
-        }
-
-        public int ExecuteQueryInt(IQuery query)
-        {
-            return base.Channel.ExecuteQueryInt(query);
-        }
-
-        public IEnumerable<IDataTransferObject> ExecuteQueryList(IQuery query)
-        {
-            return base.Channel.ExecuteQueryList(query);
-        }
-
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
-            if (typeof(IDataTransferObject).IsAssignableFrom(typeof(TResult)))
-            {
-                return (TResult)ExecuteQueryDto(query);
-            }
+            return (TResult)query;
 
-            if (typeof(IEnumerable<IDataTransferObject>).IsAssignableFrom(typeof(TResult)))
-            {
-                var resultType = typeof(TResult);
-                var dtoType = resultType.GenericTypeArguments[0];
-                var castMethod = typeof(IEnumerable).GetLinqExtensionMethod("Cast");
-                var genericCastMethod = castMethod.MakeGenericMethod(dtoType);
-
-                var dtoList = ExecuteQueryList(query);
-                return (TResult)genericCastMethod.Invoke(dtoList, new object[] { dtoList });
-            }
-
-            if (typeof(int) == typeof(TResult))
-            {
-                return (TResult)(object)ExecuteQueryInt(query);
-            }
-
-            throw new Exception("Unexpected return type");
+            // TODO: Actually call the REST API and convert between JSON
         }
     }
 }

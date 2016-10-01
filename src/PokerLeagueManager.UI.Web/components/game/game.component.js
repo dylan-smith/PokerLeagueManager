@@ -7,11 +7,11 @@
 
         vm.gameClicked = function () {
             if (!vm.Expanded) {
-                $http.get(QUERY_URL + '/api/query/GetGamePlayers?gameId=' + vm.game.GameId)
-                     .then(function (response) {
-                         vm.Players = response.data;
-                         vm.Expanded = true;
-                     });
+                $http.post(QUERY_URL + '/GetGamePlayers', { GameId: vm.game.GameId })
+                    .then(function (response) {
+                        vm.Players = response.data;
+                        vm.Expanded = true;
+                    });
             }
             else {
                 vm.Expanded = false;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Queries.WCF
+namespace PokerLeagueManager.Queries.WebApi
 {
     public static class Resolver
     {

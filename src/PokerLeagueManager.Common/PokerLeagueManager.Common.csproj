@@ -59,6 +59,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,7 +90,6 @@
     <Compile Include="Infrastructure\BaseQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\DtoTypeProvider.cs" />
-    <Compile Include="Infrastructure\QueryTypeProvider.cs" />
     <Compile Include="Infrastructure\IQueryFactory.cs" />
     <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />

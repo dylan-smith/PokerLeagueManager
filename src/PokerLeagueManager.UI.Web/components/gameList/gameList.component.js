@@ -5,7 +5,7 @@
         /*jshint validthis: true */
         var vm = this;
 
-        $http.get(QUERY_URL + '/api/query/GetGamesList')
+        $http.post(QUERY_URL + '/GetGamesList')
              .then(function (response) {
                  vm.Games = response.data;
              });

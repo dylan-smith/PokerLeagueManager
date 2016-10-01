@@ -45,7 +45,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var mockCommandRepository = new Mock<ICommandRepository>();
             var mockQueryService = new Mock<IQueryService>();
 
-            mockQueryService.Setup(q => q.ExecuteQueryInt(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
+            mockQueryService.Setup(q => q.Execute(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
 
             var sut = new CommandHandlerFactory(
                 new Mock<IEventRepository>().Object,
@@ -90,7 +90,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var mockEventRepository = new Mock<IEventRepository>();
             var mockQueryService = new Mock<IQueryService>();
 
-            mockQueryService.Setup(q => q.ExecuteQueryInt(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
+            mockQueryService.Setup(q => q.Execute(It.IsAny<GetGameCountByDateQuery>())).Returns(0);
 
             var sut = new CommandHandlerFactory(
                 mockEventRepository.Object,

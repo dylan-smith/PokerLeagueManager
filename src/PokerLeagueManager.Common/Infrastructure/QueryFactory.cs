@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Web;
 
 namespace PokerLeagueManager.Common.Infrastructure
 {
     public class QueryFactory : IQueryFactory
     {
-        private OperationContext _currentContext;
+        private HttpContextWrapper _currentContext;
         private IGuidService _guidService;
         private IDateTimeService _dateTimeService;
 
-        public QueryFactory(OperationContext currentContext, IGuidService guidService, IDateTimeService dateTimeService)
+        public QueryFactory(HttpContextWrapper currentContext, IGuidService guidService, IDateTimeService dateTimeService)
         {
             _currentContext = currentContext;
             _guidService = guidService;
@@ -28,21 +29,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         public T Create<T>(T query)
             where T : IQuery
         {
-            if (_currentContext != null &&
-                _currentContext.ClaimsPrincipal != null &&
-                _currentContext.ClaimsPrincipal.Identity != null &&
-                !string.IsNullOrWhiteSpace(_currentContext.ClaimsPrincipal.Identity.Name))
-            {
-                query.User = _currentContext.ClaimsPrincipal.Identity.Name;
-            }
-            else
-            {
-                query.User = "Unknown";
-            }
-
-            MessageProperties prop = _currentContext.IncomingMessageProperties;
-            RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-            query.IPAddress = endpoint.Address;
+            query.IPAddress = _currentContext.Request.UserHostAddress;
 
             if (query.QueryId == Guid.Empty)
             {
