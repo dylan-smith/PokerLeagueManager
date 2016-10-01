@@ -28,13 +28,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/Home">Application name</a>
+                <a class="navbar-brand" ng-link="['Home']">St James Poker</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Home">Home</a></li>
-                    <li><a href="/Home/About">About</a></li>
-                    <li><a href="/Home/Contact">Contact</a></li>
+                    <li><a ng-link="['Home']">Home</a></li>
+                    <li><a ng-link="['Games']">Games</a></li>
+                    <li><a ng-link="['Stats']">Stats</a></li>
+                    <li><a ng-link="['POTY']">POTY</a></li>
+                    <li><a ng-link="['Videos']">Videos</a></li>
+                    <li><a ng-link="['Pictures']">Pictures</a></li>
+                    <li><a ng-link="['Rules']">Rules</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/Account/SignIn" id="loginLink">Sign in</a></li>
