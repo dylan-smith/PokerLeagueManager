@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.UI.Web",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Queries.WebApi", "PokerLeagueManager.Queries.WebApi\PokerLeagueManager.Queries.WebApi.csproj", "{43107351-440B-425E-B1E9-96C4F64F03F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerLeagueManager.Commands.WebApi", "PokerLeagueManager.Commands.WebApi\PokerLeagueManager.Commands.WebApi.csproj", "{E5E86BC6-52F3-4EF3-845C-9878E88A37B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -128,6 +130,10 @@ Global
 		{43107351-440B-425E-B1E9-96C4F64F03F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43107351-440B-425E-B1E9-96C4F64F03F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43107351-440B-425E-B1E9-96C4F64F03F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E86BC6-52F3-4EF3-845C-9878E88A37B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E86BC6-52F3-4EF3-845C-9878E88A37B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E86BC6-52F3-4EF3-845C-9878E88A37B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E86BC6-52F3-4EF3-845C-9878E88A37B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
