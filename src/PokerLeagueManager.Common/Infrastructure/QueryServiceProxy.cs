@@ -1,25 +1,59 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics.CodeAnalysis;
-using System.ServiceModel;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace PokerLeagueManager.Common.Infrastructure
 {
-    public class QueryServiceProxy : ClientBase<IQueryService>, IQueryService
+    public class QueryServiceProxy : IQueryService, IDisposable
     {
+        private HttpClient _queryClient;
+        private bool _disposedValue = false;
+
         public QueryServiceProxy()
         {
             var queryUrl = ConfigurationManager.AppSettings["QueryServiceUrl"];
-            base.Endpoint.Address = new EndpointAddress(queryUrl);
+
+            _queryClient = new HttpClient();
+            _queryClient.BaseAddress = new Uri(queryUrl);
+            _queryClient.DefaultRequestHeaders.Accept.Clear();
+            _queryClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
-            return (TResult)query;
+            var task = _queryClient.PostAsJsonAsync("GetGamesList", query);
+            task.Wait();
+            var response = task.Result;
 
-            // TODO: Actually call the REST API and convert between JSON
+            if (response.IsSuccessStatusCode)
+            {
+                var contentTask = response.Content.ReadAsAsync<TResult>();
+                contentTask.Wait();
+                return contentTask.Result;
+            }
+
+            throw new InvalidOperationException($"{response.StatusCode}: {response.ReasonPhrase} - Failed to execute query");
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _queryClient.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
     }
 }
