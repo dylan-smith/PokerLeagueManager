@@ -23,8 +23,8 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
-            var queryName = query.GetType().Name;
-            var task = _queryClient.PostAsJsonAsync($"/{queryName}", query);
+            var actionName = GetActionName(query);
+            var task = _queryClient.PostAsJsonAsync($"/{actionName}", query);
             task.Wait();
             var response = task.Result;
 
@@ -55,6 +55,12 @@ namespace PokerLeagueManager.Common.Infrastructure
 
                 _disposedValue = true;
             }
+        }
+
+        private object GetActionName(IQuery query)
+        {
+            var queryName = query.GetType().Name;
+            return queryName.Substring(0, queryName.Length - "Query".Length);
         }
     }
 }

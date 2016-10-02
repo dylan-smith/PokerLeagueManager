@@ -1,16 +1,17 @@
 ﻿using System;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Web;
 
 namespace PokerLeagueManager.Common.Infrastructure
 {
     public class CommandFactory : ICommandFactory
     {
-        private OperationContext _currentContext;
+        private HttpContextWrapper _currentContext;
         private IGuidService _guidService;
         private IDateTimeService _dateTimeService;
 
-        public CommandFactory(OperationContext currentContext, IGuidService guidService, IDateTimeService dateTimeService)
+        public CommandFactory(HttpContextWrapper currentContext, IGuidService guidService, IDateTimeService dateTimeService)
         {
             _currentContext = currentContext;
             _guidService = guidService;
@@ -28,21 +29,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         public T Create<T>(T cmd)
             where T : ICommand
         {
-            if (_currentContext != null &&
-                _currentContext.ClaimsPrincipal != null &&
-                _currentContext.ClaimsPrincipal.Identity != null &&
-                !string.IsNullOrWhiteSpace(_currentContext.ClaimsPrincipal.Identity.Name))
-            {
-                cmd.User = _currentContext.ClaimsPrincipal.Identity.Name;
-            }
-            else
-            {
-                cmd.User = "Unknown";
-            }
-
-            MessageProperties prop = _currentContext.IncomingMessageProperties;
-            RemoteEndpointMessageProperty endpoint = prop[RemoteEndpointMessageProperty.Name] as RemoteEndpointMessageProperty;
-            cmd.IPAddress = endpoint.Address;
+            cmd.IPAddress = _currentContext.Request.UserHostAddress;
 
             if (cmd.CommandId == Guid.Empty)
             {

@@ -21,7 +21,6 @@ namespace PokerLeagueManager.Infrastructure.Tests
             testCommand.CommandId = Guid.NewGuid();
             testCommand.GameId = Guid.NewGuid();
             testCommand.IPAddress = "12.34.56.78";
-            testCommand.User = "dylans";
             testCommand.Timestamp = DateTime.Now;
 
             var newPlayerA = new EnterGameResultsCommand.GamePlayer();
@@ -65,7 +64,6 @@ namespace PokerLeagueManager.Infrastructure.Tests
             testCommand.CommandId = Guid.NewGuid();
             testCommand.GameId = Guid.NewGuid();
             testCommand.IPAddress = "12.34.56.78";
-            testCommand.User = "dylans";
             testCommand.Timestamp = DateTime.Now;
 
             var newPlayerA = new EnterGameResultsCommand.GamePlayer();

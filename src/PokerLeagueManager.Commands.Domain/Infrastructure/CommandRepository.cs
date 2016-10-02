@@ -20,10 +20,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         public void LogCommand(Common.Infrastructure.ICommand command)
         {
             _databaseLayer.ExecuteNonQuery(
-                "INSERT INTO Commands(CommandId, CommandDateTime, UserName, IpAddress, CommandData) VALUES(@CommandId, @CommandDateTime, @UserName, @IpAddress, @CommandData)",
+                "INSERT INTO Commands(CommandId, CommandDateTime, IpAddress, CommandData) VALUES(@CommandId, @CommandDateTime, @IpAddress, @CommandData)",
                 "@CommandId", command.CommandId.ToString(),
                 "@CommandDateTime", command.Timestamp.ToUniversalTime().ToString("dd-MMM-yyyy HH:mm:ss.ff"),
-                "@UserName", command.User,
                 "@IpAddress", command.IPAddress,
                 "@CommandData", SerializeCommand(command));
         }

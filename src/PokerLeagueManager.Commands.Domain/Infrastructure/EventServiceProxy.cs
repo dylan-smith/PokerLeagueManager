@@ -36,8 +36,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         public void HandleEvent(IEvent e)
         {
-            var eventName = e.GetType().Name;
-            var task = _eventClient.PostAsJsonAsync($"/{eventName}", e);
+            var actionName = GetActionName(e);
+            var task = _eventClient.PostAsJsonAsync($"/{actionName}", e);
             task.Wait();
             var response = task.Result;
             response.EnsureSuccessStatusCode();
@@ -60,6 +60,12 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
                 _disposedValue = true;
             }
+        }
+
+        private object GetActionName(IEvent e)
+        {
+            var eventName = e.GetType().Name;
+            return eventName.Substring(0, eventName.Length - "Event".Length);
         }
     }
 }

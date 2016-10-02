@@ -18,9 +18,6 @@ namespace PokerLeagueManager.Common.Infrastructure
         public DateTime Timestamp { get; set; }
 
         [DataMember]
-        public string User { get; set; }
-
-        [DataMember]
         public string IPAddress { get; set; }
     }
 }

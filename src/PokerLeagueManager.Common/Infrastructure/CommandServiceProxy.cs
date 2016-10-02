@@ -28,8 +28,8 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public void ExecuteCommand(ICommand command)
         {
-            var commandName = command.GetType().Name;
-            var task = _commandClient.PostAsJsonAsync($"/{commandName}", command);
+            var actionName = GetActionName(command);
+            var task = _commandClient.PostAsJsonAsync($"/{actionName}", command);
             task.Wait();
             var response = task.Result;
             response.EnsureSuccessStatusCode();
@@ -52,6 +52,12 @@ namespace PokerLeagueManager.Common.Infrastructure
 
                 _disposedValue = true;
             }
+        }
+
+        private object GetActionName(ICommand command)
+        {
+            var commandName = command.GetType().Name;
+            return commandName.Substring(0, commandName.Length - "Command".Length);
         }
     }
 }
