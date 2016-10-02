@@ -6,17 +6,17 @@
     var queryUrl = '';
 
     if (host.toLowerCase().includes('pokerleaguemanager.net')) {
-        commandUrl = 'http://command.pokerleaguemanager.net';
-        queryUrl = 'http://query.pokerleaguemanager.net';
+        commandUrl = 'http://commands.pokerleaguemanager.net';
+        queryUrl = 'http://queries.pokerleaguemanager.net';
     }
 
     if (host.toLowerCase().includes('azurewebsites.net')) {
-        commandUrl = 'http://command-' + host;
-        queryUrl = 'http://query-' + host;
+        commandUrl = 'http://commands-' + host;
+        queryUrl = 'http://queries-' + host;
     }
 
     if (host.toLowerCase().includes('localhost')) {
-        commandUrl = 'http://localhost:?????';
+        commandUrl = 'http://localhost:4224';
         queryUrl = 'http://localhost:14271';
     }
 

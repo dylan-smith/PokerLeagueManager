@@ -17,9 +17,9 @@
     "sqlPassword": "P2ssw0rd",
 
     "webHostingPlanName": "[resourceGroup().name]",
-    "queryApiSiteName": "[concat('Query-', resourceGroup().name)]",
-    "eventApiSiteName": "[concat('Event-', resourceGroup().name)]",
-    "commandApiSiteName": "[concat('Command-', resourceGroup().name)]",
+    "queryApiSiteName": "[concat('Queries-', resourceGroup().name)]",
+    "eventApiSiteName": "[concat('Events-', resourceGroup().name)]",
+    "commandApiSiteName": "[concat('Commands-', resourceGroup().name)]",
     "webSiteName": "[resourceGroup().name]",
     "webSku": "Free",
     "webWorkerSize": "0"
