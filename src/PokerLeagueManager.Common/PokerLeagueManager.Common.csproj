@@ -102,7 +102,6 @@
     <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />
     <Compile Include="Infrastructure\CommandServiceProxy.cs" />
-    <Compile Include="Infrastructure\CommandTypeProvider.cs" />
     <Compile Include="Infrastructure\DtoFactory.cs" />
     <Compile Include="Infrastructure\EventTypeProvider.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />

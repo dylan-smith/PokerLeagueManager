@@ -16,8 +16,9 @@ namespace PokerLeagueManager.Commands.WebApi
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
-                name: "QueryApi",
-                routeTemplate: "api/{controller}/{action}");
+                name: "CommandApi",
+                routeTemplate: "{commandName}",
+                defaults: new { controller = "Command" });
         }
     }
 }
