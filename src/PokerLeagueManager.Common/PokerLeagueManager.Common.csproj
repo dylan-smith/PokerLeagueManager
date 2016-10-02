@@ -97,13 +97,11 @@
     <Compile Include="Infrastructure\BaseEvent.cs" />
     <Compile Include="Infrastructure\BaseQuery.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
-    <Compile Include="Infrastructure\DtoTypeProvider.cs" />
     <Compile Include="Infrastructure\IQueryFactory.cs" />
     <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Infrastructure\CommandFactory.cs" />
     <Compile Include="Infrastructure\CommandServiceProxy.cs" />
     <Compile Include="Infrastructure\DtoFactory.cs" />
-    <Compile Include="Infrastructure\EventTypeProvider.cs" />
     <Compile Include="Infrastructure\GlobalSuppressions.cs" />
     <Compile Include="Infrastructure\IQuery.cs" />
     <Compile Include="Infrastructure\ICommand.cs" />

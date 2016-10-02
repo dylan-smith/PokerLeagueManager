@@ -1,26 +1,64 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
-    public class EventServiceProxy : ClientBase<IEventService>, IEventService, IEventServiceProxy
+    public class EventServiceProxy : IEventService, IEventServiceProxy, IDisposable
     {
+        private HttpClient _eventClient;
+        private bool _disposedValue = false;
+        private string _serviceUrl;
+
+        public EventServiceProxy()
+        {
+            _eventClient = new HttpClient();
+            _eventClient.DefaultRequestHeaders.Accept.Clear();
+            _eventClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
         public string ServiceUrl
         {
             get
             {
-                return base.Endpoint.Address.Uri.ToString();
+                return _serviceUrl;
             }
 
             set
             {
-                base.Endpoint.Address = new EndpointAddress(value);
+                _serviceUrl = value;
+                _eventClient.BaseAddress = new Uri(_serviceUrl);
             }
         }
 
         public void HandleEvent(IEvent e)
         {
-            base.Channel.HandleEvent(e);
+            var task = _eventClient.PostAsJsonAsync("GetGamesList", e);
+            task.Wait();
+            var response = task.Result;
+            response.EnsureSuccessStatusCode();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    _eventClient.Dispose();
+                }
+
+                _disposedValue = true;
+            }
         }
     }
 }
