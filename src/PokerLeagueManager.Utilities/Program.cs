@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Utilities
 
             using (var svc = new CommandServiceProxy())
             {
-                svc.Endpoint.Address = new EndpointAddress(serviceUrl);
+                svc.SetUrl(serviceUrl);
 
                 foreach (var cmd in GetSampleDataCommands())
                 {
