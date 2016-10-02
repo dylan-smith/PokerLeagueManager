@@ -17,9 +17,8 @@
     "sqlPassword": "P2ssw0rd",
 
     "webHostingPlanName": "[resourceGroup().name]",
-    "queryWebSiteName": "[concat('QueryService-', resourceGroup().name)]",
-    "commandWebSiteName": "[concat('CommandService-', resourceGroup().name)]",
     "queryApiSiteName": "[concat('Query-', resourceGroup().name)]",
+    "eventApiSiteName": "[concat('Event-', resourceGroup().name)]",
     "commandApiSiteName": "[concat('Command-', resourceGroup().name)]",
     "webSiteName": "[resourceGroup().name]",
     "webSku": "Free",
@@ -108,84 +107,6 @@
     },
     {
       "apiVersion": "2015-08-01",
-      "name": "[variables('commandWebSiteName')]",
-      "type": "Microsoft.Web/sites",
-      "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
-      "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Command Website"
-      },
-      "properties": {
-        "name": "[variables('commandWebSiteName')]",
-        "serverFarmId": "[variables('webHostingPlanName')]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
-          "properties": {
-            "default": {
-              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('eventDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
-              "type": "SQLAzure"
-            }
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "appsettings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
-          "properties": {
-            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandWebSiteName'))]" ],
-          "properties": {
-            "applicationLogs": {
-              "fileSystem": {
-                "level": "Warning"
-              },
-              "azureTableStorage": {
-                "level": "Off",
-                "sasUrl": null
-              },
-              "azureBlobStorage": {
-                "level": "Off",
-                "sasUrl": null,
-                "retentionInDays": null
-              }
-            },
-            "httpLogs": {
-              "fileSystem": {
-                "retentionInMb": 35,
-                "retentionInDays": null,
-                "enabled": true
-              },
-              "azureBlobStorage": {
-                "sasUrl": null,
-                "retentionInDays": null,
-                "enabled": false
-              }
-            },
-            "failedRequestsTracing": {
-              "enabled": true
-            },
-            "detailedErrorMessages": {
-              "enabled": true
-            }
-          }
-        }
-      ]
-    },
-    {
-      "apiVersion": "2015-08-01",
       "name": "[variables('commandApiSiteName')]",
       "type": "Microsoft.Web/sites",
       "location": "[variables('location')]",
@@ -217,7 +138,7 @@
           "name": "appsettings",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
           "properties": {
-            "QueryApiUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net/api/queries')]"
+            "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]"
           }
         },
         {
@@ -225,75 +146,6 @@
           "type": "config",
           "name": "logs",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
-          "properties": {
-            "applicationLogs": {
-              "fileSystem": {
-                "level": "Warning"
-              },
-              "azureTableStorage": {
-                "level": "Off",
-                "sasUrl": null
-              },
-              "azureBlobStorage": {
-                "level": "Off",
-                "sasUrl": null,
-                "retentionInDays": null
-              }
-            },
-            "httpLogs": {
-              "fileSystem": {
-                "retentionInMb": 35,
-                "retentionInDays": null,
-                "enabled": true
-              },
-              "azureBlobStorage": {
-                "sasUrl": null,
-                "retentionInDays": null,
-                "enabled": false
-              }
-            },
-            "failedRequestsTracing": {
-              "enabled": true
-            },
-            "detailedErrorMessages": {
-              "enabled": true
-            }
-          }
-        }
-      ]
-    },
-    {
-      "apiVersion": "2015-08-01",
-      "name": "[variables('queryWebSiteName')]",
-      "type": "Microsoft.Web/sites",
-      "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
-      "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Query Website"
-      },
-      "properties": {
-        "name": "[variables('queryWebSiteName')]",
-        "serverFarmId": "[variables('webHostingPlanName')]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryWebSiteName'))]" ],
-          "properties": {
-            "default": {
-              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
-              "type": "SQLAzure"
-            }
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryWebSiteName'))]" ],
           "properties": {
             "applicationLogs": {
               "fileSystem": {
@@ -361,17 +213,77 @@
         {
           "apiVersion": "2015-08-01",
           "type": "config",
-          "name": "appsettings",
+          "name": "logs",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
           "properties": {
-            "QueryServiceUrl": "[concat('http://', variables('queryWebSiteName'), '.azurewebsites.net/QueryService.svc')]"
+            "applicationLogs": {
+              "fileSystem": {
+                "level": "Warning"
+              },
+              "azureTableStorage": {
+                "level": "Off",
+                "sasUrl": null
+              },
+              "azureBlobStorage": {
+                "level": "Off",
+                "sasUrl": null,
+                "retentionInDays": null
+              }
+            },
+            "httpLogs": {
+              "fileSystem": {
+                "retentionInMb": 35,
+                "retentionInDays": null,
+                "enabled": true
+              },
+              "azureBlobStorage": {
+                "sasUrl": null,
+                "retentionInDays": null,
+                "enabled": false
+              }
+            },
+            "failedRequestsTracing": {
+              "enabled": true
+            },
+            "detailedErrorMessages": {
+              "enabled": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[variables('eventApiSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[variables('location')]",
+      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
+        "displayName": "Event API"
+      },
+      "properties": {
+        "name": "[variables('eventApiSiteName')]",
+        "serverFarmId": "[variables('webHostingPlanName')]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "connectionstrings",
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
+          "properties": {
+            "default": {
+              "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
+              "type": "SQLAzure"
+            }
           }
         },
         {
           "apiVersion": "2015-08-01",
           "type": "config",
           "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
+          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
           "properties": {
             "applicationLogs": {
               "fileSystem": {
