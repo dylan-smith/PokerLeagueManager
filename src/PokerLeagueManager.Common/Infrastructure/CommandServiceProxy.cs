@@ -28,7 +28,8 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public void ExecuteCommand(ICommand command)
         {
-            var task = _commandClient.PostAsJsonAsync("GetGamesList", command);
+            var commandName = command.GetType().Name;
+            var task = _commandClient.PostAsJsonAsync($"/{commandName}", command);
             task.Wait();
             var response = task.Result;
             response.EnsureSuccessStatusCode();

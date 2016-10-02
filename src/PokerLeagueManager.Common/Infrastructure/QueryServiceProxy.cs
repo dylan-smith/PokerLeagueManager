@@ -23,7 +23,8 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
-            var task = _queryClient.PostAsJsonAsync("GetGamesList", query);
+            var queryName = query.GetType().Name;
+            var task = _queryClient.PostAsJsonAsync($"/{queryName}", query);
             task.Wait();
             var response = task.Result;
 

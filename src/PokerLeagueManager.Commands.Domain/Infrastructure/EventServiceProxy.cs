@@ -36,7 +36,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         public void HandleEvent(IEvent e)
         {
-            var task = _eventClient.PostAsJsonAsync("GetGamesList", e);
+            var eventName = e.GetType().Name;
+            var task = _eventClient.PostAsJsonAsync($"/{eventName}", e);
             task.Wait();
             var response = task.Result;
             response.EnsureSuccessStatusCode();
