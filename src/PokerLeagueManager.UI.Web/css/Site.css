@@ -45,11 +45,12 @@ textarea {
   -moz-transition:all linear 1s;
   -ms-transition:all linear 1s;
   -o-transition:all linear 1s;
-  transition:all linear 1s;
+  transition:all linear 0.3s;
+  overflow: hidden;
+  max-height: 168px;
 }
 
 .game-details.ng-hide {
-  height: 0;
-  padding: 0;
-  line-height: 0;
+  max-height: 0;
+  padding: 0 15px;
 }

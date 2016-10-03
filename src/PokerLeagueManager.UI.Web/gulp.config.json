@@ -17,7 +17,8 @@
   ],
   "js": [
     "./js/**/*.js",
-    "./components/**/*.js"
+    "./components/**/*.js",
+    "./directives/**/*.js"
   ],
   "build": "./build/",
   "intermediateFiles": [

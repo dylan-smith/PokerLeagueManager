@@ -68,6 +68,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="directives\collapse.directive.js" />
     <Content Include="gulpfile.js" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />
