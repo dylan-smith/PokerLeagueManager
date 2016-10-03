@@ -8,7 +8,7 @@
             <div>Winnings: {{ vm.game.Winnings }}</div>
         </div>
     </div>
-    <div class="panel-body row" ng-show="vm.Expanded">
+    <div class="panel-body row game-details" ng-hide="!vm.Expanded">
         <table class="table table-striped">
             <thead>
                 <tr>
