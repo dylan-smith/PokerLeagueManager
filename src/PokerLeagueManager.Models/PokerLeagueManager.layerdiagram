@@ -1,19 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="84fe18c7-d841-4691-a37d-b116ba646070" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
   <layers>
-    <layer Id="5b5176ec-3fc3-4d57-9c66-7a71b7dc14a6" name="WPF Client">
-      <dependencyToLayers>
-        <dependencyFromLayerToLayer Id="fc3cca49-717c-4980-a533-158bec319dda" direction="Forward">
-          <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
-        </dependencyFromLayerToLayer>
-      </dependencyToLayers>
+    <layer Id="5b5176ec-3fc3-4d57-9c66-7a71b7dc14a6" name="Web Client">
       <references>
-        <reference Id="d000b25b-cf12-413a-8045-4587e9c8da57" name="PokerLeagueManager.UI.Wpf">
-          <ArtifactNode Label="PokerLeagueManager.UI.Wpf" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.UI.WPF/PokerLeagueManager.UI.Wpf.csproj)">
+        <reference Id="e83561d2-a0d5-4437-899a-4136bd520758" name="PokerLeagueManager.UI.Web">
+          <ArtifactNode Label="PokerLeagueManager.UI.Web" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj)">
             <Category Ref="File" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.UI.Wpf)" Label="PokerLeagueManager.UI.Wpf.exe" Category="CodeSchema_Assembly">
-            <Category Ref="FileSystem.Category.FileOfType.exe" />
+          <ExpandedNode Id="(Assembly=PokerLeagueManager.UI.Web)" Label="PokerLeagueManager.UI.Web.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
             <LinkCategory Ref="Produces" />
             <LinkCategory Ref="Represents" />
           </ExpandedNode>
@@ -22,7 +17,7 @@
     </layer>
     <layer Id="a30058f5-1952-4ebc-9bb8-3f2fa29a8987" name="Event Store" />
     <layer Id="1e657365-2ad1-4901-8a8d-9d25dceff379" name="Query Store" />
-    <layer Id="2168bcbb-ea7a-49f0-9a3f-bd5d92f82751" name="Command WCF Service">
+    <layer Id="2168bcbb-ea7a-49f0-9a3f-bd5d92f82751" name="Commands WebApi">
       <dependencyToLayers>
         <dependencyFromLayerToLayer Id="a9719683-fea3-4863-9bff-d9b1325a9e5e" direction="Forward">
           <layerMoniker Id="7e2e34fb-eed4-4f01-a2df-33aa28fed6ef" />
@@ -31,24 +26,12 @@
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
-      <childLayers>
-        <layer Id="56929213-fe22-4d96-bd2f-bd93c47c348f" name="Command Service">
-          <references>
-            <reference Id="8e84f051-c0d8-406c-aa0f-025c2232513a" name="CommandService">
-              <ArtifactNode Label="CommandService" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Commands.WCF/bin/PokerLeagueManager.Commands.WCF.dll Namespace=PokerLeagueManager.Commands.WCF Type=CommandService)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Commands.WCF Namespace=PokerLeagueManager.Commands.WCF Type=CommandService)" Label="CommandService" Category="CodeSchema_Class">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-      </childLayers>
       <references>
-        <reference Id="d4626136-494f-4a5c-ae34-be06f07554ca" name="PokerLeagueManager.Commands.WCF">
-          <ArtifactNode Label="PokerLeagueManager.Commands.WCF" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Commands.WCF/PokerLeagueManager.Commands.WCF.csproj)">
+        <reference Id="e8472f4b-0bbc-4149-8bef-45f1ab9620b6" name="PokerLeagueManager.Commands.WebApi">
+          <ArtifactNode Label="PokerLeagueManager.Commands.WebApi" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Commands.WebApi/PokerLeagueManager.Commands.WebApi.csproj)">
             <Category Ref="File" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Commands.WCF)" Label="PokerLeagueManager.Commands.WCF.dll" Category="CodeSchema_Assembly">
+          <ExpandedNode Id="(Assembly=PokerLeagueManager.Commands.WebApi)" Label="PokerLeagueManager.Commands.WebApi.dll" Category="CodeSchema_Assembly">
             <Category Ref="FileSystem.Category.FileOfType.dll" />
             <LinkCategory Ref="Produces" />
             <LinkCategory Ref="Represents" />
@@ -296,7 +279,7 @@
         </reference>
       </references>
     </layer>
-    <layer Id="da6e7913-0825-4b40-8f24-9054f9cd5305" name="Query WCF Service">
+    <layer Id="da6e7913-0825-4b40-8f24-9054f9cd5305" name="Queries WebApi">
       <dependencyToLayers>
         <dependencyFromLayerToLayer Id="0ad7b7f4-9a8b-4d58-8bc6-5fbae013bc3b" direction="Forward">
           <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
@@ -305,34 +288,34 @@
           <layerMoniker Id="365f41ce-ba37-4972-a796-7be811ce95e6" />
         </dependencyFromLayerToLayer>
       </dependencyToLayers>
-      <childLayers>
-        <layer Id="aa10006f-b69f-41e1-881f-0dd777d1f14a" name="Event Handler Service">
-          <references>
-            <reference Id="fae26d39-7c57-4b8d-be95-8b94b1b38d40" name="EventService">
-              <ArtifactNode Label="EventService" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.WCF/bin/PokerLeagueManager.Queries.WCF.dll Namespace=PokerLeagueManager.Queries.WCF Type=EventService)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WCF Namespace=PokerLeagueManager.Queries.WCF Type=EventService)" Label="EventService" Category="CodeSchema_Class">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-        <layer Id="29890f13-f503-4df4-ae5a-4ecc210bf83a" name="Query Service">
-          <references>
-            <reference Id="eddc0413-7660-4942-a087-b729e9e682e3" name="QueryService">
-              <ArtifactNode Label="QueryService" Category="CodeSchema_Class" Id="(Assembly=../PokerLeagueManager.Queries.WCF/bin/PokerLeagueManager.Queries.WCF.dll Namespace=PokerLeagueManager.Queries.WCF Type=QueryService)" />
-              <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WCF Namespace=PokerLeagueManager.Queries.WCF Type=QueryService)" Label="QueryService" Category="CodeSchema_Class">
-                <LinkCategory Ref="Represents" />
-              </ExpandedNode>
-            </reference>
-          </references>
-        </layer>
-      </childLayers>
       <references>
-        <reference Id="656df699-b837-431c-a8f1-31088fd79637" name="PokerLeagueManager.Queries.WCF">
-          <ArtifactNode Label="PokerLeagueManager.Queries.WCF" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Queries.WCF/PokerLeagueManager.Queries.WCF.csproj)">
+        <reference Id="298e7596-2d25-45b9-9f74-0a50ecc1af77" name="PokerLeagueManager.Queries.WebApi">
+          <ArtifactNode Label="PokerLeagueManager.Queries.WebApi" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Queries.WebApi/PokerLeagueManager.Queries.WebApi.csproj)">
             <Category Ref="File" />
           </ArtifactNode>
-          <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WCF)" Label="PokerLeagueManager.Queries.WCF.dll" Category="CodeSchema_Assembly">
+          <ExpandedNode Id="(Assembly=PokerLeagueManager.Queries.WebApi)" Label="PokerLeagueManager.Queries.WebApi.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="edfd8da8-8064-4e06-a739-9eb2b6e691f3" name="Events WebApi">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="57968940-b223-4e28-9786-404ed43be8c6" direction="Forward">
+          <layerMoniker Id="994fdd79-4658-43f9-a7ce-d851aa0316c7" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="c21d10e6-b72d-45f2-8972-04b0593958a2" direction="Forward">
+          <layerMoniker Id="365f41ce-ba37-4972-a796-7be811ce95e6" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="5bd68b03-6c2f-43ab-b8c4-24a7296911a2" name="PokerLeagueManager.Events.WebApi">
+          <ArtifactNode Label="PokerLeagueManager.Events.WebApi" Category="CodeSchema_Project" Id="(Assembly=../PokerLeagueManager.Events.WebApi/PokerLeagueManager.Events.WebApi.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=PokerLeagueManager.Events.WebApi)" Label="PokerLeagueManager.Events.WebApi.dll" Category="CodeSchema_Assembly">
             <Category Ref="FileSystem.Category.FileOfType.dll" />
             <LinkCategory Ref="Produces" />
             <LinkCategory Ref="Represents" />

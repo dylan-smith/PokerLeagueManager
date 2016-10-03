@@ -49,13 +49,29 @@
       <Name>PokerLeagueManager.Commands.Domain</Name>
       <Project>{d702bdb7-9f99-4509-82af-632689aff7d0}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Commands.WebApi\PokerLeagueManager.Commands.WebApi.csproj">
+      <Name>PokerLeagueManager.Commands.WebApi</Name>
+      <Project>{e5e86bc6-52f3-4ef3-845c-9878e88a37b5}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Common\PokerLeagueManager.Common.csproj">
       <Name>PokerLeagueManager.Common</Name>
       <Project>{de404a65-ab5d-409f-bb18-919ef139b4c9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Events.WebApi\PokerLeagueManager.Events.WebApi.csproj">
+      <Name>PokerLeagueManager.Events.WebApi</Name>
+      <Project>{4906410b-06cf-4004-950a-66970c478b8c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\PokerLeagueManager.Queries.Core\PokerLeagueManager.Queries.Core.csproj">
       <Name>PokerLeagueManager.Queries.Core</Name>
       <Project>{7c0d835a-1cda-41da-b203-b0ee2f17063a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.Queries.WebApi\PokerLeagueManager.Queries.WebApi.csproj">
+      <Name>PokerLeagueManager.Queries.WebApi</Name>
+      <Project>{43107351-440b-425e-b1e9-96c4f64f03f7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\PokerLeagueManager.UI.Web\PokerLeagueManager.UI.Web.csproj">
+      <Name>PokerLeagueManager.UI.Web</Name>
+      <Project>{7c9372f0-ea1e-4f69-8294-679fbcf764be}</Project>
     </ProjectReference>
   </ItemGroup>
 </Project>
