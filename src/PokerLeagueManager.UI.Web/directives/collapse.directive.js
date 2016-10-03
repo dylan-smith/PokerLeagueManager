@@ -19,12 +19,10 @@
                 //if (!collapse) {
                 //    var oldVisibility = element.style.visibility;
                 //    var oldDisplay = element.style.display;
-                    
                 //    element.style.visibility = 'hidden';
                 //    element.style.display = 'block';
                 //    element.style.height = 'auto';
                 //    element.dataset.heightOld = angular.element(element).prop('offsetHeight');
-                    
                 //    element.style.visibility = oldVisibility;
                 //    element.style.display = oldDisplay;
 
