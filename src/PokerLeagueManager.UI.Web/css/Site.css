@@ -47,10 +47,10 @@ textarea {
   -o-transition:all linear 1s;
   transition:all linear 0.3s;
   overflow: hidden;
-  max-height: 168px;
+  padding: 0;
 }
 
-.game-details.ng-hide {
-  max-height: 0;
-  padding: 0 15px;
+.table > thead > tr > th, 
+.table > tbody > tr > td {
+    padding-left: 20px;
 }

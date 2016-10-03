@@ -11,6 +11,7 @@
                     .then(function (response) {
                         vm.Players = response.data;
                         vm.Expanded = true;
+                        vm.ExpandedHeight = 37 + vm.Players.length * 37;
                     });
             }
             else {
@@ -19,6 +20,7 @@
         };
 
         vm.Expanded = false;
+        vm.ExpandedHeight = 0;
     }
 
     var module = angular.module('poker');
