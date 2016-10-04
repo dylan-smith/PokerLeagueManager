@@ -69,8 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="components\game\game.component.css" />
+    <Content Include="css\Spinner.css" />
     <Content Include="directives\collapse.directive.js" />
     <Content Include="gulpfile.js" />
+    <Content Include="images\poker-cards-icon.jpg" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />
     <Content Include="package.json" />

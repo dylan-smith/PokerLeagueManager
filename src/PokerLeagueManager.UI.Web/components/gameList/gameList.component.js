@@ -7,8 +7,11 @@
 
         $http.post(QUERY_URL + '/GetGamesList')
              .then(function (response) {
+                 vm.Loading = false;
                  vm.Games = response.data;
              });
+
+        vm.Loading = true;
     }
 
     var module = angular.module('poker');
