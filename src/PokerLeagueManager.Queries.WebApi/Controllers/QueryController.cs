@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -30,6 +31,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
 
         public HttpResponseMessage Post(string queryName, [FromBody]JToken jsonbody)
         {
+            Thread.Sleep(500);
             var queryType = GetQueryType(queryName);
             var queryReturnType = GetQueryReturnType(queryType);
 

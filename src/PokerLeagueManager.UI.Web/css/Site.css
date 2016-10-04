@@ -54,3 +54,14 @@ textarea {
 .table > tbody > tr > td {
     padding-left: 20px;
 }
+
+.game-header > .progress {
+  height: 10px;
+  margin-bottom: -10px;
+}
+.game-header > .progress > .progress-bar {
+  width: 100%;
+}
+.game-header > .progress > .progress-bar.active {
+  animation: progress-bar-stripes 0.5s linear infinite;
+}
