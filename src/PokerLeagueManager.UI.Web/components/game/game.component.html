@@ -2,7 +2,7 @@
     <div class="panel-heading clickable row game-header" ng-click="vm.gameClicked()">
         <div class="row vertical-align">
             <div class="col-sm-8">
-                <h2>{{ vm.game.GameDate | date:'longDate' }}</h2>
+                <h2 class="game-date">{{ vm.game.GameDate | date:'longDate' }}</h2>
             </div>
             <div class="col-sm-4">
                 <div>Winner: {{ vm.game.Winner }}</div>
@@ -17,8 +17,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Place</th>
-                    <th>Name</th>
+                    <th></th>
+                    <th></th>
                     <th>Winnings</th>
                     <th>Pay In</th>
                 </tr>

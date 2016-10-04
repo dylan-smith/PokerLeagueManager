@@ -65,3 +65,11 @@ textarea {
 .game-header > .progress > .progress-bar.active {
   animation: progress-bar-stripes 0.5s linear infinite;
 }
+.game-date {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.game-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
