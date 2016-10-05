@@ -7,18 +7,22 @@
 
         vm.gameClicked = function () {
             if (!vm.Expanded) {
-                vm.LoadingPlayers = true;
-                $http.post(QUERY_URL + '/GetGamePlayers', { GameId: vm.game.GameId })
-                    .then(function (response) {
-                        vm.Players = response.data;
-                        // The timeout is needed otherwise the players HTML table is in some wonky state
-                        // when the collapse directive fires. The timeout forces angular to finish processing
-                        // the ng-repeat before trying to expand the section.  Stupid Angular!
-                        $timeout(function () {
-                            vm.Expanded = true;
-                            vm.LoadingPlayers = false;
+                if (!vm.Players) {
+                    vm.LoadingPlayers = true;
+                    $http.post(QUERY_URL + '/GetGamePlayers', { GameId: vm.game.GameId })
+                        .then(function (response) {
+                            vm.Players = response.data;
+                            // The timeout is needed otherwise the players HTML table is in some wonky state
+                            // when the collapse directive fires. The timeout forces angular to finish processing
+                            // the ng-repeat before trying to expand the section.  Stupid Angular!
+                            $timeout(function () {
+                                vm.Expanded = true;
+                                vm.LoadingPlayers = false;
+                            });
                         });
-                    });
+                } else {
+                    vm.Expanded = true;
+                }
             }
             else {
                 vm.Expanded = false;
