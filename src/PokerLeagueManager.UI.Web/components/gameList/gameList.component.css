@@ -1,0 +1,16 @@
+﻿.game {
+    transition: margin ease-out 0.5s;
+}
+
+.game.ng-enter {
+  margin-top: 100%;
+}
+
+.game.ng-enter-stagger {
+  transition-delay: 0.2s;
+  transition-duration: 0s;
+}
+
+.game.ng-enter.ng-enter-active {
+  margin-top: 0;
+}
