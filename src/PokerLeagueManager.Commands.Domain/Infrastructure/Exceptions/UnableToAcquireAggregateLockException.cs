@@ -17,7 +17,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
             msg += Environment.NewLine;
             msg += "Aggregate ID: " + aggregateId.ToString();
             msg += Environment.NewLine;
-            msg += "Exception: " + ex.GetType().Name + " - " + ex.Message;
+            msg += "Exception: " + ex.ToString();
 
             return msg;
         }

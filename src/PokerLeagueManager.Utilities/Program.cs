@@ -22,6 +22,9 @@ namespace PokerLeagueManager.Utilities
                 case "GenerateSampleData":
                     GenerateSampleData.Generate(args);
                     break;
+                case "PublishEvents":
+                    PublishUnpublishedEvents.Publish();
+                    break;
                 default:
                     throw new ArgumentException("Unrecognized Action");
             }
