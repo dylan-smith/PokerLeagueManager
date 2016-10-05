@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using GenFu;
-using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Utilities
 {
