@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 
@@ -8,19 +9,21 @@ namespace PokerLeagueManager.Infrastructure.Tests
     [TestClass]
     public class EventServiceProxyFactoryTests
     {
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Dont care in tests")]
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullDataRow()
         {
-            var sut = new EventServiceProxyFactory();
+            var sut = new EventServiceProxyFactory(new EventServiceProxy());
 
             sut.Create(null);
         }
 
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Dont care in tests")]
         [TestMethod]
         public void CreateWithValidDataRow()
         {
-            var sut = new EventServiceProxyFactory();
+            var sut = new EventServiceProxyFactory(new EventServiceProxy());
             var sampleTable = GenerateSampleDataTable();
 
             var subscriberId = Guid.NewGuid();
