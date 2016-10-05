@@ -71,7 +71,6 @@
     <Content Include="components\gameList\gameList.component.css" />
     <Content Include="components\game\game.component.css" />
     <Content Include="css\Spinner.css" />
-    <Content Include="directives\collapse.directive.js" />
     <Content Include="gulpfile.js" />
     <Content Include="images\poker-cards-icon.jpg" />
     <Content Include="packages.config" />
@@ -109,6 +108,9 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\Newtonsoft.Json.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.0\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="directives\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

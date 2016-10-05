@@ -7,7 +7,8 @@
     "./bower_components/bootstrap/dist/js/bootstrap.min.js",
     "./bower_components/angular/angular.min.js",
     "./bower_components/angular-component-router/angular_1_router.js",
-    "./bower_components/angular-animate/angular-animate.js"
+    "./bower_components/angular-animate/angular-animate.js",
+    "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
   ],
   "vendorcss": [
     "./bower_components/bootstrap/dist/css/bootstrap.min.css"

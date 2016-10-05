@@ -20,7 +20,7 @@
         queryUrl = 'http://localhost:14271';
     }
 
-    angular.module('poker', ['ngComponentRouter', 'ngAnimate'])
+    angular.module('poker', ['ngComponentRouter', 'ngAnimate', 'ui.bootstrap'])
            .value('$routerRootComponent', 'pokerApp')
            .constant('QUERY_URL', queryUrl)
            .constant('COMMAND_URL', commandUrl);

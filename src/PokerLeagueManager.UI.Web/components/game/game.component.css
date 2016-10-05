@@ -10,9 +10,11 @@
 }
 
 .game-details {
-  transition:all linear 0.3s;
-  overflow: hidden;
   padding: 0;
+}
+
+.game-details > .table {
+    margin-bottom: 0;
 }
 
 .game-details > .table > thead > tr > th, 

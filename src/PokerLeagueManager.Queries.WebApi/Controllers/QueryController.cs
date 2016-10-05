@@ -31,7 +31,6 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
 
         public HttpResponseMessage Post(string queryName, [FromBody]JToken jsonbody)
         {
-            Thread.Sleep(500);
             var queryType = GetQueryType(queryName);
             var queryReturnType = GetQueryReturnType(queryType);
 

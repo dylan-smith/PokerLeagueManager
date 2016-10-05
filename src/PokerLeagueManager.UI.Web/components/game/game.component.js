@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    function gameController($http, QUERY_URL) {
+    function gameController($http, QUERY_URL, $timeout) {
         /*jshint validthis: true */
         var vm = this;
 
@@ -11,9 +11,13 @@
                 $http.post(QUERY_URL + '/GetGamePlayers', { GameId: vm.game.GameId })
                     .then(function (response) {
                         vm.Players = response.data;
-                        vm.Expanded = true;
-                        vm.ExpandedHeight = 37 + vm.Players.length * 37;
-                        vm.LoadingPlayers = false;
+                        // The timeout is needed otherwise the players HTML table is in some wonky state
+                        // when the collapse directive fires. The timeout forces angular to finish processing
+                        // the ng-repeat before trying to expand the section.  Stupid Angular!
+                        $timeout(function () {
+                            vm.Expanded = true;
+                            vm.LoadingPlayers = false;
+                        });
                     });
             }
             else {
@@ -34,6 +38,6 @@
             game: '<',
         },
         controllerAs: 'vm',
-        controller: ['$http', 'QUERY_URL', gameController]
+        controller: ['$http', 'QUERY_URL', '$timeout', gameController]
     });
 }());
