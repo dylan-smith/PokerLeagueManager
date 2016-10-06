@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace PokerLeagueManager.Commands.WebApi
 {
@@ -19,6 +17,8 @@ namespace PokerLeagueManager.Commands.WebApi
                 name: "CommandApi",
                 routeTemplate: "{commandName}",
                 defaults: new { controller = "Command" });
+
+            config.Services.Add(typeof(IExceptionLogger), new AIExceptionLogger());
         }
     }
 }

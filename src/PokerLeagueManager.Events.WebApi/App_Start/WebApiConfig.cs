@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace PokerLeagueManager.Events.WebApi
 {
@@ -19,6 +20,8 @@ namespace PokerLeagueManager.Events.WebApi
                 name: "EventApi",
                 routeTemplate: "{eventName}",
                 defaults: new { controller = "Event" });
+
+            config.Services.Add(typeof(IExceptionLogger), new AIExceptionLogger());
         }
     }
 }

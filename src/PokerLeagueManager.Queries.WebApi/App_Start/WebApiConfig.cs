@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace PokerLeagueManager.Queries.WebApi
 {
@@ -16,6 +17,8 @@ namespace PokerLeagueManager.Queries.WebApi
                 name: "QueryApi",
                 routeTemplate: "{queryName}",
                 defaults: new { controller = "Query" });
+
+            config.Services.Add(typeof(IExceptionLogger), new AIExceptionLogger());
         }
     }
 }
