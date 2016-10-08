@@ -1,5 +1,5 @@
 ﻿{
-  "html": "./index.html",
+  "html": "",
   "htmltemplates": "./components/**/*.html",
   "vendorjs": [
     "./bower_components/jquery/dist/jquery.min.js",

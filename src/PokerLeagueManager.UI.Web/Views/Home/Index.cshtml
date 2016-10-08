@@ -1,9 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var appInsightsKey = System.Configuration.ConfigurationManager.AppSettings["AppInsightsKey"];
+}
+
+<!DOCTYPE html>
 <html ng-app="poker">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poker League Manager</title>
+    
     <style>
         /* This helps the ng-show/ng-hide animations start at the right place. */
         /* Since Angular has this but needs to load, this gives us the class early. */
@@ -11,10 +16,22 @@
             display: none !important;
         }
     </style>
+    
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;) i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
+        }({
+            instrumentationKey: "@appInsightsKey"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+    
     <!-- inject-vendor:css -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <!-- endinject -->
-
+    
     <!-- inject:css -->
     <link href="/css/Site.css" rel="stylesheet" />
     <link href="/css/Spinner.css" rel="stylesheet" />
@@ -23,42 +40,8 @@
     <!-- endinject -->
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" ng-link="['Home']">St James Poker</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a ng-link="['Home']">Home</a></li>
-                    <li><a ng-link="['Games']">Games</a></li>
-                    <li><a ng-link="['Stats']">Stats</a></li>
-                    <li><a ng-link="['POTY']">POTY</a></li>
-                    <li><a ng-link="['Videos']">Videos</a></li>
-                    <li><a ng-link="['Pictures']">Pictures</a></li>
-                    <li><a ng-link="['Rules']">Rules</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/Account/SignIn" id="loginLink">Sign in</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        
-        <poker-app></poker-app>
-        
-        <hr />
-        <footer>
-            <p>&copy; 2016 - Poker League Manager</p>
-        </footer>
-    </div>
-    
+    <poker-app></poker-app>
+
     <!-- inject-vendor:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/respond/dest/respond.src.js"></script>
@@ -68,7 +51,6 @@
     <script src="/bower_components/angular-animate/angular-animate.js"></script>
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <!-- endinject -->
-
     <!-- inject:js -->
     <script src="/js/module.js"></script>
     <script src="/components/pokerApp/pokerApp.component.js"></script>

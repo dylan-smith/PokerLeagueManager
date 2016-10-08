@@ -1,1 +1,35 @@
-﻿<ng-outlet></ng-outlet>
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ng-link="['Home']">St James Poker</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a ng-link="['Home']">Home</a></li>
+                <li><a ng-link="['Games']">Games</a></li>
+                <li><a ng-link="['Stats']">Stats</a></li>
+                <li><a ng-link="['POTY']">POTY</a></li>
+                <li><a ng-link="['Videos']">Videos</a></li>
+                <li><a ng-link="['Pictures']">Pictures</a></li>
+                <li><a ng-link="['Rules']">Rules</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Account/SignIn" id="loginLink">Sign in</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container body-content">
+
+    <ng-outlet></ng-outlet>
+
+    <hr />
+    <footer>
+        <p>&copy; 2016 - Poker League Manager</p>
+    </footer>
+</div>
