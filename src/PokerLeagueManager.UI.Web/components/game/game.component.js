@@ -30,7 +30,6 @@
         };
 
         vm.Expanded = false;
-        vm.ExpandedHeight = 0;
         vm.LoadingPlayers = false;
     }
 
