@@ -7,11 +7,11 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
     public class PublishEventFailedException : Exception
     {
         public PublishEventFailedException(IAggregateRoot aggRoot, ICommand c, Exception ex)
-            : base(CreateMessage(aggRoot, c, ex))
+            : base(CreateMessage(aggRoot, c), ex)
         {
         }
 
-        private static string CreateMessage(IAggregateRoot aggRoot, ICommand c, Exception ex)
+        private static string CreateMessage(IAggregateRoot aggRoot, ICommand c)
         {
             var msg = "The action you were trying to perform succeeded, however not all systems have been updated yet.";
             msg += Environment.NewLine;
@@ -19,8 +19,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
             msg += "Aggregate ID: " + aggRoot.AggregateId.ToString();
             msg += Environment.NewLine;
             msg += "Command ID: " + c.CommandId.ToString();
-            msg += Environment.NewLine;
-            msg += "Exception: " + ex.ToString();
 
             return msg;
         }
