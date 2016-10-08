@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 
@@ -6,11 +7,11 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class EventServiceProxyFactory : IEventServiceProxyFactory
     {
-        private IEventServiceProxy _proxy;
+        private IDictionary<string, IEventServiceProxy> _proxies;
 
-        public EventServiceProxyFactory(IEventServiceProxy proxy)
+        public EventServiceProxyFactory()
         {
-            _proxy = proxy;
+            _proxies = new Dictionary<string, IEventServiceProxy>();
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "EventServiceProxy doesn't have a Dispose method")]
@@ -21,12 +22,19 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 throw new ArgumentNullException("row");
             }
 
-            if (_proxy.ServiceUrl != (string)row["SubscriberUrl"])
-            {
-                _proxy.ServiceUrl = (string)row["SubscriberUrl"];
-            }
+            var subscriberUrl = (string)row["SubscriberUrl"];
 
-            return _proxy;
+            if (_proxies.ContainsKey(subscriberUrl))
+            {
+                return _proxies[subscriberUrl];
+            }
+            else
+            {
+                var proxy = new EventServiceProxy();
+                proxy.ServiceUrl = subscriberUrl;
+                _proxies.Add(subscriberUrl, proxy);
+                return proxy;
+            }
         }
     }
 }

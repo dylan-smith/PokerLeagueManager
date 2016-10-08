@@ -14,10 +14,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             if (!_hasBootstrapped)
             {
                 UnitySingleton.Container.RegisterType<ICommandHandlerFactory, CommandHandlerFactory>();
-                UnitySingleton.Container.RegisterType<IEventService, EventServiceProxy>();
                 UnitySingleton.Container.RegisterType<IEventRepository, EventRepository>();
-                UnitySingleton.Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>();
-                UnitySingleton.Container.RegisterType<IEventServiceProxy, EventServiceProxy>(new ContainerControlledLifetimeManager());
+                UnitySingleton.Container.RegisterType<IEventServiceProxyFactory, EventServiceProxyFactory>(new ContainerControlledLifetimeManager());
                 UnitySingleton.Container.RegisterType<ICommandRepository, CommandRepository>();
 
                 PokerLeagueManager.Common.Infrastructure.Bootstrapper.Bootstrap();

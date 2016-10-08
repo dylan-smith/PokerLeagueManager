@@ -9,21 +9,19 @@ namespace PokerLeagueManager.Infrastructure.Tests
     [TestClass]
     public class EventServiceProxyFactoryTests
     {
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Dont care in tests")]
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void NullDataRow()
         {
-            var sut = new EventServiceProxyFactory(new EventServiceProxy());
+            var sut = new EventServiceProxyFactory();
 
             sut.Create(null);
         }
 
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Dont care in tests")]
         [TestMethod]
         public void CreateWithValidDataRow()
         {
-            var sut = new EventServiceProxyFactory(new EventServiceProxy());
+            var sut = new EventServiceProxyFactory();
             var sampleTable = GenerateSampleDataTable();
 
             var subscriberId = Guid.NewGuid();
