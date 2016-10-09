@@ -119,12 +119,12 @@ gulp.task('vendorcss', function () {
  * @return {Stream}
  */
 gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
-    log('Rev\'ing files and building index.html');
+    log('Rev\'ing files and building index.cshtml');
 
     var minified = paths.build + '**/*.min.*';
     var index = paths.html;
     var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-    var indexFilter = plug.filter([paths.html]);
+    var indexFilter = plug.filter(paths.html);
 
     return gulp.src([].concat(minified, index)) // add all built min files and index.html
                .pipe(minFilter) // filter the stream to minified css and js
@@ -152,7 +152,8 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
         var pathGlob = paths.build + path;
         var options = {
             ignorePath: paths.build.substring(1),
-            read: false
+            read: false,
+            relative: true
         };
         if (name) {
             options.name = name;

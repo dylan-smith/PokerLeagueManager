@@ -17,7 +17,7 @@ namespace PokerLeagueManager.UI.Web.Controllers
             }
             else
             {
-                return View();
+                return View("~/Index.cshtml");
             }
         }
     }

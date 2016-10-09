@@ -134,11 +134,11 @@
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="images\poker-cards-icon.jpg" />
+    <None Include="Index.cshtml" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="gulp.config.json" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
