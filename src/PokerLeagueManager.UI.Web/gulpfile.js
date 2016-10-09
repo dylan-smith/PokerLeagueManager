@@ -124,7 +124,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
     var minified = paths.build + '**/*.min.*';
     var index = paths.html;
     var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-    var indexFilter = plug.filter(paths.html);
+    var indexFilter = plug.filter([paths.html]);
 
     return gulp.src([].concat(minified, index)) // add all built min files and index.html
                .pipe(minFilter) // filter the stream to minified css and js
@@ -143,7 +143,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
                .pipe(indexFilter.restore()) // remove filter, back to original stream
 
                // replace the files referenced in index.html with the rev'd files
-               .pipe(plug.revReplace()) // Substitute in new filenames
+               .pipe(plug.revReplace({ replaceInExtensions: ['.cshtml'] })) // Substitute in new filenames
                .pipe(gulp.dest(paths.build)) // write the index.html file changes
                .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
                .pipe(gulp.dest(paths.build)); // write the manifest
@@ -152,8 +152,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
         var pathGlob = paths.build + path;
         var options = {
             ignorePath: paths.build.substring(1),
-            read: false,
-            relative: true
+            read: false
         };
         if (name) {
             options.name = name;
