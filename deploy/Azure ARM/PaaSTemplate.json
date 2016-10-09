@@ -141,9 +141,13 @@
           "apiVersion": "2015-08-01",
           "type": "config",
           "name": "appsettings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]",
+            "[variables('commandAppInsightsName')]"
+          ],
           "properties": {
-            "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]"
+            "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]",
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('commandAppInsightsName')), '2014-04-01').InstrumentationKey]"
           }
         },
         {
@@ -218,6 +222,18 @@
         {
           "apiVersion": "2015-08-01",
           "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]",
+            "[variables('queryAppInsightsName')]"
+          ],
+          "properties": {
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('queryAppInsightsName')), '2014-04-01').InstrumentationKey]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
           "name": "logs",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
           "properties": {
@@ -287,6 +303,18 @@
         {
           "apiVersion": "2015-08-01",
           "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]",
+            "[variables('eventAppInsightsName')]"
+          ],
+          "properties": {
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('eventAppInsightsName')), '2014-04-01').InstrumentationKey]"
+          }
+        },
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
           "name": "logs",
           "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
           "properties": {
@@ -341,6 +369,19 @@
         "serverFarmId": "[variables('webHostingPlanName')]"
       },
       "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "type": "config",
+          "name": "appsettings",
+          "dependsOn": [
+            "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
+            "[variables('webAppInsightsName')]"
+          ],
+          "properties": {
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('webAppInsightsName')), '2014-04-01').InstrumentationKey]",
+            "Environment": "PROD"
+          }
+        },
         {
           "apiVersion": "2015-08-01",
           "type": "config",
