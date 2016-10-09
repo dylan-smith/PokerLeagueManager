@@ -1,5 +1,5 @@
 ﻿{
-  "html": "Views/Home/Index.cshtml",
+  "html": "Index.cshtml",
   "htmltemplates": "./components/**/*.html",
   "vendorjs": [
     "./bower_components/jquery/dist/jquery.min.js",
