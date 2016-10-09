@@ -8,6 +8,8 @@ namespace PokerLeagueManager.Utilities
 {
     public static class GenerateSampleData
     {
+        private static Random _rnd = new Random();
+
         public static void Generate(string[] args)
         {
             if (args.Length != 3)
@@ -36,14 +38,13 @@ namespace PokerLeagueManager.Utilities
         private static IEnumerable<EnterGameResultsCommand> GenerateSampleDataCommands(int numberOfGames)
         {
             var results = new List<EnterGameResultsCommand>();
-            var r = new Random();
 
             for (int g = 0; g < numberOfGames; g++)
             {
                 var newGame = new EnterGameResultsCommand();
                 newGame.GameDate = GetUniqueDate(results);
 
-                var numPlayers = r.Next(5, 15);
+                var numPlayers = _rnd.Next(5, 15);
                 var players = new List<EnterGameResultsCommand.GamePlayer>();
                 var totalPot = 0;
 
@@ -170,8 +171,7 @@ namespace PokerLeagueManager.Utilities
 
         private static int GenerateRandomInteger(int max)
         {
-            var rnd = new Random();
-            return rnd.Next(max);
+            return _rnd.Next(max);
         }
     }
 }
