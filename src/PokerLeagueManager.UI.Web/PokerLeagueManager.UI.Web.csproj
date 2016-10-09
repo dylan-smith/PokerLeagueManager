@@ -138,7 +138,6 @@
     <Content Include="bower.json" />
     <Content Include="package.json" />
     <Content Include="gulp.config.json" />
-    <Content Include="Views\web.config" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
