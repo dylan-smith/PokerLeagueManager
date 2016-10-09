@@ -124,7 +124,7 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
     var minified = paths.build + '**/*.min.*';
     var index = paths.html;
     var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
-    var indexFilter = plug.filter(['index.html']);
+    var indexFilter = plug.filter([paths.html]);
 
     return gulp.src([].concat(minified, index)) // add all built min files and index.html
                .pipe(minFilter) // filter the stream to minified css and js
