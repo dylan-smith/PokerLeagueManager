@@ -379,7 +379,9 @@
           ],
           "properties": {
             "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('webAppInsightsName')), '2014-04-01').InstrumentationKey]",
-            "Environment": "PROD"
+            "Environment": "PROD",
+            "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]",
+            "CommandServiceUrl": "[concat('http://', variables('commandApiSiteName'), '.azurewebsites.net')]"
           }
         },
         {
