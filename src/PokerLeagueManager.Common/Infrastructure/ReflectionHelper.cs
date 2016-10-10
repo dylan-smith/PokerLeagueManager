@@ -65,28 +65,10 @@ namespace PokerLeagueManager.Common.Infrastructure
 
                 if (enumValue != null)
                 {
-                    propString = "[";
-
-                    foreach (var enumItem in enumValue)
-                    {
-                        if (enumItem != null)
-                        {
-                            propString += "{ ";
-                            var enumProps = enumItem.GetPropertiesDictionary();
-
-                            foreach (var enumProp in enumProps)
-                            {
-                                propString += $"{enumProp.Key}: {enumProp.Value},\n";
-                            }
-
-                            propString += "}, \n";
-                        }
-                    }
-
-                    propString += "]";
+                    propString = Newtonsoft.Json.JsonConvert.SerializeObject(propValue);
                 }
 
-                result.Add(prop.Name, prop.GetValue(target)?.ToString() ?? string.Empty);
+                result.Add(prop.Name, propString);
             }
 
             return result;
