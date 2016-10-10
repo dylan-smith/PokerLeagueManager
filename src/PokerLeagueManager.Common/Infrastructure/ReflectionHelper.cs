@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -58,6 +59,27 @@ namespace PokerLeagueManager.Common.Infrastructure
 
             foreach (var prop in target.GetType().GetProperties())
             {
+                var propValue = prop.GetValue(target);
+                var propString = propValue.ToString();
+                var enumValue = propValue as IEnumerable;
+
+                if (enumValue != null)
+                {
+                    propString = $"{prop.Name}: [";
+
+                    foreach (var enumItem in enumValue)
+                    {
+                        var enumProps = enumItem.GetPropertiesDictionary();
+
+                        foreach (var enumProp in enumProps)
+                        {
+                            propString += $"{enumProp.Key}: {enumProp.Value},\n";
+                        }
+                    }
+
+                    propString += "]";
+                }
+
                 result.Add(prop.Name, prop.GetValue(target)?.ToString() ?? string.Empty);
             }
 
