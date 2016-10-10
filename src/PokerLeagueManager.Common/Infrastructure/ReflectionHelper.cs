@@ -65,7 +65,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
                 if (enumValue != null)
                 {
-                    propString = Newtonsoft.Json.JsonConvert.SerializeObject(propValue);
+                    propString = Newtonsoft.Json.JsonConvert.SerializeObject(propValue, Newtonsoft.Json.Formatting.Indented);
                 }
 
                 result.Add(prop.Name, propString);

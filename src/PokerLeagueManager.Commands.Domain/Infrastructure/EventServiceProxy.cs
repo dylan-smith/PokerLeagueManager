@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Configuration;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
@@ -37,6 +37,15 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         public void HandleEvent(IEvent e)
         {
             var actionName = GetActionName(e);
+
+            var aiData = new Dictionary<string, string>();
+            aiData.Add("EventName", e.GetType().ToString());
+            aiData.Add("Subscriber", ServiceUrl);
+            aiData.Add("EventData", Newtonsoft.Json.JsonConvert.SerializeObject(e, Newtonsoft.Json.Formatting.Indented));
+
+            var ai = new TelemetryClient();
+            ai.TrackEvent("EventPublished", aiData);
+
             var task = _eventClient.PostAsJsonAsync($"/{actionName}", e);
             task.Wait();
             var response = task.Result;
