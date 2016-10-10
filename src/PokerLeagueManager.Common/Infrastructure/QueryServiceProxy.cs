@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
 
 namespace PokerLeagueManager.Common.Infrastructure
 {
@@ -23,6 +25,14 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
+            var aiData = new Dictionary<string, string>();
+            aiData.Add("QueryName", query.GetType().ToString());
+            aiData.Add("QueryService", _queryClient.BaseAddress.AbsoluteUri);
+            aiData.Add("QueryData", Newtonsoft.Json.JsonConvert.SerializeObject(query, Newtonsoft.Json.Formatting.Indented));
+
+            var ai = new TelemetryClient();
+            ai.TrackEvent("QueryExecuted", aiData);
+
             var actionName = GetActionName(query);
             var task = _queryClient.PostAsJsonAsync($"/{actionName}", query);
             task.Wait();
