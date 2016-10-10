@@ -91,7 +91,5 @@ namespace PokerLeagueManager.Common.Infrastructure
 
             return result;
         }
-
-        public
     }
 }
