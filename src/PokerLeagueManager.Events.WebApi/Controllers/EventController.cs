@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Microsoft.ApplicationInsights;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -26,6 +27,9 @@ namespace PokerLeagueManager.Events.WebApi.Controllers
             {
                 e = (IEvent)JsonConvert.DeserializeObject(jsonbody.ToString(), eventType);
             }
+
+            var ai = new TelemetryClient();
+            ai.TrackEvent(eventType.Name, e.GetPropertiesDictionary());
 
             HandleEvent(e);
 

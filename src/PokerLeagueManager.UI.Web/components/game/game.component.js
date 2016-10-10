@@ -23,6 +23,10 @@
                 } else {
                     vm.Expanded = true;
                 }
+
+                appInsights.trackEvent("GameExpanded",
+                    { Game: vm.game.GameId, GameDate: vm.game.GameDate }
+                );
             }
             else {
                 vm.Expanded = false;

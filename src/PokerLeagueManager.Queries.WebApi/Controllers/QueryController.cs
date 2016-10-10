@@ -9,6 +9,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Microsoft.ApplicationInsights;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -40,6 +41,9 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             {
                 query = (IQuery)JsonConvert.DeserializeObject(jsonbody.ToString(), queryType);
             }
+
+            var ai = new TelemetryClient();
+            ai.TrackEvent(queryType.Name, query.GetPropertiesDictionary());
 
             var result = ExecuteQuery(query, queryReturnType);
 

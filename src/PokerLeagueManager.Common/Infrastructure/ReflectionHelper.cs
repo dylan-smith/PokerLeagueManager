@@ -51,5 +51,17 @@ namespace PokerLeagueManager.Common.Infrastructure
                 return mi.First<MethodInfo>();
             }
         }
+
+        public static IDictionary<string, string> GetPropertiesDictionary(this object target)
+        {
+            var result = new Dictionary<string, string>();
+
+            foreach (var prop in target.GetType().GetProperties())
+            {
+                result.Add(prop.Name, prop.GetValue(target)?.ToString() ?? string.Empty);
+            }
+
+            return result;
+        }
     }
 }
