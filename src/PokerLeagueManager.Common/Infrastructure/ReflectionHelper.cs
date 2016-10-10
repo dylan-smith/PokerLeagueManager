@@ -60,20 +60,26 @@ namespace PokerLeagueManager.Common.Infrastructure
             foreach (var prop in target.GetType().GetProperties())
             {
                 var propValue = prop.GetValue(target);
-                var propString = propValue.ToString();
+                var propString = propValue?.ToString() ?? string.Empty;
                 var enumValue = propValue as IEnumerable;
 
                 if (enumValue != null)
                 {
-                    propString = $"{prop.Name}: [";
+                    propString = "[";
 
                     foreach (var enumItem in enumValue)
                     {
-                        var enumProps = enumItem.GetPropertiesDictionary();
-
-                        foreach (var enumProp in enumProps)
+                        if (enumItem != null)
                         {
-                            propString += $"{enumProp.Key}: {enumProp.Value},\n";
+                            propString += "{ ";
+                            var enumProps = enumItem.GetPropertiesDictionary();
+
+                            foreach (var enumProp in enumProps)
+                            {
+                                propString += $"{enumProp.Key}: {enumProp.Value},\n";
+                            }
+
+                            propString += "}, \n";
                         }
                     }
 
@@ -85,5 +91,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
             return result;
         }
+
+        public
     }
 }
