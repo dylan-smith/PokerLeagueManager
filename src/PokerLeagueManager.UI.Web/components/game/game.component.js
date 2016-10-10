@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    function gameController($http, QUERY_URL, $timeout) {
+    function gameController($http, QUERY_URL, $timeout, applicationInsightsService) {
         /*jshint validthis: true */
         var vm = this;
 
@@ -24,7 +24,7 @@
                     vm.Expanded = true;
                 }
 
-                appInsights.trackEvent("GameExpanded",
+                applicationInsightsService.trackEvent('GameExpanded',
                     { Game: vm.game.GameId, GameDate: vm.game.GameDate }
                 );
             }
@@ -45,6 +45,6 @@
             game: '<',
         },
         controllerAs: 'vm',
-        controller: ['$http', 'QUERY_URL', '$timeout', gameController]
+        controller: ['$http', 'QUERY_URL', '$timeout', 'applicationInsightsService', gameController]
     });
 }());
