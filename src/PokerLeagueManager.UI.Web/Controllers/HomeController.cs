@@ -11,7 +11,7 @@ namespace PokerLeagueManager.UI.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (ConfigurationManager.AppSettings["Environment"] == "PROD")
+            if (ConfigurationManager.AppSettings["Environment"] != "DEV")
             {
                 return View("~/build/Index.cshtml");
             }
