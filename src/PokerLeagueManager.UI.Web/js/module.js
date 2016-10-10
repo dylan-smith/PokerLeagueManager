@@ -10,6 +10,7 @@
            .constant('QUERY_URL', pokerConfig.queryServiceUrl)
            .constant('COMMAND_URL', pokerConfig.commandServiceUrl)
            .config(function (applicationInsightsServiceProvider) {
-               applicationInsightsServiceProvider.configure(pokerConfig.appInsightsKey);
+               var options = { applicationName: 'pokerApp' };
+               applicationInsightsServiceProvider.configure(pokerConfig.appInsightsKey, options);
            });
 }());
