@@ -22,7 +22,6 @@
     "jquery": "^3.1.1",
     "bootstrap": "^3.3.7",
     "angular-animate": "^1.5.8",
-    "angular-bootstrap": "^2.1.4",
-    "angular-applicationinsights": "^0.2.8"
+    "angular-bootstrap": "^2.1.4"
   }
 }

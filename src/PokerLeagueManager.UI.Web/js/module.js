@@ -4,13 +4,8 @@
     /*global pokerConfig */
     var pokerModule = angular.module('poker', ['ngComponentRouter',
                                                'ngAnimate',
-                                               'ui.bootstrap',
-                                               'ApplicationInsightsModule'])
+                                               'ui.bootstrap'])
            .value('$routerRootComponent', 'pokerApp')
            .constant('QUERY_URL', pokerConfig.queryServiceUrl)
-           .constant('COMMAND_URL', pokerConfig.commandServiceUrl)
-           .config(function (applicationInsightsServiceProvider) {
-               var options = { applicationName: 'pokerApp' };
-               applicationInsightsServiceProvider.configure(pokerConfig.appInsightsKey, options);
-           });
+           .constant('COMMAND_URL', pokerConfig.commandServiceUrl);
 }());
