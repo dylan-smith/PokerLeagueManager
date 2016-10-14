@@ -25,7 +25,7 @@
                 }
 
                 /*global appInsights */
-                if (appInsights) {
+                if (window.hasOwnProperty('appInsights')) {
                     appInsights.trackEvent('GameExpanded',
                         { Game: vm.game.GameId, GameDate: vm.game.GameDate }
                     );

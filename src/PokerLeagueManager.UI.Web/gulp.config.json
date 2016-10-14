@@ -8,7 +8,9 @@
     "./bower_components/angular/angular.min.js",
     "./bower_components/angular-component-router/angular_1_router.js",
     "./bower_components/angular-animate/angular-animate.js",
-    "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"
+    "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+    "./bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js",
+    "./bower_components/angular-media-queries/match-media.js"
   ],
   "vendorcss": [
     "./bower_components/bootstrap/dist/css/bootstrap.min.css"
