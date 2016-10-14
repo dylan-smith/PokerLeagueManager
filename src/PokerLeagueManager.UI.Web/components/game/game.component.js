@@ -25,9 +25,11 @@
                 }
 
                 /*global appInsights */
-                appInsights.trackEvent('GameExpanded',
-                    { Game: vm.game.GameId, GameDate: vm.game.GameDate }
-                );
+                if (appInsights) {
+                    appInsights.trackEvent('GameExpanded',
+                        { Game: vm.game.GameId, GameDate: vm.game.GameDate }
+                    );
+                }
             }
             else {
                 vm.Expanded = false;
