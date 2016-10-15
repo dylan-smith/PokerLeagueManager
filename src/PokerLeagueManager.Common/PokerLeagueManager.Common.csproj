@@ -118,6 +118,7 @@
     <Compile Include="Infrastructure\IEventService.cs" />
     <Compile Include="Infrastructure\ReflectionHelper.cs" />
     <Compile Include="Infrastructure\SqlServerDatabaseLayer.cs" />
+    <Compile Include="Infrastructure\SummaryAttribute.cs" />
     <Compile Include="Infrastructure\UnitySingleton.cs" />
     <Compile Include="Infrastructure\XmlReaderFacade.cs" />
     <Compile Include="Infrastructure\IQueryService.cs" />

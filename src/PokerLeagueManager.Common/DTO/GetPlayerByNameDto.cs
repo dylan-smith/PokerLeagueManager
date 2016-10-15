@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel;
+using System.Runtime.Serialization;
 using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Common.DTO
@@ -10,6 +11,7 @@ namespace PokerLeagueManager.Common.DTO
         public string PlayerName { get; set; }
 
         [DataMember]
+        [Description("The number of games this player has played in")]
         public int GameCount { get; set; }
     }
 }

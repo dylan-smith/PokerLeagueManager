@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using PokerLeagueManager.Common.Infrastructure;
 
@@ -8,6 +9,7 @@ namespace PokerLeagueManager.Common.DTO
     public class GetGameCountByDateDto : BaseDataTransferObject
     {
         [DataMember]
+        [Description("Guid that uniquely identifies the game")]
         public Guid GameId { get; set; }
 
         [DataMember]
@@ -17,6 +19,7 @@ namespace PokerLeagueManager.Common.DTO
         public int GameMonth { get; set; }
 
         [DataMember]
+        [Description("")]
         public int GameDay { get; set; }
     }
 }

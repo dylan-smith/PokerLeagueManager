@@ -1,5 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
 using System.Web.Http.Description;
+using PokerLeagueManager.Common.Infrastructure;
 using Swashbuckle.Swagger;
 
 namespace PokerLeagueManager.Queries.WebApi
@@ -20,95 +26,210 @@ namespace PokerLeagueManager.Queries.WebApi
             queryTag.description = "All the queries your heart desires!";
             swaggerDoc.tags.Add(queryTag);
 
+            var queryTypes = new List<Type>();
+            queryTypes.AddRange(typeof(BaseQuery).Assembly.GetTypes());
+            queryTypes = queryTypes.Where(t => t.IsClass && t.BaseType == typeof(BaseQuery)).ToList();
+
+            swaggerDoc.paths = new Dictionary<string, PathItem>();
+
+            foreach (var query in queryTypes)
+            {
+                var pathItem = GeneratePathItem(query);
+                var queryAction = query.Name.Substring(0, query.Name.Length - "Query".Length);
+                swaggerDoc.paths.Add($"/{queryAction}", pathItem);
+            }
+        }
+
+        private PathItem GeneratePathItem(Type query)
+        {
             var pathItem = new PathItem();
+
             var postOperation = new Operation();
             postOperation.tags = new List<string>();
             postOperation.tags.Add("Queries");
-            postOperation.operationId = "GetGamesList";
-            postOperation.summary = "Gets a list of all games for display in a list";
 
-            var skipSchema = new Schema();
-            skipSchema.type = "integer";
-            skipSchema.description = "Used in combination with Take for paging the results.  Skip: 20, Take: 10 will get items 21-30";
-            skipSchema.@default = 0;
+            postOperation.operationId = query.Name;
 
-            var takeSchema = new Schema();
-            takeSchema.type = "integer";
-            takeSchema.description = "Used in combination with Skip for paging the results.  Skip: 20, Take: 10 will get items 21-30";
+            var queryDesc = query.GetCustomAttribute<DescriptionAttribute>(false);
+            var querySummary = query.GetCustomAttribute<SummaryAttribute>(false);
 
-            var skipParam = new Parameter();
-            skipParam.name = "Skip";
-            skipParam.description = "Used in combination with Take for paging the results.  Skip: 20, Take: 10 will get items 21-30";
-            skipParam.@in = "body";
-            skipParam.type = "integer";
-            skipParam.@default = 0;
-            skipParam.required = false;
+            if (queryDesc != null)
+            {
+                postOperation.description = queryDesc.Description;
+            }
 
-            var takeParam = new Parameter();
-            takeParam.name = "Take";
-            takeParam.description = "Used in combination with Skip for paging the results.  Skip: 20, Take: 10 will get items 21-30";
-            takeParam.@in = "body";
-            takeParam.type = "integer";
-            takeParam.required = false;
+            if (querySummary != null)
+            {
+                postOperation.summary = querySummary.Summary;
+            }
 
-            var querySchema = new Schema();
-            querySchema.type = "object";
-            querySchema.description = "Optional parameters for this query";
-            querySchema.properties = new Dictionary<string, Schema>();
-            querySchema.properties.Add("Skip", skipSchema);
-            querySchema.properties.Add("Take", takeSchema);
+            var queryParam = GenerateParameter(query);
+            if (queryParam.schema.properties.Count > 0)
+            {
+                postOperation.parameters = new List<Parameter>();
+                postOperation.parameters.Add(GenerateParameter(query));
+            }
 
-            var queryParam = new Parameter();
-            queryParam.name = "GetGamesListQuery";
-            queryParam.@in = "body";
-            queryParam.description = "Optional parameters for this query";
-            queryParam.schema = querySchema;
-            queryParam.required = false;
+            postOperation.responses = new Dictionary<string, Response>();
+            var queryResponse = GenerateResponse(query);
+            queryResponse.description = "Success";
+            postOperation.responses.Add("200", queryResponse);
 
-            postOperation.parameters = new List<Parameter>();
-            postOperation.parameters.Add(queryParam);
+            pathItem.post = postOperation;
 
-            var gameIdProp = new Schema();
-            gameIdProp.type = "string";
-            gameIdProp.format = "uuid";
-            gameIdProp.description = "GUID used to uniquely identify the game";
+            return pathItem;
+        }
 
-            var gameDateProp = new Schema();
-            gameDateProp.type = "string";
-            gameDateProp.format = "date";
-            gameDateProp.description = "The date the game was played";
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "Should never happen")]
+        private Response GenerateResponse(Type query)
+        {
+            var queryReturnType = GetQueryReturnType(query);
 
-            var winnerProp = new Schema();
-            winnerProp.type = "string";
-            winnerProp.description = "The player who won the game";
+            if (typeof(IDataTransferObject).IsAssignableFrom(queryReturnType))
+            {
+                return GenerateDtoResponse(queryReturnType);
+            }
 
-            var winningsProp = new Schema();
-            winningsProp.type = "integer";
-            winningsProp.description = "The total amount in dollars that the winner received";
+            if (typeof(IEnumerable<IDataTransferObject>).IsAssignableFrom(queryReturnType))
+            {
+                return GenerateListResponse(queryReturnType);
+            }
+
+            if (typeof(int) == queryReturnType)
+            {
+                return GenerateIntResponse();
+            }
+
+            throw new Exception("Unexpected return type from query");
+        }
+
+        private Response GenerateIntResponse()
+        {
+            var responseSchema = new Schema();
+            responseSchema.type = "integer";
+
+            var response = new Response();
+            response.schema = responseSchema;
+
+            return response;
+        }
+
+        private Response GenerateDtoResponse(Type queryReturnType)
+        {
+            var dtoSchema = new Schema();
+            dtoSchema.type = "object";
+            dtoSchema.properties = new Dictionary<string, Schema>();
+            dtoSchema.title = queryReturnType.Name;
+
+            foreach (var prop in queryReturnType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
+            {
+                dtoSchema.properties.Add(prop.Name, GenerateSchema(prop));
+            }
+
+            var response = new Response();
+            response.schema = dtoSchema;
+
+            return response;
+        }
+
+        private Response GenerateListResponse(Type queryReturnType)
+        {
+            var dtoType = queryReturnType.GenericTypeArguments[0];
 
             var dtoSchema = new Schema();
             dtoSchema.type = "object";
             dtoSchema.properties = new Dictionary<string, Schema>();
-            dtoSchema.properties.Add("GameId", gameIdProp);
-            dtoSchema.properties.Add("GameDate", gameDateProp);
-            dtoSchema.properties.Add("Winner", winnerProp);
-            dtoSchema.properties.Add("Winnings", winningsProp);
+            dtoSchema.title = dtoType.Name;
+
+            foreach (var prop in dtoType.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public))
+            {
+                dtoSchema.properties.Add(prop.Name, GenerateSchema(prop));
+            }
 
             var responseSchema = new Schema();
             responseSchema.type = "array";
             responseSchema.items = dtoSchema;
+            responseSchema.title = $"Array of {dtoType.Name}";
 
             var response = new Response();
-            response.description = "List of games";
             response.schema = responseSchema;
 
-            postOperation.responses = new Dictionary<string, Response>();
-            postOperation.responses.Add("200", response);
+            return response;
+        }
 
-            pathItem.post = postOperation;
+        private Parameter GenerateParameter(Type query)
+        {
+            var queryProperties = query.GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public);
 
-            swaggerDoc.paths = new Dictionary<string, PathItem>();
-            swaggerDoc.paths.Add("/GetGamesList", pathItem);
+            var querySchema = new Schema();
+            querySchema.type = "object";
+            querySchema.properties = new Dictionary<string, Schema>();
+            querySchema.title = query.Name;
+
+            foreach (var prop in queryProperties)
+            {
+                querySchema.properties.Add(prop.Name, GenerateSchema(prop));
+            }
+
+            var queryParam = new Parameter();
+            queryParam.name = query.Name;
+            queryParam.@in = "body";
+            queryParam.description = "Arguments for the query";
+            queryParam.schema = querySchema;
+
+            return queryParam;
+        }
+
+        private Schema GenerateSchema(PropertyInfo prop)
+        {
+            var propDesc = prop.GetCustomAttribute<DescriptionAttribute>(false);
+
+            var propSchema = new Schema();
+            propSchema.type = GetSwaggerType(prop.PropertyType);
+            propSchema.format = GetSwaggerFormat(prop.PropertyType);
+            propSchema.description = propDesc?.Description;
+
+            return propSchema;
+        }
+
+        private string GetSwaggerType(Type propertyType)
+        {
+            var mapping = new Dictionary<Type, string>()
+            {
+                { typeof(int), "integer" },
+                { typeof(long), "integer" },
+                { typeof(float), "number" },
+                { typeof(double), "number" },
+                { typeof(string), "string" },
+                { typeof(DateTime), "string" },
+                { typeof(Guid), "string" },
+                { typeof(bool), "boolean" }
+            };
+
+            return mapping[propertyType];
+        }
+
+        private string GetSwaggerFormat(Type propertyType)
+        {
+            var mapping = new Dictionary<Type, string>()
+            {
+                { typeof(int), string.Empty },
+                { typeof(long), string.Empty },
+                { typeof(float), string.Empty },
+                { typeof(double), string.Empty },
+                { typeof(string), string.Empty },
+                { typeof(DateTime), "date" },
+                { typeof(Guid), "uuid" },
+                { typeof(bool), string.Empty }
+            };
+
+            return mapping[propertyType];
+        }
+
+        private Type GetQueryReturnType(Type queryType)
+        {
+            var queryInterface = queryType.GetInterfaces().Single(i => i.IsGenericType && i.Name.StartsWith("IQuery"));
+            return queryInterface.GenericTypeArguments[0];
         }
     }
 }
