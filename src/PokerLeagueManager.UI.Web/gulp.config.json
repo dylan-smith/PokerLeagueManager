@@ -21,9 +21,7 @@
     "./directives/**/*.css"
   ],
   "js": [
-    "./js/**/*.js",
-    "./components/**/*.js",
-    "./directives/**/*.js"
+    "./build/**/*.js"
   ],
   "build": "./build/",
   "intermediateFiles": [

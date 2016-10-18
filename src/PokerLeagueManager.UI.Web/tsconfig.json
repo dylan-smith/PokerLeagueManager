@@ -1,0 +1,12 @@
+﻿{
+  "files": [
+    "ts/*.ts",
+    "components/**/*.ts",
+    "model/*.ts"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "es5",
+    "module": "es6"
+  }
+}

@@ -1,7 +1,6 @@
 ﻿/* jshint camelcase:false */
 var gulp = require('gulp');
 var del = require('del');
-var merge = require('merge-stream');
 var paths = require('./gulp.config.json');
 var plug = require('gulp-load-plugins')();
 
@@ -11,19 +10,6 @@ var log = plug.util.log;
  * List the available gulp tasks
  */
 gulp.task('help', plug.taskListing);
-
-/**
- * Lint the code
- * @return {Stream}
- */
-gulp.task('analyze', function () {
-    log('Analyzing source with JSHint, JSCS');
-
-    var jshint = analyzejshint(paths.js);
-    var jscs = analyzejscs(paths.js);
-
-    return merge(jshint, jscs);
-});
 
 /**
  * Create $templateCache from the html templates
@@ -48,12 +34,10 @@ gulp.task('templatecache', function () {
  * Minify and bundle the app's JavaScript
  * @return {Stream}
  */
-gulp.task('js', ['analyze', 'templatecache'], function () {
+gulp.task('js', ['templatecache', 'typescript'], function () {
     log('Bundling, minifying, and copying the app\'s JavaScript');
 
-    var source = [].concat(paths.js, paths.build + 'templates.js');
-
-    return gulp.src(source)
+    return gulp.src(paths.js)
                .pipe(plug.concat('pokerApp.min.js'))
                .pipe(plug.ngAnnotate({
                    add: true,
@@ -68,10 +52,24 @@ gulp.task('js', ['analyze', 'templatecache'], function () {
 });
 
 /**
+ * Lint and transpile the Typescript
+ * @return {Stream}
+ */
+gulp.task("typescript", function () {
+    var tsProject = plug.typescript.createProject("tsconfig.json");
+
+    return tsProject.src()
+        .pipe(plug.tslint({ formatter: "verbose" }))
+        .pipe(plug.tslint.report())
+        .pipe(tsProject())
+        .js.pipe(gulp.dest(paths.build));
+});
+
+/**
  * Copy the Vendor JavaScript
  * @return {Stream}
  */
-gulp.task('vendorjs', function () {
+gulp.task('vendorjs', ['js'], function () {
     log('Bundling, minifying, and copying the Vendor JavaScript');
 
     return gulp.src(paths.vendorjs)
@@ -118,7 +116,7 @@ gulp.task('vendorcss', function () {
  * rev, but no map
  * @return {Stream}
  */
-gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
+gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
     log('Rev\'ing files and building index.cshtml');
 
     var minified = paths.build + '**/*.min.*';
@@ -159,14 +157,6 @@ gulp.task('rev-and-inject', ['js', 'vendorjs', 'css', 'vendorcss'], function () 
         }
         return plug.inject(gulp.src(pathGlob), options);
     }
-});
-
-/**
- * Build the optimized app
- * @return {Stream}
- */
-gulp.task('build', ['rev-and-inject'], function () {
-    log('Building the optimized app');
 });
 
 gulp.task('cleanIntermediates', function (cb) {
@@ -214,33 +204,6 @@ gulp.task('watch', function () {
 });
 
 ////////////////
-
-/**
- * Execute JSHint on given source files
- * @param  {Array} sources
- * @param  {String} overrideRcFile
- * @return {Stream}
- */
-function analyzejshint(sources, overrideRcFile) {
-    var jshintrcFile = overrideRcFile || './.jshintrc';
-    log('Running JSHint');
-    log(sources);
-    return gulp.src(sources)
-               .pipe(plug.jshint(jshintrcFile))
-               .pipe(plug.jshint.reporter('jshint-stylish'));
-}
-
-/**
- * Execute JSCS on given source files
- * @param  {Array} sources
- * @return {Stream}
- */
-function analyzejscs(sources) {
-    log('Running JSCS');
-    return gulp.src(sources)
-               .pipe(plug.jscs('./.jscsrc'))
-               .pipe(plug.jscsStylish());
-}
 
 /**
  * Formatter for bytediff to display the size changes after processing
