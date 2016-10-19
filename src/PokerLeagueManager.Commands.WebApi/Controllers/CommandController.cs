@@ -54,7 +54,7 @@ namespace PokerLeagueManager.Commands.WebApi.Controllers
 
             assemblyTypes.AddRange(typeof(BaseCommand).Assembly.GetTypes());
 
-            return assemblyTypes.Single(t => t.IsClass && t.Name == $"{commandName}Command");
+            return assemblyTypes.Single(t => t.IsClass && t.Name.ToLower() == $"{commandName}Command".ToLower());
         }
     }
 }
