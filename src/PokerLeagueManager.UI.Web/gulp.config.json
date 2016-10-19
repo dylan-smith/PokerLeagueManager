@@ -21,7 +21,7 @@
     "./directives/**/*.css"
   ],
   "js": [
-    "./build/ts/**/*.js", // This is needed to make sure module.js shows up first in the concat file
+    "./build/ts/**/*.js",
     "./build/**/*.js"
   ],
   "build": "./build/",
