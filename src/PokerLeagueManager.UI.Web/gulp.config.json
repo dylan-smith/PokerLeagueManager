@@ -21,16 +21,18 @@
     "./directives/**/*.css"
   ],
   "js": [
-    "./build/ts/**/*.js",
-    "./build/**/*.js"
+    "./tsbuild/ts/module.js",
+    "./tsbuild/**/*.js"
   ],
   "build": "./build/",
+  "tsbuild": "./tsbuild/",
   "intermediateFiles": [
     "./build/pokerApp.min.css",
     "./build/pokerApp.min.js",
     "./build/vendor.min.css",
     "./build/vendor.min.js",
     "./build/rev-manifest.json",
-    "./build/templates.js"
+    "./build/templates.js",
+    "./tsbuild"
   ]
 }

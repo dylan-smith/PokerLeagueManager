@@ -62,7 +62,7 @@ gulp.task("typescript", function () {
         .pipe(plug.tslint({ formatter: "verbose" }))
         .pipe(plug.tslint.report())
         .pipe(tsProject())
-        .js.pipe(gulp.dest(paths.build));
+        .js.pipe(gulp.dest(paths.tsbuild));
 });
 
 /**
