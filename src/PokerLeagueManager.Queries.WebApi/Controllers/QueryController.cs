@@ -111,7 +111,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
 
             assemblyTypes.AddRange(typeof(BaseQuery).Assembly.GetTypes());
 
-            return assemblyTypes.Single(t => t.IsClass && t.Name == $"{queryName}Query");
+            return assemblyTypes.Single(t => t.IsClass && t.Name.ToLower() == $"{queryName}Query".ToLower());
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Called via reflection")]
