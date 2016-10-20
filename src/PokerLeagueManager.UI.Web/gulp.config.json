@@ -22,7 +22,8 @@
   ],
   "js": [
     "./tsbuild/ts/module.js",
-    "./tsbuild/**/*.js"
+    "./tsbuild/**/*.js",
+    "./build/**/*.js"
   ],
   "build": "./build/",
   "tsbuild": "./tsbuild/",
@@ -32,7 +33,6 @@
     "./build/vendor.min.css",
     "./build/vendor.min.js",
     "./build/rev-manifest.json",
-    "./build/templates.js",
-    "./tsbuild"
+    "./build/templates.js"
   ]
 }

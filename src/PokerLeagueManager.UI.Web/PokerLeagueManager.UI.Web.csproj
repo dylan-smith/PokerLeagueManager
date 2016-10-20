@@ -138,8 +138,6 @@
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="images\poker-cards-icon.jpg" />
-    <Content Include=".jscsrc" />
-    <Content Include=".jshintrc" />
     <None Include="Index.cshtml" />
     <TypeScriptCompile Include="ts\module.ts" />
     <Content Include="packages.config" />

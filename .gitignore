@@ -247,4 +247,5 @@ ModelManifest.xml
 
 /src/PokerLeagueManager.UI.Web/bower_components
 /src/PokerLeagueManager.UI.Web/build
+/src/PokerLeagueManager.UI.Web/tsbuild
 /src/PokerLeagueManager.UI.Web/typings

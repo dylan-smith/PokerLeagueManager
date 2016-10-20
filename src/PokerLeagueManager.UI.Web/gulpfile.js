@@ -1,4 +1,5 @@
-﻿/* jshint camelcase:false */
+﻿/// <binding AfterBuild='default' ProjectOpened='watch' />
+/* jshint camelcase:false */
 var gulp = require('gulp');
 var del = require('del');
 var paths = require('./gulp.config.json');
@@ -121,7 +122,7 @@ gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
 
     var minified = paths.build + '**/*.min.*';
     var index = paths.html;
-    var minFilter = plug.filter(['**/*.min.*', '!**/*.map']);
+    var minFilter = plug.filter(['**/*.min.*']);
     var indexFilter = plug.filter([paths.html]);
 
     return gulp.src([].concat(minified, index)) // add all built min files and index.html
@@ -142,9 +143,7 @@ gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
 
                // replace the files referenced in index.html with the rev'd files
                .pipe(plug.revReplace({ replaceInExtensions: ['.cshtml'] })) // Substitute in new filenames
-               .pipe(gulp.dest(paths.build)) // write the index.html file changes
-               .pipe(plug.rev.manifest()) // create the manifest (must happen last or we screw up the injection)
-               .pipe(gulp.dest(paths.build)); // write the manifest
+               .pipe(gulp.dest(paths.build)); // write the index.html file changes
 
     function inject(path, name) {
         var pathGlob = paths.build + path;
@@ -187,16 +186,12 @@ gulp.task('clean', function (cb) {
 gulp.task('watch', function () {
     log('Watching all files');
 
-    var css = ['gulpfile.js'].concat(paths.css, paths.vendorcss);
-    var js = ['gulpfile.js'].concat(paths.js);
+    var tsConfig = require('./tsconfig.json');
 
-    gulp.watch(js, ['js', 'vendorjs'])
+    var ts = ['gulpfile.js'].concat(tsConfig.files);
+
+    gulp.watch(ts, ['typescript'])
         .on('change', logWatch);
-
-    gulp.watch(css, ['css', 'vendorcss'])
-        .on('change', logWatch);
-
-    // TODO: Need to watch templates
 
     function logWatch(event) {
         log('*** File ' + event.path + ' was ' + event.type + ', running tasks...');
