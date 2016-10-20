@@ -2,7 +2,8 @@
   "files": [
     "ts/*.ts",
     "components/**/*.ts",
-    "model/*.ts"
+    "model/*.ts",
+    "services/*.ts"
   ],
   "compilerOptions": {
     "noImplicitAny": true,

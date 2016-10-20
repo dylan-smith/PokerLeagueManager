@@ -139,6 +139,7 @@
     <Content Include="gulpfile.js" />
     <Content Include="images\poker-cards-icon.jpg" />
     <None Include="Index.cshtml" />
+    <TypeScriptCompile Include="services\QueryService.ts" />
     <TypeScriptCompile Include="ts\module.ts" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />

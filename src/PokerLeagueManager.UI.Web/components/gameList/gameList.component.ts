@@ -17,14 +17,9 @@ module app {
         public Games: IGetGamesListDto[];
 
         private GamesToLoad: number;
-        private httpService: ng.IHttpService;
-        private queryUrl: string;
 
-        constructor($http: ng.IHttpService, QUERY_URL: string, screenSize: angular.matchmedia.IScreenSize) {
+        constructor(private queryService: QueryService, screenSize: angular.matchmedia.IScreenSize) {
             let vm = this;
-
-            vm.httpService = $http;
-            vm.queryUrl = QUERY_URL;
 
             vm.Loading = true;
             vm.DisableInfiniteScroll = true;
@@ -32,30 +27,31 @@ module app {
             vm.GamesToLoad = 20;
 
             if (screenSize.is("xs")) {
-                this.GamesToLoad = 10;
+                vm.GamesToLoad = 10;
             }
 
-            $http.post<IGetGamesListDto[]>(QUERY_URL + "/GetGamesList", { Take: this.GamesToLoad })
-                .then((response) => {
+            queryService.GetGamesList(0, vm.GamesToLoad)
+                .then(games => {
                     vm.Loading = false;
                     vm.DisableInfiniteScroll = false;
                     vm.ShowLoadingMore = true;
-                    vm.Games = response.data;
+                    vm.Games = games;
                 });
         }
 
         public LoadMoreGames(): void {
-            if (!this.DisableInfiniteScroll) {
-                this.DisableInfiniteScroll = true;
+            let vm = this;
 
-                this.httpService.post<IGetGamesListDto[]>(this.queryUrl + "/GetGamesList",
-                                                        { Skip: this.Games.length, Take: this.GamesToLoad })
-                    .then((response) => {
-                        this.Games = this.Games.concat(response.data);
-                        if (response.data.length > 0) {
-                            this.DisableInfiniteScroll = false;
+            if (!vm.DisableInfiniteScroll) {
+                vm.DisableInfiniteScroll = true;
+
+                vm.queryService.GetGamesList(vm.Games.length, vm.GamesToLoad)
+                    .then(games => {
+                        vm.Games = vm.Games.concat(games);
+                        if (games.length > 0) {
+                            vm.DisableInfiniteScroll = false;
                         } else {
-                            this.ShowLoadingMore = false;
+                            vm.ShowLoadingMore = false;
                         }
                     });
             }
@@ -69,7 +65,7 @@ module app {
 
         constructor() {
             this.controllerAs = "vm";
-            this.controller = ["$http", "QUERY_URL", "screenSize", GameListController];
+            this.controller = ["QueryService", "screenSize", GameListController];
             this.templateUrl = "/components/gameList/gameList.component.html";
         }
 
