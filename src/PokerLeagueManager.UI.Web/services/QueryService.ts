@@ -4,6 +4,7 @@
 module app {
     interface IQueryService {
         GetGamesList(skip: number, take: number): ng.IPromise<IGetGamesListDto[]>;
+        GetGamePlayers(gameId: string): ng.IPromise<IGetGamePlayersDto[]>;
     }
 
     export class QueryService implements IQueryService {
