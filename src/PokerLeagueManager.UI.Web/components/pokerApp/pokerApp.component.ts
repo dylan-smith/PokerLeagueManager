@@ -1,7 +1,4 @@
-﻿/// <reference path="../../typings/index.d.ts"/>
-/// <reference path="../../model/index.d.ts"/>
-
-module app {
+﻿module app {
     angular.module("poker").component("pokerApp", {
         $routeConfig: [
             { path: "/", component: "gameList", name: "Home" },

@@ -1,5 +1,4 @@
 ﻿/// <reference path="../typings/index.d.ts"/>
-/// <reference path="../model/index.d.ts"/>
 
 module app {
     declare var pokerConfig: IPokerConfig;

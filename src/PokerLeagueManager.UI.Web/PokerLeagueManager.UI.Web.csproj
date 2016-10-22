@@ -159,7 +159,6 @@
     </None>
     <TypeScriptCompile Include="model\IGetGamePlayersDto.d.ts" />
     <TypeScriptCompile Include="model\IGetGamesListDto.d.ts" />
-    <TypeScriptCompile Include="model\index.d.ts" />
     <TypeScriptCompile Include="model\IPokerConfig.d.ts" />
   </ItemGroup>
   <ItemGroup>

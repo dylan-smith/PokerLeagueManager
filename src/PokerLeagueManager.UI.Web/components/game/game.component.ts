@@ -1,7 +1,4 @@
-﻿/// <reference path="../../typings/index.d.ts"/>
-/// <reference path="../../model/index.d.ts"/>
-
-module app {
+﻿module app {
     declare var appInsights: Client;
 
     interface IGameController {

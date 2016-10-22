@@ -1,7 +1,4 @@
-﻿/// <reference path="../typings/index.d.ts"/>
-/// <reference path="../model/index.d.ts"/>
-
-module app {
+﻿module app {
     interface IQueryService {
         GetGamesList(skip: number, take: number): ng.IPromise<IGetGamesListDto[]>;
         GetGamePlayers(gameId: string): ng.IPromise<IGetGamePlayersDto[]>;
