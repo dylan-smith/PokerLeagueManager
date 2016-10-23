@@ -1,4 +1,6 @@
 ﻿/// <reference path="../typings/index.d.ts"/>
+/// <reference path="../dto/index.d.ts"/>
+/// <reference path="../services/QueryService.ts"/>
 
 module app {
     declare var pokerConfig: IPokerConfig;

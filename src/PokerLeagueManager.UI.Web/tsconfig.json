@@ -1,9 +1,10 @@
 ﻿{
   "files": [
     "ts/*.ts",
-    "components/**/*.ts",
     "model/*.ts",
-    "services/*.ts"
+    "dto/*.ts",
+    "services/*.ts",
+    "components/**/*.ts"
   ],
   "compilerOptions": {
     "noImplicitAny": true,
