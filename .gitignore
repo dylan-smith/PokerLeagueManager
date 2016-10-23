@@ -249,3 +249,6 @@ ModelManifest.xml
 /src/PokerLeagueManager.UI.Web/build
 /src/PokerLeagueManager.UI.Web/tsbuild
 /src/PokerLeagueManager.UI.Web/typings
+/src/PokerLeagueManager.UI.Web/dto
+/src/PokerLeagueManager.UI.Web/services/QueryService.ts
+/src/PokerLeagueManager.UI.Web/services/CommandService.ts
