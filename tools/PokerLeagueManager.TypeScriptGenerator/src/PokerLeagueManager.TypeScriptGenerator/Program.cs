@@ -238,7 +238,7 @@ namespace PokerLeagueManager.TypeScriptGenerator
                 queryTypeScript += $"): ng.IPromise<{query.Returns}>";
                 queryTypeScript += " {\n";
 
-                queryTypeScript += $"            return this.$http.post<{query.Returns}>(this.QUERY_URL + \"/GetGamesList\", ";
+                queryTypeScript += $"            return this.$http.post<{query.Returns}>(this.QUERY_URL + \"/{query.QueryAction()}\", ";
                 queryTypeScript += "{ ";
 
                 if (query.Properties.Count() > 0)
