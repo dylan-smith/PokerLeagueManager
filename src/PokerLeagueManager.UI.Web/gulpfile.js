@@ -63,6 +63,7 @@ gulp.task("typescript", function () {
         .pipe(plug.tslint({ formatter: "verbose" }))
         .pipe(plug.tslint.report())
         .pipe(tsProject())
+        .on('error', function () { process.exit(1) })
         .js.pipe(gulp.dest(paths.tsbuild));
 });
 
