@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var del = require('del');
 var paths = require('./gulp.config.json');
 var plug = require('gulp-load-plugins')();
+var execFile = require('child_process').execFile;
 
 var log = plug.util.log;
 
@@ -56,7 +57,7 @@ gulp.task('js', ['templatecache', 'typescript'], function () {
  * Lint and transpile the Typescript
  * @return {Stream}
  */
-gulp.task("typescript", function () {
+gulp.task("typescript", ['generateTypescript'], function () {
     var tsProject = plug.typescript.createProject("tsconfig.json");
 
     return tsProject.src()
@@ -65,6 +66,15 @@ gulp.task("typescript", function () {
         .pipe(tsProject())
         .on('error', function () { process.exit(1) })
         .js.pipe(gulp.dest(paths.tsbuild));
+});
+
+gulp.task("generateTypescript", function (cb) {
+    execFile('C:\\Git\\PokerLeagueManager\\tools\\PokerLeagueManager.TypeScriptGenerator\\PokerLeagueManager.TypeScriptGenerator.exe',
+        [__dirname + '\\..\\PokerLeagueManager.Common\\Queries',
+            __dirname + '\\..\\PokerLeagueManager.Common\\DTO',
+            __dirname + '\\services',
+            __dirname + '\\dto'],
+            cb);
 });
 
 /**
