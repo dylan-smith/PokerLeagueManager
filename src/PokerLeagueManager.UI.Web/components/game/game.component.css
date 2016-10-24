@@ -1,10 +1,10 @@
-﻿.row.vertical-align{
-    display: flex;
+﻿.vertical-align {
     align-items: center;
+    display: flex;
 }
 
 @media (max-width: 767px) { 
-    .row.vertical-align {
+    .vertical-align {
         display: block; /* turn off the flexible box layout */
     }
 }
@@ -31,16 +31,16 @@
   width: 100%;
 }
 
-.game-header > .progress > .progress-bar.active {
+.game-header > .progress > .progress-bar-active {
   animation: progress-bar-stripes 0.5s linear infinite;
 }
 
 .game-date {
-    margin-top: 0;
     margin-bottom: 0;
+    margin-top: 0;
 }
 
 .game-header {
-    padding-top: 5px;
     padding-bottom: 5px;
+    padding-top: 5px;
 }

@@ -100,6 +100,8 @@ gulp.task('css', function () {
     log('Bundling, minifying, and copying the app\'s CSS');
 
     return gulp.src(paths.css)
+               .pipe(plug.csslint('csslintrc.json'))
+               .pipe(plug.csslint.formatter(require('csslint-stylish')))
                .pipe(plug.concat('pokerApp.min.css')) // Before bytediff or after
                .pipe(plug.autoprefixer('last 2 version', '> 5%'))
                .pipe(plug.bytediff.start())
