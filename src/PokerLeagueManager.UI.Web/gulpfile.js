@@ -1,5 +1,4 @@
 ﻿/// <binding AfterBuild='default' ProjectOpened='watch' />
-/* jshint camelcase:false */
 var gulp = require('gulp');
 var del = require('del');
 var paths = require('./gulp.config.json');
@@ -8,15 +7,8 @@ var execFile = require('child_process').execFile;
 
 var log = plug.util.log;
 
-/**
- * List the available gulp tasks
- */
 gulp.task('help', plug.taskListing);
 
-/**
- * Create $templateCache from the html templates
- * @return {Stream}
- */
 gulp.task('templatecache', function () {
     log('Creating an AngularJS $templateCache');
 
@@ -32,10 +24,6 @@ gulp.task('templatecache', function () {
                .pipe(gulp.dest(paths.build));
 });
 
-/**
- * Minify and bundle the app's JavaScript
- * @return {Stream}
- */
 gulp.task('js', ['templatecache', 'typescript'], function () {
     log('Bundling, minifying, and copying the app\'s JavaScript');
 
@@ -53,10 +41,6 @@ gulp.task('js', ['templatecache', 'typescript'], function () {
                .pipe(gulp.dest(paths.build));
 });
 
-/**
- * Lint and transpile the Typescript
- * @return {Stream}
- */
 gulp.task("typescript", ['generateTypescript'], function () {
     var tsProject = plug.typescript.createProject("tsconfig.json");
 
@@ -77,10 +61,6 @@ gulp.task("generateTypescript", function (cb) {
             cb);
 });
 
-/**
- * Copy the Vendor JavaScript
- * @return {Stream}
- */
 gulp.task('vendorjs', ['js'], function () {
     log('Bundling, minifying, and copying the Vendor JavaScript');
 
@@ -92,10 +72,6 @@ gulp.task('vendorjs', ['js'], function () {
                .pipe(gulp.dest(paths.build));
 });
 
-/**
- * Minify and bundle the CSS
- * @return {Stream}
- */
 gulp.task('css', function () {
     log('Bundling, minifying, and copying the app\'s CSS');
 
@@ -110,10 +86,6 @@ gulp.task('css', function () {
                .pipe(gulp.dest(paths.build));
 });
 
-/**
- * Minify and bundle the Vendor CSS
- * @return {Stream}
- */
 gulp.task('vendorcss', function () {
     log('Compressing, bundling, copying vendor CSS');
 
@@ -125,11 +97,6 @@ gulp.task('vendorcss', function () {
                .pipe(gulp.dest(paths.build));
 });
 
-/**
- * Inject all the files into the new index.html
- * rev, but no map
- * @return {Stream}
- */
 gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
     log('Rev\'ing files and building index.cshtml');
 
@@ -175,27 +142,14 @@ gulp.task('cleanIntermediates', function (cb) {
     del(paths.intermediateFiles, cb);
 })
 
-/**
- * Build the optimized app
- * @return {Stream}
- */
 gulp.task('default', plug.sequence('clean', 'build', 'cleanIntermediates'))
 
-/**
- * Remove all files from the build folder
- * One way to run clean before all tasks is to run
- * from the cmd line: gulp clean && gulp build
- * @return {Stream}
- */
 gulp.task('clean', function (cb) {
     log('Cleaning: ' + plug.util.colors.blue(paths.build));
 
     del(paths.build, cb);
 });
 
-/**
- * Watch files and build
- */
 gulp.task('watch', function () {
     log('Watching all files');
 
