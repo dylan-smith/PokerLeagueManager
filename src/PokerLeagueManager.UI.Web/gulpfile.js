@@ -98,33 +98,17 @@ gulp.task('vendorcss', function () {
 });
 
 gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
-    log('Rev\'ing files and building index.cshtml');
+    log('Injecting dependencies into index.html and cache-busting');
 
-    var minified = paths.build + '**/*.min.*';
-    var index = paths.html;
-    var minFilter = plug.filter(['**/*.min.*']);
-    var indexFilter = plug.filter([paths.html]);
-
-    return gulp.src([].concat(minified, index)) // add all built min files and index.html
-               .pipe(minFilter) // filter the stream to minified css and js
-               .pipe(plug.rev()) // create files with rev's
-               .pipe(plug.revDeleteOriginal())
-               .pipe(gulp.dest(paths.build)) // write the rev files
-               .pipe(minFilter.restore()) // remove filter, back to original stream
-
-               // inject the files into index.html
-               .pipe(indexFilter) // filter to index.html
+    return gulp.src([paths.html])
                .pipe(inject('vendor.min.css', 'inject-vendor'))
                .pipe(inject('pokerApp.min.css'))
                .pipe(inject('vendor.min.js', 'inject-vendor'))
                .pipe(inject('pokerApp.min.js'))
-               .pipe(gulp.dest(paths.build)) // write the rev files
-               .pipe(indexFilter.restore()) // remove filter, back to original stream
-
-               // replace the files referenced in index.html with the rev'd files
-               .pipe(plug.revReplace({ replaceInExtensions: ['.cshtml'] })) // Substitute in new filenames
-               .pipe(gulp.dest(paths.build)); // write the index.html file changes
-
+               .pipe(gulp.dest(paths.build))
+               .pipe(plug.cacheBust())
+               .pipe(gulp.dest(paths.build));
+               
     function inject(path, name) {
         var pathGlob = paths.build + path;
         var options = {
