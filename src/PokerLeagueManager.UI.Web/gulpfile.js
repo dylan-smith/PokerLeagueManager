@@ -97,7 +97,21 @@ gulp.task('vendorcss', function () {
                .pipe(gulp.dest(paths.build));
 });
 
-gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss'], function () {
+gulp.task('images', function () {
+    log('Copying images to output dir');
+
+    return gulp.src(paths.images)
+               .pipe(gulp.dest(paths.build + "/images"));
+});
+
+gulp.task('favicon', function () {
+    log('Copying favicon to root');
+
+    return gulp.src(paths.favicon)
+               .pipe(gulp.dest(paths.build));
+});
+
+gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss', 'images', 'favicon'], function () {
     log('Injecting dependencies into index.html and cache-busting');
 
     return gulp.src([paths.html])

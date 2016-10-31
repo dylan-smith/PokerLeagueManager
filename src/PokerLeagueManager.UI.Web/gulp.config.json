@@ -25,6 +25,11 @@
     "./tsbuild/**/*.js",
     "./build/**/*.js"
   ],
+  "images": [
+    "./images/**",
+    "./images/*"
+  ],
+  "favicon": "./images/favicon/favicon.ico",
   "build": "./build/",
   "tsbuild": "./tsbuild/",
   "intermediateFiles": [
