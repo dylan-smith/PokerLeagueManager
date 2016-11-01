@@ -131,10 +131,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="components\gameList\gameList.component.css" />
-    <Content Include="components\game\game.component.css" />
+    <None Include="components\gameList\gameList.component.less" />
+    <None Include="components\game\game.component.less" />
     <TypeScriptCompile Include="components\pokerApp\pokerApp.component.ts" />
-    <Content Include="css\Spinner.css" />
+    <None Include="css\Spinner.less" />
     <Content Include="Global.asax" />
     <Content Include="gulpfile.js" />
     <Content Include="images\poker-cards-icon.jpg" />
@@ -165,7 +165,7 @@
     <Content Include="components\game\game.component.html" />
     <TypeScriptCompile Include="components\game\game.component.ts" />
     <Content Include="components\pokerApp\pokerApp.component.html" />
-    <Content Include="css\Site.css" />
+    <None Include="css\Site.less" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

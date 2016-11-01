@@ -6,7 +6,7 @@
 
 .spinner > div {
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  background-color: #333;
+  background-color: #333333;
   border-radius: 100%;
   display: inline-block;
   height: 18px;
@@ -22,9 +22,13 @@
 }
 
 @keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
+  0%,
+  80%,
+  100% {
     transform: scale(0);
-  } 40% { 
+  }
+
+  40% {
     transform: scale(1.0);
   }
 }

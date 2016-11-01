@@ -75,7 +75,10 @@ gulp.task('vendorjs', ['js'], function () {
 gulp.task('css', function () {
     log('Bundling, minifying, and copying the app\'s CSS');
 
-    return gulp.src(paths.css)
+    return gulp.src(paths.less)
+               .pipe(plug.lesshint({ configPath: 'lesshintrc.json' }))
+               .pipe(plug.lesshint.reporter())
+               .pipe(plug.less())
                .pipe(plug.csslint('csslintrc.json'))
                .pipe(plug.csslint.formatter(require('csslint-stylish')))
                .pipe(plug.concat('pokerApp.min.css')) // Before bytediff or after
@@ -122,7 +125,7 @@ gulp.task('build', ['js', 'vendorjs', 'css', 'vendorcss', 'images', 'favicon'], 
                .pipe(gulp.dest(paths.build))
                .pipe(plug.cacheBust())
                .pipe(gulp.dest(paths.build));
-               
+
     function inject(path, name) {
         var pathGlob = paths.build + path;
         var options = {

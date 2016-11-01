@@ -15,10 +15,10 @@
   "vendorcss": [
     "./bower_components/bootstrap/dist/css/bootstrap.min.css"
   ],
-  "css": [
-    "./css/**/*.css",
-    "./components/**/*.css",
-    "./directives/**/*.css"
+  "less": [
+    "./css/**/*.less",
+    "./components/**/*.less",
+    "./directives/**/*.less"
   ],
   "js": [
     "./tsbuild/ts/module.js",
