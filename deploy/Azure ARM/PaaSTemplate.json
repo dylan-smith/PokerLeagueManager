@@ -24,10 +24,7 @@
     "webSku": "Free",
     "webWorkerSize": "0",
 
-    "queryAppInsightsName": "[concat('Queries-', resourceGroup().name)]",
-    "eventAppInsightsName": "[concat('Events-', resourceGroup().name)]",
-    "commandAppInsightsName": "[concat('Commands-', resourceGroup().name)]",
-    "webAppInsightsName": "[resourceGroup().name]"
+	"appInsightsName": "[concat('AI-', resourceGroup().name)]"
   },
   "resources": [
     {
@@ -428,77 +425,22 @@
     },
     {
       "apiVersion": "2014-04-01",
-      "name": "[variables('queryAppInsightsName')]",
+      "name": "[variables('appInsightsName')]",
       "type": "microsoft.insights/components",
       "location": "East US",
-      "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
       "tags": {
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('queryApiSiteName'))]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('queryApiSiteName'))]": "Resource",
+		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('commandApiSiteName'))]": "Resource",
+		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('eventApiSiteName'))]": "Resource",
+		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('webSiteName'))]": "Resource"
       },
       "properties": {
         "TenantId": "[subscription().subscriptionId]",
         "Application_Type": "web",
         "Flow_Type": "Redfield",
         "Request_Source": "IbizaAIExtension",
-        "Name": "[variables('queryAppInsightsName')]",
-        "ApplicationId": "[variables('queryApiSiteName')]"
-      },
-      "kind": "web"
-    },
-    {
-      "apiVersion": "2014-04-01",
-      "name": "[variables('commandAppInsightsName')]",
-      "type": "microsoft.insights/components",
-      "location": "East US",
-      "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
-      "tags": {
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('commandApiSiteName'))]": "Resource"
-      },
-      "properties": {
-        "TenantId": "[subscription().subscriptionId]",
-        "Application_Type": "web",
-        "Flow_Type": "Redfield",
-        "Request_Source": "IbizaAIExtension",
-        "Name": "[variables('commandAppInsightsName')]",
-        "ApplicationId": "[variables('commandApiSiteName')]"
-      },
-      "kind": "web"
-    },
-    {
-      "apiVersion": "2014-04-01",
-      "name": "[variables('eventAppInsightsName')]",
-      "type": "microsoft.insights/components",
-      "location": "East US",
-      "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
-      "tags": {
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('eventApiSiteName'))]": "Resource"
-      },
-      "properties": {
-        "TenantId": "[subscription().subscriptionId]",
-        "Application_Type": "web",
-        "Flow_Type": "Redfield",
-        "Request_Source": "IbizaAIExtension",
-        "Name": "[variables('eventAppInsightsName')]",
-        "ApplicationId": "[variables('eventApiSiteName')]"
-      },
-      "kind": "web"
-    },
-    {
-      "apiVersion": "2014-04-01",
-      "name": "[variables('webAppInsightsName')]",
-      "type": "microsoft.insights/components",
-      "location": "East US",
-      "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('webSiteName'))]" ],
-      "tags": {
-        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('webSiteName'))]": "Resource"
-      },
-      "properties": {
-        "TenantId": "[subscription().subscriptionId]",
-        "Application_Type": "web",
-        "Flow_Type": "Redfield",
-        "Request_Source": "IbizaAIExtension",
-        "Name": "[variables('webAppInsightsName')]",
-        "ApplicationId": "[variables('webSiteName')]"
+        "Name": "[variables('appInsightsName')]",
+        "ApplicationId": "[resourceGroup().name]"
       },
       "kind": "web"
     }
