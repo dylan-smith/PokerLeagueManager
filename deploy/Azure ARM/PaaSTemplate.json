@@ -140,11 +140,11 @@
           "name": "appsettings",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]",
-            "[variables('commandAppInsightsName')]"
+            "[variables('appInsightsName')]"
           ],
           "properties": {
             "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]",
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('commandAppInsightsName')), '2014-04-01').InstrumentationKey]"
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
           }
         },
         {
@@ -222,10 +222,10 @@
           "name": "appsettings",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]",
-            "[variables('queryAppInsightsName')]"
+            "[variables('appInsightsName')]"
           ],
           "properties": {
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('queryAppInsightsName')), '2014-04-01').InstrumentationKey]"
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
           }
         },
         {
@@ -303,10 +303,10 @@
           "name": "appsettings",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]",
-            "[variables('eventAppInsightsName')]"
+            "[variables('appInsightsName')]"
           ],
           "properties": {
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('eventAppInsightsName')), '2014-04-01').InstrumentationKey]"
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
           }
         },
         {
@@ -372,10 +372,10 @@
           "name": "appsettings",
           "dependsOn": [
             "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
-            "[variables('webAppInsightsName')]"
+            "[variables('appInsightsName')]"
           ],
           "properties": {
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('webAppInsightsName')), '2014-04-01').InstrumentationKey]",
+            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]",
             "Environment": "PROD",
             "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]",
             "CommandServiceUrl": "[concat('http://', variables('commandApiSiteName'), '.azurewebsites.net')]"
