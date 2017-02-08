@@ -121,7 +121,7 @@
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\PokerLeagueManager.snk</AssemblyOriginatorKeyFile>
