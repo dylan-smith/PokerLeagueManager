@@ -24,7 +24,9 @@
     "webSku": "Free",
     "webWorkerSize": "0",
 
-    "appInsightsName": "[resourceGroup().name]"
+    "appInsightsName": "[resourceGroup().name]",
+
+    "storageAccountName": "[toLower(resourceGroup().name)]"
   },
   "resources": [
     {
@@ -93,264 +95,170 @@
       ]
     },
     {
-      "apiVersion": "2014-06-01",
-      "name": "[variables('webHostingPlanName')]",
-      "type": "Microsoft.Web/serverfarms",
-      "location": "[variables('location')]",
-      "tags": {
-        "displayName": "HostingPlan"
-      },
-      "properties": {
-        "name": "[variables('webHostingPlanName')]",
-        "sku": "[variables('webSku')]",
-        "workerSize": "[variables('webWorkerSize')]",
-        "numberOfWorkers": 1
-      }
-    },
-    {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2016-03-01",
       "name": "[variables('commandApiSiteName')]",
       "type": "Microsoft.Web/sites",
-      "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
-      "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Command API"
-      },
       "properties": {
         "name": "[variables('commandApiSiteName')]",
-        "serverFarmId": "[variables('webHostingPlanName')]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
-          "properties": {
-            "default": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[concat(toLower(variables('commandApiSiteName')), '8284')]"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "QueryServiceUrl",
+              "value": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]"
+            },
+            {
+              "name": "AppInsightsKey",
+              "value": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "default",
               "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('eventDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
-          }
+          ]
         },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "appsettings",
-          "dependsOn": [
-            "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]",
-            "[variables('appInsightsName')]"
-          ],
-          "properties": {
-            "QueryServiceUrl": "[concat('http://', variables('queryApiSiteName'), '.azurewebsites.net')]",
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]" ],
-          "properties": {
-            "applicationLogs": {
-              "fileSystem": {
-                "level": "Warning"
-              },
-              "azureTableStorage": {
-                "level": "Off",
-                "sasUrl": null
-              },
-              "azureBlobStorage": {
-                "level": "Off",
-                "sasUrl": null,
-                "retentionInDays": null
-              }
-            },
-            "httpLogs": {
-              "fileSystem": {
-                "retentionInMb": 35,
-                "retentionInDays": null,
-                "enabled": true
-              },
-              "azureBlobStorage": {
-                "sasUrl": null,
-                "retentionInDays": null,
-                "enabled": false
-              }
-            },
-            "failedRequestsTracing": {
-              "enabled": true
-            },
-            "detailedErrorMessages": {
-              "enabled": true
-            }
-          }
-        }
-      ]
+        "clientAffinityEnabled": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "location": "[variables('location')]",
+      "kind": "functionapp"
     },
     {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2016-03-01",
       "name": "[variables('queryApiSiteName')]",
       "type": "Microsoft.Web/sites",
-      "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
-      "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Query API"
-      },
       "properties": {
         "name": "[variables('queryApiSiteName')]",
-        "serverFarmId": "[variables('webHostingPlanName')]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
-          "properties": {
-            "default": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[concat(toLower(variables('commandApiSiteName')), '8284')]"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "AppInsightsKey",
+              "value": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "default",
               "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
-          }
+          ]
         },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "appsettings",
-          "dependsOn": [
-            "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]",
-            "[variables('appInsightsName')]"
-          ],
-          "properties": {
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]" ],
-          "properties": {
-            "applicationLogs": {
-              "fileSystem": {
-                "level": "Warning"
-              },
-              "azureTableStorage": {
-                "level": "Off",
-                "sasUrl": null
-              },
-              "azureBlobStorage": {
-                "level": "Off",
-                "sasUrl": null,
-                "retentionInDays": null
-              }
-            },
-            "httpLogs": {
-              "fileSystem": {
-                "retentionInMb": 35,
-                "retentionInDays": null,
-                "enabled": true
-              },
-              "azureBlobStorage": {
-                "sasUrl": null,
-                "retentionInDays": null,
-                "enabled": false
-              }
-            },
-            "failedRequestsTracing": {
-              "enabled": true
-            },
-            "detailedErrorMessages": {
-              "enabled": true
-            }
-          }
-        }
-      ]
+        "clientAffinityEnabled": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "location": "[variables('location')]",
+      "kind": "functionapp"
     },
     {
-      "apiVersion": "2015-08-01",
+      "apiVersion": "2016-03-01",
       "name": "[variables('eventApiSiteName')]",
       "type": "Microsoft.Web/sites",
-      "location": "[variables('location')]",
-      "dependsOn": [ "[concat('Microsoft.Web/serverFarms/', variables('webHostingPlanName'))]" ],
-      "tags": {
-        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('webHostingPlanName'))]": "empty",
-        "displayName": "Event API"
-      },
       "properties": {
         "name": "[variables('eventApiSiteName')]",
-        "serverFarmId": "[variables('webHostingPlanName')]"
-      },
-      "resources": [
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "connectionstrings",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
-          "properties": {
-            "default": {
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('storageAccountName'),';AccountKey=',listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2015-05-01-preview').key1)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[concat(toLower(variables('eventApiSiteName')), '8284')]"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "AppInsightsKey",
+              "value": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "default",
               "value": "[concat('Data Source=tcp:', reference(concat('Microsoft.Sql/servers/', variables('sqlServerName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('queryDatabaseName'), ';User Id=', variables('sqlUser'), '@', variables('sqlServerName'), ';Password=', variables('sqlPassword'), ';')]",
               "type": "SQLAzure"
             }
-          }
+          ]
         },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "appsettings",
-          "dependsOn": [
-            "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]",
-            "[variables('appInsightsName')]"
-          ],
-          "properties": {
-            "AppInsightsKey": "[reference(resourceId('Microsoft.Insights/components', variables('appInsightsName')), '2014-04-01').InstrumentationKey]"
-          }
-        },
-        {
-          "apiVersion": "2015-08-01",
-          "type": "config",
-          "name": "logs",
-          "dependsOn": [ "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]" ],
-          "properties": {
-            "applicationLogs": {
-              "fileSystem": {
-                "level": "Warning"
-              },
-              "azureTableStorage": {
-                "level": "Off",
-                "sasUrl": null
-              },
-              "azureBlobStorage": {
-                "level": "Off",
-                "sasUrl": null,
-                "retentionInDays": null
-              }
-            },
-            "httpLogs": {
-              "fileSystem": {
-                "retentionInMb": 35,
-                "retentionInDays": null,
-                "enabled": true
-              },
-              "azureBlobStorage": {
-                "sasUrl": null,
-                "retentionInDays": null,
-                "enabled": false
-              }
-            },
-            "failedRequestsTracing": {
-              "enabled": true
-            },
-            "detailedErrorMessages": {
-              "enabled": true
-            }
-          }
-        }
-      ]
+        "clientAffinityEnabled": false
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+      ],
+      "location": "[variables('location')]",
+      "kind": "functionapp"
     },
+
+
     {
       "apiVersion": "2015-08-01",
       "name": "[variables('webSiteName')]",
@@ -428,17 +336,17 @@
       "name": "[variables('appInsightsName')]",
       "type": "microsoft.insights/components",
       "location": "East US",
-      "dependsOn": [ 
-		"[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
-		"[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]",
-		"[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]",
-		"[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]"
-		],
+      "dependsOn": [
+        "[concat('Microsoft.Web/sites/', variables('webSiteName'))]",
+        "[concat('Microsoft.Web/sites/', variables('queryApiSiteName'))]",
+        "[concat('Microsoft.Web/sites/', variables('eventApiSiteName'))]",
+        "[concat('Microsoft.Web/sites/', variables('commandApiSiteName'))]"
+      ],
       "tags": {
         "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('webSiteName'))]": "Resource",
-		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('queryApiSiteName'))]": "Resource",
-		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('commandApiSiteName'))]": "Resource",
-		"[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('eventApiSiteName'))]": "Resource"
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('queryApiSiteName'))]": "Resource",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('commandApiSiteName'))]": "Resource",
+        "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', variables('eventApiSiteName'))]": "Resource"
       },
       "properties": {
         "TenantId": "[subscription().subscriptionId]",
@@ -449,6 +357,21 @@
         "ApplicationId": "[variables('appInsightsName')]"
       },
       "kind": "web"
+    },
+    {
+      "apiVersion": "2014-06-01",
+      "name": "[variables('webHostingPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[variables('location')]",
+      "tags": {
+        "displayName": "HostingPlan"
+      },
+      "properties": {
+        "name": "[variables('webHostingPlanName')]",
+        "sku": "[variables('webSku')]",
+        "workerSize": "[variables('webWorkerSize')]",
+        "numberOfWorkers": 1
+      }
     }
   ]
 }
