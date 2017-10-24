@@ -1,0 +1,24 @@
+<h1>Recent Games</h1>
+
+<div class="loading-indicator" *ngIf="Loading">
+    <div class="spinner row loading-animation">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    </div>
+    <div class="row loading-message">
+        <h3>Loading Games...</h3>
+    </div>
+</div>
+<div infiniteScroll [infiniteScrollDistance]="1" [immediateCheck]="true" [infiniteScrollDisabled]="DisableInfiniteScroll" (scrolled)="LoadMoreGames()">
+    <div class="game" *ngFor="let game of Games">
+        <poker-game [game]="game"></poker-game>
+    </div>
+    <div class="loading-indicator" *ngIf="ShowLoadingMore">
+        <div class="spinner row loading-animation">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+</div>
