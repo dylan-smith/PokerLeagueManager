@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+.spinner {
+    margin: 100px auto 0;
+    text-align: center;
+    width: 70px;
+  }
+  
+.spinner > div {
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  background-color: #333333;
+  border-radius: 100%;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+
+.spinner .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1.0);
+  }
+}
+
+.loading-message {
+    text-align: center;
+}
+
+
+@import '~@angular/material/theming';
+@include mat-core();
+
+@import './poker.theme.scss';
+
+// Import custom component themes here
+@import './app/navbar/navbar.component.theme.scss';
+
+@mixin custom-components-theme($theme) {
+  @include navbar-theme($theme);
+}
+
+.poker-theme {
+  @include angular-material-theme($poker-theme);
+  @include custom-components-theme($poker-theme);
+}

@@ -4,7 +4,7 @@ import { QueryService, IGetGamesListDto, IGetGamePlayersDto } from '../query.ser
 @Component({
   selector: 'poker-game',
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.less']
+  styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
   public LoadingPlayers: boolean;
@@ -26,13 +26,6 @@ export class GameComponent implements OnInit {
                     this.Players = players;
                     this.Expanded = true;
                     this.LoadingPlayers = false;
-                    // The timeout is needed otherwise the players HTML table is in some wonky state
-                    // when the collapse directive fires. The timeout forces angular to finish processing
-                    // the ng-repeat before trying to expand the section.  Stupid Angular!
-                    // this.timeoutService<void>(() => {
-                    //     this.Expanded = true;
-                    //     this.LoadingPlayers = false;
-                    // });
                 });
         } else {
             this.Expanded = true;

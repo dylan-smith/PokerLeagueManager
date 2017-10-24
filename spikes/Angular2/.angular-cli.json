@@ -19,10 +19,11 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "poker",
       "styles": [
-        "styles.less",
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+        "styles.scss"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/hammerjs/hammer.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -55,7 +56,7 @@
     }
   },
   "defaults": {
-    "styleExt": "less",
+    "styleExt": "scss",
     "class": {
       "spec": false
     },
