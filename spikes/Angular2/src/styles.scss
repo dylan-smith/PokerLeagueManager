@@ -43,15 +43,10 @@
 @include mat-core();
 
 @import './poker.theme.scss';
-
-// Import custom component themes here
 @import './app/navbar/navbar.component.theme.scss';
+@import './app/side-nav/side-nav.component.theme.scss';
 
-@mixin custom-components-theme($theme) {
-  @include navbar-theme($theme);
-}
+@include angular-material-theme($poker-theme);
 
-.poker-theme {
-  @include angular-material-theme($poker-theme);
-  @include custom-components-theme($poker-theme);
-}
+@include navbar-theme($poker-theme);
+@include sidenav-theme($poker-theme);

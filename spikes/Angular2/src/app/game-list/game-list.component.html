@@ -1,12 +1,12 @@
 <h1>Recent Games</h1>
 
-<div class="loading-indicator" *ngIf="Loading">
-    <div class="spinner row loading-animation">
+<div *ngIf="Loading">
+    <div class="spinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
     </div>
-    <div class="row loading-message">
+    <div class="loading-message">
         <h3>Loading Games...</h3>
     </div>
 </div>
@@ -14,8 +14,8 @@
     <div class="game" *ngFor="let game of Games">
         <poker-game [game]="game"></poker-game>
     </div>
-    <div class="loading-indicator" *ngIf="ShowLoadingMore">
-        <div class="spinner row loading-animation">
+    <div *ngIf="ShowLoadingMore">
+        <div class="spinner">
             <div class="bounce1"></div>
             <div class="bounce2"></div>
             <div class="bounce3"></div>

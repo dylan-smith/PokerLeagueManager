@@ -15,6 +15,7 @@ import { GameListComponent } from './game-list/game-list.component';
   imports: [
     BrowserModule,
     MatSidenavModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: GameListComponent},

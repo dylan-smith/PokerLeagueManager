@@ -1,0 +1,25 @@
+<mat-sidenav-container fullscreen>
+  <mat-sidenav mode="side" opened="true" class="poker-sidenav">
+    <nav>
+      <ul>
+        <li>
+          <a routerLink="/">
+            <img class="poker-logo" src="../../assets/poker-cards-icon.jpg">
+            <span>Poker League Manager</span>
+          </a>
+        </li>
+        <li><a routerLink="Home" routerLinkActive="poker-sidenav-selected">Home</a></li>
+        <li><a routerLink="Games" routerLinkActive="poker-sidenav-selected">Games</a></li>
+        <li><a routerLink="Stats" routerLinkActive="poker-sidenav-selected">Stats</a></li>
+        <li><a routerLink="POTY" routerLinkActive="poker-sidenav-selected">POTY</a></li>
+        <li><a routerLink="Media" routerLinkActive="poker-sidenav-selected">Media</a></li>
+        <li><a routerLink="Rules" routerLinkActive="poker-sidenav-selected">Rules</a></li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <poker-navbar></poker-navbar>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>
+  
+  
+  

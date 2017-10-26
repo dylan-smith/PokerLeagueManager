@@ -10,15 +10,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MediaCheckService } from './media-check.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule } from '@angular/material';
+import { MatButtonModule, MatExpansionModule, MatSidenavModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameListComponent,
     GameComponent,
-    NavbarComponent
+    NavbarComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     InfiniteScrollModule,
     BrowserAnimationsModule,
     MatButtonModule, 
-    MatCheckboxModule
+    MatExpansionModule,
+    MatSidenavModule
   ],
   providers: [ 
     QueryService,
