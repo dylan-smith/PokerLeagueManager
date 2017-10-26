@@ -7,7 +7,7 @@ import { MediaCheckService } from '../media-check.service';
   templateUrl: './game-list.component.html',
   styleUrls: ['./game-list.component.scss']
 })
-export class GameListComponent implements OnInit  {
+export class GameListComponent implements OnInit {
   Loading: boolean = true;
   DisableInfiniteScroll: boolean = true;
   ShowLoadingMore: boolean = false;
@@ -18,8 +18,7 @@ export class GameListComponent implements OnInit  {
   constructor(private queryService: QueryService, private mediaService: MediaCheckService) { }
 
   ngOnInit(): void {
-    if (this.mediaService.check('xsmall'))
-    {
+    if (this.mediaService.check('xsmall')) {
       this.GamesToLoad = 10;
     }
 
@@ -34,17 +33,17 @@ export class GameListComponent implements OnInit  {
 
   LoadMoreGames(): void {
     if (!this.DisableInfiniteScroll) {
-        this.DisableInfiniteScroll = true;
+      this.DisableInfiniteScroll = true;
 
-        this.queryService.GetGamesList(this.Games.length, this.GamesToLoad)
-            .subscribe(games => {
-                this.Games = this.Games.concat(games);
-                if (games.length > 0) {
-                    this.DisableInfiniteScroll = false;
-                } else {
-                    this.ShowLoadingMore = false;
-                }
-            });
+      this.queryService.GetGamesList(this.Games.length, this.GamesToLoad)
+        .subscribe(games => {
+          this.Games = this.Games.concat(games);
+          if (games.length > 0) {
+            this.DisableInfiniteScroll = false;
+          } else {
+            this.ShowLoadingMore = false;
+          }
+        });
     }
   }
 }

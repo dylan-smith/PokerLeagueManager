@@ -1,24 +1,23 @@
 .game {
-    //width: 1000px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 1000px;
-    max-width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
-// .mat-column-Placing {
-//     //width: 500px;
-//     flex: 0 0 50px;
-// }
+.mat-column-Placing {
+  max-width: 20px;
+  padding-right: 30px;
+}
 
-// .mat-column-PlayerName {
-//     flex: 0 0 300px;
-// }
+.mat-column-PlayerName {
+  padding-right: 30px;
+  max-width: 300px;
+}
 
-// .mat-column-Winnings {
-//     flex: 0 0 100px;
-// }
+.mat-column-Winnings {
+  padding-right: 30px;
+  max-width: 70px;
+}
 
-// .mat-column-PayIn {
-//     flex: 0 0 100px;
-// }
+.mat-column-PayIn {
+  max-width: 70px;
+}

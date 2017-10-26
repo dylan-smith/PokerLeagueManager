@@ -1,18 +1,18 @@
 <div class="game-list">
-    <div class="loading-games">
-        <div class="spinner">
-            <mat-spinner mode="indeterminate"></mat-spinner>
-        </div>
-        <div>
-            <h3>Loading Games...</h3>
-        </div>
+  <div class="loading-games" *ngIf="Loading">
+    <div class="spinner">
+      <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
-    <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollDisabled]="DisableInfiniteScroll" (scrolled)="LoadMoreGames()">
-        <div *ngFor="let game of Games">
-            <poker-game [game]="game"></poker-game>
-        </div>
-        <div *ngIf="ShowLoadingMore">
-            <mat-spinner mode="indeterminate"></mat-spinner>>
-        </div>
+    <div>
+      <h3>Loading Games...</h3>
     </div>
+  </div>
+  <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollDisabled]="DisableInfiniteScroll" (scrolled)="LoadMoreGames()">
+    <div *ngFor="let game of Games">
+      <poker-game [game]="game"></poker-game>
+    </div>
+    <div *ngIf="ShowLoadingMore">
+      <mat-spinner mode="indeterminate"></mat-spinner>>
+    </div>
+  </div>
 </div>

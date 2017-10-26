@@ -1,26 +1,26 @@
 .poker-navbar {
-    display: flex;
-    height: 56px;
-    align-items: center;
+  display: flex;
+  height: 56px;
+  align-items: center;
 
-    > .page-title {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      margin-bottom: 0px;
-    }
-
-    > .page-title-no-burger {
-      padding-left: 20px;
-    }
-
-    > .mat-button {
-      padding-left: 0px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-right: 0px;
-    }
+  > .page-title {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 0px;
   }
 
-  .flex-spacer {
-    flex-grow: 1;
+  > .page-title-no-burger {
+    padding-left: 20px;
   }
+
+  > .mat-button {
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 0px;
+  }
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}

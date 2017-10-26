@@ -8,12 +8,12 @@ import {RouterModule} from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit{ 
+export class NavbarComponent implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
 
   @Output() SideNavToggled = new EventEmitter<void>();
 
-  constructor(zone: NgZone) { 
+  constructor(zone: NgZone) {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
