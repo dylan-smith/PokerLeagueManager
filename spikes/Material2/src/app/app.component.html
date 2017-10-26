@@ -1,31 +1,27 @@
-<mat-sidenav-container fullscreen class="docs-component-viewer-sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened="true" class="docs-component-viewer-sidenav">
-    <nav class="poker-navbar">
+<mat-sidenav-container fullscreen>
+  <mat-sidenav mode="side" opened="true" class="docs-component-viewer-sidenav">
+    <nav>
       <ul>
         <li>
-            <a mat-button class="poker-button" routerLink="/" aria-label="Poker League Manager">
+            <a mat-button routerLink="/" aria-label="Poker League Manager">
               <img class="poker-logo"
                       src="../../assets/poker-cards-icon.jpg"
                       alt="Poker League Manager">
               <span>Poker League Manager</span>
             </a>
         </li>
-        <li><a mat-button class="poker-button" routerLink="Home">Home</a></li>
-        <li><a mat-button class="poker-button" routerLink="Games">Games</a></li>
-        <li><a mat-button class="poker-button" routerLink="Stats">Stats</a></li>
-        <li><a mat-button class="poker-button" routerLink="POTY">POTY</a></li>
-        <li><a mat-button class="poker-button" routerLink="Media">Media</a></li>
-        <li><a mat-button class="poker-button" routerLink="Rules">Rules</a></li>
+        <li><a mat-button routerLink="Home" routerLinkActive="docs-component-viewer-sidenav-item-selected">Home</a></li>
+        <li><a mat-button routerLink="Games" routerLinkActive="docs-component-viewer-sidenav-item-selected">Games</a></li>
+        <li><a mat-button routerLink="Stats" routerLinkActive="docs-component-viewer-sidenav-item-selected">Stats</a></li>
+        <li><a mat-button routerLink="POTY" routerLinkActive="docs-component-viewer-sidenav-item-selected">POTY</a></li>
+        <li><a mat-button routerLink="Media" routerLinkActive="docs-component-viewer-sidenav-item-selected">Media</a></li>
+        <li><a mat-button routerLink="Rules" routerLinkActive="docs-component-viewer-sidenav-item-selected">Rules</a></li>
       </ul>
     </nav>
   </mat-sidenav>
-  <div class="docs-component-sidenav-content">
+  <div>
     <h1>Content goes here</h1>
     <router-outlet></router-outlet>
-    <hr />
-    <footer>
-      <p>&copy; 2016 - Poker League Manager</p>
-    </footer>
   </div>
 </mat-sidenav-container>
 
