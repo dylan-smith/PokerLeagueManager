@@ -2,8 +2,10 @@
 @include mat-core();
 
 @import './app.theme.scss';
+@import './app/app.component.theme.scss';
 
 @include angular-material-theme($app-theme);
+@include component-viewer-sidenav-theme($app-theme);
 
 h1 {
     color: mat-color(map-get($app-theme, foreground), text)
