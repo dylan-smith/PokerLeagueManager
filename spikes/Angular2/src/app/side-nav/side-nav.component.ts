@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'poker-side-nav',
@@ -6,15 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
+  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
 
-  constructor() { }
-
-  sideNavOpened : boolean = true;
-
-  ngOnInit() {
+  constructor(private _router: Router, zone: NgZone) { 
+    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
-  toggleSideNav() : void {
-    this.sideNavOpened = !this.sideNavOpened;
+  @ViewChild(MatSidenav) sidenav: MatSidenav;
+
+  ngOnInit() {
+    this._router.events.subscribe(() => {
+      if (this.isScreenSmall()) {
+        this.sidenav.close();
+      }
+    });
+  }
+
+  isScreenSmall(): boolean {
+    return this.mediaMatcher.matches;
   }
 }
