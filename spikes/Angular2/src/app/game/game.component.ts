@@ -21,7 +21,11 @@ export class GameComponent implements OnInit {
   public GameClicked(): void {
     if (!this.Players) {
       this.queryService.GetGamePlayers(this.game.GameId)
-      .subscribe(players => {this.Players = new PlayersDataSource(players);});
+      .subscribe(players => {
+        this.Players = new PlayersDataSource(
+                            players.sort(function(a, b) {
+                              return a.Placing - b.Placing
+                            }))});
     }
 
     // if (window.hasOwnProperty("appInsights")) {
