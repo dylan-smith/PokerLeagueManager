@@ -12,6 +12,9 @@
 }
 
 .game-list {
-    float: left;
     padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+    width: 1000px;
+    max-width: 100%;
 }

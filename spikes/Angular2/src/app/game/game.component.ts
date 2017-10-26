@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { QueryService, IGetGamesListDto, IGetGamePlayersDto } from '../query.service'
+import {DataSource} from '@angular/cdk/collections';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'poker-game',
@@ -7,10 +10,12 @@ import { QueryService, IGetGamesListDto, IGetGamePlayersDto } from '../query.ser
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  public LoadingPlayers: boolean;
-  public Expanded: boolean;
+  LoadingPlayers: boolean;
+  Expanded: boolean;
   @Input() game: IGetGamesListDto;
-  public Players: IGetGamePlayersDto[];
+  Players: PlayersDataSource;
+
+  displayedColumns = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
 
   constructor(private queryService: QueryService) {
     this.Expanded = false;
@@ -23,7 +28,7 @@ export class GameComponent implements OnInit {
             this.LoadingPlayers = true;
             this.queryService.GetGamePlayers(this.game.GameId)
                 .subscribe(players => {
-                    this.Players = players;
+                    this.Players = new PlayersDataSource(players);
                     this.Expanded = true;
                     this.LoadingPlayers = false;
                 });
@@ -45,3 +50,16 @@ export class GameComponent implements OnInit {
   }
 
 }
+
+export class PlayersDataSource extends DataSource<any> {
+    constructor(private data: IGetGamePlayersDto[]) { 
+        super();
+    }
+
+    /** Connect function called by the table to retrieve one stream containing the data to render. */
+    connect(): Observable<IGetGamePlayersDto[]> {
+      return Observable.of(this.data);
+    }
+  
+    disconnect() {}
+  }

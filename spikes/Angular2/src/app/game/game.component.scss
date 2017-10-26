@@ -1,54 +1,24 @@
 .game {
-    width: 1000px;
+    //width: 1000px;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 1000px;
+    max-width: 100%;
 }
 
+// .mat-column-Placing {
+//     //width: 500px;
+//     flex: 0 0 50px;
+// }
 
+// .mat-column-PlayerName {
+//     flex: 0 0 300px;
+// }
 
-.vertical-align {
-    align-items: center;
-    display: flex;
-}
+// .mat-column-Winnings {
+//     flex: 0 0 100px;
+// }
 
-@media (max-width: 767px) {
-    .vertical-align {
-        display: block; /* turn off the flexible box layout */
-    }
-}
-
-.game-details {
-  padding: 0;
-}
-
-.game-details > .table {
-    margin-bottom: 0;
-}
-
-.game-details > .table > thead > tr > th,
-.game-details > .table > tbody > tr > td {
-    padding-left: 20px;
-}
-
-.game-header > .progress {
-  height: 10px;
-  margin-bottom: -10px;
-}
-
-.game-header > .progress > .progress-bar {
-  width: 100%;
-}
-
-.game-header > .progress > .progress-bar-active {
-  animation: progress-bar-stripes 0.5s linear infinite;
-}
-
-.game-date {
-    margin-bottom: 0;
-    margin-top: 0;
-}
-
-.game-header {
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
+// .mat-column-PayIn {
+//     flex: 0 0 100px;
+// }

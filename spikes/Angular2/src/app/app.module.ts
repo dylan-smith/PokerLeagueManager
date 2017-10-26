@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { MediaCheckService } from './media-check.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, MatProgressSpinnerModule, MatTableModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -41,7 +41,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     MatExpansionModule,
     MatSidenavModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTableModule
   ],
   providers: [ 
     QueryService,

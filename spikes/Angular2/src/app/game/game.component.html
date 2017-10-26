@@ -8,22 +8,31 @@
         </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>Winnings</th>
-                <th>Pay In</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let player of Players">
-                <td>{{ player.Placing }}</td>
-                <td>{{ player.PlayerName }}</td>
-                <td>{{ player.Winnings | currency }}</td>
-                <td>{{ player.PayIn | currency }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="example-container mat-elevation-z8">
+            <mat-table #table [dataSource]="Players">
+          
+              <ng-container matColumnDef="Placing">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Placing}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="PlayerName">
+                <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.PlayerName}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="Winnings">
+                <mat-header-cell *matHeaderCellDef> Winnings </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Winnings | currency:'USD':true}} </mat-cell>
+              </ng-container>
+          
+              <ng-container matColumnDef="PayIn">
+                <mat-header-cell *matHeaderCellDef> Pay In </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.PayIn | currency:'USD':true}} </mat-cell>
+              </ng-container>
+          
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
 </mat-expansion-panel>

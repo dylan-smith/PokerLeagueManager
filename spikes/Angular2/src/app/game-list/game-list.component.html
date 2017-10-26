@@ -1,5 +1,5 @@
 <div class="game-list">
-    <div class="loading-games" *ngIf="Loading">
+    <div class="loading-games">
         <div class="spinner">
             <mat-spinner mode="indeterminate"></mat-spinner>
         </div>
@@ -8,7 +8,7 @@
         </div>
     </div>
     <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollDisabled]="DisableInfiniteScroll" (scrolled)="LoadMoreGames()">
-        <div class="game" *ngFor="let game of Games">
+        <div *ngFor="let game of Games">
             <poker-game [game]="game"></poker-game>
         </div>
         <div *ngIf="ShowLoadingMore">
