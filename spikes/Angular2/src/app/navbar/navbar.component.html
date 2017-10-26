@@ -1,16 +1,8 @@
 <nav class="poker-navbar">
-  <a mat-button class="poker-button" routerLink="/" aria-label="Poker League Manager">
-    <img class="poker-logo"
-          src="../../assets/poker-cards-icon.jpg"
-          alt="Poker League Manager">
-    <span>Poker League Manager</span>
-  </a>
-  <a mat-button class="poker-button" routerLink="Home">Home</a>
-  <a mat-button class="poker-button" routerLink="Games">Games</a>
-  <a mat-button class="poker-button" routerLink="Stats">Stats</a>
-  <a mat-button class="poker-button" routerLink="POTY">POTY</a>
-  <a mat-button class="poker-button" routerLink="Media">Media</a>
-  <a mat-button class="poker-button" routerLink="Rules">Rules</a>
+  <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1 class="page-title">Recent Games</h1>
   <div class="flex-spacer"></div>
-  <a mat-button class="poker-button" routerLink="SignIn">Sign In</a>
+  <a mat-button routerLink="SignIn">Sign In</a>
 </nav>

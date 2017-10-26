@@ -1,22 +1,22 @@
 .poker-navbar {
     display: flex;
-    flex-wrap: wrap;
+    height: 56px;
     align-items: center;
-    padding: 8px 16px;
-  
+
+    > .page-title {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      margin-bottom: 0px;
+    }
+
     > .mat-button {
-      &:last-child {
-        margin-left: auto;
-      }
+      padding-left: 0px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-right: 0px;
     }
   }
-  
+
   .flex-spacer {
     flex-grow: 1;
-  }
-  
-  .poker-logo {
-    height: 26px;
-    margin: 0 4px 3px 0;
-    vertical-align: middle;
   }

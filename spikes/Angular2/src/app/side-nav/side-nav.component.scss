@@ -42,6 +42,7 @@ $sidenav-width: 240px;
       transition: all .3s;
       padding: 0 ($sidenav-spacing-unit * 2);
       position: relative;
+      text-align: left;
 
       &.poker-sidenav-selected {
         font-weight: 600;
