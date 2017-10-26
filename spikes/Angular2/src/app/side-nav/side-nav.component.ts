@@ -9,7 +9,12 @@ export class SideNavComponent implements OnInit {
 
   constructor() { }
 
+  sideNavOpened : boolean = true;
+
   ngOnInit() {
   }
 
+  toggleSideNav() : void {
+    this.sideNavOpened = !this.sideNavOpened;
+  }
 }

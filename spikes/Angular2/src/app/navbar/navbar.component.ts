@@ -1,4 +1,4 @@
-import {Component, NgModule} from '@angular/core';
+import {Component, NgModule, EventEmitter, Output} from '@angular/core';
 import {MatButtonModule, MatMenuModule} from '@angular/material';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
@@ -8,4 +8,10 @@ import {RouterModule} from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent { }
+export class NavbarComponent { 
+  @Output() SideNavToggled = new EventEmitter<void>();
+
+  toggleSideNav() {
+    this.SideNavToggled.emit();
+  }
+}

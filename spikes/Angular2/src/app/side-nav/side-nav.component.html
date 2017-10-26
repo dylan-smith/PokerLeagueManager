@@ -1,5 +1,5 @@
 <mat-sidenav-container fullscreen>
-  <mat-sidenav mode="side" opened="true" class="poker-sidenav">
+  <mat-sidenav mode="side" [opened]="sideNavOpened" class="poker-sidenav">
     <nav>
       <ul>
         <li>
@@ -17,7 +17,7 @@
       </ul>
     </nav>
   </mat-sidenav>
-  <poker-navbar></poker-navbar>
+  <poker-navbar (SideNavToggled)="toggleSideNav()"></poker-navbar>
   <router-outlet></router-outlet>
 </mat-sidenav-container>
   
