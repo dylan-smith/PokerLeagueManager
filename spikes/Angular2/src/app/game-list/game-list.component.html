@@ -11,8 +11,13 @@
     <div *ngFor="let game of Games">
       <poker-game [game]="game"></poker-game>
     </div>
-    <div *ngIf="ShowLoadingMore">
-      <mat-spinner mode="indeterminate"></mat-spinner>>
+    <div class="loading-games" *ngIf="ShowLoadingMore">
+      <div class="spinner">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+      </div>
+      <div>
+        <h3>Loading Games...</h3>
+      </div>
     </div>
   </div>
 </div>
