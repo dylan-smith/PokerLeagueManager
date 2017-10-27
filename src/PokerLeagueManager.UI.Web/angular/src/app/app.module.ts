@@ -28,25 +28,25 @@ import { SideNavComponent } from './side-nav/side-nav.component';
       { path: '', component: GameListComponent},
       { path: 'Home', component: GameListComponent},
       { path: 'Games', component: GameListComponent },
-      { path: 'Stats', component: GameListComponent }, 
-      { path: 'POTY', component: GameListComponent }, 
-      { path: 'Media', component: GameListComponent }, 
-      { path: 'Rules', component: GameListComponent }, 
+      { path: 'Stats', component: GameListComponent },
+      { path: 'POTY', component: GameListComponent },
+      { path: 'Media', component: GameListComponent },
+      { path: 'Rules', component: GameListComponent },
       { path: '**', component: GameListComponent }
   ]),
     HttpClientModule,
     InfiniteScrollModule,
     BrowserAnimationsModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatExpansionModule,
     MatSidenavModule,
     MatIconModule,
     MatProgressSpinnerModule,
     MatTableModule
   ],
-  providers: [ 
+  providers: [
     QueryService,
-    { provide: 'QUERY_URL', useValue: 'http://queries.pokerleaguemanager.net'},
+    { provide: 'QUERY_URL', useValue: (<any>window).pokerConfig.queryServiceUrl},
     MediaCheckService
    ],
   bootstrap: [AppComponent]
