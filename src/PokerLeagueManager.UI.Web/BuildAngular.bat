@@ -1,5 +1,5 @@
 dir
 cd angular
 call npm install
-call npm build
+call npm run build
 dir
