@@ -1,0 +1,22 @@
+@mixin sidenav-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .poker-sidenav {
+    li {
+      border-color: rgba(mat-color($foreground, secondary-text), .06);
+
+      > a {
+        color: mat-color($foreground, secondary-text);
+
+        &:hover {
+          background: mat-color($background, background);
+          color: mat-color($primary);
+        }
+      }
+    }
+  }
+}

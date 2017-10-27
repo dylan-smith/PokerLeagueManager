@@ -1,0 +1,9 @@
+$poker-theme-primary: mat-palette($mat-indigo);
+$poker-theme-accent: mat-palette($mat-light-blue);
+$poker-theme-warn: mat-palette($mat-deep-orange, A200);
+
+$poker-theme: mat-dark-theme(
+  $poker-theme-primary,
+  $poker-theme-accent,
+  $poker-theme-warn
+);

@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+@import './poker.theme.scss';
+@import './app/navbar/navbar.component.theme.scss';
+@import './app/side-nav/side-nav.component.theme.scss';
+
+@include angular-material-theme($poker-theme);
+
+@include navbar-theme($poker-theme);
+@include sidenav-theme($poker-theme);
