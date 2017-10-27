@@ -32,9 +32,6 @@ namespace PokerLeagueManager.TypeScriptGenerator
                 WriteFile(dtoTypeScript, "I" + dto.Name + ".ts", dtoTypeScriptPath);
             }
 
-            //var dtoIndexTypeScript = GenerateDtoIndexFile(dtos);
-            //WriteFile(dtoIndexTypeScript, "index.d.ts", dtoTypeScriptPath);
-
             var queryTypeScript = GenerateQueryTypeScript(queries, dtos);
             WriteFile(queryTypeScript, "query.service.ts", queryClientPath);
         }
@@ -220,7 +217,6 @@ namespace PokerLeagueManager.TypeScriptGenerator
                 }
 
                 queryTypeScript += $"): Observable<{query.Returns}> {{\n";
-                //return this._http.post<number>(this.QUERY_URL + "/GetGameCountByDate", { GameDate });
                 queryTypeScript += $"    return this._http.post<{query.Returns}>(this.QUERY_URL + '/{query.QueryAction()}', {{ ";
 
                 foreach (var prop in query.Properties)
