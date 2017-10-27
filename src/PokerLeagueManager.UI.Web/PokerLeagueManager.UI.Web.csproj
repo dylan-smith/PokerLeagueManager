@@ -131,45 +131,24 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="components\gameList\gameList.component.less" />
-    <None Include="components\game\game.component.less" />
-    <TypeScriptCompile Include="components\pokerApp\pokerApp.component.ts" />
-    <None Include="css\Spinner.less" />
     <Content Include="Global.asax" />
-    <Content Include="gulpfile.js" />
-    <Content Include="images\poker-cards-icon.jpg" />
-    <Content Include="csslintrc.json" />
     <None Include="Index.cshtml" />
-    <TypeScriptCompile Include="ts\module.ts" />
     <Content Include="packages.config" />
-    <Content Include="bower.json" />
-    <Content Include="package.json" />
-    <Content Include="gulp.config.json" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="tsconfig.json" />
-    <Content Include="typings.json" />
-    <Content Include="tslint.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <TypeScriptCompile Include="model\IPokerConfig.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="components\gameList\gameList.component.html" />
-    <TypeScriptCompile Include="components\gameList\gameList.component.ts" />
-    <Content Include="components\game\game.component.html" />
-    <TypeScriptCompile Include="components\game\game.component.ts" />
-    <Content Include="components\pokerApp\pokerApp.component.html" />
-    <None Include="css\Site.less" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="build\**" />
+    <Content Include="angular\dist\**" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AIHandleErrorAttribute.cs" />
@@ -232,6 +211,12 @@
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>
+cd ..
+BuildAngular.bat
+  </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

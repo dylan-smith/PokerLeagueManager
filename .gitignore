@@ -244,11 +244,8 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-
-/src/PokerLeagueManager.UI.Web/bower_components
-/src/PokerLeagueManager.UI.Web/build
-/src/PokerLeagueManager.UI.Web/tsbuild
-/src/PokerLeagueManager.UI.Web/typings
-/src/PokerLeagueManager.UI.Web/dto
-/src/PokerLeagueManager.UI.Web/services/QueryService.ts
-/src/PokerLeagueManager.UI.Web/services/CommandService.ts
+# Angular
+/src/PokerLeagueManager.UI.Web/angular/dist
+/src/PokerLeagueManager.UI.Web/angular/src/app/dtos
+/src/PokerLeagueManager.UI.Web/angular/node_modules
+/src/PokerLeagueManager.UI.Web/angular/src/app/query.service.ts
