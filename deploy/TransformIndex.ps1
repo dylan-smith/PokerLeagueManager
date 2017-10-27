@@ -16,7 +16,7 @@ $topContent += '  var googleAnalyticsId = System.Configuration.ConfigurationMana
 $topContent += '}' + "`n"
 
 $newContent = "`n"
-$newContent += '  <script type=`"text/javascript`">' + "`n"
+$newContent += '  <script type="text/javascript">' + "`n"
 $newContent += '    var pokerConfig = {' + "`n"
 $newContent += '      appInsightsKey: "@appInsightsKey",' + "`n"
 $newContent += '      queryServiceUrl: "@queryServiceUrl",' + "`n"
