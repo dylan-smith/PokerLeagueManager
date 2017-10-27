@@ -29,28 +29,14 @@ namespace PokerLeagueManager.TypeScriptGenerator
             foreach (var dto in dtos)
             {
                 var dtoTypeScript = GenerateDtoTypeScript(dto);
-                WriteFile(dtoTypeScript, "I" + dto.Name + ".d.ts", dtoTypeScriptPath);
+                WriteFile(dtoTypeScript, "I" + dto.Name + ".ts", dtoTypeScriptPath);
             }
 
-            var dtoIndexTypeScript = GenerateDtoIndexFile(dtos);
-            WriteFile(dtoIndexTypeScript, "index.d.ts", dtoTypeScriptPath);
+            //var dtoIndexTypeScript = GenerateDtoIndexFile(dtos);
+            //WriteFile(dtoIndexTypeScript, "index.d.ts", dtoTypeScriptPath);
 
-            var queryTypeScript = GenerateQueryTypeScript(queries);
-            WriteFile(queryTypeScript, "QueryService.ts", queryClientPath);
-        }
-
-        private static string GenerateDtoIndexFile(IEnumerable<Dto> dtos)
-        {
-            var result = string.Empty;
-
-            foreach (var dto in dtos)
-            {
-                result += "/// <reference path=\"";
-                result += $"I{dto.Name}.d.ts";
-                result += "\"/>\n";
-            }
-
-            return result;
+            var queryTypeScript = GenerateQueryTypeScript(queries, dtos);
+            WriteFile(queryTypeScript, "query.service.ts", queryClientPath);
         }
 
         private static void WriteFile(string fileContents, string fileName, string filePath)
@@ -178,52 +164,50 @@ namespace PokerLeagueManager.TypeScriptGenerator
 
         private static string GenerateDtoTypeScript(Dto dto)
         {
-            var dtoTypeScript = "declare module app {\n";
-            dtoTypeScript += "    interface I" + dto.Name + " {\n";
+            var dtoTypeScript = $"export interface I{dto.Name} {{\n";
 
             foreach (var prop in dto.Properties)
             {
-                dtoTypeScript += $"        {prop.Name}: {prop.TypeScriptType()};\n";
+                dtoTypeScript += $"  {prop.Name}: {prop.TypeScriptType()};\n";
             }
 
-            dtoTypeScript += "    }\n";
             dtoTypeScript += "}\n";
 
             return dtoTypeScript;
         }
 
-        private static string GenerateQueryTypeScript(IEnumerable<Query> queries)
+        private static string GenerateQueryTypeScript(IEnumerable<Query> queries, IEnumerable<Dto> dtos)
         {
-            var queryTypeScript = "module app {\n";
-            queryTypeScript += "    interface IQueryService {\n";
+            var queryTypeScript = "import { Injectable, Inject } from '@angular/core';\n";
+            queryTypeScript += "import { HttpClient, HttpErrorResponse } from '@angular/common/http';\n";
+            queryTypeScript += "import { Observable } from 'rxjs/Observable';\n";
+            queryTypeScript += "import 'rxjs/add/observable/throw';\n";
+            queryTypeScript += "import 'rxjs/add/operator/catch';\n";
+            queryTypeScript += "import 'rxjs/add/operator/do';\n";
+            queryTypeScript += "import 'rxjs/add/operator/map';\n";
+            queryTypeScript += "\n";
 
-            foreach (var query in queries)
+            foreach (var dto in dtos)
             {
-                queryTypeScript += $"        {query.QueryAction()}(";
-
-                foreach (var prop in query.Properties)
-                {
-                    queryTypeScript += $"{prop.Name}: {prop.TypeScriptType()}, ";
-                }
-
-                if (query.Properties.Count() > 0)
-                {
-                    queryTypeScript = queryTypeScript.Substring(0, queryTypeScript.Length - 2);
-                }
-
-                queryTypeScript += $"): ng.IPromise<{query.Returns}>;\n";
+                queryTypeScript += $"import {{ I{dto.Name} }} from './dtos/I{dto.Name}';\n";
             }
 
-            queryTypeScript += "    }\n";
             queryTypeScript += "\n";
-            queryTypeScript += "    export class QueryService implements IQueryService {\n";
-            queryTypeScript += "        constructor(private $http: ng.IHttpService, private QUERY_URL: string) {\n";
-            queryTypeScript += "        }\n";
+
+            foreach (var dto in dtos)
+            {
+                queryTypeScript += $"export {{ I{dto.Name} }} from './dtos/I{dto.Name}';\n";
+            }
+
+            queryTypeScript += "\n";
+            queryTypeScript += "@Injectable()\n";
+            queryTypeScript += "export class QueryService {\n";
+            queryTypeScript += "  constructor(private _http: HttpClient, @Inject('QUERY_URL') private QUERY_URL: string) { }\n";
             queryTypeScript += "\n";
 
             foreach (var query in queries)
             {
-                queryTypeScript += $"        public {query.QueryAction()}(";
+                queryTypeScript += $"  {query.QueryAction()}(";
 
                 foreach (var prop in query.Properties)
                 {
@@ -235,34 +219,26 @@ namespace PokerLeagueManager.TypeScriptGenerator
                     queryTypeScript = queryTypeScript.Substring(0, queryTypeScript.Length - 2);
                 }
 
-                queryTypeScript += $"): ng.IPromise<{query.Returns}>";
-                queryTypeScript += " {\n";
+                queryTypeScript += $"): Observable<{query.Returns}> {{\n";
+                //return this._http.post<number>(this.QUERY_URL + "/GetGameCountByDate", { GameDate });
+                queryTypeScript += $"    return this._http.post<{query.Returns}>(this.QUERY_URL + '/{query.QueryAction()}', {{ ";
 
-                queryTypeScript += $"            return this.$http.post<{query.Returns}>(this.QUERY_URL + \"/{query.QueryAction()}\", ";
-                queryTypeScript += "{ ";
+                foreach (var prop in query.Properties)
+                {
+                    queryTypeScript += $"{prop.Name}, ";
+                }
 
                 if (query.Properties.Count() > 0)
                 {
-                    foreach (var prop in query.Properties)
-                    {
-                        queryTypeScript += $"{prop.Name}, ";
-                    }
-
                     queryTypeScript = queryTypeScript.Substring(0, queryTypeScript.Length - 2);
                 }
 
-                queryTypeScript += " })\n";
-                queryTypeScript += "                .then((response) => {\n";
-                queryTypeScript += "                    return response.data;\n";
-                queryTypeScript += "                });\n";
-                queryTypeScript += "        }\n";
+                queryTypeScript += " });\n";
+                queryTypeScript += "  }\n";
                 queryTypeScript += "\n";
             }
 
-            queryTypeScript += "    }\n";
-            queryTypeScript += "\n";
-            queryTypeScript += "    angular.module(\"poker\").service(\"QueryService\", [\"$http\", \"QUERY_URL\", QueryService]);\n";
-            queryTypeScript += "}\n";
+            queryTypeScript += "}";
 
             return queryTypeScript;
         }
