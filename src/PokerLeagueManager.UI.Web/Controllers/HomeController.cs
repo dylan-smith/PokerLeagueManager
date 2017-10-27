@@ -11,14 +11,7 @@ namespace PokerLeagueManager.UI.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (ConfigurationManager.AppSettings["Environment"] != "DEV")
-            {
-                return View("~/build/Index.cshtml");
-            }
-            else
-            {
-                return View("~/Index.cshtml");
-            }
+            return View("~/angular/dist/index.cshtml");
         }
     }
 }
