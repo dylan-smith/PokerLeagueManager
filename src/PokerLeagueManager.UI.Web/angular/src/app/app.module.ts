@@ -14,6 +14,7 @@ import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, M
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { MomentModule } from 'angular2-moment';
+import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
 
 @NgModule({
   declarations: [
@@ -44,12 +45,16 @@ import { MomentModule } from 'angular2-moment';
     MatIconModule,
     MatProgressSpinnerModule,
     MatTableModule,
-    MomentModule
+    MomentModule,
+    ApplicationInsightsModule.forRoot({
+      instrumentationKey: (<any>window).pokerConfig.appInsightsKey
+    })
   ],
   providers: [
     QueryService,
     { provide: 'QUERY_URL', useValue: (<any>window).pokerConfig.queryServiceUrl},
-    MediaCheckService
+    MediaCheckService,
+    AppInsightsService
    ],
   bootstrap: [AppComponent]
 })

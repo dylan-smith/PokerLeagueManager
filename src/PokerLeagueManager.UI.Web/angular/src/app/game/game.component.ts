@@ -3,6 +3,7 @@ import { QueryService, IGetGamesListDto, IGetGamePlayersDto } from '../query.ser
 import {DataSource} from '@angular/cdk/collections';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import { AppInsightsService } from '@markpieszak/ng-application-insights';
 
 @Component({
   selector: 'poker-game',
@@ -15,7 +16,7 @@ export class GameComponent implements OnInit {
 
   displayedColumns = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
 
-  constructor(private queryService: QueryService) {
+  constructor(private queryService: QueryService, private appInsightsService: AppInsightsService) {
   }
 
   public GameClicked(): void {
@@ -33,6 +34,8 @@ export class GameComponent implements OnInit {
     //         { Game: this.game.GameId, GameDate: this.game.GameDate }
     //     );
     // }
+
+    this.appInsightsService.trackEvent('GameExpanded', { 'Game': this.game.GameId, 'GameDate': this.game.GameDate });
   }
 
   ngOnInit() {
