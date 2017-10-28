@@ -1,7 +1,7 @@
 <mat-expansion-panel (opened)="GameClicked()" class="game">
   <mat-expansion-panel-header>
     <mat-panel-title>
-      {{ game.GameDate | date:'longDate' }}
+      {{ game.GameDate | amUtc | amDateFormat:'LL' }}
     </mat-panel-title>
     <mat-panel-description>
       Winner: {{ game.Winner }} Winnings: {{ game.Winnings }}
