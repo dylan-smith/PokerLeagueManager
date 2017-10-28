@@ -9,7 +9,7 @@ import { MediaCheckService } from '../media-check.service';
 })
 export class GameListComponent implements OnInit {
   Loading: boolean = true;
-  DisableInfiniteScroll: boolean = false;
+  DisableInfiniteScroll: boolean = true;
   ShowLoadingMore: boolean = false;
   Games: IGetGamesListDto[];
 

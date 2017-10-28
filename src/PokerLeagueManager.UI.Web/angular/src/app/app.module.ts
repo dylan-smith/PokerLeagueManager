@@ -7,7 +7,7 @@ import { GameListComponent } from './game-list/game-list.component';
 import { GameComponent } from './game/game.component';
 import { QueryService } from './query.service';
 import { HttpClientModule } from '@angular/common/http';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollModule } from './ngx-infinite-scroll/ngx-infinite-scroll';
 import { MediaCheckService } from './media-check.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, MatProgressSpinnerModule, MatTableModule } from '@angular/material';
