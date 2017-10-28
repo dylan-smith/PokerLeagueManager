@@ -17,9 +17,8 @@
       </ul>
     </nav>
   </mat-sidenav>
-  <poker-navbar (SideNavToggled)="sideNav.toggle()"></poker-navbar>
-  <router-outlet></router-outlet>
+  <mat-sidenav-content>
+    <poker-navbar (SideNavToggled)="sideNav.toggle()"></poker-navbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
-  
-  
-  
