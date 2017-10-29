@@ -1,5 +1,6 @@
-<mat-expansion-panel (opened)="GameClicked()" class="game" [class.game-small]="isScreenSmall()">
-  <mat-expansion-panel-header>
+<mat-expansion-panel #expPanel class="game" [class.game-small]="isScreenSmall()">
+  <!-- The (click) is an ugly hack because (opened) on the panel doesn't work in prod mode https://github.com/angular/material2/issues/7172 -->
+  <mat-expansion-panel-header (click)="expPanel.expanded && GameClicked()">
     <mat-panel-title>
       <div>{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
       <div class="game-description">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true:'1.0-0' }})</div>
