@@ -1,10 +1,11 @@
 <mat-expansion-panel (opened)="GameClicked()" class="game">
   <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{ game.GameDate | amUtc | amDateFormat:'LL' }}
+    <mat-panel-title style="display: block">
+      <div>{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
+      <div style="color: rgba(255,255,255,0.7)">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})</div>
     </mat-panel-title>
     <mat-panel-description>
-      Winner: {{ game.Winner }} Winnings: {{ game.Winnings }}
+      {{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})
     </mat-panel-description>
   </mat-expansion-panel-header>
 

@@ -1,6 +1,11 @@
 .game {
   margin-top: 10px;
   margin-bottom: 10px;
+
+  mat-panel-description {
+    display: block;
+    text-align: right;
+  }
 }
 
 .mat-column-Placing {
