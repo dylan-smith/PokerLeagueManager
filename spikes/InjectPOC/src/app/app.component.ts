@@ -1,4 +1,5 @@
 import { Component, Inject } from '@angular/core';
+import { IPokerConfig } from './IPokerConfig';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +10,8 @@ export class AppComponent {
   title = 'app';
   myUrl : string;
 
-  constructor(@Inject('QUERY_URL') private QUERY_URL: string) {
-    this.myUrl = QUERY_URL;
+  constructor(@Inject('POKER_CONFIG') private POKER_CONFIG: IPokerConfig) {
+    this.myUrl = POKER_CONFIG.queryServiceUrl;
     //this.myUrl = (<any>injectedWindow).pokerConfig.queryServiceUrl;
     //this.myUrl = injectedWindow;
   }

@@ -5,9 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 
-export function queryServiceUrlFactory(): string {
-  return (<any>window).pokerConfig.queryServiceUrl;
-  //return window;
+import { IPokerConfig } from './IPokerConfig';
+
+
+export function configFactory(): IPokerConfig {
+  return (<IPokerConfig>(<any>window).pokerConfig);
 }
 
 @NgModule({
@@ -21,7 +23,7 @@ export function queryServiceUrlFactory(): string {
   ],
   providers: [
     //{ provide: 'QUERY_URL', useValue: 'http://queries.pokerleaguemanager.net'}
-    { provide: 'QUERY_URL', useFactory: queryServiceUrlFactory},
+    { provide: 'POKER_CONFIG', useFactory: configFactory},
     //{ provide: 'QUERY_URL', useValue: (<any>window).pokerConfig.queryServiceUrl}
   ],
   bootstrap: [AppComponent]
