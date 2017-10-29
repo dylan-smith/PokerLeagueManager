@@ -4,9 +4,6 @@
       <div>{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
       <div style="color: rgba(255,255,255,0.7)">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})</div>
     </mat-panel-title>
-    <mat-panel-description>
-      {{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})
-    </mat-panel-description>
   </mat-expansion-panel-header>
 
   <mat-table #table [dataSource]="Players">
