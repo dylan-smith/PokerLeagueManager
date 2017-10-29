@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { QueryService, IGetGamesListDto } from '../query.service'
 import { MediaCheckService } from '../media-check.service';
 
@@ -14,8 +14,11 @@ export class GameListComponent implements OnInit {
   Games: IGetGamesListDto[];
 
   GamesToLoad: number = 20;
+  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
 
-  constructor(private queryService: QueryService, private mediaService: MediaCheckService) { }
+  constructor(private queryService: QueryService, private mediaService: MediaCheckService, zone: NgZone) {
+    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
+  }
 
   ngOnInit(): void {
     if (this.mediaService.check('xsmall')) {
@@ -45,5 +48,9 @@ export class GameListComponent implements OnInit {
           }
         });
     }
+  }
+
+  isScreenSmall(): boolean {
+    return this.mediaMatcher.matches;
   }
 }

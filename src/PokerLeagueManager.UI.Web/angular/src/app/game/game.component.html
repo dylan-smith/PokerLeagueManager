@@ -1,30 +1,30 @@
 <mat-expansion-panel (opened)="GameClicked()" class="game">
   <mat-expansion-panel-header>
-    <mat-panel-title style="display: block">
+    <mat-panel-title>
       <div>{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
-      <div style="color: rgba(255,255,255,0.7)">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})</div>
+      <div class="game-description" style="color: rgba(255,255,255,0.7)">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})</div>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
   <mat-table #table [dataSource]="Players">
     <ng-container matColumnDef="Placing">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.Placing}} </mat-cell>
+    <mat-header-cell [class.mat-column-Placing-small]="isScreenSmall()" *matHeaderCellDef></mat-header-cell>
+    <mat-cell [class.mat-column-Placing-small]="isScreenSmall()" *matCellDef="let element"> {{element.Placing}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="PlayerName">
-    <mat-header-cell *matHeaderCellDef></mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.PlayerName}} </mat-cell>
+    <mat-header-cell [class.mat-column-PlayerName-small]="isScreenSmall()" *matHeaderCellDef></mat-header-cell>
+    <mat-cell [class.mat-column-PlayerName-small]="isScreenSmall()" *matCellDef="let element"> {{element.PlayerName}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="Winnings">
-    <mat-header-cell *matHeaderCellDef> Winnings </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.Winnings | currency:'USD':true}} </mat-cell>
+    <mat-header-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matHeaderCellDef> Winnings </mat-header-cell>
+    <mat-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matCellDef="let element"> {{element.Winnings | currency:'USD':true}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="PayIn">
-    <mat-header-cell *matHeaderCellDef> Pay In </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.PayIn | currency:'USD':true}} </mat-cell>
+    <mat-header-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matHeaderCellDef> Pay In </mat-header-cell>
+    <mat-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matCellDef="let element"> {{element.PayIn | currency:'USD':true}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

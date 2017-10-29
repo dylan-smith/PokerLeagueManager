@@ -1,6 +1,10 @@
 .game {
   margin-top: 10px;
   margin-bottom: 10px;
+
+  mat-panel-title {
+    display: block;
+  }
 }
 
 .mat-column-Placing {
@@ -9,16 +13,28 @@
   padding-right: 30px;
 }
 
+.mat-column-Placing-small {
+  padding-right: 10px;
+}
+
 .mat-column-PlayerName {
   padding-right: 30px;
   max-width: 300px;
   flex-grow: 1;
 }
 
+.mat-column-PlayerName-small {
+  padding-right: 10px;
+}
+
 .mat-column-Winnings {
   padding-right: 30px;
   min-width: 70px;
   flex-grow: 0;
+}
+
+.mat-column-Winnings-small {
+  padding-right: 10px;
 }
 
 .mat-column-PayIn {

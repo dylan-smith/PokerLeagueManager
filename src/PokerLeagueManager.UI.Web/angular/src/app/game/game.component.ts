@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 import { QueryService, IGetGamesListDto, IGetGamePlayersDto } from '../query.service'
 import {DataSource} from '@angular/cdk/collections';
 import {Observable} from 'rxjs/Observable';
@@ -15,8 +15,10 @@ export class GameComponent implements OnInit {
   Players: PlayersDataSource;
 
   displayedColumns = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
+  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
 
-  constructor(private queryService: QueryService, private appInsightsService: AppInsightsService) {
+  constructor(private queryService: QueryService, private appInsightsService: AppInsightsService, zone: NgZone) {
+    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
   public GameClicked(): void {
@@ -33,6 +35,10 @@ export class GameComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  isScreenSmall(): boolean {
+    return this.mediaMatcher.matches;
   }
 }
 
