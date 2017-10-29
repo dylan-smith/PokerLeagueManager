@@ -29,12 +29,6 @@ export class GameComponent implements OnInit {
                             }))});
     }
 
-    // if (window.hasOwnProperty("appInsights")) {
-    //     appInsights.trackEvent("GameExpanded",
-    //         { Game: this.game.GameId, GameDate: this.game.GameDate }
-    //     );
-    // }
-
     this.appInsightsService.trackEvent('GameExpanded', { 'Game': this.game.GameId, 'GameDate': this.game.GameDate });
   }
 
