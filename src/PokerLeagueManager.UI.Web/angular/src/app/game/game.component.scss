@@ -7,6 +7,21 @@
   }
 }
 
+.game-small .mat-row {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.game-small .mat-header-row {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+/deep/ .game-small .mat-expansion-panel-body {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .mat-column-Placing {
   min-width: 20px;
   flex-grow: 0;
@@ -29,7 +44,7 @@
 
 .mat-column-Winnings {
   padding-right: 30px;
-  min-width: 70px;
+  min-width: 35px;
   flex-grow: 0;
 }
 
@@ -38,6 +53,6 @@
 }
 
 .mat-column-PayIn {
-  min-width: 70px;
+  min-width: 35px;
   flex-grow: 0;
 }

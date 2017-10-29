@@ -1,8 +1,8 @@
-<mat-expansion-panel (opened)="GameClicked()" class="game">
+<mat-expansion-panel (opened)="GameClicked()" class="game" [class.game-small]="isScreenSmall()">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <div>{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
-      <div class="game-description" style="color: rgba(255,255,255,0.7)">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true }})</div>
+      <div class="game-description">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true:'1.0-0' }})</div>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -18,13 +18,13 @@
     </ng-container>
 
     <ng-container matColumnDef="Winnings">
-    <mat-header-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matHeaderCellDef> Winnings </mat-header-cell>
-    <mat-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matCellDef="let element"> {{element.Winnings | currency:'USD':true}} </mat-cell>
+    <mat-header-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matHeaderCellDef>{{ isScreenSmall() ? 'Win' : 'Winnings' }}</mat-header-cell>
+    <mat-cell [class.mat-column-Winnings-small]="isScreenSmall()" *matCellDef="let element"> {{element.Winnings | currency:'USD':true:'1.0-0'}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="PayIn">
-    <mat-header-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matHeaderCellDef> Pay In </mat-header-cell>
-    <mat-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matCellDef="let element"> {{element.PayIn | currency:'USD':true}} </mat-cell>
+    <mat-header-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matHeaderCellDef>{{ isScreenSmall() ? 'Pay' : 'Pay In' }}</mat-header-cell>
+    <mat-cell [class.mat-column-PayIn-small]="isScreenSmall()" *matCellDef="let element"> {{element.PayIn | currency:'USD':true:'1.0-0'}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
