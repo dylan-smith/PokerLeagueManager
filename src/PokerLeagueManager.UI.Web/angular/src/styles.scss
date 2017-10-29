@@ -4,8 +4,10 @@
 @import './poker.theme.scss';
 @import './app/navbar/navbar.component.theme.scss';
 @import './app/side-nav/side-nav.component.theme.scss';
+@import './app/game/game.component.theme.scss';
 
 @include angular-material-theme($poker-theme);
 
 @include navbar-theme($poker-theme);
 @include sidenav-theme($poker-theme);
+@include game-theme($poker-theme);

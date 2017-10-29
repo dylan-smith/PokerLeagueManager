@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
     this.SideNavToggled.emit();
   }
 
-  isScreenSmall(): boolean {
+  isScreenMedium(): boolean {
     return this.mediaMatcher.matches;
   }
 }

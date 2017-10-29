@@ -10,7 +10,7 @@ import { MatSidenav } from '@angular/material';
 export class SideNavComponent implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
 
-  constructor(private _router: Router, zone: NgZone) { 
+  constructor(private _router: Router, zone: NgZone) {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
@@ -18,13 +18,13 @@ export class SideNavComponent implements OnInit {
 
   ngOnInit() {
     this._router.events.subscribe(() => {
-      if (this.isScreenSmall()) {
+      if (this.isScreenMedium()) {
         this.sidenav.close();
       }
     });
   }
 
-  isScreenSmall(): boolean {
+  isScreenMedium(): boolean {
     return this.mediaMatcher.matches;
   }
 }

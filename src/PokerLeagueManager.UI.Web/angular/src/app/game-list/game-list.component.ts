@@ -14,7 +14,7 @@ export class GameListComponent implements OnInit {
   Games: IGetGamesListDto[];
 
   GamesToLoad: number = 20;
-  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 840px)`);
+  private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 530px)`);
 
   constructor(private queryService: QueryService, private mediaService: MediaCheckService, zone: NgZone) {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));

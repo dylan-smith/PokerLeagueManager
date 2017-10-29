@@ -7,9 +7,6 @@
     padding-top: 12px;
     padding-bottom: 12px;
     margin-bottom: 0px;
-  }
-
-  > .page-title-no-burger {
     padding-left: 20px;
   }
 
@@ -18,6 +15,12 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-right: 0px;
+  }
+}
+
+.poker-navbar-medium {
+  > .page-title {
+    padding-left: 0px;
   }
 }
 

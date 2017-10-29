@@ -7,6 +7,28 @@
   }
 }
 
+.mat-column-Placing {
+  min-width: 20px;
+  flex-grow: 0;
+  padding-right: 30px;
+}
+
+.mat-column-PlayerName {
+  padding-right: 30px;
+  flex-grow: 1;
+}
+
+.mat-column-Winnings {
+  padding-right: 30px;
+  min-width: 35px;
+  flex-grow: 0;
+}
+
+.mat-column-PayIn {
+  min-width: 35px;
+  flex-grow: 0;
+}
+
 .game-small .mat-row {
   padding-left: 10px;
   padding-right: 10px;
@@ -22,37 +44,14 @@
   margin-right: 10px;
 }
 
-.mat-column-Placing {
-  min-width: 20px;
-  flex-grow: 0;
-  padding-right: 30px;
-}
-
-.mat-column-Placing-small {
+.game-small .mat-column-Placing {
   padding-right: 10px;
 }
 
-.mat-column-PlayerName {
-  padding-right: 30px;
-  max-width: 300px;
-  flex-grow: 1;
-}
-
-.mat-column-PlayerName-small {
+.game-small .mat-column-PlayerName {
   padding-right: 10px;
 }
 
-.mat-column-Winnings {
-  padding-right: 30px;
-  min-width: 35px;
-  flex-grow: 0;
-}
-
-.mat-column-Winnings-small {
+.game-small .mat-column-Winnings {
   padding-right: 10px;
-}
-
-.mat-column-PayIn {
-  min-width: 35px;
-  flex-grow: 0;
 }
