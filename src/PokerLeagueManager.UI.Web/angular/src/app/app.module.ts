@@ -8,7 +8,6 @@ import { GameComponent } from './game/game.component';
 import { QueryService } from './query.service';
 import { HttpClientModule } from '@angular/common/http';
 import { InfiniteScrollModule } from './ngx-infinite-scroll/ngx-infinite-scroll';
-import { MediaCheckService } from './media-check.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, MatProgressSpinnerModule, MatTableModule } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -53,7 +52,6 @@ import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-a
   providers: [
     QueryService,
     { provide: 'QUERY_URL', useValue: (<any>window).pokerConfig.queryServiceUrl},
-    MediaCheckService,
     AppInsightsService
    ],
   bootstrap: [AppComponent]

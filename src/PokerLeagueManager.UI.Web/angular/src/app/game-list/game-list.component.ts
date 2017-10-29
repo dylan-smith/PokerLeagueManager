@@ -1,6 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { QueryService, IGetGamesListDto } from '../query.service'
-import { MediaCheckService } from '../media-check.service';
 
 @Component({
   selector: 'poker-game-list',
@@ -16,12 +15,12 @@ export class GameListComponent implements OnInit {
   GamesToLoad: number = 20;
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 530px)`);
 
-  constructor(private queryService: QueryService, private mediaService: MediaCheckService, zone: NgZone) {
+  constructor(private queryService: QueryService, zone: NgZone) {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
   ngOnInit(): void {
-    if (this.mediaService.check('xsmall')) {
+    if (this.isScreenSmall()) {
       this.GamesToLoad = 10;
     }
 
