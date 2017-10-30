@@ -201,7 +201,7 @@ namespace PokerLeagueManager.TypeScriptGenerator
             queryTypeScript += "@Injectable()\n";
             queryTypeScript += "export class QueryService {\n";
             queryTypeScript += "  QUERY_URL: string;\n";
-            queryTypeScript += "  constructor(private _http: HttpClient, @Inject('QUERY_URL') private QUERY_URL: string) {\n";
+            queryTypeScript += "  constructor(private _http: HttpClient, @Inject('POKER_CONFIG') private POKER_CONFIG: IPokerConfig) {\n";
             queryTypeScript += "    this.QUERY_URL = POKER_CONFIG.queryServiceUrl;\n";
             queryTypeScript += "  }\n";
             queryTypeScript += "\n";
