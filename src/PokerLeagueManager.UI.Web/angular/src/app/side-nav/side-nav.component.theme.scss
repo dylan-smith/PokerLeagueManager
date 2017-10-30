@@ -14,7 +14,7 @@
 
         &:hover {
           background: mat-color($background, background);
-          color: mat-color($primary);
+          color: mat-color($primary, A100);
         }
       }
     }
