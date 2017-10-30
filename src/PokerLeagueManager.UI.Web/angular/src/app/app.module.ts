@@ -14,6 +14,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { MomentModule } from 'angular2-moment';
 import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
+import { IPokerConfig } from './IPokerConfig';
+
+// doing it this way because the old (better) way with useValue instead of useFactory
+// breaks when you do ng build --prod
+export function configFactory(): IPokerConfig {
+  return (<IPokerConfig>(<any>window).pokerConfig);
+}
 
 @NgModule({
   declarations: [
@@ -51,7 +58,7 @@ import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-a
   ],
   providers: [
     QueryService,
-    { provide: 'QUERY_URL', useValue: (<any>window).pokerConfig.queryServiceUrl},
+    { provide: 'POKER_CONFIG', useFactory: configFactory},
     AppInsightsService
    ],
   bootstrap: [AppComponent]

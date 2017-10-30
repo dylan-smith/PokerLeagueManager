@@ -182,6 +182,7 @@ namespace PokerLeagueManager.TypeScriptGenerator
             queryTypeScript += "import 'rxjs/add/operator/catch';\n";
             queryTypeScript += "import 'rxjs/add/operator/do';\n";
             queryTypeScript += "import 'rxjs/add/operator/map';\n";
+            queryTypeScript += "import { IPokerConfig } from './IPokerConfig';\n";
             queryTypeScript += "\n";
 
             foreach (var dto in dtos)
@@ -199,7 +200,10 @@ namespace PokerLeagueManager.TypeScriptGenerator
             queryTypeScript += "\n";
             queryTypeScript += "@Injectable()\n";
             queryTypeScript += "export class QueryService {\n";
-            queryTypeScript += "  constructor(private _http: HttpClient, @Inject('QUERY_URL') private QUERY_URL: string) { }\n";
+            queryTypeScript += "  QUERY_URL: string;\n";
+            queryTypeScript += "  constructor(private _http: HttpClient, @Inject('QUERY_URL') private QUERY_URL: string) {\n";
+            queryTypeScript += "    this.QUERY_URL = POKER_CONFIG.queryServiceUrl;\n";
+            queryTypeScript += "  }\n";
             queryTypeScript += "\n";
 
             foreach (var query in queries)
