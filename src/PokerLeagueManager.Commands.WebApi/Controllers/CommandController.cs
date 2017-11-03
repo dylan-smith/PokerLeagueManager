@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.ApplicationInsights;
-using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Infrastructure;
+using Unity;
 
 namespace PokerLeagueManager.Commands.WebApi.Controllers
 {

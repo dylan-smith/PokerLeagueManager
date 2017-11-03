@@ -1,5 +1,5 @@
-﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Commands.Domain.Infrastructure;
+﻿using PokerLeagueManager.Commands.Domain.Infrastructure;
+using Unity;
 
 namespace PokerLeagueManager.Utilities
 {

@@ -1,6 +1,6 @@
-﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common;
+﻿using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Infrastructure;
+using Unity;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {

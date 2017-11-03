@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.Practices.Unity;
 using PokerLeagueManager.Common.Infrastructure;
+using Unity;
+using Unity.Lifetime;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {

@@ -1,5 +1,5 @@
-﻿using Microsoft.Practices.Unity;
-using PokerLeagueManager.Common.Infrastructure;
+﻿using PokerLeagueManager.Common.Infrastructure;
+using Unity;
 
 namespace PokerLeagueManager.Queries.WebApi
 {

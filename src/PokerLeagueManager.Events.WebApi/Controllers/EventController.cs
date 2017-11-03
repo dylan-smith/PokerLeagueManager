@@ -6,11 +6,11 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Microsoft.ApplicationInsights;
-using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Queries.Core.Infrastructure;
+using Unity;
 
 namespace PokerLeagueManager.Events.WebApi.Controllers
 {

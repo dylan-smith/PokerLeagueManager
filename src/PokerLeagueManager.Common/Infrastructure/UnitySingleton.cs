@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Unity;
+﻿using Unity;
 
 namespace PokerLeagueManager.Common.Infrastructure
 {
