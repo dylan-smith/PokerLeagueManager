@@ -86,4 +86,20 @@ describe('GameComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('isScreenSmall should return true when mediaQuery matches', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+    fixture.detectChanges();
+    async(() => {
+      expect(component.isScreenSmall()).toBeTruthy();
+    });
+  });
+
+  it('isScreenSmall should return false when mediaQuery doesnt match', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+    fixture.detectChanges();
+    async(() => {
+      expect(component.isScreenSmall()).toBeFalsy();
+    });
+  });
 });
