@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import { AppInsightsService } from '@markpieszak/ng-application-insights';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 class QueryServiceStub {
   player1: IGetGamePlayersDto = {
@@ -32,7 +33,7 @@ class QueryServiceStub {
   ];
 
   GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
-    return Observable.from([this.testGamePlayers]);
+    return null;
   }
 }
 
@@ -40,8 +41,6 @@ class AppInsightsServiceStub {
   trackEvent(eventName: string,
              eventProperties?: {[name: string]: string;},
              metricProperty?: {[name: string]: number;}): void {
-
-    // do a spy instead
   }
 }
 
@@ -65,8 +64,6 @@ describe('GameComponent', () => {
     })
     .compileComponents();
   }));
-
-
 
   beforeEach(() => {
     let testGame: IGetGamesListDto = {
@@ -102,4 +99,18 @@ describe('GameComponent', () => {
       expect(component.isScreenSmall()).toBeFalsy();
     });
   });
+
+  it('should set game date with proper format', () => {
+    let gameTitle = fixture.debugElement.query(By.css('.game-date')).nativeElement;
+
+    expect(gameTitle.textContent).toBe('September 15, 2017');
+  });
+
+  it('should set game winner and winnings in panel header', () => {
+    let gameWinner = fixture.debugElement.query(By.css('.game-winner')).nativeElement;
+
+    expect(gameWinner.textContent).toBe('Homer Simpson ($50)');
+  });
+
+  // test that the column header text changes on small screens
 });
