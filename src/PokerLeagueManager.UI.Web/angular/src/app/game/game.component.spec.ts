@@ -11,27 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
 class QueryServiceStub {
-  player1: IGetGamePlayersDto = {
-    GameId: '123',
-    PlayerName: 'Homer Simpson',
-    Placing: 1,
-    Winnings: 50,
-    PayIn: 20
-  };
-
-  player2: IGetGamePlayersDto = {
-    GameId: '123',
-    PlayerName: 'Bart Simpson',
-    Placing: 2,
-    Winnings: 0,
-    PayIn: 30
-  };
-
-  testGamePlayers: IGetGamePlayersDto[] = [
-    this.player1,
-    this.player2
-  ];
-
   GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
     return null;
   }
@@ -47,6 +26,33 @@ class AppInsightsServiceStub {
 describe('GameComponent', () => {
   let component: GameComponent;
   let fixture: ComponentFixture<GameComponent>;
+  let testGame: IGetGamesListDto = {
+    GameId: '123',
+    GameDate: '2017-09-15T15:53:00',
+    Winnings: 50,
+    Winner: 'Homer Simpson'
+  };
+
+  let player1: IGetGamePlayersDto = {
+    GameId: '123',
+    PlayerName: 'Homer Simpson',
+    Placing: 1,
+    Winnings: 50,
+    PayIn: 20
+  };
+
+  let player2: IGetGamePlayersDto = {
+    GameId: '123',
+    PlayerName: 'Bart Simpson',
+    Placing: 2,
+    Winnings: 0,
+    PayIn: 30
+  };
+
+  let testGamePlayers: IGetGamePlayersDto[] = [
+    this.player2,
+    this.player1
+  ];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -66,13 +72,6 @@ describe('GameComponent', () => {
   }));
 
   beforeEach(() => {
-    let testGame: IGetGamesListDto = {
-      GameId: '123',
-      GameDate: '2017-09-15T15:53:00',
-      Winnings: 50,
-      Winner: 'Homer Simpson'
-    };
-
     fixture = TestBed.createComponent(GameComponent);
     component = fixture.componentInstance;
 
@@ -112,5 +111,24 @@ describe('GameComponent', () => {
     expect(gameWinner.textContent).toBe('Homer Simpson ($50)');
   });
 
+  describe('when clicked', () => {
+    let spy: jasmine.Spy;
+    let queryServiceStub: QueryServiceStub;
+
+    beforeEach(() => {
+      queryServiceStub = fixture.debugElement.injector.get(QueryService);
+      spy = spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
+
+      component.GameClicked();
+      fixture.detectChanges();
+    });
+
+    it('should call GetGamePlayers with the gameId', () => {
+      expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledWith(testGame.GameId);
+    });
+  });
   // test that the column header text changes on small screens
+  // test that player details show up in the table
+  // test that player list is cached on multiple clicks
+  // test that appinsights event is sent on every expand (but not collapse)
 });
