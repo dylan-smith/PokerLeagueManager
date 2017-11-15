@@ -9,6 +9,8 @@ import 'rxjs/add/observable/from';
 import { AppInsightsService } from '@markpieszak/ng-application-insights';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
+import { fakeAsync } from '@angular/core/testing';
+import { tick } from '@angular/core/testing';
 
 class QueryServiceStub {
   GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
@@ -125,6 +127,12 @@ describe('GameComponent', () => {
 
     it('should call GetGamePlayers with the gameId', () => {
       expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledWith(testGame.GameId);
+    });
+
+    it('should set create 2 table rows', () => {
+      let rowCount = fixture.debugElement.queryAll(By.css('.mat-row')).length;
+
+      expect(rowCount).toBe(2);
     });
   });
   // test that the column header text changes on small screens

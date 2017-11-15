@@ -43,7 +43,7 @@ export class GameComponent implements OnInit {
 }
 
 export class PlayersDataSource extends DataSource<any> {
-  constructor(private data: IGetGamePlayersDto[]) {
+  constructor(public data: IGetGamePlayersDto[]) {
     super();
   }
 
