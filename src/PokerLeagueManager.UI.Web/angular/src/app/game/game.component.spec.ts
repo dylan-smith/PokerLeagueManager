@@ -134,6 +134,34 @@ describe('GameComponent', () => {
 
       expect(rowCount).toBe(2);
     });
+
+    it('should have the first row set to the winner', () => {
+      let row = fixture.debugElement.queryAll(By.css('.mat-row'))[0];
+
+      let placing = row.query(By.css('.mat-column-Placing')).nativeElement.textContent;
+      let playerName = row.query(By.css('.mat-column-PlayerName')).nativeElement.textContent;
+      let winnings = row.query(By.css('.mat-column-Winnings')).nativeElement.textContent;
+      let payIn = row.query(By.css('.mat-column-PayIn')).nativeElement.textContent;
+
+      expect(placing).toBe(player1.Placing.toString(), 'Placing');
+      expect(playerName).toBe(player1.PlayerName, 'PlayerName');
+      expect(winnings).toBe('$' + player1.Winnings.toString(), 'Winnings');
+      expect(payIn).toBe('$' + player1.PayIn.toString(), 'PayIn');
+    });
+
+    it('should have the second row set to the loser', () => {
+      let row = fixture.debugElement.queryAll(By.css('.mat-row'))[1];
+
+      let placing = row.query(By.css('.mat-column-Placing')).nativeElement.textContent;
+      let playerName = row.query(By.css('.mat-column-PlayerName')).nativeElement.textContent;
+      let winnings = row.query(By.css('.mat-column-Winnings')).nativeElement.textContent;
+      let payIn = row.query(By.css('.mat-column-PayIn')).nativeElement.textContent;
+
+      expect(placing).toBe(player2.Placing.toString(), 'Placing');
+      expect(playerName).toBe(player2.PlayerName, 'PlayerName');
+      expect(winnings).toBe('$' + player2.Winnings.toString(), 'Winnings');
+      expect(payIn).toBe('$' + player2.PayIn.toString(), 'PayIn');
+    });
   });
   // test that the column header text changes on small screens
   // test that player details show up in the table
