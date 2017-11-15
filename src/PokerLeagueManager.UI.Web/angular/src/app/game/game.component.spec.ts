@@ -116,10 +116,13 @@ describe('GameComponent', () => {
   describe('when clicked', () => {
     let spy: jasmine.Spy;
     let queryServiceStub: QueryServiceStub;
+    let appInsightsServiceStub: AppInsightsServiceStub;
 
     beforeEach(() => {
       queryServiceStub = fixture.debugElement.injector.get(QueryService);
-      spy = spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
+      appInsightsServiceStub = fixture.debugElement.injector.get(AppInsightsService);
+      spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
+      spyOn(appInsightsServiceStub, 'trackEvent');
 
       component.GameClicked();
       fixture.detectChanges();
@@ -161,6 +164,10 @@ describe('GameComponent', () => {
       expect(playerName).toBe(player2.PlayerName, 'PlayerName');
       expect(winnings).toBe('$' + player2.Winnings.toString(), 'Winnings');
       expect(payIn).toBe('$' + player2.PayIn.toString(), 'PayIn');
+    });
+
+    it('should send appInsights event on GameClicked', () => {
+      expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledWith('GameExpanded', { 'GameId': testGame.GameId, 'GameDate': testGame.GameDate });
     });
   });
   // test that the column header text changes on small screens

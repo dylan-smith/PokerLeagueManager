@@ -31,7 +31,7 @@ export class GameComponent implements OnInit {
                             }))});
     }
 
-    this.appInsightsService.trackEvent('GameExpanded', { 'Game': this.game.GameId, 'GameDate': this.game.GameDate });
+    this.appInsightsService.trackEvent('GameExpanded', { 'GameId': this.game.GameId, 'GameDate': this.game.GameDate });
   }
 
   ngOnInit() {
