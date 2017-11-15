@@ -129,7 +129,7 @@ describe('GameComponent', () => {
       expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledWith(testGame.GameId);
     });
 
-    it('should set create 2 table rows', () => {
+    it('should create 2 table rows', () => {
       let rowCount = fixture.debugElement.queryAll(By.css('.mat-row')).length;
 
       expect(rowCount).toBe(2);
