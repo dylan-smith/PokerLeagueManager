@@ -52,8 +52,8 @@ describe('GameComponent', () => {
   };
 
   let testGamePlayers: IGetGamePlayersDto[] = [
-    this.player2,
-    this.player1
+    player2,
+    player1
   ];
 
   beforeEach(async(() => {
