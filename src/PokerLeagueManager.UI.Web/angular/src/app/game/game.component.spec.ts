@@ -10,6 +10,7 @@ import { AppInsightsService } from '@markpieszak/ng-application-insights';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { click } from '../shared/testHelpers';
+import { DebugElement } from '@angular/core';
 
 class QueryServiceStub {
   GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
@@ -112,22 +113,28 @@ describe('GameComponent', () => {
     expect(gameWinner.textContent).toBe('Homer Simpson ($50)');
   });
 
-  describe('when clicked', () => {
+  describe('when expanded', () => {
     let spy: jasmine.Spy;
     let queryServiceStub: QueryServiceStub;
     let appInsightsServiceStub: AppInsightsServiceStub;
+    let gameHeader: DebugElement;
 
     beforeEach(() => {
       queryServiceStub = fixture.debugElement.injector.get(QueryService);
       appInsightsServiceStub = fixture.debugElement.injector.get(AppInsightsService);
       spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
       spyOn(appInsightsServiceStub, 'trackEvent');
+      spyOn(component, 'GameClicked').and.callThrough();
 
-      let gameHeader = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
+      gameHeader = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
       click(gameHeader);
 
       fixture.detectChanges();
     });
+
+    it('should call GameClicked', () => {
+      expect(component.GameClicked).toHaveBeenCalled();
+    })
 
     it('should call GetGamePlayers with the gameId', () => {
       expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledWith(testGame.GameId);
@@ -167,8 +174,30 @@ describe('GameComponent', () => {
       expect(payIn).toBe('$' + player2.PayIn.toString(), 'PayIn');
     });
 
-    it('should send appInsights event on GameClicked', () => {
+    it('should send appInsights event', () => {
       expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledWith('GameExpanded', { 'GameId': testGame.GameId, 'GameDate': testGame.GameDate });
+    });
+
+    describe('then collapsed', () => {
+      beforeEach(() => {
+        click(gameHeader);
+      });
+
+      it('should not call GameClicked', () => {
+        expect(component.GameClicked).toHaveBeenCalledTimes(1);
+      });
+
+      describe('then expanded again', () => {
+        beforeEach(() => {
+          click(gameHeader);
+          fixture.detectChanges();
+        });
+
+        it('should use cached players list', () => {
+          expect(component.GameClicked).toHaveBeenCalledTimes(2);
+          expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledTimes(1);
+        })
+      })
     });
   });
   // test that the column header text changes on small screens
