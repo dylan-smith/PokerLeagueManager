@@ -10,19 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { click } from '../shared/testHelpers';
 import { DebugElement } from '@angular/core';
-
-class QueryServiceStub {
-  GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
-    return null;
-  }
-}
-
-class AppInsightsServiceStub {
-  trackEvent(eventName: string,
-             eventProperties?: {[name: string]: string;},
-             metricProperty?: {[name: string]: number;}): void {
-  }
-}
+import { mock, when, instance, verify, anyString, anything, deepEqual } from 'ts-mockito';
 
 describe('GameComponent', () => {
   let component: GameComponent;
@@ -55,7 +43,15 @@ describe('GameComponent', () => {
     player1
   ];
 
+  let mockQueryService: QueryService;
+  let mockAppInsightsService: AppInsightsService;
+
   beforeEach(async(() => {
+    mockQueryService = mock(QueryService);
+    mockAppInsightsService = mock(AppInsightsService);
+
+    when(mockQueryService.GetGamePlayers(testGame.GameId)).thenReturn(Observable.from([testGamePlayers]));
+
     TestBed.configureTestingModule({
       declarations: [ GameComponent ],
       imports: [
@@ -65,8 +61,8 @@ describe('GameComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
-        { provide: QueryService, useClass: QueryServiceStub },
-        { provide: AppInsightsService, useClass: AppInsightsServiceStub }
+        { provide: QueryService, useValue: instance(mockQueryService) },
+        { provide: AppInsightsService, useValue: instance(mockAppInsightsService) }
       ]
     })
     .compileComponents();
@@ -158,15 +154,9 @@ describe('GameComponent', () => {
 
   describe('when expanded', () => {
     let spy: jasmine.Spy;
-    let queryServiceStub: QueryServiceStub;
-    let appInsightsServiceStub: AppInsightsServiceStub;
     let gameHeader: DebugElement;
 
     beforeEach(() => {
-      queryServiceStub = fixture.debugElement.injector.get(QueryService);
-      appInsightsServiceStub = fixture.debugElement.injector.get(AppInsightsService);
-      spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
-      spyOn(appInsightsServiceStub, 'trackEvent');
       spyOn(component, 'GameExpanded').and.callThrough();
 
       gameHeader = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
@@ -180,7 +170,7 @@ describe('GameComponent', () => {
     })
 
     it('should call GetGamePlayers with the gameId', () => {
-      expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledWith(testGame.GameId);
+      verify(mockQueryService.GetGamePlayers(testGame.GameId)).called();
     });
 
     it('should create 2 table rows', () => {
@@ -218,7 +208,7 @@ describe('GameComponent', () => {
     });
 
     it('should send appInsights event', () => {
-      expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledWith('GameExpanded', { 'GameId': testGame.GameId, 'GameDate': testGame.GameDate });
+      verify(mockAppInsightsService.trackEvent('GameExpanded', deepEqual({ 'GameId': testGame.GameId, 'GameDate': testGame.GameDate }))).called();
     });
 
     describe('then collapsed', () => {
@@ -231,8 +221,8 @@ describe('GameComponent', () => {
       });
 
       it ('should not send an AppInsights event', () => {
-        expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledTimes(1);
-      })
+        verify(mockAppInsightsService.trackEvent(anything(), anything())).once();
+      });
 
       describe('then expanded again', () => {
         beforeEach(() => {
@@ -242,11 +232,11 @@ describe('GameComponent', () => {
 
         it('should use cached players list', () => {
           expect(component.GameExpanded).toHaveBeenCalledTimes(2);
-          expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledTimes(1);
+          verify(mockQueryService.GetGamePlayers(anyString())).once();
         });
 
         it('should send another AppInsights event', () => {
-          expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledTimes(2);
+          verify(mockAppInsightsService.trackEvent(anything(), anything())).twice();
         })
       })
     });
