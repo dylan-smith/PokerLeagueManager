@@ -101,6 +101,50 @@ describe('GameComponent', () => {
     });
   });
 
+  it('should set column title to Winnings on large screens', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+    let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
+
+    fixture.detectChanges();
+    async(() => {
+      expect(winningsHeader.textContent).toBe('Winnings');
+    })
+  });
+
+  it('should set column title to Pay In on large screens', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+    let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
+
+    fixture.detectChanges();
+    async(() => {
+      expect(payInHeader.textContent).toBe('Pay In');
+    })
+  });
+
+  it('should set column title to Win on small screens', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+    let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
+
+    fixture.detectChanges();
+    async(() => {
+      expect(winningsHeader.textContent).toBe('Win');
+    })
+  });
+
+  it('should set column title to Pay on small screens', () => {
+    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+    let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
+
+    fixture.detectChanges();
+    async(() => {
+      expect(payInHeader.textContent).toBe('Pay');
+    })
+  });
+
   it('should set game date with proper format', () => {
     let gameTitle = fixture.debugElement.query(By.css('.game-date')).nativeElement;
 
@@ -187,6 +231,10 @@ describe('GameComponent', () => {
         expect(component.GameExpanded).toHaveBeenCalledTimes(1);
       });
 
+      it ('should not send an AppInsights event', () => {
+        expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledTimes(1);
+      })
+
       describe('then expanded again', () => {
         beforeEach(() => {
           click(gameHeader);
@@ -196,11 +244,13 @@ describe('GameComponent', () => {
         it('should use cached players list', () => {
           expect(component.GameExpanded).toHaveBeenCalledTimes(2);
           expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledTimes(1);
+        });
+
+        it('should send another AppInsights event', () => {
+          expect(appInsightsServiceStub.trackEvent).toHaveBeenCalledTimes(2);
         })
       })
     });
   });
   // test that the column header text changes on small screens
-  // test that player list is cached on multiple clicks
-  // test that appinsights event is sent on every expand (but not collapse)
 });
