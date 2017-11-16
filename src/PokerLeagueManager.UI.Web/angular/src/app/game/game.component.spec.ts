@@ -227,7 +227,6 @@ describe('GameComponent', () => {
       describe('then expanded again', () => {
         beforeEach(() => {
           click(gameHeader);
-          fixture.detectChanges();
         });
 
         it('should use cached players list', () => {
@@ -237,7 +236,7 @@ describe('GameComponent', () => {
 
         it('should send another AppInsights event', () => {
           verify(mockAppInsightsService.trackEvent(anything(), anything())).twice();
-        })
+        });
       })
     });
   });
