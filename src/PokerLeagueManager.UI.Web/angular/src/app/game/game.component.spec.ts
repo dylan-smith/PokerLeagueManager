@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MomentModule } from 'angular2-moment';
-import { MatButtonModule, MatExpansionModule, MatSidenavModule, MatIconModule, MatProgressSpinnerModule, MatTableModule } from '@angular/material';
+import { MatButtonModule, MatExpansionModule, MatTableModule } from '@angular/material';
 import { QueryService, IGetGamePlayersDto, IGetGamesListDto } from '../query.service';
 
 import { GameComponent } from './game.component';
@@ -9,8 +9,7 @@ import 'rxjs/add/observable/from';
 import { AppInsightsService } from '@markpieszak/ng-application-insights';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { fakeAsync } from '@angular/core/testing';
-import { tick } from '@angular/core/testing';
+import { click } from '../shared/testHelpers';
 
 class QueryServiceStub {
   GetGamePlayers(GameId: string): Observable<IGetGamePlayersDto[]> {
@@ -124,7 +123,9 @@ describe('GameComponent', () => {
       spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
       spyOn(appInsightsServiceStub, 'trackEvent');
 
-      component.GameClicked();
+      let gameHeader = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
+      click(gameHeader);
+
       fixture.detectChanges();
     });
 
@@ -171,7 +172,6 @@ describe('GameComponent', () => {
     });
   });
   // test that the column header text changes on small screens
-  // test that player details show up in the table
   // test that player list is cached on multiple clicks
   // test that appinsights event is sent on every expand (but not collapse)
 });
