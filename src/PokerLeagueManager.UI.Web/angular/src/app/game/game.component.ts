@@ -21,7 +21,7 @@ export class GameComponent implements OnInit {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
-  public GameClicked(): void {
+  public GameExpanded(): void {
     if (!this.Players) {
       this.queryService.GetGamePlayers(this.game.GameId)
       .subscribe(players => {

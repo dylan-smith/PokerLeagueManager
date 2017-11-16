@@ -124,7 +124,7 @@ describe('GameComponent', () => {
       appInsightsServiceStub = fixture.debugElement.injector.get(AppInsightsService);
       spyOn(queryServiceStub, 'GetGamePlayers').and.returnValue(Observable.from([testGamePlayers]));
       spyOn(appInsightsServiceStub, 'trackEvent');
-      spyOn(component, 'GameClicked').and.callThrough();
+      spyOn(component, 'GameExpanded').and.callThrough();
 
       gameHeader = fixture.debugElement.query(By.css('mat-expansion-panel-header'));
       click(gameHeader);
@@ -132,8 +132,8 @@ describe('GameComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should call GameClicked', () => {
-      expect(component.GameClicked).toHaveBeenCalled();
+    it('should call GameExpanded', () => {
+      expect(component.GameExpanded).toHaveBeenCalled();
     })
 
     it('should call GetGamePlayers with the gameId', () => {
@@ -183,8 +183,8 @@ describe('GameComponent', () => {
         click(gameHeader);
       });
 
-      it('should not call GameClicked', () => {
-        expect(component.GameClicked).toHaveBeenCalledTimes(1);
+      it('should not call GameExpanded', () => {
+        expect(component.GameExpanded).toHaveBeenCalledTimes(1);
       });
 
       describe('then expanded again', () => {
@@ -194,7 +194,7 @@ describe('GameComponent', () => {
         });
 
         it('should use cached players list', () => {
-          expect(component.GameClicked).toHaveBeenCalledTimes(2);
+          expect(component.GameExpanded).toHaveBeenCalledTimes(2);
           expect(queryServiceStub.GetGamePlayers).toHaveBeenCalledTimes(1);
         })
       })
