@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MomentModule } from 'angular2-moment';
-import { MatButtonModule, MatExpansionModule, MatTableModule } from '@angular/material';
+import { MatExpansionModule, MatTableModule } from '@angular/material';
 import { QueryService, IGetGamePlayersDto, IGetGamesListDto } from '../query.service';
-
 import { GameComponent } from './game.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
@@ -85,76 +84,76 @@ describe('GameComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('isScreenSmall should return true when mediaQuery matches', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
-    fixture.detectChanges();
-    async(() => {
-      expect(component.isScreenSmall()).toBeTruthy();
-    });
-  });
-
-  it('isScreenSmall should return false when mediaQuery doesnt match', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
-    fixture.detectChanges();
-    async(() => {
-      expect(component.isScreenSmall()).toBeFalsy();
-    });
-  });
-
-  it('should set column title to Winnings on large screens', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
-    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
-    let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
-
-    fixture.detectChanges();
-    async(() => {
-      expect(winningsHeader.textContent).toBe('Winnings');
-    })
-  });
-
-  it('should set column title to Pay In on large screens', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: false });
-    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
-    let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
-
-    fixture.detectChanges();
-    async(() => {
-      expect(payInHeader.textContent).toBe('Pay In');
-    })
-  });
-
-  it('should set column title to Win on small screens', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
-    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
-    let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
-
-    fixture.detectChanges();
-    async(() => {
-      expect(winningsHeader.textContent).toBe('Win');
-    })
-  });
-
-  it('should set column title to Pay on small screens', () => {
-    spyOn(window, 'matchMedia').and.returnValue({ matches: true });
-    let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
-    let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
-
-    fixture.detectChanges();
-    async(() => {
-      expect(payInHeader.textContent).toBe('Pay');
-    })
-  });
-
   it('should set game date with proper format', () => {
     let gameTitle = fixture.debugElement.query(By.css('.game-date')).nativeElement;
-
     expect(gameTitle.textContent).toBe('September 15, 2017');
   });
 
   it('should set game winner and winnings in panel header', () => {
     let gameWinner = fixture.debugElement.query(By.css('.game-winner')).nativeElement;
-
     expect(gameWinner.textContent).toBe('Homer Simpson ($50)');
+  });
+
+  describe('on a small screen', () => {
+    beforeEach(() => {
+      spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+      fixture.detectChanges();
+    });
+
+    it('isScreenSmall should return true', () => {
+      async(() => {
+        expect(component.isScreenSmall()).toBeTruthy();
+      });
+    });
+
+    it('should set column title to Win', () => {
+      let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+      let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
+
+      async(() => {
+        expect(winningsHeader.textContent).toBe('Win');
+      })
+    });
+
+    it('should set column title to Pay', () => {
+      let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+      let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
+
+      async(() => {
+        expect(payInHeader.textContent).toBe('Pay');
+      })
+    });
+  });
+
+  describe('on a large screen', () => {
+    beforeEach(() => {
+      spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+      fixture.detectChanges();
+    });
+
+    it('isScreenSmall should return false', () => {
+      async(() => {
+        expect(component.isScreenSmall()).toBeFalsy();
+      });
+    });
+
+    it('should set column title to Winnings', () => {
+      let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+      let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
+
+      async(() => {
+        expect(winningsHeader.textContent).toBe('Winnings');
+      })
+    });
+
+    it('should set column title to Pay In', () => {
+      let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
+      let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
+
+      async(() => {
+        expect(payInHeader.textContent).toBe('Pay In');
+      })
+    });
   });
 
   describe('when expanded', () => {
@@ -252,5 +251,4 @@ describe('GameComponent', () => {
       })
     });
   });
-  // test that the column header text changes on small screens
 });
