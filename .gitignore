@@ -250,3 +250,6 @@ ModelManifest.xml
 /src/PokerLeagueManager.UI.Web/angular/src/app/dtos
 /src/PokerLeagueManager.UI.Web/angular/node_modules
 /src/PokerLeagueManager.UI.Web/angular/src/app/query.service.ts
+
+# JUnit test results
+**/test.xml
