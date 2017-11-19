@@ -31,7 +31,7 @@ module.exports = function (config) {
     browsers: ['ChromeHeadless'],
     singleRun: false,
     junitReporter: {
-      outputDir: '',
+      outputDir: 'KarmaTestResults',
       outputFile: 'test.xml'
     }
   });
