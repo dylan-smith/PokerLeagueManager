@@ -17,7 +17,7 @@ export class GameComponent implements OnInit {
   displayedColumns = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 530px)`);
 
-  constrxxxuctor(private queryService: QueryService, private appInsightsService: AppInsightsService, zone: NgZone) {
+  constructor(private queryService: QueryService, private appInsightsService: AppInsightsService, zone: NgZone) {
     this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
   }
 
