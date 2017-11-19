@@ -5,7 +5,7 @@ import { QueryService, IGetGamesListDto } from '../query.service';
 import { GameListComponent } from './game-list.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import { mock, when, instance, verify, anyString, anything, deepEqual } from 'ts-mockito';
+import { mock, when, instance, verify, anyString, anything, deepEqual, anyNumber } from 'ts-mockito';
 import { Component, Input } from '@angular/core';
 
 @Component({selector: 'poker-game', template: ''})
@@ -102,4 +102,14 @@ describe('GameListComponent', () => {
       });
     });
   });
+
+  describe('after initialized', () => {
+    beforeEach(() => {
+      fixture.detectChanges();
+    });
+
+    it('should call GetGamesList', () => {
+      verify(mockQueryService.GetGamesList(0, anyNumber())).called();
+    });
+  })
 });
