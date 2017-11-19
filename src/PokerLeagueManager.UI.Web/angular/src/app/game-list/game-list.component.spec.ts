@@ -76,6 +76,12 @@ describe('GameListComponent', () => {
         expect(component.isScreenSmall()).toBeTruthy();
       });
     });
+
+    it('GamesToLoad should be 10', () => {
+      async(() => {
+        expect(component.GamesToLoad).toBe(10);
+      });
+    });
   });
 
   describe('on a large screen', () => {
@@ -87,6 +93,12 @@ describe('GameListComponent', () => {
     it('isScreenSmall should return false', () => {
       async(() => {
         expect(component.isScreenSmall()).toBeFalsy();
+      });
+    });
+
+    it('GamesToLoad should be 20', () => {
+      async(() => {
+        expect(component.GamesToLoad).toBe(20);
       });
     });
   });
