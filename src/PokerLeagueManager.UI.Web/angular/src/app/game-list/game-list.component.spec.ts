@@ -59,9 +59,6 @@ describe('GameListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(GameListComponent);
     component = fixture.componentInstance;
-
-    // component.game = testGame;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
