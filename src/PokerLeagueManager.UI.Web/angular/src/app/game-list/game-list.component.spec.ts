@@ -1,15 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MomentModule } from 'angular2-moment';
-import { MatProgressSpinnerModule, MatExpansionModule, MatTableModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material';
 import { InfiniteScrollModule } from '../ngx-infinite-scroll/ngx-infinite-scroll';
 import { QueryService, IGetGamesListDto } from '../query.service';
 import { GameListComponent } from './game-list.component';
-import { GameComponent } from '../game/game.component';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
-import { AppInsightsService } from '@markpieszak/ng-application-insights';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { mock, when, instance, verify, anyString, anything, deepEqual } from 'ts-mockito';
+import { Component, Input } from '@angular/core';
+
+@Component({selector: 'poker-game', template: ''})
+class GameStubComponent {
+  @Input() game: IGetGamesListDto;
+}
 
 describe('GameListComponent', () => {
   let component: GameListComponent;
@@ -35,27 +37,20 @@ describe('GameListComponent', () => {
   ];
 
   let mockQueryService: QueryService;
-  let mockAppInsightsService: AppInsightsService;
 
   beforeEach(async(() => {
     mockQueryService = mock(QueryService);
-    mockAppInsightsService = mock(AppInsightsService);
 
     when(mockQueryService.GetGamesList(anything(), anything())).thenReturn(Observable.from([testGames]));
 
     TestBed.configureTestingModule({
-      declarations: [ GameListComponent, GameComponent ],
+      declarations: [ GameListComponent, GameStubComponent ],
       imports: [
         MatProgressSpinnerModule,
-        InfiniteScrollModule,
-        MatExpansionModule,
-        MatTableModule,
-        BrowserAnimationsModule,
-        MomentModule
+        InfiniteScrollModule
       ],
       providers: [
-        { provide: QueryService, useValue: instance(mockQueryService) },
-        { provide: AppInsightsService, useValue: instance(mockAppInsightsService) }
+        { provide: QueryService, useValue: instance(mockQueryService) }
       ]
     })
     .compileComponents();
