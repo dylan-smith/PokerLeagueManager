@@ -87,7 +87,7 @@ describe('GameComponent', () => {
 
   it('should set game winner and winnings in panel header', () => {
     let gameWinner = fixture.debugElement.query(By.css('.game-winner')).nativeElement;
-    expect(gameWinner.textContent).toBe('Homer Simpson ($50)');
+    expect(gameWinner.textContent).toBe('Homer Simpson ($500)');
   });
 
   describe('on a small screen', () => {
