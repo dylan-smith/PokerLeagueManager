@@ -111,5 +111,9 @@ describe('GameListComponent', () => {
     it('should call GetGamesList', () => {
       verify(mockQueryService.GetGamesList(0, anyNumber())).called();
     });
+
+    it('should have 2 Games', () => {
+      expect(component.Games.length).toBe(2);
+    })
   })
 });
