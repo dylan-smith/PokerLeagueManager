@@ -14,6 +14,10 @@ export function resolveContainerElement(
     container = containerIsString
       ? findElement(selector, defaultElement.nativeElement, fromRoot)
       : selector;
+
+    if (!container) {
+      container = window;
+    }
   }
   return container;
 }
