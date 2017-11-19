@@ -64,4 +64,30 @@ describe('GameListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('on a small screen', () => {
+    beforeEach(() => {
+      spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+      fixture.detectChanges();
+    });
+
+    it('isScreenSmall should return true', () => {
+      async(() => {
+        expect(component.isScreenSmall()).toBeTruthy();
+      });
+    });
+  });
+
+  describe('on a large screen', () => {
+    beforeEach(() => {
+      spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+      fixture.detectChanges();
+    });
+
+    it('isScreenSmall should return false', () => {
+      async(() => {
+        expect(component.isScreenSmall()).toBeFalsy();
+      });
+    });
+  });
 });
