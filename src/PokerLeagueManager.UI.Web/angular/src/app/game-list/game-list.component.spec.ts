@@ -42,7 +42,6 @@ describe('GameListComponent', () => {
   beforeEach(async(() => {
     mockQueryService = mock(QueryService);
 
-
     TestBed.configureTestingModule({
       declarations: [ GameListComponent, GameStubComponent ],
       imports: [
@@ -65,8 +64,6 @@ describe('GameListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-
-
   describe('before games are loaded', () => {
     beforeEach(() => {
       when(mockQueryService.GetGamesList(anything(), anything())).thenReturn(Observable.from([]));
@@ -84,7 +81,7 @@ describe('GameListComponent', () => {
       expect(component.DisableInfiniteScroll).toBeTruthy();
 
       let infiniteScrollDiv = fixture.debugElement.query(By.css('#infiniteScroll'));
-      expect(infiniteScrollDiv.attributes['ng-reflect-infinite-scroll-disabled']).toBeTruthy();
+      expect(infiniteScrollDiv.attributes['ng-reflect-infinite-scroll-disabled']).toBe('true');
     });
 
     it('should not show Loading More section', () => {
@@ -101,17 +98,31 @@ describe('GameListComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should hide Loading', () => {
-      let loadingDiv = fixture.debugElement.query(By.css('.game-list > .loading-games'));
-      expect(loadingDiv).toBeFalsy();
-    });
-
     it('should call GetGamesList', () => {
       verify(mockQueryService.GetGamesList(0, anyNumber())).called();
     });
 
     it('should have 2 Games', () => {
       expect(component.Games.length).toBe(2);
+    });
+
+    it('should hide Loading', () => {
+      let loadingDiv = fixture.debugElement.query(By.css('.game-list > .loading-games'));
+      expect(loadingDiv).toBeFalsy();
+    });
+
+    it('should enable infiniteScroll', () => {
+      expect(component.DisableInfiniteScroll).toBeFalsy();
+
+      let infiniteScrollDiv = fixture.debugElement.query(By.css('#infiniteScroll'));
+      expect(infiniteScrollDiv.attributes['ng-reflect-infinite-scroll-disabled']).toBe('false');
+    })
+
+    it('should show Loading More section', () => {
+      expect(component.ShowLoadingMore).toBeTruthy();
+
+      let loadingMoreDiv = fixture.debugElement.query(By.css('#infiniteScroll > .loading-games'));
+      expect(loadingMoreDiv).toBeTruthy();
     });
 
     describe('on a small screen', () => {
