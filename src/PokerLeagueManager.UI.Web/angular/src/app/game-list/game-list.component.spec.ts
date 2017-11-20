@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import { mock, when, instance, verify, anyString, anything, deepEqual, anyNumber } from 'ts-mockito';
 import { Component, Input } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 @Component({selector: 'poker-game', template: ''})
 class GameStubComponent {
@@ -41,7 +42,6 @@ describe('GameListComponent', () => {
   beforeEach(async(() => {
     mockQueryService = mock(QueryService);
 
-    when(mockQueryService.GetGamesList(anything(), anything())).thenReturn(Observable.from([testGames]));
 
     TestBed.configureTestingModule({
       declarations: [ GameListComponent, GameStubComponent ],
@@ -65,47 +65,45 @@ describe('GameListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('on a small screen', () => {
+
+
+  describe('before games are loaded', () => {
     beforeEach(() => {
-      spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+      when(mockQueryService.GetGamesList(anything(), anything())).thenReturn(Observable.from([]));
       fixture.detectChanges();
+    })
+
+    it('should show Loading', () => {
+      expect(component.Loading).toBeTruthy();
+
+      let loadingDiv = fixture.debugElement.query(By.css('.game-list > .loading-games'));
+      expect(loadingDiv).toBeTruthy();
     });
 
-    it('isScreenSmall should return true', () => {
-      async(() => {
-        expect(component.isScreenSmall()).toBeTruthy();
-      });
+    it('should disable infiniteScroll', () => {
+      expect(component.DisableInfiniteScroll).toBeTruthy();
+
+      let infiniteScrollDiv = fixture.debugElement.query(By.css('#infiniteScroll'));
+      expect(infiniteScrollDiv.attributes['ng-reflect-infinite-scroll-disabled']).toBeTruthy();
     });
 
-    it('GamesToLoad should be 10', () => {
-      async(() => {
-        expect(component.GamesToLoad).toBe(10);
-      });
+    it('should not show Loading More section', () => {
+      expect(component.ShowLoadingMore).toBeFalsy();
+
+      let loadingMoreDiv = fixture.debugElement.query(By.css('#infiniteScroll > .loading-games'));
+      expect(loadingMoreDiv).toBeFalsy();
     });
   });
 
-  describe('on a large screen', () => {
+  describe('after games are loaded', () => {
     beforeEach(() => {
-      spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+      when(mockQueryService.GetGamesList(anything(), anything())).thenReturn(Observable.from([testGames]));
       fixture.detectChanges();
     });
 
-    it('isScreenSmall should return false', () => {
-      async(() => {
-        expect(component.isScreenSmall()).toBeFalsy();
-      });
-    });
-
-    it('GamesToLoad should be 20', () => {
-      async(() => {
-        expect(component.GamesToLoad).toBe(20);
-      });
-    });
-  });
-
-  describe('after initialized', () => {
-    beforeEach(() => {
-      fixture.detectChanges();
+    it('should hide Loading', () => {
+      let loadingDiv = fixture.debugElement.query(By.css('.game-list > .loading-games'));
+      expect(loadingDiv).toBeFalsy();
     });
 
     it('should call GetGamesList', () => {
@@ -114,6 +112,42 @@ describe('GameListComponent', () => {
 
     it('should have 2 Games', () => {
       expect(component.Games.length).toBe(2);
-    })
-  })
+    });
+
+    describe('on a small screen', () => {
+      beforeEach(() => {
+        spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+      });
+
+      it('isScreenSmall should return true', () => {
+        async(() => {
+          expect(component.isScreenSmall()).toBeTruthy();
+        });
+      });
+
+      it('GamesToLoad should be 10', () => {
+        async(() => {
+          expect(component.GamesToLoad).toBe(10);
+        });
+      });
+    });
+
+    describe('on a large screen', () => {
+      beforeEach(() => {
+        spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+      });
+
+      it('isScreenSmall should return false', () => {
+        async(() => {
+          expect(component.isScreenSmall()).toBeFalsy();
+        });
+      });
+
+      it('GamesToLoad should be 20', () => {
+        async(() => {
+          expect(component.GamesToLoad).toBe(20);
+        });
+      });
+    });
+  });
 });

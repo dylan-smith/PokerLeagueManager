@@ -7,7 +7,7 @@
       <h3>Loading Games...</h3>
     </div>
   </div>
-  <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollDisabled]="DisableInfiniteScroll" scrollWindow="false" infiniteScrollContainer=".mat-sidenav-content" fromRoot="true" (scrolled)="LoadMoreGames()">
+  <div id="infiniteScroll" infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollDisabled]="DisableInfiniteScroll" scrollWindow="false" infiniteScrollContainer=".mat-sidenav-content" fromRoot="true" (scrolled)="LoadMoreGames()">
     <div *ngFor="let game of Games">
       <poker-game [game]="game"></poker-game>
     </div>
