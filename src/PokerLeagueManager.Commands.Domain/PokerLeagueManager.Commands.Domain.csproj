@@ -98,6 +98,7 @@
     <Compile Include="Aggregates\Game\Exceptions\WinningsCannotBeNegativeException.cs" />
     <Compile Include="Aggregates\Game\Game.cs" />
     <Compile Include="Aggregates\Game\Player.cs" />
+    <Compile Include="CommandHandlers\CreateGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\RenamePlayerCommandHandler.cs" />
     <Compile Include="CommandHandlers\DeleteGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\EnterGameResultsHandler.cs" />

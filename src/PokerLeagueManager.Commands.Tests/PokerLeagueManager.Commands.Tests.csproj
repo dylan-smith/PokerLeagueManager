@@ -67,6 +67,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="CreateGame\CreateGameWithDuplicateDateTest.cs" />
+    <Compile Include="CreateGame\CreateGameWithDuplicateGameIdTest.cs" />
+    <Compile Include="CreateGame\CreateGameWithGameIdTest.cs" />
+    <Compile Include="CreateGame\CreateGameTest.cs" />
     <Compile Include="DeleteGame\InvalidGameIdTest.cs" />
     <Compile Include="DeleteGame\DeleteGameHappyPathTest.cs" />
     <Compile Include="EnterGameResults\DuplicatePlayersCaseInsensitiveTest.cs" />

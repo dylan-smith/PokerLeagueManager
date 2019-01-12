@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\DeleteGameCommand.cs" />
+    <Compile Include="Commands\CreateGameCommand.cs" />
     <Compile Include="Commands\EnterGameResultsCommand.cs" />
     <Compile Include="Commands\RenamePlayerCommand.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
