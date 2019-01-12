@@ -13,14 +13,14 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
         {
             if (Repository.DoesAggregateExist(command.GameId))
             {
-                throw new ArgumentException("Cannot enter game results for a previously existing Game Id", "GameId");
+                throw new ArgumentException("Cannot create a duplicate Game Id", "GameId");
             }
 
             var gameCount = QueryService.Execute(new GetGameCountByDateQuery(command.GameDate));
 
             if (gameCount > 0)
             {
-                throw new ArgumentException("Cannot enter multiple game results for the same date", "GameDate");
+                throw new ArgumentException("Cannot create more than one game for the same date", "GameDate");
             }
 
             var game = new Game(command.GameId, command.GameDate);
