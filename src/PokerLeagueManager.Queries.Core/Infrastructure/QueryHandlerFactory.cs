@@ -61,7 +61,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
 
-            if (matchingTypes.Any())
+            if (!matchingTypes.Any())
             {
                 throw new ArgumentException(string.Format("Could not find Query Handler for {0}", typeof(TQuery).Name));
             }
