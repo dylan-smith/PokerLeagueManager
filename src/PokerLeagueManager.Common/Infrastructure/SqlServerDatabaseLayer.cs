@@ -125,21 +125,15 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposedValue)
+            if (!_disposedValue && disposing && _connection != null)
             {
-                if (disposing)
+                if (_connection.State == ConnectionState.Open)
                 {
-                    if (_connection != null)
-                    {
-                        if (_connection.State == ConnectionState.Open)
-                        {
-                            _connection.Close();
-                        }
-
-                        _connection.Dispose();
-                        _transaction?.Dispose();
-                    }
+                    _connection.Close();
                 }
+
+                _connection.Dispose();
+                _transaction?.Dispose();
             }
 
             _disposedValue = true;

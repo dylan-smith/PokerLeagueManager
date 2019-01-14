@@ -43,7 +43,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         {
             var mi = t.GetExtensionMethods(extensionAssembly).Where(m => m.Name == methodName);
 
-            if (mi.Count<MethodInfo>() <= 0)
+            if (!mi.Any())
             {
                 return null;
             }
