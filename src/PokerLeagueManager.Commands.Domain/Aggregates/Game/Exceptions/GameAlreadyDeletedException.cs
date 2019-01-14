@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PokerLeagueManager.Commands.Domain.Exceptions
 {
@@ -7,6 +8,11 @@ namespace PokerLeagueManager.Commands.Domain.Exceptions
     {
         public GameAlreadyDeletedException(Guid gameId)
             : base(CreateMessage(gameId))
+        {
+        }
+
+        protected GameAlreadyDeletedException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PokerLeagueManager.Commands.Domain.Exceptions
 {
@@ -7,6 +8,11 @@ namespace PokerLeagueManager.Commands.Domain.Exceptions
     {
         public InvalidGameDateException(DateTime gameDate)
             : base(CreateMessage(gameDate))
+        {
+        }
+
+        protected InvalidGameDateException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
 

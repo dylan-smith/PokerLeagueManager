@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class QueryHandlerFactory : IQueryHandlerFactory
     {
-        private IQueryDataStore _queryDataStore;
+        private readonly IQueryDataStore _queryDataStore;
 
         public QueryHandlerFactory(IQueryDataStore queryDataStore)
         {
@@ -22,7 +22,6 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             return Execute<TResult>((IQuery)query);
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
         public TResult Execute<TResult>(IQuery query)
         {
             if (query == null)
@@ -37,7 +36,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 
             if (executeQueryHandlerMethods.Count() != 1)
             {
-                throw new Exception("Unexpected Exception. Could not find the ExecuteQueryHandler method via Reflection.");
+                throw new InvalidOperationException("Unexpected Exception. Could not find the ExecuteQueryHandler method via Reflection.");
             }
 
             var executeQueryHandlerMethod = executeQueryHandlerMethods.First();
@@ -62,7 +61,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());
 
-            if (matchingTypes.Count() == 0)
+            if (matchingTypes.Any())
             {
                 throw new ArgumentException(string.Format("Could not find Query Handler for {0}", typeof(TQuery).Name));
             }
