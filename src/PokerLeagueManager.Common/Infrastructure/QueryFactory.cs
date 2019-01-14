@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Web;
 
 namespace PokerLeagueManager.Common.Infrastructure

@@ -6,7 +6,6 @@ using Moq;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Common.Tests;
-using PokerLeagueManager.Queries.Core;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.Infrastructure

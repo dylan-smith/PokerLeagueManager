@@ -1,6 +1,4 @@
-﻿using System.ServiceModel;
-
-namespace PokerLeagueManager.Common.Infrastructure
+﻿namespace PokerLeagueManager.Common.Infrastructure
 {
     public interface IEventService
     {

@@ -1,6 +1,4 @@
-﻿using PokerLeagueManager.Common;
-
-namespace PokerLeagueManager.Queries.Core.Infrastructure
+﻿namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class BaseQueryHandler
     {

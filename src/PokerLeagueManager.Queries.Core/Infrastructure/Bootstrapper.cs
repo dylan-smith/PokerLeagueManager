@@ -1,5 +1,4 @@
-﻿using PokerLeagueManager.Common;
-using PokerLeagueManager.Common.Infrastructure;
+﻿using PokerLeagueManager.Common.Infrastructure;
 using Unity;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
-using PokerLeagueManager.Common.Events;
-using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Tests.CreateGame
 {

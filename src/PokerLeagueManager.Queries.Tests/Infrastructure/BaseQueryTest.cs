@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using PokerLeagueManager.Common;
 using PokerLeagueManager.Common.Infrastructure;
 using PokerLeagueManager.Common.Tests;
-using PokerLeagueManager.Queries.Core;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Tests.Infrastructure
