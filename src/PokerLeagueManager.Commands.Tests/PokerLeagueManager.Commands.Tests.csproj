@@ -73,12 +73,14 @@
     <Compile Include="AddPlayerToGame\AddPlayerToGameInvalidGameIdTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToGameTwiceTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToGameTest.cs" />
+    <Compile Include="CreateGame\CreateGameInvalidGameDateTest.cs" />
     <Compile Include="CreateGame\CreateGameAfterDeletingTest.cs" />
     <Compile Include="CreateGame\CreateGameWithDuplicateDateTest.cs" />
     <Compile Include="CreateGame\CreateGameWithDuplicateGameIdTest.cs" />
     <Compile Include="CreateGame\CreateGameWithGameIdTest.cs" />
     <Compile Include="CreateGame\CreateGameTest.cs" />
     <Compile Include="CreatePlayer\CreatePlayerAfterDeletingTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerWithEmptyNameTest.cs" />
     <Compile Include="CreatePlayer\CreatePlayerTest.cs" />
     <Compile Include="CreatePlayer\CreatePlayerWithDuplicateNameCaseInsensitiveTest.cs" />
     <Compile Include="CreatePlayer\CreatePlayerWithDuplicateNameTest.cs" />
