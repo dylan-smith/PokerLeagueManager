@@ -71,15 +71,8 @@
   <ItemGroup>
     <Build Include="dbo\EventsProcessed.sql" />
     <Build Include="DTO\GetGameCountByDateDto.sql" />
-    <Build Include="DTO\GetGamePlayersDto.sql" />
-    <Build Include="DTO\GetGamesListDto.sql" />
-    <Build Include="DTO\GetGameWithPlayersDto.sql" />
-    <Build Include="DTO\GetPlayerByNameDto.sql" />
-    <Build Include="DTO\GetPlayerGamesDto.sql" />
-    <Build Include="DTO\GetPlayerStatisticsDto.sql" />
-    <Build Include="Lookups\LookupGameDatesDto.sql" />
-    <Build Include="Lookups\LookupGamePlayersDto.sql" />
     <Build Include="Security\Lookups.sql" />
     <Build Include="Security\DTO.sql" />
+    <Build Include="DTO\GetPlayerCountByNameDto.sql" />
   </ItemGroup>
 </Project>

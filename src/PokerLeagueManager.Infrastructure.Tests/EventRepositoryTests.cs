@@ -21,7 +21,7 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var testAggregateId = Guid.NewGuid();
 
             var firstEvent = new GameCreatedEvent() { AggregateId = testAggregateId, GameDate = DateTime.Now };
-            var secondEvent = new PlayerAddedToGameEvent() { AggregateId = testAggregateId, PlayerName = "Dylan", Placing = 1, Winnings = 150 };
+            var secondEvent = new PlayerAddedToGameEvent() { AggregateId = testAggregateId, PlayerId = Guid.NewGuid() };
 
             var testEvents = CreateEventsTable();
             testEvents.Rows.Add(SerializeEvent(firstEvent), firstEvent.GetType().AssemblyQualifiedName);
@@ -45,12 +45,12 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [ExpectedException(typeof(OptimisticConcurrencyException))]
         public void PublishEventsWithAnOldVersionOfTheAggregateThrowsConcurrencyException()
         {
-            Game testGame = (Game)System.Activator.CreateInstance(typeof(Game), true);
+            Game testGame = (Game)Activator.CreateInstance(typeof(Game), true);
             testGame.AggregateId = Guid.NewGuid();
 
             var originalVersion = Guid.NewGuid();
 
-            var testEvent = new PlayerAddedToGameEvent() { AggregateId = testGame.AggregateId, PlayerName = "Dylan", Placing = 1, Winnings = 150 };
+            var testEvent = new PlayerAddedToGameEvent() { AggregateId = testGame.AggregateId, PlayerId = Guid.NewGuid() };
             testGame.PendingEvents.Add(testEvent);
 
             var sut = new EventRepository(null, null, null, null);

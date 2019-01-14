@@ -6,22 +6,22 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.CreateGame
+namespace PokerLeagueManager.Commands.Tests.CreatePlayer
 {
     [TestClass]
-    public class CreateGameWithDuplicateDateTest : BaseCommandTest
+    public class CreatePlayerWithDuplicateNameTest : BaseCommandTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
+        private string _playerName = "Homer Simpson";
 
         public override IEnumerable<IEvent> Given()
         {
-            yield return new GameCreatedEvent() { GameDate = _gameDate };
+            yield return new PlayerCreatedEvent() { PlayerName = _playerName };
         }
 
         [TestMethod]
-        public void CreateGameWithDuplicateDate()
+        public void CreatePlayerWithDuplicateName()
         {
-            RunTest(new CreateGameCommand() { GameDate = _gameDate.AddHours(2) });
+            RunTest(new CreatePlayerCommand() { PlayerName = _playerName });
         }
 
         public override Exception ExpectedException()

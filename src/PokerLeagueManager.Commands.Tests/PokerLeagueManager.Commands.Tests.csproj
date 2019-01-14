@@ -67,38 +67,34 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddPlayerToGame\AddDeletedPlayerToGameTest.cs" />
+    <Compile Include="AddPlayerToGame\AddPlayerToGameInvalidPlayerIdTest.cs" />
+    <Compile Include="AddPlayerToGame\AddPlayerToDeletedGameTest.cs" />
+    <Compile Include="AddPlayerToGame\AddPlayerToGameInvalidGameIdTest.cs" />
+    <Compile Include="AddPlayerToGame\AddPlayerToGameTwiceTest.cs" />
+    <Compile Include="AddPlayerToGame\AddPlayerToGameTest.cs" />
+    <Compile Include="CreateGame\CreateGameAfterDeletingTest.cs" />
     <Compile Include="CreateGame\CreateGameWithDuplicateDateTest.cs" />
     <Compile Include="CreateGame\CreateGameWithDuplicateGameIdTest.cs" />
     <Compile Include="CreateGame\CreateGameWithGameIdTest.cs" />
     <Compile Include="CreateGame\CreateGameTest.cs" />
-    <Compile Include="DeleteGame\InvalidGameIdTest.cs" />
-    <Compile Include="DeleteGame\DeleteGameHappyPathTest.cs" />
-    <Compile Include="EnterGameResults\DuplicatePlayersCaseInsensitiveTest.cs" />
-    <Compile Include="EnterGameResults\OnePlayerTest.cs" />
-    <Compile Include="EnterGameResults\TotalPayinDoesNotEqualTotalWinningsTest.cs" />
-    <Compile Include="EnterGameResults\ZeroPayinTest.cs" />
-    <Compile Include="EnterGameResults\ZeroPlacingTest.cs" />
-    <Compile Include="EnterGameResults\DateTimeMaxValueGameDateTest.cs" />
-    <Compile Include="EnterGameResults\DateTimeMinValueGameDateTest.cs" />
-    <Compile Include="EnterGameResults\TwoGamesWithSameDateTest.cs" />
-    <Compile Include="EnterGameResults\DuplicateGameIdTest.cs" />
-    <Compile Include="EnterGameResults\PresetGameIdTest.cs" />
-    <Compile Include="EnterGameResults\DuplicatePlayersTest.cs" />
-    <Compile Include="EnterGameResults\NonSequentialPlacingsTest.cs" />
-    <Compile Include="EnterGameResults\NegativePlacingTest.cs" />
-    <Compile Include="EnterGameResults\NegativeWinningsTest.cs" />
-    <Compile Include="EnterGameResults\EmptyPlayerNameTest.cs" />
-    <Compile Include="EnterGameResults\TwoPlayersTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerAfterDeletingTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerWithDuplicateNameCaseInsensitiveTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerWithDuplicateNameTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerWithDuplicatePlayerIdTest.cs" />
+    <Compile Include="CreatePlayer\CreatePlayerWithPlayerIdTest.cs" />
+    <Compile Include="DeleteGame\DeleteGameTwiceTest.cs" />
+    <Compile Include="DeleteGame\DeleteGameInvalidGameIdTest.cs" />
+    <Compile Include="DeleteGame\DeleteGameTest.cs" />
+    <Compile Include="DeletePlayer\DeletePlayerTest.cs" />
+    <Compile Include="DeletePlayer\DeletePlayerTwiceTest.cs" />
+    <Compile Include="DeletePlayer\DeletePlayerInvalidPlayerIdTest.cs" />
     <Compile Include="Infrastructure\BaseCommandTest.cs" />
     <Compile Include="Infrastructure\EventCommandPair.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
-    <Compile Include="EnterGameResults\NoPlayersTest.cs" />
     <Compile Include="Infrastructure\VerifyEventsNow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RenamePlayer\DeletedGameTest.cs" />
-    <Compile Include="RenamePlayer\RenamePlayerWithBlankNameTest.cs" />
-    <Compile Include="RenamePlayer\RenameToDuplicatePlayerNameTest.cs" />
-    <Compile Include="RenamePlayer\ThreeGamesTwoAffectedTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PokerLeagueManager.Commands.Domain\PokerLeagueManager.Commands.Domain.csproj">
@@ -133,6 +129,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

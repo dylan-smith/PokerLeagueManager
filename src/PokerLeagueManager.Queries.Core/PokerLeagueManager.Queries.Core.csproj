@@ -80,14 +80,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventHandlers\GetPlayerByNameEventHandler.cs" />
-    <Compile Include="EventHandlers\GetGamePlayersEventHandler.cs" />
-    <Compile Include="EventHandlers\GetGamesWithPlayerEventHandler.cs" />
-    <Compile Include="EventHandlers\GetPlayerGamesEventHandler.cs" />
-    <Compile Include="EventHandlers\LookupGameDatesEventHandler.cs" />
-    <Compile Include="EventHandlers\LookupGamePlayersEventHandler.cs" />
-    <Compile Include="EventHandlers\GetPlayerStatisticsEventHandler.cs" />
-    <Compile Include="EventHandlers\GetGamesListEventHandler.cs" />
+    <Compile Include="EventHandlers\GetPlayerCountByNameEventHandler.cs" />
     <Compile Include="EventHandlers\GetGameCountByDateEventHandler.cs" />
     <Compile Include="Infrastructure\BaseQueryHandler.cs" />
     <Compile Include="Infrastructure\BaseEventHandler.cs" />
@@ -103,12 +96,7 @@
     <Compile Include="Infrastructure\QueryDataStore.cs" />
     <Compile Include="Infrastructure\QueryHandlerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueryHandlers\GetGamePlayersQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetGamesListQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetGamesWithPlayerQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetPlayerByNameQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetPlayerGamesQueryHandler.cs" />
-    <Compile Include="QueryHandlers\GetPlayerStatisticsQueryHandler.cs" />
+    <Compile Include="QueryHandlers\GetPlayerCountByNameQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetGameCountByDateQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,15 +21,6 @@ namespace PokerLeagueManager.Common.Events
         }
 
         [DataMember]
-        public string PlayerName { get; set; }
-
-        [DataMember]
-        public int Placing { get; set; }
-
-        [DataMember]
-        public int Winnings { get; set; }
-
-        [DataMember]
-        public int PayIn { get; set; }
+        public Guid PlayerId { get; set; }
     }
 }

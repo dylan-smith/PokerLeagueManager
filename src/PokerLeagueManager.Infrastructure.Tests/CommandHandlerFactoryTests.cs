@@ -16,30 +16,12 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [TestMethod]
         public void ShouldLogCommand()
         {
-            var testCommand = new EnterGameResultsCommand();
+            var testCommand = new CreateGameCommand();
             testCommand.GameDate = DateTime.Now.AddDays(-2);
             testCommand.CommandId = Guid.NewGuid();
             testCommand.GameId = Guid.NewGuid();
             testCommand.IPAddress = "12.34.56.78";
             testCommand.Timestamp = DateTime.Now;
-
-            var newPlayerA = new EnterGameResultsCommand.GamePlayer();
-            newPlayerA.PlayerName = "Dylan Smith";
-            newPlayerA.Placing = 1;
-            newPlayerA.Winnings = 120;
-            newPlayerA.PayIn = 60;
-
-            var newPlayerB = new EnterGameResultsCommand.GamePlayer();
-            newPlayerB.PlayerName = "Homer Simpson";
-            newPlayerB.Placing = 2;
-            newPlayerB.Winnings = 0;
-            newPlayerB.PayIn = 60;
-
-            var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(newPlayerA);
-            players.Add(newPlayerB);
-
-            testCommand.Players = players;
 
             var mockCommandRepository = new Mock<ICommandRepository>();
             var mockQueryService = new Mock<IQueryService>();
@@ -59,30 +41,12 @@ namespace PokerLeagueManager.Infrastructure.Tests
         [TestMethod]
         public void ShouldLogFailedCommand()
         {
-            var testCommand = new EnterGameResultsCommand();
+            var testCommand = new CreateGameCommand();
             testCommand.GameDate = DateTime.Now.AddDays(-2);
             testCommand.CommandId = Guid.NewGuid();
             testCommand.GameId = Guid.NewGuid();
             testCommand.IPAddress = "12.34.56.78";
             testCommand.Timestamp = DateTime.Now;
-
-            var newPlayerA = new EnterGameResultsCommand.GamePlayer();
-            newPlayerA.PlayerName = "Dylan Smith";
-            newPlayerA.Placing = 1;
-            newPlayerA.Winnings = 120;
-            newPlayerA.PayIn = 60;
-
-            var newPlayerB = new EnterGameResultsCommand.GamePlayer();
-            newPlayerB.PlayerName = "Homer Simpson";
-            newPlayerB.Placing = 2;
-            newPlayerB.Winnings = 0;
-            newPlayerB.PayIn = 60;
-
-            var players = new List<EnterGameResultsCommand.GamePlayer>();
-            players.Add(newPlayerA);
-            players.Add(newPlayerB);
-
-            testCommand.Players = players;
 
             var mockCommandRepository = new Mock<ICommandRepository>();
             var mockEventRepository = new Mock<IEventRepository>();

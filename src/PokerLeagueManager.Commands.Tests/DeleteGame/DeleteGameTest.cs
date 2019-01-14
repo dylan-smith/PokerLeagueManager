@@ -6,23 +6,27 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.CreateGame
+namespace PokerLeagueManager.Commands.Tests.DeleteGame
 {
     [TestClass]
-    public class CreateGameWithGameIdTest : BaseCommandTest
+    public class DeleteGameTest : BaseCommandTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
         private Guid _gameId = Guid.NewGuid();
 
-        [TestMethod]
-        public void CreateGameWithGameId()
+        public override IEnumerable<IEvent> Given()
         {
-            RunTest(new CreateGameCommand() { GameId = _gameId, GameDate = _gameDate });
+            yield return new GameCreatedEvent() { GameId = _gameId, GameDate = DateTime.Now };
+        }
+
+        [TestMethod]
+        public void DeleteGame()
+        {
+            RunTest(new DeleteGameCommand() { GameId = _gameId });
         }
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new GameCreatedEvent() { GameId = _gameId, GameDate = _gameDate };
+            yield return new GameDeletedEvent() { GameId = _gameId };
         }
     }
 }

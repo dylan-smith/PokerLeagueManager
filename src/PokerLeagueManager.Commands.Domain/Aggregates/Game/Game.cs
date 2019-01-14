@@ -10,7 +10,8 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
-        private List<Player> _players = new List<Player>();
+        private bool _deleted = false;
+        private List<Guid> _players = new List<Guid>();
 
         public Game(Guid gameId, DateTime gameDate)
         {
@@ -21,112 +22,61 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
             gameId = gameId == Guid.Empty ? Guid.NewGuid() : gameId;
 
-            PublishEvent(new GameCreatedEvent() { AggregateId = gameId, GameDate = gameDate });
+            PublishEvent(new GameCreatedEvent() { GameId = gameId, GameDate = gameDate });
         }
 
         private Game()
         {
         }
 
-        public void AddPlayer(string playerName, int placing, int winnings, int payin)
-        {
-            if (winnings < 0)
-            {
-                throw new WinningsCannotBeNegativeException(winnings, playerName);
-            }
-
-            if (placing <= 0)
-            {
-                throw new PlacingMustBeGreaterThanZeroException(placing, playerName);
-            }
-
-            if (payin <= 0)
-            {
-                throw new PayinMustBeGreaterThanZeroException(payin, playerName);
-            }
-
-            if (string.IsNullOrWhiteSpace(playerName))
-            {
-                throw new PlayerNameMustNotBeBlankException();
-            }
-
-            if (_players.Any(x => x.PlayerName.ToUpper().Trim() == playerName.ToUpper().Trim()))
-            {
-                throw new DuplicatePlayerNameException(playerName);
-            }
-
-            PublishEvent(new PlayerAddedToGameEvent() { AggregateId = AggregateId, PlayerName = playerName, Placing = placing, Winnings = winnings, PayIn = payin });
-        }
-
-        public void ValidateGame()
-        {
-            if (_players.Count < 2)
-            {
-                throw new GameWithNotEnoughPlayersException();
-            }
-
-            var orderedPlayers = _players.OrderBy(x => x.Placing);
-
-            var curPlacing = 1;
-
-            foreach (var curPlayer in orderedPlayers)
-            {
-                if (curPlayer.Placing != curPlacing++)
-                {
-                    throw new PlayerPlacingsNotInOrderException();
-                }
-            }
-
-            if (_players.Sum(p => p.Winnings) != _players.Sum(p => p.Payin))
-            {
-                throw new WinningsDoesNotEqualPayInsException();
-            }
-        }
-
         public void DeleteGame()
         {
-            base.PublishEvent(new GameDeletedEvent() { AggregateId = base.AggregateId });
+            if (_deleted)
+            {
+                throw new GameAlreadyDeletedException(base.AggregateId);
+            }
+
+            base.PublishEvent(new GameDeletedEvent() { GameId = base.AggregateId });
         }
 
-        public void RenamePlayer(string oldPlayerName, string newPlayerName)
+        public void AddPlayerToGame(Player player)
         {
-            if (string.IsNullOrWhiteSpace(newPlayerName))
+            if (_deleted)
             {
-                throw new PlayerNameMustNotBeBlankException();
+                throw new GameDeletedException(base.AggregateId);
             }
 
-            var duplicatePlayer = _players.FirstOrDefault(p => p.PlayerName.ToUpper().Trim() == newPlayerName.ToUpper().Trim());
-
-            if (duplicatePlayer != null)
+            if (player.IsDeleted())
             {
-                throw new DuplicatePlayerNameException(newPlayerName);
+                throw new PlayerDeletedException(player.PlayerId);
             }
 
-            var oldPlayer = _players.FirstOrDefault(p => p.PlayerName == oldPlayerName);
-
-            if (oldPlayer != null)
+            if (_players.Any(p => p == player.PlayerId))
             {
-                base.PublishEvent(new PlayerRenamedEvent() { AggregateId = base.AggregateId, OldPlayerName = oldPlayerName, NewPlayerName = newPlayerName });
+                throw new DuplicatePlayerAddedToGameException(player.PlayerId, base.AggregateId);
             }
+
+            base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
         {
-            base.AggregateId = e.AggregateId;
+            base.AggregateId = e.GameId;
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(GameDeletedEvent e)
+        {
+            _deleted = true;
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(PlayerAddedToGameEvent e)
         {
-            _players.Add(new Player() { PlayerName = e.PlayerName, Placing = e.Placing, Winnings = e.Winnings, Payin = e.PayIn });
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(PlayerRenamedEvent e)
-        {
-            _players.Single(p => p.PlayerName == e.OldPlayerName).PlayerName = e.NewPlayerName;
+            _players.Add(e.PlayerId);
         }
     }
 }

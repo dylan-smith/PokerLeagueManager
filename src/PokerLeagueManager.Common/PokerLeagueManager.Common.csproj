@@ -88,23 +88,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddPlayerToGameCommand.cs" />
+    <Compile Include="Commands\CreatePlayerCommand.cs" />
+    <Compile Include="Commands\DeletePlayerCommand.cs" />
     <Compile Include="Commands\DeleteGameCommand.cs" />
     <Compile Include="Commands\CreateGameCommand.cs" />
-    <Compile Include="Commands\EnterGameResultsCommand.cs" />
-    <Compile Include="Commands\RenamePlayerCommand.cs" />
+    <Compile Include="DTO\GetPlayerCountByNameDto.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
-    <Compile Include="DTO\GetGamePlayersDto.cs" />
-    <Compile Include="DTO\GetGamesListDto.cs" />
-    <Compile Include="DTO\GetGamesWithPlayerDto.cs" />
-    <Compile Include="DTO\GetPlayerByNameDto.cs" />
-    <Compile Include="DTO\GetPlayerGamesDto.cs" />
-    <Compile Include="DTO\GetPlayerStatisticsDto.cs" />
-    <Compile Include="DTO\Lookups\LookupGameDatesDto.cs" />
-    <Compile Include="DTO\Lookups\LookupGamePlayersDto.cs" />
-    <Compile Include="Events\GameCreatedEvent.cs" />
-    <Compile Include="Events\GameDeletedEvent.cs" />
     <Compile Include="Events\PlayerAddedToGameEvent.cs" />
-    <Compile Include="Events\PlayerRenamedEvent.cs" />
+    <Compile Include="Events\PlayerCreatedEvent.cs" />
+    <Compile Include="Events\GameCreatedEvent.cs" />
+    <Compile Include="Events\PlayerDeletedEvent.cs" />
+    <Compile Include="Events\GameDeletedEvent.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />
     <Compile Include="Infrastructure\BaseEvent.cs" />
@@ -136,13 +131,8 @@
     <Compile Include="Infrastructure\GuidService.cs" />
     <Compile Include="Infrastructure\IDateTimeService.cs" />
     <Compile Include="Infrastructure\IGuidService.cs" />
+    <Compile Include="Queries\GetPlayerCountByNameQuery.cs" />
     <Compile Include="Queries\GetGameCountByDateQuery.cs" />
-    <Compile Include="Queries\GetGamePlayersQuery.cs" />
-    <Compile Include="Queries\GetGamesListQuery.cs" />
-    <Compile Include="Queries\GetGamesWithPlayerQuery.cs" />
-    <Compile Include="Queries\GetPlayerByNameQuery.cs" />
-    <Compile Include="Queries\GetPlayerGamesQuery.cs" />
-    <Compile Include="Queries\GetPlayerStatisticsQuery.cs" />
     <Compile Include="Infrastructure\QueryServiceProxy.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +149,9 @@
   <ItemGroup>
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DTO\Lookups\" />
   </ItemGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

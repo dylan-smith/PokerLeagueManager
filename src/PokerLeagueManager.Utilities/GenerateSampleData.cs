@@ -35,127 +35,116 @@ namespace PokerLeagueManager.Utilities
             }
         }
 
-        private static IEnumerable<EnterGameResultsCommand> GenerateSampleDataCommands(int numberOfGames)
+        private static IEnumerable<ICommand> GenerateSampleDataCommands(int numberOfGames)
         {
-            var results = new List<EnterGameResultsCommand>();
+            var results = new List<ICommand>();
+            var samplePlayers = GenerateSamplePlayers();
+
+            results.AddRange(samplePlayers);
 
             for (int g = 0; g < numberOfGames; g++)
             {
-                var newGame = new EnterGameResultsCommand();
+                var newGame = new CreateGameCommand();
+                newGame.GameId = Guid.NewGuid();
                 newGame.GameDate = GetUniqueDate(results);
+                results.Add(newGame);
 
                 var numPlayers = _rnd.Next(5, 15);
-                var players = new List<EnterGameResultsCommand.GamePlayer>();
-                var totalPot = 0;
+                var players = new List<AddPlayerToGameCommand>();
 
                 for (int p = 0; p < numPlayers; p++)
                 {
-                    var newPlayer = new EnterGameResultsCommand.GamePlayer();
-                    newPlayer.PlayerName = GetRandomPlayerName(players);
-                    newPlayer.Placing = p + 1;
-                    newPlayer.PayIn = GetRandomPayIn();
+                    var newPlayer = new AddPlayerToGameCommand();
+                    newPlayer.PlayerId = GetRandomPlayer(samplePlayers, players);
+                    newPlayer.GameId = newGame.GameId;
 
-                    totalPot += newPlayer.PayIn;
-
+                    // TODO: Add random amount of rebuys, and knock player out
                     players.Add(newPlayer);
                 }
 
-                var thirdWinnings = (int)Math.Round((totalPot * 0.1) / 10) * 10;
-                var secondWinnings = (int)Math.Round((totalPot * 0.3) / 10) * 10;
-                var firstWinnings = totalPot - (thirdWinnings + secondWinnings);
-
-                players[0].Winnings = firstWinnings;
-                players[1].Winnings = secondWinnings;
-                players[2].Winnings = thirdWinnings;
-
-                newGame.Players = players;
-                results.Add(newGame);
+                results.AddRange(players);
             }
 
             return results;
         }
 
-        private static int GetRandomPayIn()
+        private static IEnumerable<CreatePlayerCommand> GenerateSamplePlayers()
         {
-            var possibleValues = new List<int>() { 20, 30, 40, 50, 60, 70 };
-
-            var result = GenerateRandomInteger(possibleValues.Count);
-
-            return possibleValues[result];
+            yield return new CreatePlayerCommand() { PlayerName = "Dylan Smith" };
+            yield return new CreatePlayerCommand() { PlayerName = "Ryan Fritsch" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sauce" };
+            yield return new CreatePlayerCommand() { PlayerName = "Shane Wilkins" };
+            yield return new CreatePlayerCommand() { PlayerName = "G.W. Stein" };
+            yield return new CreatePlayerCommand() { PlayerName = "Colin Hickson" };
+            yield return new CreatePlayerCommand() { PlayerName = "Grant Hirose" };
+            yield return new CreatePlayerCommand() { PlayerName = "Jeff" };
+            yield return new CreatePlayerCommand() { PlayerName = "Alex K" };
+            yield return new CreatePlayerCommand() { PlayerName = "Rob Schneider" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sean Kehoe" };
+            yield return new CreatePlayerCommand() { PlayerName = "Meghan Mawhinney" };
+            yield return new CreatePlayerCommand() { PlayerName = "Ray Tara" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sam Pearce" };
+            yield return new CreatePlayerCommand() { PlayerName = "Jason The" };
+            yield return new CreatePlayerCommand() { PlayerName = "Chris Wentz" };
+            yield return new CreatePlayerCommand() { PlayerName = "Kiana Lindsay" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sherika Vollmer" };
+            yield return new CreatePlayerCommand() { PlayerName = "Alfred Rolando" };
+            yield return new CreatePlayerCommand() { PlayerName = "Chauncey Cavallaro" };
+            yield return new CreatePlayerCommand() { PlayerName = "Karl Brush" };
+            yield return new CreatePlayerCommand() { PlayerName = "Carlos Brumett" };
+            yield return new CreatePlayerCommand() { PlayerName = "Hwa Gensler" };
+            yield return new CreatePlayerCommand() { PlayerName = "Lynnette Levan" };
+            yield return new CreatePlayerCommand() { PlayerName = "Jovita Tongue" };
+            yield return new CreatePlayerCommand() { PlayerName = "Alyse Mauk" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sanjuanita Zieman" };
+            yield return new CreatePlayerCommand() { PlayerName = "Glory Vanwagenen" };
+            yield return new CreatePlayerCommand() { PlayerName = "Betsy Vasques" };
+            yield return new CreatePlayerCommand() { PlayerName = "Elouise Allison" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sheridan Oxner" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sunni Cooke" };
+            yield return new CreatePlayerCommand() { PlayerName = "Ozell Funston" };
+            yield return new CreatePlayerCommand() { PlayerName = "Dorotha Winland" };
+            yield return new CreatePlayerCommand() { PlayerName = "Estelle Weibel" };
+            yield return new CreatePlayerCommand() { PlayerName = "Corazon Benware" };
+            yield return new CreatePlayerCommand() { PlayerName = "Mabelle Bopp" };
+            yield return new CreatePlayerCommand() { PlayerName = "Hope Byfield" };
+            yield return new CreatePlayerCommand() { PlayerName = "Romeo Winters" };
+            yield return new CreatePlayerCommand() { PlayerName = "Sasha Mongeau" };
+            yield return new CreatePlayerCommand() { PlayerName = "Ricki Westendorf" };
+            yield return new CreatePlayerCommand() { PlayerName = "Lane Clink" };
+            yield return new CreatePlayerCommand() { PlayerName = "Max Chesnutt" };
+            yield return new CreatePlayerCommand() { PlayerName = "Demetrius Reighard" };
+            yield return new CreatePlayerCommand() { PlayerName = "Suzanna Basel" };
+            yield return new CreatePlayerCommand() { PlayerName = "Claud Caverly" };
         }
 
-        private static string GetRandomPlayerName(List<EnterGameResultsCommand.GamePlayer> players)
+        private static Guid GetRandomPlayer(IEnumerable<CreatePlayerCommand> allPlayers, IEnumerable<AddPlayerToGameCommand> players)
         {
-            var playerNames = new List<string>()
-            {
-                "Dylan Smith",
-                "Ryan Fritsch",
-                "Sauce",
-                "Shane Wilkins",
-                "G.W. Stein",
-                "Colin Hickson",
-                "Grant Hirose",
-                "Jeff",
-                "Alex K",
-                "Rob Schneider",
-                "Sean Kehoe",
-                "Meghan Mawhinney",
-                "Ray Tara",
-                "Sam Pearce",
-                "Jason The",
-                "Chris Wentz",
-                "Kiana Lindsay",
-                "Sherika Vollmer",
-                "Alfred Rolando",
-                "Chauncey Cavallaro",
-                "Karl Brush",
-                "Carlos Brumett",
-                "Hwa Gensler",
-                "Lynnette Levan",
-                "Jovita Tongue",
-                "Alyse Mauk",
-                "Sanjuanita Zieman",
-                "Glory Vanwagenen",
-                "Betsy Vasques",
-                "Elouise Allison",
-                "Sheridan Oxner",
-                "Sunni Cooke",
-                "Ozell Funston",
-                "Dorotha Winland",
-                "Estelle Weibel",
-                "Corazon Benware",
-                "Mabelle Bopp",
-                "Hope Byfield",
-                "Romeo Winters",
-                "Sasha Mongeau",
-                "Ricki Westendorf",
-                "Lane Clink",
-                "Max Chesnutt",
-                "Demetrius Reighard",
-                "Suzanna Basel",
-                "Claud Caverly"
-            };
+            var result = allPlayers.ElementAt(GenerateRandomInteger(allPlayers.Count())).PlayerId;
 
-            var result = GenerateRandomInteger(playerNames.Count);
-
-            while (players.Any(p => p.PlayerName == playerNames[result]))
+            while (players.Any(p => p.PlayerId == result))
             {
-                result = GenerateRandomInteger(playerNames.Count);
+                result = allPlayers.ElementAt(GenerateRandomInteger(allPlayers.Count())).PlayerId;
             }
 
-            return playerNames[result];
+            return result;
         }
 
-        private static DateTime GetUniqueDate(List<EnterGameResultsCommand> results)
+        private static DateTime GetUniqueDate(List<ICommand> results)
         {
             var result = GenerateRandomDate();
 
-            while (results.Any(x => x.GameDate.Year == result.Year && x.GameDate.Month == result.Month && x.GameDate.Day == result.Day))
+            while (results.Any(x => x is CreateGameCommand g && DoesDateMatch(g, result)))
             {
                 result = GenerateRandomDate();
             }
 
             return result;
+        }
+
+        private static bool DoesDateMatch(CreateGameCommand x, DateTime result)
+        {
+            return x.GameDate.Year == result.Year && x.GameDate.Month == result.Month && x.GameDate.Day == result.Day;
         }
 
         private static DateTime GenerateRandomDate()
