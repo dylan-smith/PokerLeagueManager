@@ -5,7 +5,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class IdempotencyChecker : IIdempotencyChecker
     {
-        private IDateTimeService _dateTimeService;
+        private readonly IDateTimeService _dateTimeService;
 
         public IdempotencyChecker(IDateTimeService dateTimeService)
         {

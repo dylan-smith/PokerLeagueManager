@@ -8,7 +8,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 {
     public class CommandServiceProxy : ICommandService, IDisposable
     {
-        private HttpClient _commandClient;
+        private readonly HttpClient _commandClient;
         private bool _disposedValue = false;
 
         public CommandServiceProxy()

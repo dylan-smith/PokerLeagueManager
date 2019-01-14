@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 {
     public class QueryServiceProxy : IQueryService, IDisposable
     {
-        private HttpClient _queryClient;
+        private readonly HttpClient _queryClient;
         private bool _disposedValue = false;
 
         public QueryServiceProxy()

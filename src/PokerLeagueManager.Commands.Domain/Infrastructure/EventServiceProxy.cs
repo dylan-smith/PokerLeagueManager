@@ -7,9 +7,9 @@ using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
-    public class EventServiceProxy : IEventService, IEventServiceProxy, IDisposable
+    public class EventServiceProxy : IEventServiceProxy, IDisposable
     {
-        private HttpClient _eventClient;
+        private readonly HttpClient _eventClient;
         private bool _disposedValue = false;
         private string _serviceUrl;
 

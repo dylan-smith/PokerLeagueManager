@@ -7,9 +7,9 @@ namespace PokerLeagueManager.Common.Infrastructure
 {
     public class QueryFactory : IQueryFactory
     {
-        private HttpContextWrapper _currentContext;
-        private IGuidService _guidService;
-        private IDateTimeService _dateTimeService;
+        private readonly HttpContextWrapper _currentContext;
+        private readonly IGuidService _guidService;
+        private readonly IDateTimeService _dateTimeService;
 
         public QueryFactory(HttpContextWrapper currentContext, IGuidService guidService, IDateTimeService dateTimeService)
         {

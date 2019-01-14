@@ -8,7 +8,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public abstract class BaseAggregateRoot : IAggregateRoot
     {
-        private ICollection<IEvent> _pendingEvents = new List<IEvent>();
+        private readonly ICollection<IEvent> _pendingEvents = new List<IEvent>();
 
         protected BaseAggregateRoot()
         {

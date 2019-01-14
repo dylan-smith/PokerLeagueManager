@@ -18,9 +18,9 @@ namespace PokerLeagueManager.Common.Infrastructure
 
             return from t in assemblyToSearch.GetExportedTypes()
                    where t.IsClass &&
-                         t.GetInterfaces().Where(i => i.IsGenericType &&
-                                                 i.GetGenericTypeDefinition() == handlerGenericType &&
-                                                 i.GetGenericArguments()[0] == typeof(TCommand)).Count() > 0
+                         t.GetInterfaces().Any(i => i.IsGenericType &&
+                                                    i.GetGenericTypeDefinition() == handlerGenericType &&
+                                                    i.GetGenericArguments()[0] == typeof(TCommand))
                    select t;
         }
 

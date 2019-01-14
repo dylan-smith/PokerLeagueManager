@@ -8,9 +8,9 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
     public class EventHandlerFactory : IEventHandlerFactory
     {
-        private IQueryDataStore _queryDataStore;
-        private IIdempotencyChecker _idempotencyChecker;
-        private IDatabaseLayer _databaseLayer;
+        private readonly IQueryDataStore _queryDataStore;
+        private readonly IIdempotencyChecker _idempotencyChecker;
+        private readonly IDatabaseLayer _databaseLayer;
 
         public EventHandlerFactory(IQueryDataStore queryDataStore, IIdempotencyChecker idempotencyChecker, IDatabaseLayer databaseLayer)
         {

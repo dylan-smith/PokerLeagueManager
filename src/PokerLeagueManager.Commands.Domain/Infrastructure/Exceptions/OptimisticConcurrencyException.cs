@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {
@@ -12,6 +13,11 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 
         public OptimisticConcurrencyException(IAggregateRoot aggRoot, Guid originalVersion, Guid currentVersion)
             : base(CreateMessage(aggRoot, originalVersion, currentVersion))
+        {
+        }
+
+        protected OptimisticConcurrencyException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
 

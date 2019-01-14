@@ -7,7 +7,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class EventServiceProxyFactory : IEventServiceProxyFactory
     {
-        private IDictionary<string, IEventServiceProxy> _proxies;
+        private readonly IDictionary<string, IEventServiceProxy> _proxies;
 
         public EventServiceProxyFactory()
         {

@@ -8,9 +8,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class CommandHandlerFactory : ICommandHandlerFactory
     {
-        private IEventRepository _eventRepository;
-        private IQueryService _queryService;
-        private ICommandRepository _commandRepository;
+        private readonly IEventRepository _eventRepository;
+        private readonly IQueryService _queryService;
+        private readonly ICommandRepository _commandRepository;
 
         public CommandHandlerFactory(IEventRepository eventRepository, IQueryService queryService, ICommandRepository commandRepository)
         {
@@ -39,7 +39,6 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             }
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "This Exception should never happen, so I'm ok with leaving it as-is")]
         public void ExecuteCommand(ICommand command)
         {
             var executeCommandMethod = from m in typeof(CommandHandlerFactory).GetMethods()
@@ -48,7 +47,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
             if (executeCommandMethod.Count() != 1)
             {
-                throw new Exception("Unexpected Exception. Could not find the ExecuteCommand method via Reflection.");
+                throw new InvalidOperationException("Unexpected Exception. Could not find the ExecuteCommand method via Reflection.");
             }
 
             MethodInfo generic = executeCommandMethod.First().MakeGenericMethod(command.GetType());
@@ -68,7 +67,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             var matchingTypes = typeof(IHandlesCommand<>).FindHandlers<T>(Assembly.GetExecutingAssembly());
 
-            if (matchingTypes.Count() == 0)
+            if (!matchingTypes.Any())
             {
                 throw new ArgumentException(string.Format("Could not find Command Handler for {0}", typeof(T).Name));
             }

@@ -12,10 +12,10 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class EventRepository : IEventRepository
     {
-        private IDatabaseLayer _databaseLayer;
-        private IGuidService _guidService;
-        private IDateTimeService _dateTimeService;
-        private IEventServiceProxyFactory _eventServiceProxyFactory;
+        private readonly IDatabaseLayer _databaseLayer;
+        private readonly IGuidService _guidService;
+        private readonly IDateTimeService _dateTimeService;
+        private readonly IEventServiceProxyFactory _eventServiceProxyFactory;
 
         public EventRepository(
             IDatabaseLayer databaseLayer,
@@ -81,7 +81,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 result.AggregateVersion = e.EventId;
             }
 
-            return (T)result;
+            return result;
         }
 
         public void PublishEvents(IAggregateRoot aggRoot, ICommand c, Guid originalVersion)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using PokerLeagueManager.Common.Infrastructure;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
@@ -8,6 +9,11 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
     {
         public PublishEventFailedException(IAggregateRoot aggRoot, ICommand c, Exception ex)
             : base(CreateMessage(aggRoot, c), ex)
+        {
+        }
+
+        protected PublishEventFailedException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
 

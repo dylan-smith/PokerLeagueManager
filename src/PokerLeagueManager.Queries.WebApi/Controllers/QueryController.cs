@@ -71,7 +71,6 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             }
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "Should never happen")]
         private object ExecuteQuery(IQuery query, Type queryReturnType)
         {
             var executeQueryMethods = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
@@ -83,7 +82,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
 
             if (executeQueryMethods.Count() != 1)
             {
-                throw new Exception("Unexpected Exception. Could not find the ExecuteQuery method via Reflection.");
+                throw new InvalidOperationException("Unexpected Exception. Could not find the ExecuteQuery method via Reflection.");
             }
 
             var genericMethod = executeQueryMethods.First().MakeGenericMethod(queryReturnType);

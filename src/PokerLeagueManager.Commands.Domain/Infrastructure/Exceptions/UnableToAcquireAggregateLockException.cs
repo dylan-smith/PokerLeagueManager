@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
 {
@@ -7,6 +8,11 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure.Exceptions
     {
         public UnableToAcquireAggregateLockException(Guid aggregateId, Exception ex)
             : base(CreateMessage(aggregateId, ex), ex)
+        {
+        }
+
+        protected UnableToAcquireAggregateLockException(SerializationInfo info, StreamingContext context)
+            : base(info, context)
         {
         }
 

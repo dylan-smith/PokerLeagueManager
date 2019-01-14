@@ -10,8 +10,8 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
+        private readonly List<Guid> _players = new List<Guid>();
         private bool _deleted = false;
-        private List<Guid> _players = new List<Guid>();
 
         public Game(Guid gameId, DateTime gameDate)
         {

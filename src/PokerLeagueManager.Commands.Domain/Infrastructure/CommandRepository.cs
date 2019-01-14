@@ -8,7 +8,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 {
     public class CommandRepository : ICommandRepository
     {
-        private IDatabaseLayer _databaseLayer;
+        private readonly IDatabaseLayer _databaseLayer;
 
         public CommandRepository(IDatabaseLayer databaseLayer)
         {

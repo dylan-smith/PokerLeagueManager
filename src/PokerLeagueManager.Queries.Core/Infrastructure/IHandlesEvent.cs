@@ -2,7 +2,7 @@
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public interface IHandlesEvent<T>
+    public interface IHandlesEvent<in T>
         where T : IEvent
     {
         IQueryDataStore QueryDataStore { get; set; }

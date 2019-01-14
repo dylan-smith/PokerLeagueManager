@@ -80,7 +80,6 @@ namespace PokerLeagueManager.Queries.WebApi
             return pathItem;
         }
 
-        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "Should never happen")]
         private Response GenerateResponse(Type query)
         {
             var queryReturnType = GetQueryReturnType(query);
@@ -100,7 +99,7 @@ namespace PokerLeagueManager.Queries.WebApi
                 return GenerateIntResponse();
             }
 
-            throw new Exception("Unexpected return type from query");
+            throw new InvalidOperationException("Unexpected return type from query");
         }
 
         private Response GenerateIntResponse()

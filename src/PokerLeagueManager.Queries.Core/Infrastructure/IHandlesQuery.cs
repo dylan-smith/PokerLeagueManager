@@ -4,7 +4,7 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.Infrastructure
 {
-    public interface IHandlesQuery<TQuery, TResult>
+    public interface IHandlesQuery<in TQuery, out TResult>
         where TQuery : IQuery<TResult>
     {
         IQueryDataStore Repository { get; set; }
