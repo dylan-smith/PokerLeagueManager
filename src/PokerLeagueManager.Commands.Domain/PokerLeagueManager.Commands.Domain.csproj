@@ -100,6 +100,7 @@
     <Compile Include="Aggregates\Player\Exceptions\PlayerAlreadyDeletedException.cs" />
     <Compile Include="Aggregates\Player\Exceptions\InvalidPlayerNameException.cs" />
     <Compile Include="Aggregates\Player\Player.cs" />
+    <Compile Include="CommandHandlers\AddRebuyCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemovePlayerFromGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreatePlayerCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreateGameCommandHandler.cs" />

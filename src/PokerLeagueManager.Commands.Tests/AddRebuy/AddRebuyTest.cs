@@ -6,10 +6,10 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
+namespace PokerLeagueManager.Commands.Tests.AddRebuy
 {
     [TestClass]
-    public class RemovePlayerFromGameTest : BaseCommandTest
+    public class AddRebuyTest : BaseCommandTest
     {
         private Guid _gameId = Guid.NewGuid();
         private Guid _playerId = Guid.NewGuid();
@@ -22,14 +22,14 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         }
 
         [TestMethod]
-        public void RemovePlayerFromGame()
+        public void AddRebuy()
         {
-            RunTest(new RemovePlayerFromGameCommand() { GameId = _gameId, PlayerId = _playerId });
+            RunTest(new AddRebuyCommand() { GameId = _gameId, PlayerId = _playerId });
         }
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId };
         }
     }
 }

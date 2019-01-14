@@ -69,6 +69,21 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId });
         }
 
+        public void AddRebuy(Guid playerId)
+        {
+            if (_deleted)
+            {
+                throw new GameDeletedException(base.AggregateId);
+            }
+
+            if (!_players.Any(p => p == playerId))
+            {
+                throw new PlayerNotInGameException(playerId, base.AggregateId);
+            }
+
+            base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
@@ -85,6 +100,12 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(PlayerAddedToGameEvent e)
+        {
+            _players.Add(e.PlayerId);
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(RebuyAddedEvent e)
         {
             _players.Add(e.PlayerId);
         }

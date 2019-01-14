@@ -88,6 +88,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddRebuyCommand.cs" />
     <Compile Include="Commands\RemovePlayerFromGameCommand.cs" />
     <Compile Include="Commands\AddPlayerToGameCommand.cs" />
     <Compile Include="Commands\CreatePlayerCommand.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Events\GameCreatedEvent.cs" />
     <Compile Include="Events\PlayerDeletedEvent.cs" />
     <Compile Include="Events\GameDeletedEvent.cs" />
+    <Compile Include="Events\RebuyAddedEvent.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />
     <Compile Include="Infrastructure\BaseEvent.cs" />

@@ -28,7 +28,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerAddedToGameEvent() { GameId = AnyGuid(), PlayerId = _playerId };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
         }
     }
 }

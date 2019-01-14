@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
+namespace PokerLeagueManager.Commands.Tests.AddRebuy
 {
     [TestClass]
-    public class RemovePlayerFromGameTest : BaseCommandTest
+    public class AddRebuyInvalidPlayerTest : BaseCommandTest
     {
         private Guid _gameId = Guid.NewGuid();
         private Guid _playerId = Guid.NewGuid();
@@ -22,14 +23,14 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         }
 
         [TestMethod]
-        public void RemovePlayerFromGame()
+        public void AddRebuyInvalidPlayer()
         {
-            RunTest(new RemovePlayerFromGameCommand() { GameId = _gameId, PlayerId = _playerId });
+            RunTest(new AddRebuyCommand() { GameId = _gameId, PlayerId = Guid.NewGuid() });
         }
 
-        public override IEnumerable<IEvent> ExpectedEvents()
+        public override Exception ExpectedException()
         {
-            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            return new PlayerNotInGameException(AnyGuid(), _gameId);
         }
     }
 }

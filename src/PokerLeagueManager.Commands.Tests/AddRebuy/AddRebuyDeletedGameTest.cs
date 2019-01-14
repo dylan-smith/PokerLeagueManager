@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Tests.Infrastructure;
 using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
+namespace PokerLeagueManager.Commands.Tests.AddRebuy
 {
     [TestClass]
-    public class RemovePlayerFromGameTest : BaseCommandTest
+    public class AddRebuyDeletedGameTest : BaseCommandTest
     {
         private Guid _gameId = Guid.NewGuid();
         private Guid _playerId = Guid.NewGuid();
@@ -19,17 +20,18 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
             yield return new GameCreatedEvent() { GameId = _gameId, GameDate = DateTime.Now };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId, PlayerName = "Homer Simpson" };
             yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new GameDeletedEvent() { GameId = _gameId };
         }
 
         [TestMethod]
-        public void RemovePlayerFromGame()
+        public void AddRebuyDeletedGame()
         {
-            RunTest(new RemovePlayerFromGameCommand() { GameId = _gameId, PlayerId = _playerId });
+            RunTest(new AddRebuyCommand() { GameId = _gameId, PlayerId = _playerId });
         }
 
-        public override IEnumerable<IEvent> ExpectedEvents()
+        public override Exception ExpectedException()
         {
-            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            return new GameDeletedException(_gameId);
         }
     }
 }

@@ -73,6 +73,10 @@
     <Compile Include="AddPlayerToGame\AddPlayerToGameInvalidGameIdTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToGameTwiceTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToGameTest.cs" />
+    <Compile Include="AddRebuy\AddRebuyDeletedGameTest.cs" />
+    <Compile Include="AddRebuy\AddRebuyInvalidGameIdTest.cs" />
+    <Compile Include="AddRebuy\AddRebuyInvalidPlayerTest.cs" />
+    <Compile Include="AddRebuy\AddRebuyTest.cs" />
     <Compile Include="CreateGame\CreateGameInvalidGameDateTest.cs" />
     <Compile Include="CreateGame\CreateGameAfterDeletingTest.cs" />
     <Compile Include="CreateGame\CreateGameWithDuplicateDateTest.cs" />
