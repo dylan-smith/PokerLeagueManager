@@ -59,6 +59,16 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
         }
 
+        public void RemovePlayerFromGame(Guid playerId)
+        {
+            if (!_players.Any(p => p == playerId))
+            {
+                throw new PlayerNotInGameException(playerId, base.AggregateId);
+            }
+
+            base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
