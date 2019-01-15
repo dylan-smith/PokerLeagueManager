@@ -61,6 +61,7 @@
   <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
   <PropertyGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Project="..\common.props" />
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo" />

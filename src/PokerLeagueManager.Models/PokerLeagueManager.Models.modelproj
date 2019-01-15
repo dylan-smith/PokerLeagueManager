@@ -74,4 +74,5 @@
       <Project>{7c9372f0-ea1e-4f69-8294-679fbcf764be}</Project>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\common.props" />
 </Project>

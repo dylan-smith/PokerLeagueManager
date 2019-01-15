@@ -1,0 +1,1 @@
+﻿[assembly: global::System.Runtime.Versioning.TargetFrameworkAttribute(".NetFramework,Version=v4.7", FrameworkDisplayName = ".NET Framework 4.7")]
