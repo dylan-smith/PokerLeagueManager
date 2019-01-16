@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\RemoveRebuyCommand.cs" />
     <Compile Include="Commands\AddRebuyCommand.cs" />
     <Compile Include="Commands\RemovePlayerFromGameCommand.cs" />
     <Compile Include="Commands\AddPlayerToGameCommand.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Events\GameCreatedEvent.cs" />
     <Compile Include="Events\PlayerDeletedEvent.cs" />
     <Compile Include="Events\GameDeletedEvent.cs" />
+    <Compile Include="Events\RebuyRemovedEvent.cs" />
     <Compile Include="Events\RebuyAddedEvent.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />
     <Compile Include="Infrastructure\BaseDataTransferObject.cs" />
@@ -160,8 +162,8 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTO\Lookups\" />

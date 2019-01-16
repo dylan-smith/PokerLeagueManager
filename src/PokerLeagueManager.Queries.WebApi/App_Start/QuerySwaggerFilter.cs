@@ -201,7 +201,7 @@ namespace PokerLeagueManager.Queries.WebApi
                 { typeof(string), "string" },
                 { typeof(DateTime), "string" },
                 { typeof(Guid), "string" },
-                { typeof(bool), "boolean" }
+                { typeof(bool), "boolean" },
             };
 
             return mapping[propertyType];
@@ -218,7 +218,7 @@ namespace PokerLeagueManager.Queries.WebApi
                 { typeof(string), string.Empty },
                 { typeof(DateTime), "date" },
                 { typeof(Guid), "uuid" },
-                { typeof(bool), string.Empty }
+                { typeof(bool), string.Empty },
             };
 
             return mapping[propertyType];

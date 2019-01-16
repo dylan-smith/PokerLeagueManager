@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
             QueryDataStore.Insert(new GetPlayerCountByNameDto()
             {
                 PlayerId = e.PlayerId,
-                PlayerName = e.PlayerName
+                PlayerName = e.PlayerName,
             });
         }
 

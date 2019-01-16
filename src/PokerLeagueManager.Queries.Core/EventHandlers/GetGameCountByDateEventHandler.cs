@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 GameId = e.GameId,
                 GameYear = e.GameDate.Year,
                 GameMonth = e.GameDate.Month,
-                GameDay = e.GameDate.Day
+                GameDay = e.GameDate.Day,
             });
         }
 

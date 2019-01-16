@@ -97,6 +97,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\Game\Exceptions\NoRebuysLeftToRemoveException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerNotInGameException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\GameDeletedException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\DuplicatePlayerAddedToGameException.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Aggregates\Player\Exceptions\PlayerAlreadyDeletedException.cs" />
     <Compile Include="Aggregates\Player\Exceptions\InvalidPlayerNameException.cs" />
     <Compile Include="Aggregates\Player\Player.cs" />
+    <Compile Include="CommandHandlers\RemoveRebuyCommandHandler.cs" />
     <Compile Include="CommandHandlers\AddRebuyCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemovePlayerFromGameCommandHandler.cs" />
     <Compile Include="CommandHandlers\CreatePlayerCommandHandler.cs" />
@@ -159,8 +161,8 @@
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.0.2\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>

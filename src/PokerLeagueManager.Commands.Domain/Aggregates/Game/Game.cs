@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
@@ -10,7 +9,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
-        private readonly List<Guid> _players = new List<Guid>();
+        private readonly Dictionary<Guid, int> _players = new Dictionary<Guid, int>();
         private bool _deleted = false;
 
         public Game(Guid gameId, DateTime gameDate)
@@ -51,7 +50,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new PlayerDeletedException(player.PlayerId);
             }
 
-            if (_players.Any(p => p == player.PlayerId))
+            if (_players.ContainsKey(player.PlayerId))
             {
                 throw new DuplicatePlayerAddedToGameException(player.PlayerId, base.AggregateId);
             }
@@ -61,7 +60,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         public void RemovePlayerFromGame(Guid playerId)
         {
-            if (!_players.Any(p => p == playerId))
+            if (!_players.ContainsKey(playerId))
             {
                 throw new PlayerNotInGameException(playerId, base.AggregateId);
             }
@@ -76,12 +75,32 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new GameDeletedException(base.AggregateId);
             }
 
-            if (!_players.Any(p => p == playerId))
+            if (!_players.ContainsKey(playerId))
             {
                 throw new PlayerNotInGameException(playerId, base.AggregateId);
             }
 
             base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
+        public void RemoveRebuy(Guid playerId)
+        {
+            if (_deleted)
+            {
+                throw new GameDeletedException(base.AggregateId);
+            }
+
+            if (!_players.ContainsKey(playerId))
+            {
+                throw new PlayerNotInGameException(playerId, base.AggregateId);
+            }
+
+            if (_players[playerId] <= 0)
+            {
+                throw new NoRebuysLeftToRemoveException(base.AggregateId, playerId);
+            }
+
+            base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId });
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
@@ -101,13 +120,19 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(PlayerAddedToGameEvent e)
         {
-            _players.Add(e.PlayerId);
+            _players.Add(e.PlayerId, 0);
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(RebuyAddedEvent e)
         {
-            _players.Add(e.PlayerId);
+            _players[e.PlayerId]++;
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(RebuyRemovedEvent e)
+        {
+            _players[e.PlayerId]--;
         }
     }
 }
