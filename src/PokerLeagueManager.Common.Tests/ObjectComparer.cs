@@ -89,6 +89,12 @@ namespace PokerLeagueManager.Common.Tests
             return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
         }
 
+        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "int", Justification = "This is a type specific method")]
+        public static int AnyInt()
+        {
+            return 729370312;
+        }
+
         public static void AreEqual(object expected, object actual)
         {
             CompareObjects(expected, actual, 0);
@@ -177,6 +183,14 @@ namespace PokerLeagueManager.Common.Tests
                     if (propertyInfo.PropertyType == typeof(Guid))
                     {
                         if ((Guid)valueA == AnyGuid() && (Guid)valueB != Guid.Empty)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (propertyInfo.PropertyType == typeof(int))
+                    {
+                        if ((int)valueA == AnyInt())
                         {
                             break;
                         }

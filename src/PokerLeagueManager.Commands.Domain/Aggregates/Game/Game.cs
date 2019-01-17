@@ -57,6 +57,9 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
+
+            var (first, second, third) = CalculatePayouts();
+            base.PublishEvent(new PayoutsCalculatedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third });
         }
 
         public void RemovePlayerFromGame(Guid playerId)
@@ -142,6 +145,22 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerUnKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
+        private (int first, int second, int third) CalculatePayouts()
+        {
+            var rake = 10;
+            var buyin = 20;
+            var rebuy = 10;
+
+            var totalPot = (_players.Count * buyin) + (_players.Sum(x => x.Value.Rebuys) * rebuy) - rake;
+
+            if (totalPot < 150)
+            {
+                return ((int)(totalPot * 0.7), (int)(totalPot * 0.3), 0);
+            }
+
+            return ((int)(totalPot * 0.6), (int)(totalPot * 0.3), (int)(totalPot * 0.1));
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]

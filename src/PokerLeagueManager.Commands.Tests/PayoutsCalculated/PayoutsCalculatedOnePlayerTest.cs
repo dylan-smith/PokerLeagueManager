@@ -6,10 +6,10 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
+namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
 {
     [TestClass]
-    public class AddPlayerToGameTest : BaseCommandTest
+    public class PayoutsCalculatedOnePlayerTest : BaseCommandTest
     {
         private Guid _gameId = Guid.NewGuid();
         private Guid _playerId = Guid.NewGuid();
@@ -21,7 +21,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         }
 
         [TestMethod]
-        public void AddPlayerToGame()
+        public void PayoutsCalculatedOnePlayer()
         {
             RunTest(new AddPlayerToGameCommand() { GameId = _gameId, PlayerId = _playerId });
         }
@@ -29,7 +29,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         public override IEnumerable<IEvent> ExpectedEvents()
         {
             yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
-            yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = AnyInt(), Second = AnyInt(), Third = AnyInt() };
+            yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 7, Second = 3, Third = 0 };
         }
     }
 }

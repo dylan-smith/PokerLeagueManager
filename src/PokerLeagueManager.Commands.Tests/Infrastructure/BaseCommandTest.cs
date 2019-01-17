@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -81,6 +82,12 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         public Guid AnyGuid()
         {
             return ObjectComparer.AnyGuid();
+        }
+
+        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "int", Justification = "This is a type specific method")]
+        public int AnyInt()
+        {
+            return ObjectComparer.AnyInt();
         }
 
         private void ValidateExpectedEvents(IEnumerable<IEvent> expected, IEnumerable<IEvent> actual)

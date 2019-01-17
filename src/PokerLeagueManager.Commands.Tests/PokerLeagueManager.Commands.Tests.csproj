@@ -107,6 +107,7 @@
     <Compile Include="Infrastructure\EventCommandPair.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
     <Compile Include="Infrastructure\VerifyEventsNow.cs" />
+    <Compile Include="PayoutsCalculated\PayoutsCalculatedOnePlayerTest.cs" />
     <Compile Include="UnKnockoutPlayer\UnKnockoutPlayerNotKnockedOutTest.cs" />
     <Compile Include="UnKnockoutPlayer\UnKnockoutPlayerDeletedGameTest.cs" />
     <Compile Include="UnKnockoutPlayer\UnKnockoutPlayerInvalidGameIdTest.cs" />
@@ -161,6 +162,11 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.3\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

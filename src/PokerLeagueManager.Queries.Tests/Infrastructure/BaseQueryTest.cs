@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PokerLeagueManager.Common.Infrastructure;
@@ -90,6 +91,12 @@ namespace PokerLeagueManager.Queries.Tests.Infrastructure
         protected Guid AnyGuid()
         {
             return ObjectComparer.AnyGuid();
+        }
+
+        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "int", Justification = "This is a type specific method")]
+        protected int AnyInt()
+        {
+            return ObjectComparer.AnyInt();
         }
 
         private void HandleEvents(IEnumerable<IEvent> events, IQueryDataStore queryDataStore)

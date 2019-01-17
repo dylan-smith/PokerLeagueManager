@@ -106,6 +106,7 @@
     <Compile Include="Commands\CreateGameCommand.cs" />
     <Compile Include="DTO\GetPlayerCountByNameDto.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
+    <Compile Include="Events\PayoutsCalculatedEvent.cs" />
     <Compile Include="Events\PlayerUnKnockedOutEvent.cs" />
     <Compile Include="Events\PlayerRemovedFromGameEvent.cs" />
     <Compile Include="Events\PlayerAddedToGameEvent.cs" />
@@ -171,6 +172,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DTO\Lookups\" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
   </ItemGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
