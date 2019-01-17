@@ -2,4 +2,9 @@
   <PropertyGroup>
     <TargetFrameworkMonikerAssemblyAttributesPath>..\TargetFrameworkMonikerAssemblyAttributes.cs</TargetFrameworkMonikerAssemblyAttributesPath>
   </PropertyGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
+      <Link>CustomDictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
 </Project>

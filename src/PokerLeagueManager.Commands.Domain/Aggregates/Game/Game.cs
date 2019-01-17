@@ -124,6 +124,26 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             base.PublishEvent(new PlayerKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
         }
 
+        public void UnKnockoutPlayer(Guid playerId)
+        {
+            if (_deleted)
+            {
+                throw new GameDeletedException(base.AggregateId);
+            }
+
+            if (!_players.ContainsKey(playerId))
+            {
+                throw new PlayerNotInGameException(playerId, base.AggregateId);
+            }
+
+            if (_players[playerId].Placing == 0)
+            {
+                throw new PlayerNotKnockedOutException(base.AggregateId, playerId);
+            }
+
+            base.PublishEvent(new PlayerUnKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
         private void ApplyEvent(GameCreatedEvent e)
@@ -161,6 +181,12 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         {
             var placing = _players.Count - _players.Count(x => x.Value.Placing != 0);
             _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, placing);
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(PlayerUnKnockedOutEvent e)
+        {
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, 0);
         }
     }
 }
