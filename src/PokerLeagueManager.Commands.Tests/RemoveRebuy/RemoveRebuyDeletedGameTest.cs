@@ -7,7 +7,7 @@ using PokerLeagueManager.Common.Commands;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
 
-namespace PokerLeagueManager.Commands.Tests.AddRebuy
+namespace PokerLeagueManager.Commands.Tests.RemoveRebuy
 {
     [TestClass]
     public class RemoveRebuyDeletedGameTest : BaseCommandTest

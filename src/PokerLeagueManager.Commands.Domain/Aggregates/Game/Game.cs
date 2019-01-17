@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using PokerLeagueManager.Commands.Domain.Exceptions;
 using PokerLeagueManager.Commands.Domain.Infrastructure;
 using PokerLeagueManager.Common.Events;
@@ -9,7 +10,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
-        private readonly Dictionary<Guid, int> _players = new Dictionary<Guid, int>();
+        private readonly Dictionary<Guid, (int Rebuys, int Placing)> _players = new Dictionary<Guid, (int Rebuys, int Placing)>();
         private bool _deleted = false;
 
         public Game(Guid gameId, DateTime gameDate)
@@ -95,12 +96,32 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new PlayerNotInGameException(playerId, base.AggregateId);
             }
 
-            if (_players[playerId] <= 0)
+            if (_players[playerId].Rebuys <= 0)
             {
                 throw new NoRebuysLeftToRemoveException(base.AggregateId, playerId);
             }
 
             base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+        }
+
+        public void KnockoutPlayer(Guid playerId)
+        {
+            if (_deleted)
+            {
+                throw new GameDeletedException(base.AggregateId);
+            }
+
+            if (!_players.ContainsKey(playerId))
+            {
+                throw new PlayerNotInGameException(playerId, base.AggregateId);
+            }
+
+            if (_players[playerId].Placing != 0)
+            {
+                throw new PlayerAlreadyKnockedOutException(base.AggregateId, playerId);
+            }
+
+            base.PublishEvent(new PlayerKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
@@ -120,19 +141,26 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(PlayerAddedToGameEvent e)
         {
-            _players.Add(e.PlayerId, 0);
+            _players.Add(e.PlayerId, (0, 0));
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(RebuyAddedEvent e)
         {
-            _players[e.PlayerId]++;
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys + 1, _players[e.PlayerId].Placing);
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
         private void ApplyEvent(RebuyRemovedEvent e)
         {
-            _players[e.PlayerId]--;
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys - 1, _players[e.PlayerId].Placing);
+        }
+
+        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
+        private void ApplyEvent(PlayerKnockedOutEvent e)
+        {
+            var placing = _players.Count - _players.Count(x => x.Value.Placing != 0);
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, placing);
         }
     }
 }

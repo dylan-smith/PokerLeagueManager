@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregates\Game\Exceptions\NoRebuysLeftToRemoveException.cs" />
+    <Compile Include="Aggregates\Game\Exceptions\PlayerAlreadyKnockedOutException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerNotInGameException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\GameDeletedException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\DuplicatePlayerAddedToGameException.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Aggregates\Player\Exceptions\PlayerAlreadyDeletedException.cs" />
     <Compile Include="Aggregates\Player\Exceptions\InvalidPlayerNameException.cs" />
     <Compile Include="Aggregates\Player\Player.cs" />
+    <Compile Include="CommandHandlers\KnockoutPlayerCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveRebuyCommandHandler.cs" />
     <Compile Include="CommandHandlers\AddRebuyCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemovePlayerFromGameCommandHandler.cs" />

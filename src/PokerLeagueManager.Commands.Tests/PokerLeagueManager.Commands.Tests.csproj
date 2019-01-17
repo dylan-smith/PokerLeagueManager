@@ -107,6 +107,11 @@
     <Compile Include="Infrastructure\EventCommandPair.cs" />
     <Compile Include="Infrastructure\FakeEventRepository.cs" />
     <Compile Include="Infrastructure\VerifyEventsNow.cs" />
+    <Compile Include="KnockoutPlayer\KnockoutPlayerTest.cs" />
+    <Compile Include="KnockoutPlayer\KnockoutPlayerDeletedGameTest.cs" />
+    <Compile Include="KnockoutPlayer\KnockoutPlayerInvalidGameIdTest.cs" />
+    <Compile Include="KnockoutPlayer\KnockoutPlayerInvalidPlayerTest.cs" />
+    <Compile Include="KnockoutPlayer\KnockoutPlayerAlreadyKnockedOutTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemovePlayerFromGame\RemovePlayerFromGameInvalidPlayerTest.cs" />
     <Compile Include="RemovePlayerFromGame\RemovePlayerFromGameTest.cs" />

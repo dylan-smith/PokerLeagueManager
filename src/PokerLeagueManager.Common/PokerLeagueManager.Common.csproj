@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\KnockoutPlayerCommand.cs" />
     <Compile Include="Commands\RemoveRebuyCommand.cs" />
     <Compile Include="Commands\AddRebuyCommand.cs" />
     <Compile Include="Commands\RemovePlayerFromGameCommand.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Events\GameCreatedEvent.cs" />
     <Compile Include="Events\PlayerDeletedEvent.cs" />
     <Compile Include="Events\GameDeletedEvent.cs" />
+    <Compile Include="Events\PlayerKnockedOutEvent.cs" />
     <Compile Include="Events\RebuyRemovedEvent.cs" />
     <Compile Include="Events\RebuyAddedEvent.cs" />
     <Compile Include="Infrastructure\BaseCommand.cs" />
