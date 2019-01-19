@@ -30,6 +30,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         public override IEnumerable<IEvent> ExpectedEvents()
         {
             yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = AnyInt(), Second = AnyInt(), Third = AnyInt() };
         }
     }
 }

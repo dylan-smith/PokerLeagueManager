@@ -30,6 +30,7 @@ namespace PokerLeagueManager.Commands.Tests.AddRebuy
         public override IEnumerable<IEvent> ExpectedEvents()
         {
             yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = AnyInt(), Second = AnyInt(), Third = AnyInt() };
         }
     }
 }
