@@ -57,9 +57,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
-
-            var (first, second, third) = CalculatePayouts();
-            base.PublishEvent(new PayoutsCalculatedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third });
+            CalculatePayouts();
         }
 
         public void RemovePlayerFromGame(Guid playerId)
@@ -70,6 +68,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            CalculatePayouts();
         }
 
         public void AddRebuy(Guid playerId)
@@ -85,6 +84,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            CalculatePayouts();
         }
 
         public void RemoveRebuy(Guid playerId)
@@ -105,6 +105,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            CalculatePayouts();
         }
 
         public void KnockoutPlayer(Guid playerId)
@@ -147,20 +148,32 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             base.PublishEvent(new PlayerUnKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
         }
 
-        private (int first, int second, int third) CalculatePayouts()
+        private void CalculatePayouts()
         {
             var rake = 10;
             var buyin = 20;
             var rebuy = 10;
+            var secondPercent = 0.3;
+            var thirdPercent = 0.1;
 
             var totalPot = (_players.Count * buyin) + (_players.Sum(x => x.Value.Rebuys) * rebuy) - rake;
 
             if (totalPot < 150)
             {
-                return ((int)(totalPot * 0.7), (int)(totalPot * 0.3), 0);
+                secondPercent = 0.3;
+                thirdPercent = 0;
             }
 
-            return ((int)(totalPot * 0.6), (int)(totalPot * 0.3), (int)(totalPot * 0.1));
+            var third = RoundToNearestTen(totalPot * thirdPercent);
+            var second = RoundToNearestTen(totalPot * secondPercent);
+            var first = RoundToNearestTen(totalPot - third - second);
+
+            base.PublishEvent(new PayoutsCalculatedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third });
+        }
+
+        private int RoundToNearestTen(double value)
+        {
+            return (int)(Math.Round(value / 10.0, MidpointRounding.AwayFromZero) * 10);
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]

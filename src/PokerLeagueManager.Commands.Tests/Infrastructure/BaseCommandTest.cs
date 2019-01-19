@@ -33,6 +33,62 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             return null;
         }
 
+        public void RunTest(IEnumerable<ICommand> commands)
+        {
+            Setup();
+
+            var repository = new FakeEventRepository();
+            repository.InitialEvents = Given();
+
+            var queryDataStore = new FakeQueryDataStore();
+            var queryService = new QueryHandlerFactory(queryDataStore);
+
+            var commandRepository = new Mock<ICommandRepository>();
+
+            HandleEvents(repository.InitialEvents, queryDataStore);
+
+            Exception caughtException = null;
+            var commandHandlerFactory = new CommandHandlerFactory(repository, queryService, commandRepository.Object);
+
+            var generatedEvents = new List<IEvent>();
+
+            foreach (var command in commands)
+            {
+                try
+                {
+                    commandHandlerFactory.ExecuteCommand(command);
+                }
+                catch (Exception e)
+                {
+                    if (ExpectedException() == null)
+                    {
+                        throw;
+                    }
+
+                    caughtException = e;
+                }
+
+                HandleEvents(repository.EventList, queryDataStore);
+                generatedEvents.AddRange(repository.EventList);
+                repository.InitialEvents = new List<IEvent>(repository.InitialEvents).Concat(repository.EventList).ToList();
+                repository.EventList.Clear();
+            }
+
+            if (caughtException != null || ExpectedException() != null)
+            {
+                if (caughtException != null && ExpectedException() != null)
+                {
+                    Assert.AreEqual(ExpectedException().GetType(), caughtException.GetType());
+                }
+                else
+                {
+                    Assert.Fail("There was an Expected Exception but none was thrown.");
+                }
+            }
+
+            ValidateExpectedEvents(ExpectedEvents(), generatedEvents);
+        }
+
         public void RunTest(ICommand command)
         {
             Setup();

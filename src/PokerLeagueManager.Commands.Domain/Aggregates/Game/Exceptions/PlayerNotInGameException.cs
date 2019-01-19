@@ -18,7 +18,7 @@ namespace PokerLeagueManager.Commands.Domain.Exceptions
 
         private static string CreateMessage(Guid playerId, Guid gameId)
         {
-            var msg = "This Player is not in this game. Cannot remove a Player that is not in the Game.";
+            var msg = "This Player is not in this game. Could not perform the operation.";
             msg += Environment.NewLine;
             msg += Environment.NewLine;
             msg += "Player Id: " + playerId.ToString() + Environment.NewLine;
