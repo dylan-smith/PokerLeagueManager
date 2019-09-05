@@ -106,6 +106,8 @@
     <Compile Include="Commands\CreateGameCommand.cs" />
     <Compile Include="DTO\GetPlayerCountByNameDto.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
+    <Compile Include="Events\GameCompletedEvent.cs" />
+    <Compile Include="Events\GameUncompletedEvent.cs" />
     <Compile Include="Events\PayoutsCalculatedEvent.cs" />
     <Compile Include="Events\PlayerUnKnockedOutEvent.cs" />
     <Compile Include="Events\PlayerRemovedFromGameEvent.cs" />

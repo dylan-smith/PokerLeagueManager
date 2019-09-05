@@ -217,6 +217,15 @@ namespace PokerLeagueManager.Common.Tests
                             notMatchMessage = notMatch.Result;
                             break;
                         }
+                        else if (propertyInfo.PropertyType == typeof(IDictionary<Guid, int>))
+                        {
+                            var dicA = (Dictionary<Guid, int>)valueA;
+                            var dicB = (Dictionary<Guid, int>)valueB;
+                            StringResult notMatch = new StringResult();
+                            result = DictionaryEqual(dicA, dicB, ref notMatch);
+                            notMatchMessage = notMatch.Result;
+                            break;
+                        }
                         else
                         {
                             var enumerableA = valueA as IEnumerable;

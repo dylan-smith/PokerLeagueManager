@@ -11,7 +11,9 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
     public class Game : BaseAggregateRoot
     {
         private readonly Dictionary<Guid, (int Rebuys, int Placing)> _players = new Dictionary<Guid, (int Rebuys, int Placing)>();
+        private readonly LinkedList<Guid> _knockedOutOrder = new LinkedList<Guid>();
         private bool _deleted = false;
+        private bool _completed = false;
 
         public Game(Guid gameId, DateTime gameDate)
         {
@@ -57,7 +59,12 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
-            CalculatePayouts();
+            RecalculatePayouts();
+
+            if (_completed)
+            {
+                base.PublishEvent(new GameUncompletedEvent() { GameId = base.AggregateId });
+            }
         }
 
         public void RemovePlayerFromGame(Guid playerId)
@@ -68,7 +75,13 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId });
-            CalculatePayouts();
+            RecalculatePayouts();
+
+            if (_completed)
+            {
+                base.PublishEvent(new GameUncompletedEvent() { GameId = base.AggregateId });
+                CompleteGame();
+            }
         }
 
         public void AddRebuy(Guid playerId)
@@ -84,7 +97,13 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId });
-            CalculatePayouts();
+            RecalculatePayouts();
+
+            if (_completed)
+            {
+                base.PublishEvent(new GameUncompletedEvent() { GameId = base.AggregateId });
+                CompleteGame();
+            }
         }
 
         public void RemoveRebuy(Guid playerId)
@@ -105,7 +124,13 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId });
-            CalculatePayouts();
+            RecalculatePayouts();
+
+            if (_completed)
+            {
+                base.PublishEvent(new GameUncompletedEvent() { GameId = base.AggregateId });
+                CompleteGame();
+            }
         }
 
         public void KnockoutPlayer(Guid playerId)
@@ -126,6 +151,14 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
+
+            if (_knockedOutOrder.Count == _players.Count - 1)
+            {
+                var lastPlayer = _players.Keys.First(p => !_knockedOutOrder.Contains(p));
+                base.PublishEvent(new PlayerKnockedOutEvent() { GameId = base.AggregateId, PlayerId = lastPlayer });
+
+                CompleteGame();
+            }
         }
 
         public void UnKnockoutPlayer(Guid playerId)
@@ -146,9 +179,78 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
 
             base.PublishEvent(new PlayerUnKnockedOutEvent() { GameId = base.AggregateId, PlayerId = playerId });
+
+            if (_completed)
+            {
+                base.PublishEvent(new GameUncompletedEvent() { GameId = base.AggregateId });
+            }
         }
 
-        private void CalculatePayouts()
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
+        protected void ApplyEvent(GameCompletedEvent e)
+        {
+            _completed = true;
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
+        protected void ApplyEvent(GameUncompletedEvent e)
+        {
+            _completed = false;
+        }
+
+        protected void ApplyEvent(PlayerUnKnockedOutEvent e)
+        {
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, 0);
+            _knockedOutOrder.Remove(e.PlayerId);
+        }
+
+        protected void ApplyEvent(GameCreatedEvent e)
+        {
+            base.AggregateId = e.GameId;
+        }
+
+        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
+        protected void ApplyEvent(GameDeletedEvent e)
+        {
+            _deleted = true;
+        }
+
+        protected void ApplyEvent(PlayerAddedToGameEvent e)
+        {
+            _players.Add(e.PlayerId, (0, 0));
+        }
+
+        protected void ApplyEvent(PlayerRemovedFromGameEvent e)
+        {
+            _players.Remove(e.PlayerId);
+            _knockedOutOrder.Remove(e.PlayerId);
+        }
+
+        protected void ApplyEvent(RebuyAddedEvent e)
+        {
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys + 1, _players[e.PlayerId].Placing);
+        }
+
+        protected void ApplyEvent(RebuyRemovedEvent e)
+        {
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys - 1, _players[e.PlayerId].Placing);
+        }
+
+        protected void ApplyEvent(PlayerKnockedOutEvent e)
+        {
+            var placing = _players.Count - _players.Count(x => x.Value.Placing != 0);
+            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, placing);
+            _knockedOutOrder.AddFirst(e.PlayerId);
+        }
+
+        private void RecalculatePayouts()
+        {
+            var (first, second, third) = CalculatePayouts();
+
+            base.PublishEvent(new PayoutsCalculatedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third });
+        }
+
+        private (int first, int second, int third) CalculatePayouts()
         {
             var rake = 10;
             var buyin = 20;
@@ -168,7 +270,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             var second = RoundToNearestTen(totalPot * secondPercent);
             var first = RoundToNearestTen(totalPot - third - second);
 
-            base.PublishEvent(new PayoutsCalculatedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third });
+            return (first, second, third);
         }
 
         private int RoundToNearestTen(double value)
@@ -176,49 +278,17 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             return (int)(Math.Round(value / 10.0, MidpointRounding.AwayFromZero) * 10);
         }
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "Plumbing needs this method signature to exist to work properly")]
-        private void ApplyEvent(GameCreatedEvent e)
+        private void CompleteGame()
         {
-            base.AggregateId = e.GameId;
-        }
+            var (first, second, third) = CalculatePayouts();
+            var completedEvent = new GameCompletedEvent() { GameId = base.AggregateId, First = first, Second = second, Third = third };
 
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(GameDeletedEvent e)
-        {
-            _deleted = true;
-        }
+            foreach (var p in _players)
+            {
+                completedEvent.Placings.Add(p.Key, p.Value.Placing);
+            }
 
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(PlayerAddedToGameEvent e)
-        {
-            _players.Add(e.PlayerId, (0, 0));
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(RebuyAddedEvent e)
-        {
-            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys + 1, _players[e.PlayerId].Placing);
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(RebuyRemovedEvent e)
-        {
-            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys - 1, _players[e.PlayerId].Placing);
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(PlayerKnockedOutEvent e)
-        {
-            var placing = _players.Count - _players.Count(x => x.Value.Placing != 0);
-            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, placing);
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Is called via reflection")]
-        private void ApplyEvent(PlayerUnKnockedOutEvent e)
-        {
-            _players[e.PlayerId] = (_players[e.PlayerId].Rebuys, 0);
+            base.PublishEvent(completedEvent);
         }
     }
 }
