@@ -8,7 +8,7 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
     [TestClass]
     public class ZeroGamesTest : BaseQueryTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
+        private readonly DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         [TestMethod]
         public void GetGameCountByDate_ZeroGames()

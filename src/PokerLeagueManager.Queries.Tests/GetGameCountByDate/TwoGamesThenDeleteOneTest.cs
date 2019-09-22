@@ -11,11 +11,11 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
     [TestClass]
     public class TwoGamesThenDeleteOneTest : BaseQueryTest
     {
-        private Guid _gameId1 = Guid.NewGuid();
-        private Guid _gameId2 = Guid.NewGuid();
+        private readonly Guid _gameId1 = Guid.NewGuid();
+        private readonly Guid _gameId2 = Guid.NewGuid();
 
-        private DateTime _gameDate1 = DateTime.Parse("03-Jul-1981");
-        private DateTime _gameDate2 = DateTime.Parse("03-Jul-2015");
+        private readonly DateTime _gameDate1 = DateTime.Parse("03-Jul-1981");
+        private readonly DateTime _gameDate2 = DateTime.Parse("03-Jul-2015");
 
         public override IEnumerable<IEvent> Given()
         {

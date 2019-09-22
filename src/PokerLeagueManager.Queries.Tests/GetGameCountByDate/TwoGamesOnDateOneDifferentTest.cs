@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Queries.Tests.GetGameCountByDate
     [TestClass]
     public class TwoGamesOnDateOneDifferentTest : BaseQueryTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
+        private readonly DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         public override IEnumerable<IEvent> Given()
         {
