@@ -104,7 +104,6 @@
     <Compile Include="Aggregates\Game\Exceptions\GameDeletedException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\DuplicatePlayerAddedToGameException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerDeletedException.cs" />
-    <Compile Include="Aggregates\Player\Exceptions\DuplicatePlayerNameException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\GameAlreadyDeletedException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\InvalidGameDateException.cs" />
     <Compile Include="Aggregates\Game\Game.cs" />
