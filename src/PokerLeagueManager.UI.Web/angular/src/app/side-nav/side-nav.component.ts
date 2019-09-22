@@ -19,7 +19,7 @@ export class SideNavComponent implements OnInit {
   }
 
   constructor(private _router: Router, zone: NgZone) {
-    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
+    this.mediaMatcher.addListener(() => zone.run(() => this.mediaMatcher = matchMedia(`(max-width: 840px)`)));
   }
 
   @ViewChild(MatSidenav) sidenav: MatSidenav;

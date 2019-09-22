@@ -16,7 +16,7 @@ export class GameListComponent implements OnInit {
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width: 530px)`);
 
   constructor(private queryService: QueryService, zone: NgZone) {
-    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
+    this.mediaMatcher.addListener(() => zone.run(() => this.mediaMatcher = matchMedia(`(max-width: 530px)`)));
   }
 
   ngOnInit(): void {

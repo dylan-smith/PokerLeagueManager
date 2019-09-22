@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   @Output() SideNavToggled = new EventEmitter<void>();
 
   constructor(zone: NgZone) {
-    this.mediaMatcher.addListener(mql => zone.run(() => this.mediaMatcher = mql));
+    this.mediaMatcher.addListener(() => zone.run(() => this.mediaMatcher = matchMedia(`(max-width: 840px)`)));
   }
 
   ngOnInit(): void {
