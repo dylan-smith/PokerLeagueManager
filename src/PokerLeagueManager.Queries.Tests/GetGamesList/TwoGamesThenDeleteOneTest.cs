@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Common.Infrastructure;
@@ -25,15 +26,13 @@ namespace PokerLeagueManager.Queries.Tests.GetGamesList
         }
 
         [TestMethod]
-        public void GetGameCountByDate_TwoGamesThenDeleteOne()
+        public void GetGamesList_TwoGamesThenDeleteOne()
         {
             var querySvc = SetupQueryService();
 
-            var result1 = querySvc.Execute(new GetGameCountByDateQuery(_gameDate1));
-            var result2 = querySvc.Execute(new GetGameCountByDateQuery(_gameDate2));
+            var result = querySvc.Execute(new GetGamesListQuery());
 
-            Assert.AreEqual(0, result1);
-            Assert.AreEqual(1, result2);
+            Assert.AreEqual(1, result.Count());
         }
     }
 }

@@ -31,7 +31,7 @@ namespace PokerLeagueManager.Queries.Tests.GetGamesList
 
             var result = querySvc.Execute(new GetGamesListQuery());
 
-            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(2, result.Count());
         }
     }
 }

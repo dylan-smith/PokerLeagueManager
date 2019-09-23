@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         public void Handle(PlayerDeletedEvent e)
         {
             var dto = QueryDataStore.GetData<GetPlayerCountByNameDto>().Single(d => d.PlayerId == e.PlayerId);
-            QueryDataStore.Delete<GetPlayerCountByNameDto>(dto);
+            QueryDataStore.Delete(dto);
         }
     }
 }

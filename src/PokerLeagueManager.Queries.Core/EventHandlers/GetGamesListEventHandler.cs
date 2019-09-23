@@ -5,22 +5,20 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGameCountByDateEventHandler : BaseEventHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<GameDeletedEvent>
+    public class GetGamesListEventHandler : BaseEventHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<GameDeletedEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
-            QueryDataStore.Insert(new GetGameCountByDateDto()
+            QueryDataStore.Insert(new GetGamesListDto()
             {
                 GameId = e.GameId,
-                GameYear = e.GameDate.Year,
-                GameMonth = e.GameDate.Month,
-                GameDay = e.GameDate.Day,
+                GameDate = e.GameDate,
             });
         }
 
         public void Handle(GameDeletedEvent e)
         {
-            var dto = QueryDataStore.GetData<GetGameCountByDateDto>().Single(d => d.GameId == e.GameId);
+            var dto = QueryDataStore.GetData<GetGamesListDto>().Single(d => d.GameId == e.GameId);
             QueryDataStore.Delete(dto);
         }
     }
