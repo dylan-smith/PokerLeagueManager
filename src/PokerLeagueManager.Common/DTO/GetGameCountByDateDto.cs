@@ -19,7 +19,6 @@ namespace PokerLeagueManager.Common.DTO
         public int GameMonth { get; set; }
 
         [DataMember]
-        [Description("")]
         public int GameDay { get; set; }
     }
 }
