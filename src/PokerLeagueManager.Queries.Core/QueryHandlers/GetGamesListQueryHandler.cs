@@ -10,7 +10,14 @@ namespace PokerLeagueManager.Queries.Core.QueryHandlers
     {
         public IEnumerable<GetGamesListDto> Execute(GetGamesListQuery query)
         {
-            return Repository.GetData<GetGamesListDto>().ToList();
+            var result = Repository.GetData<GetGamesListDto>().Skip(query.Skip);
+
+            if (query.Take > 0)
+            {
+                result = result.Take(query.Take);
+            }
+
+            return result.ToList();
         }
     }
 }

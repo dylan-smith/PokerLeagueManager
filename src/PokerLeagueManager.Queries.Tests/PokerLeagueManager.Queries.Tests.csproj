@@ -82,6 +82,7 @@
     <Compile Include="GetGameCountByDate\TwoGamesThenDeleteOneTest.cs" />
     <Compile Include="GetGameCountByDate\TwoGamesOnDateOneDifferentTest.cs" />
     <Compile Include="GetGameCountByDate\ZeroGamesTest.cs" />
+    <Compile Include="GetGamesList\SkipOneTakeTwoTest.cs" />
     <Compile Include="GetGamesList\TwoGamesTest.cs" />
     <Compile Include="GetGamesList\TwoGamesThenDeleteOneTest.cs" />
     <Compile Include="Infrastructure\BaseQueryTest.cs" />
