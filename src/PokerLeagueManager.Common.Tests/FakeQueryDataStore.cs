@@ -45,6 +45,15 @@ namespace PokerLeagueManager.Common.Tests
             _dataStore[typeof(T)].Remove(dto);
         }
 
+        public void Update<T>(T dto)
+            where T : class, IDataTransferObject
+        {
+            var cur = _dataStore[typeof(T)].Single(x => x.DtoId == dto.DtoId);
+
+            _dataStore[typeof(T)].Remove(cur);
+            _dataStore[typeof(T)].Add(dto);
+        }
+
         public int SaveChanges()
         {
             return 0;

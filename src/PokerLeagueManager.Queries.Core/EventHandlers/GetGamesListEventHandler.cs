@@ -31,6 +31,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
             var dto = new GetGamesListDto()
             {
+                DtoId = game.DtoId,
                 GameId = e.GameId,
                 GameDate = game.GameDate,
                 Winner = winner.PlayerName,
@@ -42,7 +43,11 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameUncompletedEvent e)
         {
-            var game = QueryDataStore.GetData<GetGamesListDto>().Single
+            var dto = QueryDataStore.GetData<GetGamesListDto>().Single();
+
+            dto.Completed = false;
+
+            QueryDataStore.Update(dto);
         }
     }
 }

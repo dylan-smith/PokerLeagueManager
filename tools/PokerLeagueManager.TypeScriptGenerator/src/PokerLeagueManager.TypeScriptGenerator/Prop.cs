@@ -21,6 +21,8 @@ namespace PokerLeagueManager.TypeScriptGenerator
                     return "number";
                 case "Guid":
                     return "string";
+                case "bool":
+                    return "boolean";
                 default:
                     throw new ArgumentException("Unrecognized type", nameof(Type));
             }

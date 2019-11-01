@@ -36,7 +36,14 @@ namespace PokerLeagueManager.Commands.Tests.GameCompleted
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId3 };
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId2 };
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId1 };
-            yield return new GameCompletedEvent() { GameId = _gameId };
+
+            var completedEvent = new GameCompletedEvent() { GameId = _gameId };
+            completedEvent.Placings.Add(_playerId1, 1);
+            completedEvent.Placings.Add(_playerId2, 2);
+            completedEvent.Placings.Add(_playerId3, 3);
+            completedEvent.Placings.Add(_playerId4, 4);
+            completedEvent.Placings.Add(_playerId5, 5);
+            yield return completedEvent;
         }
 
         [TestMethod]

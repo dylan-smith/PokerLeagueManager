@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using PokerLeagueManager.Common.DTO;
-using PokerLeagueManager.Common.DTO.Lookups;
+﻿using PokerLeagueManager.Common.DTO.Lookups;
 using PokerLeagueManager.Common.Events;
 using PokerLeagueManager.Queries.Core.Infrastructure;
 
