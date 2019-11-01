@@ -69,6 +69,15 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             base.SaveChanges();
         }
 
+        public void Update<T>(T dto)
+            where T : class, IDataTransferObject
+        {
+            var dtoSet = base.Set<T>();
+            dtoSet.Remove(dtoSet.Single(x => x.DtoId == dto.DtoId));
+            dtoSet.Add(dto);
+            base.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

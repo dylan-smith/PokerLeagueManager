@@ -88,6 +88,7 @@
     <Compile Include="EventHandlers\GetGamesListEventHandler.cs" />
     <Compile Include="EventHandlers\GetPlayerCountByNameEventHandler.cs" />
     <Compile Include="EventHandlers\GetGameCountByDateEventHandler.cs" />
+    <Compile Include="EventHandlers\Lookups\PlayerLookupEventHandler.cs" />
     <Compile Include="Infrastructure\BaseQueryHandler.cs" />
     <Compile Include="Infrastructure\BaseEventHandler.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />

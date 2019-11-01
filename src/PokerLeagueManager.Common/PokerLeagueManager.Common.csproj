@@ -107,6 +107,7 @@
     <Compile Include="DTO\GetGamesListDto.cs" />
     <Compile Include="DTO\GetPlayerCountByNameDto.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
+    <Compile Include="DTO\Lookups\PlayerLookupDto.cs" />
     <Compile Include="Events\GameCompletedEvent.cs" />
     <Compile Include="Events\GameUncompletedEvent.cs" />
     <Compile Include="Events\PayoutsCalculatedEvent.cs" />
@@ -174,9 +175,7 @@
     <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.1.61\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DTO\Lookups\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CustomDictionary.xml">
       <Link>CustomDictionary.xml</Link>

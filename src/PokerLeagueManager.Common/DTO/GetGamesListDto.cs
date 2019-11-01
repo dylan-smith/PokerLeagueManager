@@ -14,5 +14,14 @@ namespace PokerLeagueManager.Common.DTO
 
         [DataMember]
         public DateTime GameDate { get; set; }
+
+        [DataMember]
+        public string Winner { get; set; }
+
+        [DataMember]
+        public int Winnings { get; set; }
+
+        [DataMember]
+        public bool Completed { get; set; }
     }
 }
