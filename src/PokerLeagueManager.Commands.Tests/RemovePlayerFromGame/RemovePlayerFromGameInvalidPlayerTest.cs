@@ -19,13 +19,13 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         {
             yield return new GameCreatedEvent() { GameId = _gameId, GameDate = DateTime.Now };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId, PlayerName = "Homer Simpson" };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = Guid.NewGuid() };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
         }
 
         [TestMethod]
         public void RemovePlayerFromGame()
         {
-            RunTest(new RemovePlayerFromGameCommand() { GameId = _gameId, PlayerId = _playerId });
+            RunTest(new RemovePlayerFromGameCommand() { GameId = _gameId, PlayerId = Guid.NewGuid() });
         }
 
         public override Exception ExpectedException()
