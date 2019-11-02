@@ -1,9 +1,0 @@
-$app-theme-primary: mat-palette($mat-indigo);
-$app-theme-accent: mat-palette($mat-light-blue);
-$app-theme-warn: mat-palette($mat-deep-orange, A200);
-
-$app-theme: mat-dark-theme(
-    $app-theme-primary,
-    $app-theme-accent,
-    $app-theme-warn
-);
