@@ -1,0 +1,9 @@
+﻿CREATE TABLE [DTO].[GetGamesListDto]
+(
+	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
+	[GameId] UNIQUEIDENTIFIER NOT NULL, 
+    [GameDate] DATETIME NOT NULL, 
+    [Winner] VARCHAR(50) NULL, 
+    [Winnings] INT NULL, 
+    [Completed] BIT NOT NULL
+)

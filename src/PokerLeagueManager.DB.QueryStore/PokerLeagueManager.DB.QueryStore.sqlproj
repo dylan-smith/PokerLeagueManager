@@ -75,5 +75,8 @@
     <Build Include="Security\Lookups.sql" />
     <Build Include="Security\DTO.sql" />
     <Build Include="DTO\GetPlayerCountByNameDto.sql" />
+    <Build Include="DTO\GetGamePlayersDto.sql" />
+    <Build Include="DTO\GetGamesListDto.sql" />
+    <Build Include="Lookups\PlayerLookupDto.sql" />
   </ItemGroup>
 </Project>
