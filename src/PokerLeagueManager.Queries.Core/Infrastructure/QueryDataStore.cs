@@ -74,6 +74,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             var dtoSet = base.Set<T>();
             dtoSet.Remove(dtoSet.Single(x => x.DtoId == dto.DtoId));
+            base.SaveChanges();
             dtoSet.Add(dto);
             base.SaveChanges();
         }

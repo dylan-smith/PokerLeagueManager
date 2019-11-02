@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Utilities
         private static IEnumerable<ICommand> GenerateSampleDataCommands(int numberOfGames)
         {
             var results = new List<ICommand>();
-            var samplePlayers = GenerateSamplePlayers();
+            var samplePlayers = GenerateSamplePlayers().ToList();
 
             results.AddRange(samplePlayers);
 
@@ -49,7 +49,7 @@ namespace PokerLeagueManager.Utilities
                 newGame.GameDate = GetUniqueDate(results);
                 results.Add(newGame);
 
-                var numPlayers = _rnd.Next(5, 15);
+                var numPlayers = _rnd.Next(5, 10);
                 var players = new List<AddPlayerToGameCommand>();
 
                 for (int p = 0; p < numPlayers; p++)
@@ -58,11 +58,19 @@ namespace PokerLeagueManager.Utilities
                     newPlayer.PlayerId = GetRandomPlayer(samplePlayers, players);
                     newPlayer.GameId = newGame.GameId;
 
-                    // TODO: Add random amount of rebuys, and knock player out
                     players.Add(newPlayer);
                 }
 
                 results.AddRange(players);
+
+                for (int p = 1; p < numPlayers; p++)
+                {
+                    var knockoutCommand = new KnockoutPlayerCommand();
+                    knockoutCommand.GameId = newGame.GameId;
+                    knockoutCommand.PlayerId = players[p].PlayerId;
+
+                    results.Add(knockoutCommand);
+                }
             }
 
             return results;
@@ -70,52 +78,26 @@ namespace PokerLeagueManager.Utilities
 
         private static IEnumerable<CreatePlayerCommand> GenerateSamplePlayers()
         {
-            yield return new CreatePlayerCommand() { PlayerName = "Dylan Smith" };
-            yield return new CreatePlayerCommand() { PlayerName = "Ryan Fritsch" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sauce" };
-            yield return new CreatePlayerCommand() { PlayerName = "Shane Wilkins" };
-            yield return new CreatePlayerCommand() { PlayerName = "G.W. Stein" };
-            yield return new CreatePlayerCommand() { PlayerName = "Colin Hickson" };
-            yield return new CreatePlayerCommand() { PlayerName = "Grant Hirose" };
-            yield return new CreatePlayerCommand() { PlayerName = "Jeff" };
-            yield return new CreatePlayerCommand() { PlayerName = "Alex K" };
-            yield return new CreatePlayerCommand() { PlayerName = "Rob Schneider" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sean Kehoe" };
-            yield return new CreatePlayerCommand() { PlayerName = "Meghan Mawhinney" };
-            yield return new CreatePlayerCommand() { PlayerName = "Ray Tara" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sam Pearce" };
-            yield return new CreatePlayerCommand() { PlayerName = "Jason The" };
-            yield return new CreatePlayerCommand() { PlayerName = "Chris Wentz" };
-            yield return new CreatePlayerCommand() { PlayerName = "Kiana Lindsay" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sherika Vollmer" };
-            yield return new CreatePlayerCommand() { PlayerName = "Alfred Rolando" };
-            yield return new CreatePlayerCommand() { PlayerName = "Chauncey Cavallaro" };
-            yield return new CreatePlayerCommand() { PlayerName = "Karl Brush" };
-            yield return new CreatePlayerCommand() { PlayerName = "Carlos Brumett" };
-            yield return new CreatePlayerCommand() { PlayerName = "Hwa Gensler" };
-            yield return new CreatePlayerCommand() { PlayerName = "Lynnette Levan" };
-            yield return new CreatePlayerCommand() { PlayerName = "Jovita Tongue" };
-            yield return new CreatePlayerCommand() { PlayerName = "Alyse Mauk" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sanjuanita Zieman" };
-            yield return new CreatePlayerCommand() { PlayerName = "Glory Vanwagenen" };
-            yield return new CreatePlayerCommand() { PlayerName = "Betsy Vasques" };
-            yield return new CreatePlayerCommand() { PlayerName = "Elouise Allison" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sheridan Oxner" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sunni Cooke" };
-            yield return new CreatePlayerCommand() { PlayerName = "Ozell Funston" };
-            yield return new CreatePlayerCommand() { PlayerName = "Dorotha Winland" };
-            yield return new CreatePlayerCommand() { PlayerName = "Estelle Weibel" };
-            yield return new CreatePlayerCommand() { PlayerName = "Corazon Benware" };
-            yield return new CreatePlayerCommand() { PlayerName = "Mabelle Bopp" };
-            yield return new CreatePlayerCommand() { PlayerName = "Hope Byfield" };
-            yield return new CreatePlayerCommand() { PlayerName = "Romeo Winters" };
-            yield return new CreatePlayerCommand() { PlayerName = "Sasha Mongeau" };
-            yield return new CreatePlayerCommand() { PlayerName = "Ricki Westendorf" };
-            yield return new CreatePlayerCommand() { PlayerName = "Lane Clink" };
-            yield return new CreatePlayerCommand() { PlayerName = "Max Chesnutt" };
-            yield return new CreatePlayerCommand() { PlayerName = "Demetrius Reighard" };
-            yield return new CreatePlayerCommand() { PlayerName = "Suzanna Basel" };
-            yield return new CreatePlayerCommand() { PlayerName = "Claud Caverly" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Dylan Smith" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Ryan Fritsch" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Sauce" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Shane Wilkins" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "G.W. Stein" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Colin Hickson" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Grant Hirose" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Jeff" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Alex K" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Rob Schneider" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Sean Kehoe" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Meghan Mawhinney" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Ray Tara" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Sam Pearce" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Jason The" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Chris Wentz" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Kiana Lindsay" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Sherika Vollmer" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Alfred Rolando" };
+            yield return new CreatePlayerCommand() { PlayerId = Guid.NewGuid(), PlayerName = "Chauncey Cavallaro" };
         }
 
         private static Guid GetRandomPlayer(IEnumerable<CreatePlayerCommand> allPlayers, IEnumerable<AddPlayerToGameCommand> players)

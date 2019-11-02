@@ -10,7 +10,7 @@ namespace PokerLeagueManager.Queries.Core.QueryHandlers
     {
         public IEnumerable<GetGamesListDto> Execute(GetGamesListQuery query)
         {
-            var result = Repository.GetData<GetGamesListDto>().Skip(query.Skip);
+            var result = Repository.GetData<GetGamesListDto>().OrderBy(x => x.GameDate).Skip(query.Skip);
 
             if (query.Take > 0)
             {

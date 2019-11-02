@@ -36,6 +36,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 GameDate = game.GameDate,
                 Winner = winner.PlayerName,
                 Winnings = e.First,
+                Completed = true,
             };
 
             QueryDataStore.Update(dto);

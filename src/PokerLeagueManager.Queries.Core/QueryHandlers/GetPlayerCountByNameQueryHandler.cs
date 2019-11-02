@@ -9,7 +9,7 @@ namespace PokerLeagueManager.Queries.Core.QueryHandlers
     {
         public int Execute(GetPlayerCountByNameQuery query)
         {
-            return Repository.GetData<GetPlayerCountByNameDto>().Count(x => x.PlayerName.ToUpperInvariant() == query.PlayerName.ToUpperInvariant());
+            return Repository.GetData<GetPlayerCountByNameDto>().Count(x => x.PlayerName.ToUpper() == query.PlayerName.ToUpper());
         }
     }
 }
