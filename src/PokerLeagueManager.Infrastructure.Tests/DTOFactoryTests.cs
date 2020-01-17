@@ -26,17 +26,19 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var gameMonth = 7;
             var gameDay = 3;
 
-            var sampleTable = GenerateSampleDataTable();
-            sampleTable.Rows.Add(gameId, gameYear, gameMonth, gameDay);
+            using (var sampleTable = GenerateSampleDataTable())
+            {
+                sampleTable.Rows.Add(gameId, gameYear, gameMonth, gameDay);
 
-            var sut = new DtoFactory();
-            var result = sut.Create<GetGameCountByDateDto>(sampleTable.Rows[0]);
+                var sut = new DtoFactory();
+                var result = sut.Create<GetGameCountByDateDto>(sampleTable.Rows[0]);
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(gameId, result.GameId);
-            Assert.AreEqual(gameYear, result.GameYear);
-            Assert.AreEqual(gameMonth, result.GameMonth);
-            Assert.AreEqual(gameDay, result.GameDay);
+                Assert.IsNotNull(result);
+                Assert.AreEqual(gameId, result.GameId);
+                Assert.AreEqual(gameYear, result.GameYear);
+                Assert.AreEqual(gameMonth, result.GameMonth);
+                Assert.AreEqual(gameDay, result.GameDay);
+            }
         }
 
         private DataTable GenerateSampleDataTable()

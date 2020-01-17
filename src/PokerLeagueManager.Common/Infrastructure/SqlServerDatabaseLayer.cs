@@ -43,23 +43,24 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public DataTable GetDataTable(string sql, params object[] sqlArgs)
         {
-            var myCommand = PrepareCommand(sql, sqlArgs);
-
-            var result = new DataTable();
-
-            try
+            using (var myCommand = PrepareCommand(sql, sqlArgs))
             {
-                using (var myAdapter = new SqlDataAdapter(myCommand))
+                var result = new DataTable();
+
+                try
                 {
-                    ExecuteWithConnection(() => myAdapter.Fill(result));
-                }
+                    using (var myAdapter = new SqlDataAdapter(myCommand))
+                    {
+                        ExecuteWithConnection(() => myAdapter.Fill(result));
+                    }
 
-                return result;
-            }
-            catch
-            {
-                result.Dispose();
-                throw;
+                    return result;
+                }
+                catch
+                {
+                    result.Dispose();
+                    throw;
+                }
             }
         }
 
@@ -70,12 +71,14 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public int ExecuteNonQuery(string sql, params object[] sqlArgs)
         {
-            var myCommand = PrepareCommand(sql, sqlArgs);
-            int result = default(int);
+            using (var myCommand = PrepareCommand(sql, sqlArgs))
+            {
+                int result = default(int);
 
-            ExecuteWithConnection(() => result = myCommand.ExecuteNonQuery());
+                ExecuteWithConnection(() => result = myCommand.ExecuteNonQuery());
 
-            return result;
+                return result;
+            }
         }
 
         public object ExecuteScalar(string sql)
@@ -85,12 +88,14 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public object ExecuteScalar(string sql, params object[] sqlArgs)
         {
-            var myCommand = PrepareCommand(sql, sqlArgs);
-            object result = default(object);
+            using (var myCommand = PrepareCommand(sql, sqlArgs))
+            {
+                object result = default(object);
 
-            ExecuteWithConnection(() => result = myCommand.ExecuteScalar());
+                ExecuteWithConnection(() => result = myCommand.ExecuteScalar());
 
-            return result;
+                return result;
+            }
         }
 
         public void Dispose()

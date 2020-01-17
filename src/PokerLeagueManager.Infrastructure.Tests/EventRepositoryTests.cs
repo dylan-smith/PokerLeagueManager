@@ -23,22 +23,24 @@ namespace PokerLeagueManager.Infrastructure.Tests
             var firstEvent = new GameCreatedEvent() { AggregateId = testAggregateId, GameDate = DateTime.Now };
             var secondEvent = new PlayerAddedToGameEvent() { AggregateId = testAggregateId, PlayerId = Guid.NewGuid() };
 
-            var testEvents = CreateEventsTable();
-            testEvents.Rows.Add(SerializeEvent(firstEvent), firstEvent.GetType().AssemblyQualifiedName);
-            testEvents.Rows.Add(SerializeEvent(secondEvent), secondEvent.GetType().AssemblyQualifiedName);
+            using (var testEvents = CreateEventsTable())
+            {
+                testEvents.Rows.Add(SerializeEvent(firstEvent), firstEvent.GetType().AssemblyQualifiedName);
+                testEvents.Rows.Add(SerializeEvent(secondEvent), secondEvent.GetType().AssemblyQualifiedName);
 
-            var mockDatabaseLayer = new Mock<IDatabaseLayer>();
-            mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>(), It.IsAny<object[]>())).Returns(testEvents);
+                var mockDatabaseLayer = new Mock<IDatabaseLayer>();
+                mockDatabaseLayer.Setup(x => x.GetDataTable(It.IsAny<string>(), It.IsAny<object[]>())).Returns(testEvents);
 
-            var sut = new EventRepository(
-                mockDatabaseLayer.Object,
-                null,
-                null,
-                null);
+                var sut = new EventRepository(
+                    mockDatabaseLayer.Object,
+                    null,
+                    null,
+                    null);
 
-            var result = sut.GetAggregateById<Game>(testAggregateId);
+                var result = sut.GetAggregateById<Game>(testAggregateId);
 
-            Assert.AreEqual(secondEvent.EventId, result.AggregateVersion);
+                Assert.AreEqual(secondEvent.EventId, result.AggregateVersion);
+            }
         }
 
         [TestMethod]
