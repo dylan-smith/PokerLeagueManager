@@ -11,8 +11,8 @@ namespace PokerLeagueManager.Commands.Tests.CreateGame
     [TestClass]
     public class CreateGameWithGameIdTest : BaseCommandTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
-        private Guid _gameId = Guid.NewGuid();
+        private readonly DateTime _gameDate = DateTime.Parse("03-Jul-1981");
+        private readonly Guid _gameId = Guid.NewGuid();
 
         [TestMethod]
         public void CreateGameWithGameId()

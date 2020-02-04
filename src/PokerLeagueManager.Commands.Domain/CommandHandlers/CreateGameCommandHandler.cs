@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 
             if (gameCount > 0)
             {
-                throw new ArgumentException("Cannot create more than one game for the same date", "GameDate");
+                throw new ArgumentException("Cannot create more than one game for the same date", nameof(command));
             }
 
             var game = new Game(command.GameId, command.GameDate);

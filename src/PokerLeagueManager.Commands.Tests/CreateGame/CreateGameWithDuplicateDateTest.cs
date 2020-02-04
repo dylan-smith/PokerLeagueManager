@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Commands.Tests.CreateGame
     [TestClass]
     public class CreateGameWithDuplicateDateTest : BaseCommandTest
     {
-        private DateTime _gameDate = DateTime.Parse("03-Jul-1981");
+        private readonly DateTime _gameDate = DateTime.Parse("03-Jul-1981");
 
         public override IEnumerable<IEvent> Given()
         {

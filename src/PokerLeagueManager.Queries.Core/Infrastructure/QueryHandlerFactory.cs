@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Infrastructure;
@@ -55,6 +56,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             }
         }
 
+        [SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "This method is called via reflection")]
         private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
             where TQuery : IQuery<TResult>
         {

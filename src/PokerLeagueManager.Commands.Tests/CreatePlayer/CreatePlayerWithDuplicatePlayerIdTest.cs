@@ -11,8 +11,8 @@ namespace PokerLeagueManager.Commands.Tests.CreatePlayer
     [TestClass]
     public class CreatePlayerWithDuplicatePlayerIdTest : BaseCommandTest
     {
-        private string _playerName = "Homer Simpson";
-        private Guid _playerId = Guid.NewGuid();
+        private readonly string _playerName = "Homer Simpson";
+        private readonly Guid _playerId = Guid.NewGuid();
 
         public override IEnumerable<IEvent> Given()
         {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="SonarQube - PokerLeagueManager Sonar way" Description="This rule set was automatically generated from SonarQube.&#xD;&#xA;https://sonarcloud.io/profiles/show?key=AWG5uEfp1uc8gbLrNabd" ToolsVersion="16.0">
+<RuleSet Name="SonarQube - PokerLeagueManager Dylan Way" Description="This rule set was automatically generated from SonarQube.&#xD;&#xA;https://sonarcloud.io/profiles/show?key=AXARElTLPfzwXaR4rHyh" ToolsVersion="16.0">
   <Rules AnalyzerId="SonarAnalyzer.CSharp" RuleNamespace="SonarAnalyzer.CSharp">
     <Rule Id="S100" Action="None" />
     <Rule Id="S1006" Action="Warning" />
@@ -80,7 +80,7 @@
     <Rule Id="S1764" Action="Warning" />
     <Rule Id="S1821" Action="None" />
     <Rule Id="S1848" Action="Warning" />
-    <Rule Id="S1854" Action="Warning" />
+    <Rule Id="S1854" Action="None" />
     <Rule Id="S1858" Action="None" />
     <Rule Id="S1862" Action="Warning" />
     <Rule Id="S1871" Action="Warning" />
@@ -153,7 +153,7 @@
     <Rule Id="S2688" Action="Warning" />
     <Rule Id="S2692" Action="Warning" />
     <Rule Id="S2696" Action="Warning" />
-    <Rule Id="S2699" Action="Warning" />
+    <Rule Id="S2699" Action="None" />
     <Rule Id="S2701" Action="None" />
     <Rule Id="S2737" Action="Warning" />
     <Rule Id="S2743" Action="Warning" />
@@ -248,7 +248,7 @@
     <Rule Id="S3655" Action="Warning" />
     <Rule Id="S3693" Action="None" />
     <Rule Id="S3717" Action="None" />
-    <Rule Id="S3776" Action="Warning" />
+    <Rule Id="S3776" Action="None" />
     <Rule Id="S3869" Action="Warning" />
     <Rule Id="S3871" Action="Warning" />
     <Rule Id="S3872" Action="None" />
@@ -275,7 +275,7 @@
     <Rule Id="S3925" Action="Warning" />
     <Rule Id="S3926" Action="Warning" />
     <Rule Id="S3927" Action="Warning" />
-    <Rule Id="S3928" Action="Warning" />
+    <Rule Id="S3928" Action="None" />
     <Rule Id="S3937" Action="None" />
     <Rule Id="S3949" Action="Warning" />
     <Rule Id="S3956" Action="None" />

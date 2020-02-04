@@ -9,7 +9,7 @@ namespace PokerLeagueManager.Commands.Tests.CreatePlayer
     [TestClass]
     public class CreatePlayerWithEmptyNameTest : BaseCommandTest
     {
-        private string _playerName = "   ";
+        private readonly string _playerName = "   ";
 
         [TestMethod]
         public void CreatePlayerWithEmptyName()

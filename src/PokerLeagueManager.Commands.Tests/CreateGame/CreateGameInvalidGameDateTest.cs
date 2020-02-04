@@ -9,7 +9,7 @@ namespace PokerLeagueManager.Commands.Tests.CreateGame
     [TestClass]
     public class CreateGameInvalidGameDateTest : BaseCommandTest
     {
-        private DateTime _gameDate = DateTime.MaxValue;
+        private readonly DateTime _gameDate = DateTime.MaxValue;
 
         [TestMethod]
         public void CreateGameInvalidGameDate()

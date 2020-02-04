@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
 
             if (playerCount > 0)
             {
-                throw new ArgumentException("Player name must be unique", "PlayerName");
+                throw new ArgumentException("Player name must be unique", nameof(command));
             }
 
             var player = new Player(command.PlayerId, command.PlayerName);

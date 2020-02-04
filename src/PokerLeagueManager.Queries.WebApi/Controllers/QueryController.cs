@@ -71,6 +71,21 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             }
         }
 
+        private Type GetQueryReturnType(Type queryType)
+        {
+            var queryInterface = queryType.GetInterfaces().Single(i => i.IsGenericType && i.Name.StartsWith("IQuery"));
+            return queryInterface.GenericTypeArguments[0];
+        }
+
+        private Type GetQueryType(string queryName)
+        {
+            List<Type> assemblyTypes = new List<Type>();
+
+            assemblyTypes.AddRange(typeof(BaseQuery).Assembly.GetTypes());
+
+            return assemblyTypes.Single(t => t.IsClass && t.Name.ToLower() == $"{queryName}Query".ToLower());
+        }
+
         private object ExecuteQuery(IQuery query, Type queryReturnType)
         {
             var executeQueryMethods = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
@@ -95,21 +110,6 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             {
                 throw ex.InnerException;
             }
-        }
-
-        private Type GetQueryReturnType(Type queryType)
-        {
-            var queryInterface = queryType.GetInterfaces().Single(i => i.IsGenericType && i.Name.StartsWith("IQuery"));
-            return queryInterface.GenericTypeArguments[0];
-        }
-
-        private Type GetQueryType(string queryName)
-        {
-            List<Type> assemblyTypes = new List<Type>();
-
-            assemblyTypes.AddRange(typeof(BaseQuery).Assembly.GetTypes());
-
-            return assemblyTypes.Single(t => t.IsClass && t.Name.ToLower() == $"{queryName}Query".ToLower());
         }
 
         [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Called via reflection")]

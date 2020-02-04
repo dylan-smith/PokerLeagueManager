@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Commands.Tests.CreatePlayer
     [TestClass]
     public class CreatePlayerWithDuplicateNameCaseInsensitiveTest : BaseCommandTest
     {
-        private string _playerName = "Homer Simpson";
+        private readonly string _playerName = "Homer Simpson";
 
         public override IEnumerable<IEvent> Given()
         {
