@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -49,6 +48,16 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             return CreateResponse(queryReturnType, HttpStatusCode.OK, result);
         }
 
+        public TResult ExecuteQuery<TResult>(IQuery query)
+        {
+            Resolver.Container.RegisterInstance<HttpContextWrapper>((HttpContextWrapper)Request.Properties["MS_HttpContext"]);
+
+            var queryHandlerFactory = Resolver.Container.Resolve<IQueryHandlerFactory>();
+            var queryFactory = Resolver.Container.Resolve<IQueryFactory>();
+            var result = queryHandlerFactory.Execute<TResult>(queryFactory.Create(query));
+            return result;
+        }
+
         private HttpResponseMessage CreateResponse(Type queryReturnType, HttpStatusCode statusCode, object result)
         {
             var extensionMethods = typeof(HttpRequestMessage).GetExtensionMethods(typeof(System.Web.Http.ApiController).Assembly);
@@ -88,7 +97,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
 
         private object ExecuteQuery(IQuery query, Type queryReturnType)
         {
-            var executeQueryMethods = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+            var executeQueryMethods = GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance)
                                                .Where(m => m.Name == "ExecuteQuery" &&
                                                            m.ContainsGenericParameters &&
                                                            m.IsGenericMethod &&
@@ -110,17 +119,6 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             {
                 throw ex.InnerException;
             }
-        }
-
-        [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "Called via reflection")]
-        private TResult ExecuteQuery<TResult>(IQuery query)
-        {
-            Resolver.Container.RegisterInstance<HttpContextWrapper>((HttpContextWrapper)Request.Properties["MS_HttpContext"]);
-
-            var queryHandlerFactory = Resolver.Container.Resolve<IQueryHandlerFactory>();
-            var queryFactory = Resolver.Container.Resolve<IQueryFactory>();
-            var result = queryHandlerFactory.Execute<TResult>(queryFactory.Create(query));
-            return result;
         }
     }
 }

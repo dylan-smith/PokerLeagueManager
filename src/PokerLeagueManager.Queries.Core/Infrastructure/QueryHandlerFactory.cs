@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Infrastructure;
@@ -27,7 +26,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
                 throw new ArgumentNullException(nameof(query), "Cannot execute a null Query.");
             }
 
-            var methods = typeof(QueryHandlerFactory).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+            var methods = typeof(QueryHandlerFactory).GetMethods(BindingFlags.Public | BindingFlags.Instance)
                             .Where(m => m.Name == "ExecuteQueryHandler" &&
                                         m.ContainsGenericParameters &&
                                         m.IsGenericMethod &&
@@ -56,8 +55,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             }
         }
 
-        [SuppressMessage("Major Code Smell", "S1144:Unused private types or members should be removed", Justification = "This method is called via reflection")]
-        private TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
+        public TResult ExecuteQueryHandler<TQuery, TResult>(TQuery query)
             where TQuery : IQuery<TResult>
         {
             var matchingTypes = typeof(IHandlesQuery<,>).FindHandlers<TQuery>(Assembly.GetExecutingAssembly());

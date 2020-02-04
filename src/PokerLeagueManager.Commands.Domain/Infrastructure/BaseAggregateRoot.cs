@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using PokerLeagueManager.Common.Infrastructure;
@@ -36,6 +37,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             ApplyEvent(e);
         }
 
+        [SuppressMessage("SonarAnalyzer.CSharp", "S3011", Justification = "Plumbing magic")]
         private MethodInfo FindEventHandler(Type eventType)
         {
             var methods = GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
