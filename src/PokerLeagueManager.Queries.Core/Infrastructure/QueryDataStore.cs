@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             Database.SetInitializer<QueryDataStore>(null);
 
             // Do not remove this line, or the references won't be properly picked up by consumer projects
-            var foo = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
+            _ = System.Data.Entity.SqlServer.SqlProviderServices.Instance;
         }
 
         public void Insert<T>(T dto)

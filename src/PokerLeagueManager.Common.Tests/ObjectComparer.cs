@@ -14,12 +14,12 @@ namespace PokerLeagueManager.Common.Tests
         {
             if (expected == null)
             {
-                throw new ArgumentNullException("Cannot pass in null for the expected or actual", "expected");
+                throw new ArgumentNullException(nameof(expected), "Cannot pass in null for the expected or actual");
             }
 
             if (actual == null)
             {
-                throw new ArgumentNullException("Cannot pass in null for the expected or actual", "actual");
+                throw new ArgumentNullException(nameof(actual), "Cannot pass in null for the expected or actual");
             }
 
             if (expected.Count() != actual.Count())
@@ -47,7 +47,7 @@ namespace PokerLeagueManager.Common.Tests
                 var actualMatches = new Dictionary<object, bool>();
                 foreach (var e in actual)
                 {
-                    actualMatches.Add((object)e, false);
+                    actualMatches.Add(e, false);
                 }
 
                 for (int i = 0; i < expected.Count(); i++)
@@ -56,13 +56,13 @@ namespace PokerLeagueManager.Common.Tests
 
                     for (int j = 0; j < actual.Count() && !matchFound; j++)
                     {
-                        if (!actualMatches[(object)actual.ElementAt(j)])
+                        if (!actualMatches[actual.ElementAt(j)])
                         {
                             try
                             {
                                 CompareObjects(expected.ElementAt(i), actual.ElementAt(j), i);
                                 matchFound = true;
-                                actualMatches[(object)actual.ElementAt(j)] = true;
+                                actualMatches[actual.ElementAt(j)] = true;
                             }
                             catch (AssertFailedException ex)
                             {
@@ -84,6 +84,11 @@ namespace PokerLeagueManager.Common.Tests
             }
         }
 
+        public static void AreEqual(object expected, object actual)
+        {
+            CompareObjects(expected, actual, 0);
+        }
+
         public static Guid AnyGuid()
         {
             return Guid.Parse("3D3A9906-B35D-472D-8874-7C7150B62C7C");
@@ -93,11 +98,6 @@ namespace PokerLeagueManager.Common.Tests
         public static int AnyInt()
         {
             return 729370312;
-        }
-
-        public static void AreEqual(object expected, object actual)
-        {
-            CompareObjects(expected, actual, 0);
         }
 
         private static string ListToString(IEnumerable objects)
@@ -180,20 +180,16 @@ namespace PokerLeagueManager.Common.Tests
                     valueA = propertyInfo.GetValue(objectA, null);
                     valueB = propertyInfo.GetValue(objectB, null);
 
-                    if (propertyInfo.PropertyType == typeof(Guid))
+                    if (propertyInfo.PropertyType == typeof(Guid) &&
+                        (Guid)valueA == AnyGuid() &&
+                        (Guid)valueB != Guid.Empty)
                     {
-                        if ((Guid)valueA == AnyGuid() && (Guid)valueB != Guid.Empty)
-                        {
-                            break;
-                        }
+                        break;
                     }
 
-                    if (propertyInfo.PropertyType == typeof(int))
+                    if (propertyInfo.PropertyType == typeof(int) && (int)valueA == AnyInt())
                     {
-                        if ((int)valueA == AnyInt())
-                        {
-                            break;
-                        }
+                        break;
                     }
 
                     // if it is a primative type, value type or implements IComparable, just directly try and compare the value

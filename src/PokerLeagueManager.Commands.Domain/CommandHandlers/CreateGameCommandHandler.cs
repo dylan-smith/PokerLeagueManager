@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
         {
             if (Repository.DoesAggregateExist(command.GameId))
             {
-                throw new ArgumentException("Cannot create a duplicate Game Id", "GameId");
+                throw new ArgumentException("Cannot create a duplicate Game Id", nameof(command));
             }
 
             var gameCount = QueryService.Execute(new GetGameCountByDateQuery(command.GameDate));

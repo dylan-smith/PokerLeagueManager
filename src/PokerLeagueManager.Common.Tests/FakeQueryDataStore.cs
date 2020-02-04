@@ -8,7 +8,7 @@ namespace PokerLeagueManager.Common.Tests
 {
     public class FakeQueryDataStore : IQueryDataStore
     {
-        private Dictionary<Type, List<IDataTransferObject>> _dataStore = new Dictionary<Type, List<IDataTransferObject>>();
+        private readonly Dictionary<Type, List<IDataTransferObject>> _dataStore = new Dictionary<Type, List<IDataTransferObject>>();
 
         public void Insert<T>(T dto)
             where T : class, IDataTransferObject

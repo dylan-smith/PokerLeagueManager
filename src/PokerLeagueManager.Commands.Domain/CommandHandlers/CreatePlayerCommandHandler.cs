@@ -12,7 +12,7 @@ namespace PokerLeagueManager.Commands.Domain.CommandHandlers
         {
             if (Repository.DoesAggregateExist(command.PlayerId))
             {
-                throw new ArgumentException("Cannot create a duplicate Player Id", "PlayerId");
+                throw new ArgumentException("Cannot create a duplicate Player Id", nameof(command));
             }
 
             var playerCount = QueryService.Execute(new GetPlayerCountByNameQuery(command.PlayerName));
