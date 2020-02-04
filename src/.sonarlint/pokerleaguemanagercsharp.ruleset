@@ -110,7 +110,7 @@
     <Rule Id="S2225" Action="Warning" />
     <Rule Id="S2228" Action="None" />
     <Rule Id="S2234" Action="Warning" />
-    <Rule Id="S2245" Action="Warning" />
+    <Rule Id="S2245" Action="None" />
     <Rule Id="S2251" Action="Warning" />
     <Rule Id="S2252" Action="Warning" />
     <Rule Id="S2255" Action="Warning" />
