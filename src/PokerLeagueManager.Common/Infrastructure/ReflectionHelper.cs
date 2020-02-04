@@ -32,7 +32,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
             var query = from type in assemblyTypes
                         where type.IsSealed && !type.IsGenericType && !type.IsNested
-                        from method in type.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic)
+                        from method in type.GetMethods(BindingFlags.Static | BindingFlags.Public)
                         where method.IsDefined(typeof(ExtensionAttribute), false)
                         where method.GetParameters()[0].ParameterType == t
                         select method;
