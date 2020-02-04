@@ -280,9 +280,8 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
                 serializer.WriteObject(memStream, e);
 
                 memStream.Position = 0;
-                var reader = new StreamReader(memStream);
 
-                return reader.ReadToEnd();
+                return memStream.ReadString();
             }
         }
 

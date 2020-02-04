@@ -13,7 +13,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         {
             if (assemblyToSearch == null)
             {
-                throw new ArgumentNullException("assemblyToSearch");
+                throw new ArgumentNullException(nameof(assemblyToSearch));
             }
 
             return from t in assemblyToSearch.GetExportedTypes()

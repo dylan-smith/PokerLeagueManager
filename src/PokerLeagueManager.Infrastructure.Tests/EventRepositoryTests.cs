@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using System.Runtime.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -100,9 +99,8 @@ namespace PokerLeagueManager.Infrastructure.Tests
                 serializer.WriteObject(memStream, e);
 
                 memStream.Position = 0;
-                var reader = new StreamReader(memStream);
 
-                return reader.ReadToEnd();
+                return memStream.ReadString();
             }
         }
     }

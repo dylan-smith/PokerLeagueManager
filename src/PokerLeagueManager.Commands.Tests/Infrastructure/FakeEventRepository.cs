@@ -26,7 +26,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
         {
             if (aggRoot == null)
             {
-                throw new ArgumentNullException("aggRoot");
+                throw new ArgumentNullException(nameof(aggRoot));
             }
 
             foreach (IEvent e in aggRoot.PendingEvents)
@@ -58,7 +58,7 @@ namespace PokerLeagueManager.Commands.Tests.Infrastructure
             {
                 var aggEvents = InitialEvents.Where<IEvent>(e => e.AggregateId == aggregateId);
 
-                if (aggEvents.Count() > 0)
+                if (aggEvents.Any())
                 {
                     var constructor = typeof(T).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, null, System.Type.EmptyTypes, null);
                     aggRootInstance = (T)constructor.Invoke(null);

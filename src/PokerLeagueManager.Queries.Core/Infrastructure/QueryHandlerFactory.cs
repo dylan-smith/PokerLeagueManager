@@ -23,20 +23,22 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             if (query == null)
             {
-                throw new ArgumentNullException("query", "Cannot execute a null Query.");
+                throw new ArgumentNullException(nameof(query), "Cannot execute a null Query.");
             }
 
-            var executeQueryHandlerMethods = from m in typeof(QueryHandlerFactory).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
-                                             where m.Name == "ExecuteQueryHandler" && m.ContainsGenericParameters &&
-                                                   m.IsGenericMethod && m.IsGenericMethodDefinition && m.GetGenericArguments().Count() == 2
-                                             select m;
+            var methods = typeof(QueryHandlerFactory).GetMethods(BindingFlags.NonPublic | BindingFlags.Instance)
+                            .Where(m => m.Name == "ExecuteQueryHandler" &&
+                                        m.ContainsGenericParameters &&
+                                        m.IsGenericMethod &&
+                                        m.IsGenericMethodDefinition &&
+                                        m.GetGenericArguments().Length == 2);
 
-            if (executeQueryHandlerMethods.Count() != 1)
+            if (methods.Count() != 1)
             {
                 throw new InvalidOperationException("Unexpected Exception. Could not find the ExecuteQueryHandler method via Reflection.");
             }
 
-            var executeQueryHandlerMethod = executeQueryHandlerMethods.First();
+            var executeQueryHandlerMethod = methods.First();
             var queryType = query.GetType();
             var genericInterface = queryType.GetInterfaces().First(i => i.IsGenericType);
             var queryReturnType = genericInterface.GenericTypeArguments[0];

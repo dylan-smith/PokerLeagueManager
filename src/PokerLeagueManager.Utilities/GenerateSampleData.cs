@@ -14,7 +14,7 @@ namespace PokerLeagueManager.Utilities
         {
             if (args.Length != 3)
             {
-                throw new ArgumentException("Expected 3 arguments", "args");
+                throw new ArgumentException("Expected 3 arguments", nameof(args));
             }
 
             var serviceUrl = args[1];

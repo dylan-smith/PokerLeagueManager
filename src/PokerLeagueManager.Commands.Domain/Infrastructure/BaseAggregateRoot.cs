@@ -38,11 +38,10 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
 
         private MethodInfo FindEventHandler(Type eventType)
         {
-            var matchingMethods = from m in GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                                  where m.Name == "ApplyEvent" && m.GetParameters().Count() == 1 && m.GetParameters()[0].ParameterType == eventType
-                                  select m;
+            var methods = GetType().GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+                            .Where(m => m.Name == "ApplyEvent" && m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == eventType);
 
-            return matchingMethods.FirstOrDefault();
+            return methods.FirstOrDefault();
         }
 
         private void InvokeEventHandler(MethodInfo methodtoBeInvoked, IEvent e)

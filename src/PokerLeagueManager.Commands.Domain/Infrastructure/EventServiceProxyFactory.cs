@@ -19,7 +19,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             if (row == null)
             {
-                throw new ArgumentNullException("row");
+                throw new ArgumentNullException(nameof(row));
             }
 
             var subscriberUrl = (string)row["SubscriberUrl"];

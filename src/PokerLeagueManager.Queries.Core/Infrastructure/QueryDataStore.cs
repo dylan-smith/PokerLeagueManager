@@ -105,7 +105,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             foreach (var dto in dtoTypes)
             {
                 var typeConfig = entityMethod.MakeGenericMethod(dto)
-                                             .Invoke(modelBuilder, new object[] { });
+                                             .Invoke(modelBuilder, Array.Empty<object>());
 
                 var tableName = GetTableName(dto);
                 var genericType = typeof(EntityTypeConfiguration<>).MakeGenericType(dto);

@@ -11,7 +11,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         {
             if (row == null)
             {
-                throw new ArgumentNullException("row", "DataRow cannot be null");
+                throw new ArgumentNullException(nameof(row), "DataRow cannot be null");
             }
 
             var result = System.Activator.CreateInstance<T>();

@@ -26,7 +26,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
         {
             if (e == null)
             {
-                throw new ArgumentNullException("e", "Cannot handle a null event.");
+                throw new ArgumentNullException(nameof(e), "Cannot handle a null event.");
             }
 
             if (_idempotencyChecker.CheckIdempotency(e.EventId))

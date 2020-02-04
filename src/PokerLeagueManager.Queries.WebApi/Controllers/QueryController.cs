@@ -56,8 +56,8 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
                                                                     x.ContainsGenericParameters &&
                                                                     x.IsGenericMethod &&
                                                                     x.IsGenericMethodDefinition &&
-                                                                    x.GetGenericArguments().Count() == 1 &&
-                                                                    x.GetParameters().Count() == 3);
+                                                                    x.GetGenericArguments().Length == 1 &&
+                                                                    x.GetParameters().Length == 3);
 
             var createResponseGeneric = createResponseMethod.MakeGenericMethod(queryReturnType);
 
@@ -78,7 +78,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
                                                            m.ContainsGenericParameters &&
                                                            m.IsGenericMethod &&
                                                            m.IsGenericMethodDefinition &&
-                                                           m.GetGenericArguments().Count() == 1);
+                                                           m.GetGenericArguments().Length == 1);
 
             if (executeQueryMethods.Count() != 1)
             {

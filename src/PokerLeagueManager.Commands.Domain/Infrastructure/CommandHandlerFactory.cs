@@ -23,7 +23,7 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
         {
             if (command == null)
             {
-                throw new ArgumentNullException("command", "Cannot execute a null Command.");
+                throw new ArgumentNullException(nameof(command), "Cannot execute a null Command.");
             }
 
             try

@@ -44,11 +44,9 @@ namespace PokerLeagueManager.Commands.Domain.Infrastructure
             using (var memStream = new MemoryStream())
             {
                 serializer.WriteObject(memStream, e);
-
                 memStream.Position = 0;
-                var reader = new StreamReader(memStream);
 
-                return reader.ReadToEnd();
+                return memStream.ReadString();
             }
         }
     }

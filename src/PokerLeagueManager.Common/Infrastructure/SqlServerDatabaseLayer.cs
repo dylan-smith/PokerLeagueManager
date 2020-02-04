@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public DataTable GetDataTable(string sql)
         {
-            return GetDataTable(sql, new object[0]);
+            return GetDataTable(sql, Array.Empty<object>());
         }
 
         public DataTable GetDataTable(string sql, params object[] sqlArgs)
@@ -66,7 +66,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public int ExecuteNonQuery(string sql)
         {
-            return ExecuteNonQuery(sql, new object[0]);
+            return ExecuteNonQuery(sql, Array.Empty<object>());
         }
 
         public int ExecuteNonQuery(string sql, params object[] sqlArgs)
@@ -83,7 +83,7 @@ namespace PokerLeagueManager.Common.Infrastructure
 
         public object ExecuteScalar(string sql)
         {
-            return ExecuteScalar(sql, new object[0]);
+            return ExecuteScalar(sql, Array.Empty<object>());
         }
 
         public object ExecuteScalar(string sql, params object[] sqlArgs)
@@ -179,7 +179,7 @@ namespace PokerLeagueManager.Common.Infrastructure
         {
             if (string.IsNullOrWhiteSpace(sql))
             {
-                throw new ArgumentException("The SQL statement was blank. A valid SQL Statement must be provided.", "sql");
+                throw new ArgumentException("The SQL statement was blank. A valid SQL Statement must be provided.", nameof(sql));
             }
 
             var myCommand = new SqlCommand(sql, _connection);
