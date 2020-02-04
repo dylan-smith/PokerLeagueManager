@@ -90,6 +90,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CreateEventSubscriber.cs" />
     <Compile Include="GenerateSampleData.cs" />
     <Compile Include="Program.cs" />

@@ -166,6 +166,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="App_Start\AiExceptionLogger.cs" />
     <Compile Include="App_Start\QuerySwaggerFilter.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />

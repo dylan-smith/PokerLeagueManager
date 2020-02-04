@@ -92,6 +92,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CommandHandlerFactoryTests.cs" />
     <Compile Include="EventServiceProxyFactoryTests.cs" />
     <Compile Include="EventRepositoryTests.cs" />

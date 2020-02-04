@@ -28,7 +28,7 @@ $VersionRegex = "\d+\.\d+\.\d+\.\d+"
 # Apply the version to the assembly property files
 $files = gci $SourcesDir -recurse -include "*Properties*","My Project" | 
 	?{ $_.PSIsContainer } | 
-	foreach { gci -Path $_.FullName -Recurse -include AssemblyInfo.* }
+	foreach { gci -Path $_.FullName -Recurse -include *AssemblyInfo.* }
 if($files)
 {
 	Write-Verbose "Will apply $NewVersion to $($files.count) files."

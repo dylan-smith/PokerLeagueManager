@@ -82,6 +82,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AddPlayerToGame\AddDeletedPlayerToGameTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToGameInvalidPlayerIdTest.cs" />
     <Compile Include="AddPlayerToGame\AddPlayerToDeletedGameTest.cs" />

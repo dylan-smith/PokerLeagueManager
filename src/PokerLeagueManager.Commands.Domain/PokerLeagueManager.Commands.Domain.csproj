@@ -106,6 +106,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Aggregates\Game\Exceptions\NoRebuysLeftToRemoveException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerNotKnockedOutException.cs" />
     <Compile Include="Aggregates\Game\Exceptions\PlayerAlreadyKnockedOutException.cs" />

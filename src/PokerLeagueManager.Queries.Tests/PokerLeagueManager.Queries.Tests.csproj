@@ -88,6 +88,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="GetGameCountByDate\TwoGamesThenDeleteOneTest.cs" />
     <Compile Include="GetGameCountByDate\TwoGamesOnDateOneDifferentTest.cs" />
     <Compile Include="GetGameCountByDate\ZeroGamesTest.cs" />

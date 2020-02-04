@@ -95,6 +95,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="EventHandlers\GetGamePlayersEventHandler.cs" />
     <Compile Include="EventHandlers\GetGamesListEventHandler.cs" />
     <Compile Include="EventHandlers\GetPlayerCountByNameEventHandler.cs" />
