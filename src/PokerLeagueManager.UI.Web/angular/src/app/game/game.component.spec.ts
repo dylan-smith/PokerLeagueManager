@@ -19,11 +19,13 @@ describe('GameComponent', () => {
     GameId: '123',
     GameDate: '2017-09-15T15:53:00',
     Winnings: 50,
-    Winner: 'Homer Simpson'
+    Winner: 'Homer Simpson',
+    Completed: true
   };
 
   let player1: IGetGamePlayersDto = {
     GameId: '123',
+    PlayerId: '111',
     PlayerName: 'Homer Simpson',
     Placing: 1,
     Winnings: 50,
@@ -32,6 +34,7 @@ describe('GameComponent', () => {
 
   let player2: IGetGamePlayersDto = {
     GameId: '123',
+    PlayerId: '222',
     PlayerName: 'Bart Simpson',
     Placing: 2,
     Winnings: 0,

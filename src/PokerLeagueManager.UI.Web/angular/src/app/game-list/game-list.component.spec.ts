@@ -22,14 +22,16 @@ describe('GameListComponent', () => {
     GameId: '123',
     GameDate: '2017-09-15T15:53:00',
     Winnings: 50,
-    Winner: 'Homer Simpson'
+    Winner: 'Homer Simpson',
+    Completed: true
   };
 
   let testGame2: IGetGamesListDto = {
     GameId: '456',
     GameDate: '2017-03-03T21:23',
     Winnings: 300,
-    Winner: 'Rick Sanchez'
+    Winner: 'Rick Sanchez',
+    Completed: true
   }
 
   let testGames: IGetGamesListDto[] = [
