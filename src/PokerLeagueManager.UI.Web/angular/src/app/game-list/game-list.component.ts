@@ -28,7 +28,7 @@ export class GameListComponent implements OnInit {
     .subscribe(games => {
         this.Loading = false;
         this.DisableInfiniteScroll = false;
-        this.ShowLoadingMore = false;
+        this.ShowLoadingMore = true;
         this.Games = games;
     });
   }
