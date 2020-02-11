@@ -1,7 +1,8 @@
-import {Component, NgModule, EventEmitter, Output, NgZone, OnInit} from '@angular/core';
-import {MatButtonModule, MatMenuModule} from '@angular/material';
-import {CommonModule} from '@angular/common';
-import {RouterModule} from '@angular/router';
+import { Component, NgModule, EventEmitter, Output, NgZone, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'poker-navbar',

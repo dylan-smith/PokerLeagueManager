@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { InfiniteScrollModule } from '../ngx-infinite-scroll/ngx-infinite-scroll';
 import { QueryService, IGetGamesListDto } from '../query.service';
 import { GameListComponent } from './game-list.component';
@@ -40,9 +40,11 @@ describe('GameListComponent', () => {
   ];
 
   let mockQueryService: QueryService;
+  let mockMediaQueryList: MediaQueryList;
 
   beforeEach(async(() => {
     mockQueryService = mock(QueryService);
+    mockMediaQueryList = mock(MediaQueryList);
 
     TestBed.configureTestingModule({
       declarations: [ GameListComponent, GameStubComponent ],
@@ -102,6 +104,7 @@ describe('GameListComponent', () => {
 
     it('should call GetGamesList', () => {
       verify(mockQueryService.GetGamesList(0, anyNumber())).called();
+      expect().nothing();
     });
 
     it('should have 2 Games', () => {
@@ -129,37 +132,32 @@ describe('GameListComponent', () => {
 
     describe('on a small screen', () => {
       beforeEach(() => {
-        spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+        when(mockMediaQueryList.matches).thenReturn(true);
+        component.mediaMatcher = instance(mockMediaQueryList);
+        fixture.detectChanges();
       });
 
       it('isScreenSmall should return true', () => {
-        async(() => {
-          expect(component.isScreenSmall()).toBeTruthy();
-        });
+        expect(component.isScreenSmall()).toBeTruthy();
       });
 
       it('GamesToLoad should be 10', () => {
-        async(() => {
-          expect(component.GamesToLoad).toBe(10);
-        });
+        expect(component.GetGamesToLoad()).toBe(10);
       });
     });
 
     describe('on a large screen', () => {
       beforeEach(() => {
-        spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+        when(mockMediaQueryList.matches).thenReturn(false);
+        component.mediaMatcher = instance(mockMediaQueryList);
       });
 
       it('isScreenSmall should return false', () => {
-        async(() => {
-          expect(component.isScreenSmall()).toBeFalsy();
-        });
+        expect(component.isScreenSmall()).toBeFalsy();
       });
 
       it('GamesToLoad should be 20', () => {
-        async(() => {
-          expect(component.GamesToLoad).toBe(20);
-        });
+        expect(component.GetGamesToLoad()).toBe(20);
       });
     });
   });

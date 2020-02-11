@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MomentModule } from 'angular2-moment';
-import { MatExpansionModule, MatTableModule } from '@angular/material';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTableModule } from '@angular/material/table';
 import { QueryService, IGetGamePlayersDto, IGetGamesListDto } from '../query.service';
 import { GameComponent } from './game.component';
 import { Observable } from 'rxjs/Observable';
@@ -48,10 +49,12 @@ describe('GameComponent', () => {
 
   let mockQueryService: QueryService;
   let mockAppInsightsService: AppInsightsService;
+  let mockMediaQueryList: MediaQueryList;
 
   beforeEach(async(() => {
     mockQueryService = mock(QueryService);
     mockAppInsightsService = mock(AppInsightsService);
+    mockMediaQueryList = mock(MediaQueryList);
 
     when(mockQueryService.GetGamePlayers(testGame.GameId)).thenReturn(Observable.from([testGamePlayers]));
 
@@ -95,63 +98,53 @@ describe('GameComponent', () => {
 
   describe('on a small screen', () => {
     beforeEach(() => {
-      spyOn(window, 'matchMedia').and.returnValue({ matches: true });
+      when(mockMediaQueryList.matches).thenReturn(true);
+      component.mediaMatcher = instance(mockMediaQueryList);
       fixture.detectChanges();
     });
 
     it('isScreenSmall should return true', () => {
-      async(() => {
-        expect(component.isScreenSmall()).toBeTruthy();
-      });
+      expect(component.isScreenSmall()).toBeTruthy();
     });
 
     it('should set column title to Win', () => {
       let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
       let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
 
-      async(() => {
-        expect(winningsHeader.textContent).toBe('Win');
-      })
+      expect(winningsHeader.textContent).toBe('Win');
     });
 
     it('should set column title to Pay', () => {
       let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
       let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
 
-      async(() => {
-        expect(payInHeader.textContent).toBe('Pay');
-      })
+      expect(payInHeader.textContent).toBe('Pay');
     });
   });
 
   describe('on a large screen', () => {
     beforeEach(() => {
-      spyOn(window, 'matchMedia').and.returnValue({ matches: false });
+      when(mockMediaQueryList.matches).thenReturn(false);
+      component.mediaMatcher = instance(mockMediaQueryList);
       fixture.detectChanges();
     });
 
     it('isScreenSmall should return false', () => {
-      async(() => {
-        expect(component.isScreenSmall()).toBeFalsy();
-      });
+      expect(component.isScreenSmall()).toBeFalsy();
     });
 
     it('should set column title to Winnings', () => {
       let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
       let winningsHeader = headerRow.query(By.css('.mat-column-Winnings')).nativeElement;
 
-      async(() => {
-        expect(winningsHeader.textContent).toBe('Winnings');
-      })
+      expect(winningsHeader.textContent).toBe('Winnings');
     });
 
     it('should set column title to Pay In', () => {
       let headerRow = fixture.debugElement.query(By.css('.mat-header-row'));
       let payInHeader = headerRow.query(By.css('.mat-column-PayIn')).nativeElement;
 
-      async(() => {
-        expect(payInHeader.textContent).toBe('Pay In');
-      })
+      expect(payInHeader.textContent).toBe('Pay In');
     });
   });
 
@@ -174,6 +167,7 @@ describe('GameComponent', () => {
 
     it('should call GetGamePlayers with the gameId', () => {
       verify(mockQueryService.GetGamePlayers(testGame.GameId)).called();
+      expect().nothing();
     });
 
     it('should create 2 table rows', () => {
@@ -212,6 +206,7 @@ describe('GameComponent', () => {
 
     it('should send appInsights event', () => {
       verify(mockAppInsightsService.trackEvent('GameExpanded', deepEqual({ 'GameId': testGame.GameId, 'GameDate': testGame.GameDate }))).called();
+      expect().nothing();
     });
 
     describe('then collapsed', () => {
@@ -225,6 +220,7 @@ describe('GameComponent', () => {
 
       it ('should not send an AppInsights event', () => {
         verify(mockAppInsightsService.trackEvent(anything(), anything())).once();
+        expect().nothing();
       });
 
       describe('then expanded again', () => {
@@ -239,6 +235,7 @@ describe('GameComponent', () => {
 
         it('should send another AppInsights event', () => {
           verify(mockAppInsightsService.trackEvent(anything(), anything())).twice();
+          expect().nothing();
         });
       })
     });

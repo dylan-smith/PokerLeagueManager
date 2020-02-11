@@ -3,7 +3,7 @@
   <mat-expansion-panel-header (click)="expPanel.expanded && GameExpanded()">
     <mat-panel-title>
       <div class="game-date">{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
-      <div class="game-winner">{{ game.Winner }} ({{ game.Winnings | currency:'USD':true:'1.0-0' }})</div>
+      <div class="game-winner">{{ game.Winner }} ({{ game.Winnings | currency:'USD':'symbol':'1.0-0' }})</div>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
@@ -20,12 +20,12 @@
 
     <ng-container matColumnDef="Winnings">
     <mat-header-cell *matHeaderCellDef>{{ isScreenSmall() ? 'Win' : 'Winnings' }}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.Winnings | currency:'USD':true:'1.0-0'}}</mat-cell>
+    <mat-cell *matCellDef="let element">{{element.Winnings | currency:'USD':'symbol':'1.0-0'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="PayIn">
     <mat-header-cell *matHeaderCellDef>{{ isScreenSmall() ? 'Pay' : 'Pay In' }}</mat-header-cell>
-    <mat-cell *matCellDef="let element">{{element.PayIn | currency:'USD':true:'1.0-0'}}</mat-cell>
+    <mat-cell *matCellDef="let element">{{element.PayIn | currency:'USD':'symbol':'1.0-0'}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
