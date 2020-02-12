@@ -186,6 +186,16 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
             }
         }
 
+        public void ChangeDate(DateTime newDate)
+        {
+            if (newDate == DateTime.MinValue || newDate == DateTime.MaxValue || newDate == default(DateTime))
+            {
+                throw new InvalidGameDateException(newDate);
+            }
+
+            base.PublishEvent(new GameDateChangedEvent() { GameId = base.AggregateId, GameDate = newDate });
+        }
+
         [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "e", Justification = "Plumbing needs this method signature to exist to work properly")]
         protected void ApplyEvent(GameCompletedEvent e)
         {

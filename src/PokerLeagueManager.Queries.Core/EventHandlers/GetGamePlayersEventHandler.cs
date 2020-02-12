@@ -6,7 +6,12 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGamePlayersEventHandler : BaseEventHandler, IHandlesEvent<PlayerAddedToGameEvent>, IHandlesEvent<PlayerRemovedFromGameEvent>, IHandlesEvent<RebuyAddedEvent>, IHandlesEvent<RebuyRemovedEvent>, IHandlesEvent<GameCompletedEvent>
+    public class GetGamePlayersEventHandler : BaseEventHandler,
+                                              IHandlesEvent<PlayerAddedToGameEvent>,
+                                              IHandlesEvent<PlayerRemovedFromGameEvent>,
+                                              IHandlesEvent<RebuyAddedEvent>,
+                                              IHandlesEvent<RebuyRemovedEvent>,
+                                              IHandlesEvent<GameCompletedEvent>
     {
         public void Handle(PlayerAddedToGameEvent e)
         {

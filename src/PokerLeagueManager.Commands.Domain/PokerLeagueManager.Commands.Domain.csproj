@@ -122,6 +122,7 @@
     <Compile Include="Aggregates\Player\Exceptions\PlayerAlreadyDeletedException.cs" />
     <Compile Include="Aggregates\Player\Exceptions\InvalidPlayerNameException.cs" />
     <Compile Include="Aggregates\Player\Player.cs" />
+    <Compile Include="CommandHandlers\ChangeGameDateCommandHandler.cs" />
     <Compile Include="CommandHandlers\UnKnockoutPlayerCommandHandler.cs" />
     <Compile Include="CommandHandlers\KnockoutPlayerCommandHandler.cs" />
     <Compile Include="CommandHandlers\RemoveRebuyCommandHandler.cs" />

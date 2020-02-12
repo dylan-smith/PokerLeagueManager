@@ -108,6 +108,7 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\ChangeGameDateCommand.cs" />
     <Compile Include="Commands\UnKnockoutPlayerCommand.cs" />
     <Compile Include="Commands\KnockoutPlayerCommand.cs" />
     <Compile Include="Commands\RemoveRebuyCommand.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
     <Compile Include="DTO\Lookups\PlayerLookupDto.cs" />
     <Compile Include="Events\GameCompletedEvent.cs" />
+    <Compile Include="Events\GameDateChangedEvent.cs" />
     <Compile Include="Events\GameUncompletedEvent.cs" />
     <Compile Include="Events\PayoutsCalculatedEvent.cs" />
     <Compile Include="Events\PlayerUnKnockedOutEvent.cs" />

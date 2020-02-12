@@ -6,7 +6,12 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetGamesListEventHandler : BaseEventHandler, IHandlesEvent<GameCreatedEvent>, IHandlesEvent<GameDeletedEvent>, IHandlesEvent<GameCompletedEvent>, IHandlesEvent<GameUncompletedEvent>
+    public class GetGamesListEventHandler : BaseEventHandler,
+                                            IHandlesEvent<GameCreatedEvent>,
+                                            IHandlesEvent<GameDeletedEvent>,
+                                            IHandlesEvent<GameCompletedEvent>,
+                                            IHandlesEvent<GameUncompletedEvent>,
+                                            IHandlesEvent<GameDateChangedEvent>
     {
         public void Handle(GameCreatedEvent e)
         {
@@ -44,11 +49,22 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
 
         public void Handle(GameUncompletedEvent e)
         {
+            // How does this Single even work, shouldn't we need to filter by GameId
+            // should probably write a test for this first
             var dto = QueryDataStore.GetData<GetGamesListDto>().Single();
 
             dto.Completed = false;
 
             QueryDataStore.Update(dto);
+        }
+
+        public void Handle(GameDateChangedEvent e)
+        {
+            var dto = QueryDataStore.GetData<GetGamesListDto>().Single(x => x.GameId == e.GameId);
+
+            dto.GameDate = e.GameDate;
+
+            QueryDataStore.Update<GetGamesListDto>(dto);
         }
     }
 }

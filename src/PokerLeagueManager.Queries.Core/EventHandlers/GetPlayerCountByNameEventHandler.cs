@@ -5,7 +5,9 @@ using PokerLeagueManager.Queries.Core.Infrastructure;
 
 namespace PokerLeagueManager.Queries.Core.EventHandlers
 {
-    public class GetPlayerCountByNameEventHandler : BaseEventHandler, IHandlesEvent<PlayerCreatedEvent>, IHandlesEvent<PlayerDeletedEvent>
+    public class GetPlayerCountByNameEventHandler : BaseEventHandler,
+                                                    IHandlesEvent<PlayerCreatedEvent>,
+                                                    IHandlesEvent<PlayerDeletedEvent>
     {
         public void Handle(PlayerCreatedEvent e)
         {
