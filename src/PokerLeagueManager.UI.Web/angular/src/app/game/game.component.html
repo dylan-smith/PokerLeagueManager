@@ -1,13 +1,14 @@
-<mat-expansion-panel #expPanel class="game" [class.game-small]="isScreenSmall()">
+<mat-expansion-panel #expPanel class="game" [class.game-small]="isScreenSmall()" [class.game-in-progress]="!game.Completed">
   <!-- The (click) is an ugly hack because (opened) on the panel doesn't work in prod mode https://github.com/angular/material2/issues/7172 -->
   <mat-expansion-panel-header (click)="expPanel.expanded && GameExpanded()">
     <mat-panel-title>
       <div class="game-date">{{ game.GameDate | amUtc | amDateFormat:'LL' }}</div>
-      <div class="game-winner">{{ game.Winner }} ({{ game.Winnings | currency:'USD':'symbol':'1.0-0' }})</div>
+      <div class="game-winner" *ngIf="game.Completed">{{ game.Winner }} ({{ game.Winnings | currency:'USD':'symbol':'1.0-0' }})</div>
+      <div class="game-winner" *ngIf="!game.Completed">Game In Progress</div>
     </mat-panel-title>
   </mat-expansion-panel-header>
 
-  <mat-table #table [dataSource]="Players">
+  <mat-table #table [dataSource]="Players" [class.game-in-progress]="!game.Completed">
     <ng-container matColumnDef="Placing">
     <mat-header-cell [class.mat-column-Placing-small]="isScreenSmall()" *matHeaderCellDef></mat-header-cell>
     <mat-cell [class.mat-column-Placing-small]="isScreenSmall()" *matCellDef="let element">{{element.Placing}}</mat-cell>

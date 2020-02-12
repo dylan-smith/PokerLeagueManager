@@ -8,4 +8,8 @@
   .game-winner {
     color: mat-color($foreground, secondary-text);
   }
+
+  .game-in-progress {
+    background-color: mat-color($warn);
+  }
 }
