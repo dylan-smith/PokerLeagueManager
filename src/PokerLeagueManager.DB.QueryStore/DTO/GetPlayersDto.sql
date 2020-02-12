@@ -2,5 +2,6 @@
 (
 	[DtoId] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY,
     [PlayerId] UNIQUEIDENTIFIER NOT NULL, 
-    [PlayerName] VARCHAR(50) NOT NULL
+    [PlayerName] VARCHAR(50) NOT NULL, 
+    [GamesPlayed] INT NOT NULL
 )
