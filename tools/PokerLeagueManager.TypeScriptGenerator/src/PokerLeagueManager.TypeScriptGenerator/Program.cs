@@ -12,9 +12,9 @@ namespace PokerLeagueManager.TypeScriptGenerator
     {
         static void Main(string[] args)
         {
-            if (args.Length != 4)
+            if (args.Length != 6)
             {
-                Console.WriteLine("Usage: PokerLeagueManager.TypeScriptGenerator.exe QuerySourcePath DtoSourcePath QueryClientPath DtoTypeScriptPath");
+                Console.WriteLine("Usage: PokerLeagueManager.TypeScriptGenerator.exe QuerySourcePath DtoSourcePath QueryClientPath DtoTypeScriptPath CommandSourcePath CommandClientPath");
                 return;
             }
 
@@ -22,9 +22,12 @@ namespace PokerLeagueManager.TypeScriptGenerator
             var dtoSourcePath = args[1];
             var queryClientPath = args[2];
             var dtoTypeScriptPath = args[3];
+            var commandSourcePath = args[4];
+            var commandClientPath = args[5];
 
             var queries = ReadQueryFiles(querySourcePath);
             var dtos = ReadDtoFiles(dtoSourcePath);
+            var commands = ReadCommandFiles(commandSourcePath);
 
             foreach (var dto in dtos)
             {
@@ -34,6 +37,9 @@ namespace PokerLeagueManager.TypeScriptGenerator
 
             var queryTypeScript = GenerateQueryTypeScript(queries, dtos);
             WriteFile(queryTypeScript, "query.service.ts", queryClientPath);
+
+            var commandTypeScript = GenerateCommandTypeScript(commands);
+            WriteFile(commandTypeScript, "command.service.ts", commandClientPath);
         }
 
         private static void WriteFile(string fileContents, string fileName, string filePath)
@@ -62,6 +68,19 @@ namespace PokerLeagueManager.TypeScriptGenerator
             foreach (var queryFile in queryFiles)
             {
                 result.Add(ReadQueryFile(queryFile));
+            }
+
+            return result;
+        }
+
+        private static IEnumerable<Command> ReadCommandFiles(string commandSourcePath)
+        {
+            var commandFiles = Directory.GetFiles(commandSourcePath, "*Command.cs");
+            var result = new List<Command>();
+
+            foreach (var commandFile in commandFiles)
+            {
+                result.Add(ReadCommandFile(commandFile));
             }
 
             return result;
@@ -103,6 +122,25 @@ namespace PokerLeagueManager.TypeScriptGenerator
             {
                 result.ReturnType = QueryReturnType.Primitive;
                 result.Returns = MapType(queryReturn);
+            }
+
+            return result;
+        }
+
+        private static Command ReadCommandFile(string commandFile)
+        {
+            var result = new Command();
+
+            result.Name = Path.GetFileNameWithoutExtension(commandFile);
+
+            var source = File.ReadAllText(commandFile);
+            var tree = CSharpSyntaxTree.ParseText(source);
+            var root = tree.GetCompilationUnitRoot();
+            var props = root.DescendantNodes().OfType<PropertyDeclarationSyntax>();
+
+            foreach (var prop in props)
+            {
+                result.Properties.Add(new Prop() { Name = prop.Identifier.ToString(), Type = prop.Type.ToString() });
             }
 
             return result;
@@ -241,6 +279,64 @@ namespace PokerLeagueManager.TypeScriptGenerator
             queryTypeScript += "}";
 
             return queryTypeScript;
+        }
+
+        private static string GenerateCommandTypeScript(IEnumerable<Command> commands)
+        {
+            var commandTypeScript = "import { Injectable, Inject } from '@angular/core';\n";
+            commandTypeScript += "import { HttpClient, HttpErrorResponse } from '@angular/common/http';\n";
+            commandTypeScript += "import { Observable } from 'rxjs/Observable';\n";
+            commandTypeScript += "import 'rxjs/add/observable/throw';\n";
+            commandTypeScript += "import 'rxjs/add/operator/catch';\n";
+            commandTypeScript += "import 'rxjs/add/operator/do';\n";
+            commandTypeScript += "import 'rxjs/add/operator/map';\n";
+            commandTypeScript += "import { IPokerConfig } from './IPokerConfig';\n";
+            commandTypeScript += "\n";
+
+            commandTypeScript += "\n";
+            commandTypeScript += "@Injectable()\n";
+            commandTypeScript += "export class CommandService {\n";
+            commandTypeScript += "  COMMAND_URL: string;\n";
+            commandTypeScript += "  constructor(private _http: HttpClient, @Inject('POKER_CONFIG') private POKER_CONFIG: IPokerConfig) {\n";
+            commandTypeScript += "    this.COMMAND_URL = POKER_CONFIG.commandServiceUrl;\n";
+            commandTypeScript += "  }\n";
+            commandTypeScript += "\n";
+
+            foreach (var command in commands)
+            {
+                commandTypeScript += $"  {command.CommandAction()}(";
+
+                foreach (var prop in command.Properties)
+                {
+                    commandTypeScript += $"{prop.Name}: {prop.TypeScriptType()}, ";
+                }
+
+                if (command.Properties.Count() > 0)
+                {
+                    commandTypeScript = commandTypeScript.Substring(0, commandTypeScript.Length - 2);
+                }
+
+                commandTypeScript += $"): Observable<void> {{\n";
+                commandTypeScript += $"    return this._http.post<void>(this.COMMAND_URL + '/{command.CommandAction()}', {{ ";
+
+                foreach (var prop in command.Properties)
+                {
+                    commandTypeScript += $"{prop.Name}, ";
+                }
+
+                if (command.Properties.Count() > 0)
+                {
+                    commandTypeScript = commandTypeScript.Substring(0, commandTypeScript.Length - 2);
+                }
+
+                commandTypeScript += " });\n";
+                commandTypeScript += "  }\n";
+                commandTypeScript += "\n";
+            }
+
+            commandTypeScript += "}";
+
+            return commandTypeScript;
         }
     }
 }
