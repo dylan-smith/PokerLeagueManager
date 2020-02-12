@@ -1,4 +1,5 @@
 <div [class.game-list]="!isScreenSmall()" [class.game-list-small]="isScreenSmall()">
+  <button mat-fab color="primary" routerLink="/CreateGame"><mat-icon>add</mat-icon></button>
   <div class="loading-games" *ngIf="Loading">
     <div class="spinner">
       <mat-spinner mode="indeterminate"></mat-spinner>

@@ -1,0 +1,11 @@
+<div class="create-game">
+  <mat-form-field>
+    <mat-label>Game Date</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="GameDate" (dateChange)="gameDateChanged($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button mat-fab color="primary" (click)="addPlayer()" class="add-player">
+    <mat-icon>person_add</mat-icon>
+  </button>
+</div>
