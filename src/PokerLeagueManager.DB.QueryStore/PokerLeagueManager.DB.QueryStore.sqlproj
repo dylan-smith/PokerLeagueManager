@@ -78,6 +78,9 @@
     <Build Include="DTO\GetGamePlayersDto.sql" />
     <Build Include="DTO\GetGamesListDto.sql" />
     <Build Include="Lookups\PlayerLookupDto.sql" />
+    <Build Include="DTO\GetPlayersDto.sql" />
+    <Build Include="Lookups\GameLookupDto.sql" />
+    <Build Include="Lookups\GamePlayersLookupDto.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
