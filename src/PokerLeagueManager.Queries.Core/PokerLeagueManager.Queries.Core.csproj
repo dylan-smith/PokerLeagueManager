@@ -98,10 +98,13 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EventHandlers\GetPlayersEventHandler.cs" />
     <Compile Include="EventHandlers\GetGamePlayersEventHandler.cs" />
     <Compile Include="EventHandlers\GetGamesListEventHandler.cs" />
     <Compile Include="EventHandlers\GetPlayerCountByNameEventHandler.cs" />
     <Compile Include="EventHandlers\GetGameCountByDateEventHandler.cs" />
+    <Compile Include="EventHandlers\Lookups\GamePlayersLookupEventHandler.cs" />
+    <Compile Include="EventHandlers\Lookups\GameLookupEventHandler.cs" />
     <Compile Include="EventHandlers\Lookups\PlayerLookupEventHandler.cs" />
     <Compile Include="Infrastructure\BaseQueryHandler.cs" />
     <Compile Include="Infrastructure\BaseEventHandler.cs" />
@@ -117,6 +120,7 @@
     <Compile Include="Infrastructure\QueryDataStore.cs" />
     <Compile Include="Infrastructure\QueryHandlerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryHandlers\GetPlayersQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetGamePlayersQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetGamesListQueryHandler.cs" />
     <Compile Include="QueryHandlers\GetPlayerCountByNameQueryHandler.cs" />

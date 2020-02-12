@@ -119,10 +119,13 @@
     <Compile Include="Commands\DeletePlayerCommand.cs" />
     <Compile Include="Commands\DeleteGameCommand.cs" />
     <Compile Include="Commands\CreateGameCommand.cs" />
+    <Compile Include="DTO\GetPlayersDto.cs" />
     <Compile Include="DTO\GetGamePlayersDto.cs" />
     <Compile Include="DTO\GetGamesListDto.cs" />
     <Compile Include="DTO\GetPlayerCountByNameDto.cs" />
     <Compile Include="DTO\GetGameCountByDateDto.cs" />
+    <Compile Include="DTO\Lookups\GamePlayersLookupDto.cs" />
+    <Compile Include="DTO\Lookups\GameLookupDto.cs" />
     <Compile Include="DTO\Lookups\PlayerLookupDto.cs" />
     <Compile Include="Events\GameCompletedEvent.cs" />
     <Compile Include="Events\GameDateChangedEvent.cs" />
@@ -170,6 +173,7 @@
     <Compile Include="Infrastructure\GuidService.cs" />
     <Compile Include="Infrastructure\IDateTimeService.cs" />
     <Compile Include="Infrastructure\IGuidService.cs" />
+    <Compile Include="Queries\GetPlayersQuery.cs" />
     <Compile Include="Queries\GetGamePlayersQuery.cs" />
     <Compile Include="Queries\GetGamesListQuery.cs" />
     <Compile Include="Queries\GetPlayerCountByNameQuery.cs" />
