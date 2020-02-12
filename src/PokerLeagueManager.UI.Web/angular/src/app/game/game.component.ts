@@ -14,7 +14,7 @@ export class GameComponent implements OnInit {
   @Input() game: IGetGamesListDto;
   Players: PlayersDataSource;
 
-  displayedColumns = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
+  displayedColumns: Array<string> = ['Placing', 'PlayerName', 'Winnings', 'PayIn'];
   mediaMatcher: MediaQueryList = matchMedia(`(max-width: 530px)`);
 
   constructor(private queryService: QueryService, private appInsightsService: AppInsightsService, zone: NgZone) {
