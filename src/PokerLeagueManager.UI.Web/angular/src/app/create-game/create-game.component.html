@@ -11,8 +11,7 @@
   
   <div>
     <mat-form-field>
-      <input matInput placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer"
-        (ngModelChange)="filterPlayers()">
+      <input matInput class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
     </mat-form-field>
 
     <mat-autocomplete #auto="matAutocomplete">
