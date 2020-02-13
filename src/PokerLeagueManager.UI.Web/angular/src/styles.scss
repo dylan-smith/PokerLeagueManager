@@ -5,6 +5,7 @@
 @import './app/navbar/navbar.component.theme.scss';
 @import './app/side-nav/side-nav.component.theme.scss';
 @import './app/game/game.component.theme.scss';
+@import './app/create-game/create-game.component.scss';
 
 @include angular-material-theme($poker-theme);
 
