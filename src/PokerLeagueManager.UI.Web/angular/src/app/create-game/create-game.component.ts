@@ -41,7 +41,7 @@ export class CreateGameComponent implements OnInit {
   }
 
   public filter(players: IGetPlayersDto[]): IGetPlayersDto[] {
-    return players.filter(player => player.PlayerName.toLowerCase().includes(this.NewPlayer));
+    return players.filter(player => player.PlayerName.toLowerCase().includes(this.NewPlayer.toLowerCase()));
   }
 
   public gameDateChanged(event: MatDatepickerInputEvent<Date>) {
