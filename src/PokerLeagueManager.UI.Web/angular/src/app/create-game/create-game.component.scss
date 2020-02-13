@@ -1,11 +1,15 @@
 .create-game {
-    padding-top: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
 button.add-player {
-    position: fixed;
-    bottom: 15px;
-    right: 50px;
-  }
+  position: fixed;
+  bottom: 15px;
+  right: 50px;
+}
+
+ngx-simplebar {
+  height: 200px;
+}

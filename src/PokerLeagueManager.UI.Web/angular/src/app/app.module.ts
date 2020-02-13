@@ -15,9 +15,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MomentModule } from 'ngx-moment';
 import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
+import { SimplebarAngularModule } from 'simplebar-angular';
 
 import { AppComponent } from './app.component';
 import { GameListComponent } from './game-list/game-list.component';
@@ -72,7 +75,10 @@ export function configFactory(): IPokerConfig {
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    MatAutocompleteModule,
+    MatSelectModule,
     MomentModule,
+    SimplebarAngularModule,
     ApplicationInsightsModule.forRoot({
       instrumentationKey: globalThis.pokerConfig.appInsightsKey
     })
