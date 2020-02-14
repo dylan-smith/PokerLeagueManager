@@ -13,31 +13,44 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class CreateGameComponent implements OnInit {
   constructor(private commandService: CommandService, private queryService: QueryService) {
-    this.AllPlayers = queryService.GetPlayers();
+    queryService.GetPlayers().subscribe(players => {
+      this.AllPlayers = players;
+      this.PlayersLoaded = true;
+      this.AutoCompletePlayers = this.AllPlayers;
+    });
   }
 
   GameDate: Date;
   GameId: string;
-  Players: IGetPlayersDto[];
-  AllPlayers: Observable<IGetPlayersDto[]>;
-  AutoCompletePlayers: Observable<IGetPlayersDto[]>;
+  Players: IGetPlayersDto[] = [];
+  AllPlayers: IGetPlayersDto[];
+  AutoCompletePlayers: IGetPlayersDto[];
   NewPlayer: string;
-  GameDateSet: boolean = false;
+  GameDateSet: boolean = true;
+  PlayersLoaded: boolean = false;
 
-  public showAddPlayerButton(): boolean {
-    return this.GameDateSet;
+  public showAddPlayer(): boolean {
+    return this.GameDateSet && this.PlayersLoaded;
   }
 
   ngOnInit() {
-    this.AutoCompletePlayers = this.AllPlayers;
-  }
-
-  public addPlayer(): void {
     
   }
 
+  public addPlayer(): void {
+    // let matchPlayer: IGetPlayersDto = undefined;
+    let matchPlayer = this.AllPlayers.find(p => p.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase());
+    //this.AllPlayers.subscribe(p => matchPlayer = p.find(x => x.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase()));
+
+    if (matchPlayer)
+    {
+      this.Players.push(matchPlayer);
+    }
+  }
+
   public filterPlayers(): void {
-    this.AutoCompletePlayers = this.AllPlayers.pipe(map(players => this.filter(players)));
+    //this.AutoCompletePlayers = this.AllPlayers.pipe(map(players => this.filter(players)));
+    this.AutoCompletePlayers = this.filter(this.AllPlayers);
   }
 
   public filter(players: IGetPlayersDto[]): IGetPlayersDto[] {

@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 
 import { MomentModule } from 'ngx-moment';
 import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
@@ -77,6 +78,7 @@ export function configFactory(): IPokerConfig {
     MatNativeDateModule,
     MatAutocompleteModule,
     MatSelectModule,
+    MatListModule,
     MomentModule,
     SimplebarAngularModule,
     ApplicationInsightsModule.forRoot({
