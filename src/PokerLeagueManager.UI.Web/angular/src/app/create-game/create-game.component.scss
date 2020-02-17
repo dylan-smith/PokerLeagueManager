@@ -4,16 +4,30 @@
   padding-right: 40px;
 }
 
-button.add-player {
-  position: fixed;
-  bottom: 15px;
-  right: 50px;
-}
-
 ngx-simplebar {
   height: 100%;
 }
 
 .select-player {
-    font-size: 16px;
+  font-size: 16px;
+}
+
+mat-option.player-autocomplete {
+  line-height: 14px;
+  height: 48px;
+}
+
+p.player-autocomplete-name {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+p.player-autocomplete-games {
+  font-size: 12px;
+  color: grey;
+  margin-bottom: 0px;
+}
+
+button.add-player {
+  margin-left: 20px;
 }

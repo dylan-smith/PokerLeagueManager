@@ -5,23 +5,27 @@
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-  <button mat-fab color="primary" (click)="addPlayer()" class="add-player" *ngIf="showAddPlayer()">
-    <mat-icon>person_add</mat-icon>
-  </button>
+  
   
   <div>
     <mat-form-field>
       <input matInput [disabled]="!showAddPlayer()" class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
     </mat-form-field>
 
+    <button mat-raised-button color="primary" class="add-player" *ngIf="AddPlayerButtonVisible()" (click)="addPlayer()">{{AddPlayerButtonText}}</button>
+
     <mat-autocomplete #auto="matAutocomplete">
       <ngx-simplebar>
-        <mat-option *ngFor="let player of AutoCompletePlayers" [value]="player.PlayerName">
-          {{player.PlayerName}}
+        <mat-option *ngFor="let player of AutoCompletePlayers" [value]="player.PlayerName" class="player-autocomplete">
+          <p class="player-autocomplete-name">{{player.PlayerName}}</p>
+          <p class="player-autocomplete-games">Games Played: {{player.GamesPlayed}}</p>
         </mat-option>
       </ngx-simplebar>
     </mat-autocomplete>
+    
   </div>
+  
+
 
   <mat-list>
     <mat-list-item *ngFor="let player of Players">

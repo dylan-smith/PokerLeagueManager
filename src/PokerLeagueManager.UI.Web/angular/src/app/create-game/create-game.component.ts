@@ -25,9 +25,10 @@ export class CreateGameComponent implements OnInit {
   Players: IGetPlayersDto[] = [];
   AllPlayers: IGetPlayersDto[];
   AutoCompletePlayers: IGetPlayersDto[];
-  NewPlayer: string;
+  NewPlayer: string = "";
   GameDateSet: boolean = true;
   PlayersLoaded: boolean = false;
+  AddPlayerButtonText: string = 'Add Player';
 
   public showAddPlayer(): boolean {
     return this.GameDateSet && this.PlayersLoaded;
@@ -38,23 +39,35 @@ export class CreateGameComponent implements OnInit {
   }
 
   public addPlayer(): void {
-    // let matchPlayer: IGetPlayersDto = undefined;
     let matchPlayer = this.AllPlayers.find(p => p.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase());
-    //this.AllPlayers.subscribe(p => matchPlayer = p.find(x => x.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase()));
 
     if (matchPlayer)
     {
       this.Players.push(matchPlayer);
     }
+
+    this.NewPlayer = "";
+    this.filterPlayers();
+  }
+
+  public AddPlayerButtonVisible(): boolean {
+    return this.NewPlayer.trim().length > 0;
   }
 
   public filterPlayers(): void {
-    //this.AutoCompletePlayers = this.AllPlayers.pipe(map(players => this.filter(players)));
     this.AutoCompletePlayers = this.filter(this.AllPlayers);
+
+    if (this.AllPlayers.filter(x => x.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase()).length == 1)
+    {
+      this.AddPlayerButtonText = 'Add Player';
+    } else {
+      this.AddPlayerButtonText = 'Create Player';
+    }
   }
 
   public filter(players: IGetPlayersDto[]): IGetPlayersDto[] {
-    return players.filter(player => player.PlayerName.toLowerCase().includes(this.NewPlayer.toLowerCase()));
+    return players.filter(player => player.PlayerName.toLowerCase().includes(this.NewPlayer.toLowerCase()) && 
+                                    !this.Players.includes(player));
   }
 
   public gameDateChanged(event: MatDatepickerInputEvent<Date>) {
