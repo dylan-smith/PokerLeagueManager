@@ -3,8 +3,8 @@ import { CommandService } from '../command.service';
 import { QueryService, IGetPlayersDto } from '../query.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { v4 as uuid } from 'uuid';
-import { Observable } from 'rxjs/Observable';
-import { map, startWith } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmCreatePlayerDialogComponent } from '../confirm-create-player-dialog/confirm-create-player-dialog.component';
 
 @Component({
   selector: 'poker-create-game',
@@ -12,7 +12,7 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['./create-game.component.scss']
 })
 export class CreateGameComponent implements OnInit {
-  constructor(private commandService: CommandService, private queryService: QueryService) {
+  constructor(private commandService: CommandService, private queryService: QueryService, public dialog: MatDialog) {
     queryService.GetPlayers().subscribe(players => {
       this.AllPlayers = players;
       this.PlayersLoaded = true;
@@ -28,7 +28,6 @@ export class CreateGameComponent implements OnInit {
   NewPlayer: string = "";
   GameDateSet: boolean = true;
   PlayersLoaded: boolean = false;
-  AddPlayerButtonText: string = 'Add Player';
 
   public showAddPlayer(): boolean {
     return this.GameDateSet && this.PlayersLoaded;
@@ -44,10 +43,21 @@ export class CreateGameComponent implements OnInit {
     if (matchPlayer)
     {
       this.Players.push(matchPlayer);
-    }
+      this.NewPlayer = "";
+      this.filterPlayers();
+    } else {
+      const dialogRef = this.dialog.open(ConfirmCreatePlayerDialogComponent, { width: '300px', data: this.NewPlayer });
 
-    this.NewPlayer = "";
-    this.filterPlayers();
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          let p: IGetPlayersDto = { PlayerId: null, PlayerName: this.NewPlayer, GamesPlayed: 0 };
+
+          this.Players.push(p);
+          this.NewPlayer = "";
+          this.filterPlayers();
+        }
+      });
+    }
   }
 
   public AddPlayerButtonVisible(): boolean {
@@ -56,13 +66,6 @@ export class CreateGameComponent implements OnInit {
 
   public filterPlayers(): void {
     this.AutoCompletePlayers = this.filter(this.AllPlayers);
-
-    if (this.AllPlayers.filter(x => x.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase()).length == 1)
-    {
-      this.AddPlayerButtonText = 'Add Player';
-    } else {
-      this.AddPlayerButtonText = 'Create Player';
-    }
   }
 
   public filter(players: IGetPlayersDto[]): IGetPlayersDto[] {
@@ -80,6 +83,4 @@ export class CreateGameComponent implements OnInit {
 
     this.GameDateSet = true;
   }
-
-  options = { autoHide: false, scrollbarMinSize: 100 };
 }

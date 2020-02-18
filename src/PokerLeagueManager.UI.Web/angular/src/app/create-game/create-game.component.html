@@ -12,7 +12,9 @@
       <input matInput [disabled]="!showAddPlayer()" class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="add-player" *ngIf="AddPlayerButtonVisible()" (click)="addPlayer()">{{AddPlayerButtonText}}</button>
+    <button mat-raised-button color="primary" class="add-player" *ngIf="AddPlayerButtonVisible()" (click)="addPlayer()">
+      <mat-icon>person_add</mat-icon>
+    </button>
 
     <mat-autocomplete #auto="matAutocomplete">
       <ngx-simplebar>
@@ -22,11 +24,8 @@
         </mat-option>
       </ngx-simplebar>
     </mat-autocomplete>
-    
   </div>
   
-
-
   <mat-list>
     <mat-list-item *ngFor="let player of Players">
       <h3 matLine>{{player.PlayerName}}</h3>

@@ -1,0 +1,8 @@
+<h1 mat-dialog-title>Confirm Create Player</h1>
+<div mat-dialog-content>
+  <p>Are you sure you want to create a new player [{{ data }}]?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>Create Player</button>
+</div>

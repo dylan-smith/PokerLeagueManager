@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { MomentModule } from 'ngx-moment';
 import { ApplicationInsightsModule, AppInsightsService } from '@markpieszak/ng-application-insights';
@@ -29,6 +30,7 @@ import { GameComponent } from './game/game.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+import { ConfirmCreatePlayerDialogComponent } from './confirm-create-player-dialog/confirm-create-player-dialog.component';
 import { QueryService } from './query.service';
 import { CommandService } from './command.service';
 import { InfiniteScrollModule } from './ngx-infinite-scroll/ngx-infinite-scroll';
@@ -47,14 +49,15 @@ export function configFactory(): IPokerConfig {
     GameComponent,
     CreateGameComponent,
     NavbarComponent,
-    SideNavComponent
+    SideNavComponent,
+    ConfirmCreatePlayerDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: GameListComponent},
-      { path: 'Home', component: GameListComponent},
+      { path: '', component: GameListComponent },
+      { path: 'Home', component: GameListComponent },
       { path: 'Games', component: GameListComponent },
       { path: 'Stats', component: GameListComponent },
       { path: 'POTY', component: GameListComponent },
@@ -62,7 +65,7 @@ export function configFactory(): IPokerConfig {
       { path: 'Rules', component: GameListComponent },
       { path: 'CreateGame', component: CreateGameComponent },
       { path: '**', component: GameListComponent }
-  ]),
+    ]),
     HttpClientModule,
     InfiniteScrollModule,
     BrowserAnimationsModule,
@@ -79,18 +82,20 @@ export function configFactory(): IPokerConfig {
     MatAutocompleteModule,
     MatSelectModule,
     MatListModule,
+    MatDialogModule,
     MomentModule,
     SimplebarAngularModule,
     ApplicationInsightsModule.forRoot({
       instrumentationKey: globalThis.pokerConfig.appInsightsKey
     })
   ],
+  entryComponents: [ConfirmCreatePlayerDialogComponent],
   providers: [
     QueryService,
     CommandService,
-    { provide: 'POKER_CONFIG', useFactory: configFactory},
+    { provide: 'POKER_CONFIG', useFactory: configFactory },
     AppInsightsService
-   ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
