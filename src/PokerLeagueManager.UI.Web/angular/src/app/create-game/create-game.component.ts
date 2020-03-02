@@ -15,8 +15,8 @@ export class CreateGameComponent implements OnInit {
   constructor(private commandService: CommandService, private queryService: QueryService, public dialog: MatDialog) {
     queryService.GetPlayers().subscribe(players => {
       this.AllPlayers = players;
-      this.PlayersLoaded = true;
       this.AutoCompletePlayers = this.AllPlayers;
+      this.PlayersLoaded = true;
     });
   }
 
@@ -26,7 +26,7 @@ export class CreateGameComponent implements OnInit {
   AllPlayers: IGetPlayersDto[];
   AutoCompletePlayers: IGetPlayersDto[];
   NewPlayer: string = "";
-  GameDateSet: boolean = true;
+  GameDateSet: boolean = false;
   PlayersLoaded: boolean = false;
 
   public showAddPlayer(): boolean {
@@ -37,24 +37,31 @@ export class CreateGameComponent implements OnInit {
     
   }
 
-  public addPlayer(): void {
-    let matchPlayer = this.AllPlayers.find(p => p.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase());
+  private AddPlayerToGame(player: IGetPlayersDto): void {
+    // what if this errors?
+    this.commandService.AddPlayerToGame(player.PlayerId, this.GameId).subscribe();
+    this.Players.push(player);
+    this.NewPlayer = "";
+    this.filterPlayers();
+    // refresh the game/player data
+  }
 
-    if (matchPlayer)
+  public AddPlayerClicked(): void {
+    let matchingPlayer = this.AllPlayers.find(p => p.PlayerName.toLowerCase() == this.NewPlayer.toLowerCase());
+
+    if (matchingPlayer)
     {
-      this.Players.push(matchPlayer);
-      this.NewPlayer = "";
-      this.filterPlayers();
+      this.AddPlayerToGame(matchingPlayer);
     } else {
       const dialogRef = this.dialog.open(ConfirmCreatePlayerDialogComponent, { width: '300px', data: this.NewPlayer });
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let p: IGetPlayersDto = { PlayerId: null, PlayerName: this.NewPlayer, GamesPlayed: 0 };
+          let p: IGetPlayersDto = { PlayerId: uuid(), PlayerName: this.NewPlayer, GamesPlayed: 0 };
 
-          this.Players.push(p);
-          this.NewPlayer = "";
-          this.filterPlayers();
+          // What if this errors?
+          this.commandService.CreatePlayer(p.PlayerId, p.PlayerName).subscribe();
+          this.AddPlayerToGame(p);
         }
       });
     }

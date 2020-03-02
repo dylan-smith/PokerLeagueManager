@@ -6,13 +6,12 @@
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
   
-  
   <div>
-    <mat-form-field>
-      <input matInput [disabled]="!showAddPlayer()" class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
+    <mat-form-field *ngIf="showAddPlayer()">
+      <input matInput class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="add-player" *ngIf="AddPlayerButtonVisible()" (click)="addPlayer()">
+    <button mat-raised-button color="primary" class="add-player" *ngIf="AddPlayerButtonVisible()" (click)="AddPlayerClicked()">
       <mat-icon>person_add</mat-icon>
     </button>
 
