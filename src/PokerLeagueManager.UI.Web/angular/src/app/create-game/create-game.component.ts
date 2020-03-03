@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommandService } from '../command.service';
-import { QueryService, IGetPlayersDto } from '../query.service';
+import { QueryService, IGetPlayersDto, IGetGamePlayersDto } from '../query.service';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { v4 as uuid } from 'uuid';
 import { MatDialog } from '@angular/material/dialog';
@@ -22,14 +22,15 @@ export class CreateGameComponent implements OnInit {
 
   GameDate: Date;
   GameId: string;
-  Players: IGetPlayersDto[] = [];
+  Players: IGetGamePlayersDto[] = [];
   AllPlayers: IGetPlayersDto[];
   AutoCompletePlayers: IGetPlayersDto[];
   NewPlayer: string = "";
   GameDateSet: boolean = false;
   PlayersLoaded: boolean = false;
+  Refreshing: boolean = false;
 
-  public showAddPlayer(): boolean {
+  public PlayerInputVisible(): boolean {
     return this.GameDateSet && this.PlayersLoaded;
   }
 
@@ -37,13 +38,35 @@ export class CreateGameComponent implements OnInit {
     
   }
 
-  private AddPlayerToGame(player: IGetPlayersDto): void {
-    // what if this errors?
-    this.commandService.AddPlayerToGame(player.PlayerId, this.GameId).subscribe();
-    this.Players.push(player);
+  private AddPlayerToGame(playerId: string, playerName: string): void {
+    // what if this errors? await?
+    this.commandService.AddPlayerToGame(playerId, this.GameId).subscribe(() => {
+      this.refreshData();
+    });
+    
+    let p: IGetGamePlayersDto = {
+      GameId: this.GameId,
+      PlayerId: playerId,
+      PlayerName: playerName,
+      PayIn: 0,
+      Winnings: 0,
+      Placing: 0
+    }
+
+    this.Players.push(p);
+    this.Players = this.Players.sort((a, b) => a.PlayerName.localeCompare(b.PlayerName));
     this.NewPlayer = "";
     this.filterPlayers();
-    // refresh the game/player data
+  }
+
+  private refreshData(): void {
+    this.Refreshing = true;
+
+    this.queryService.GetGamePlayers(this.GameId)
+      .subscribe(players => {
+        this.Players = players.sort((a, b) => a.PlayerName.localeCompare(b.PlayerName));
+        this.Refreshing = false;
+      });
   }
 
   public AddPlayerClicked(): void {
@@ -51,24 +74,24 @@ export class CreateGameComponent implements OnInit {
 
     if (matchingPlayer)
     {
-      this.AddPlayerToGame(matchingPlayer);
+      this.AddPlayerToGame(matchingPlayer.PlayerId, matchingPlayer.PlayerName);
     } else {
       const dialogRef = this.dialog.open(ConfirmCreatePlayerDialogComponent, { width: '300px', data: this.NewPlayer });
 
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
-          let p: IGetPlayersDto = { PlayerId: uuid(), PlayerName: this.NewPlayer, GamesPlayed: 0 };
+          var newPlayerId = uuid();
 
-          // What if this errors?
-          this.commandService.CreatePlayer(p.PlayerId, p.PlayerName).subscribe();
-          this.AddPlayerToGame(p);
+          // What if this errors? await?
+          this.commandService.CreatePlayer(newPlayerId, this.NewPlayer).subscribe();
+          this.AddPlayerToGame(newPlayerId, this.NewPlayer);
         }
       });
     }
   }
 
   public AddPlayerButtonVisible(): boolean {
-    return this.NewPlayer.trim().length > 0;
+    return this.NewPlayer.trim().length > 0 && !this.Refreshing;
   }
 
   public filterPlayers(): void {
@@ -77,7 +100,7 @@ export class CreateGameComponent implements OnInit {
 
   public filter(players: IGetPlayersDto[]): IGetPlayersDto[] {
     return players.filter(player => player.PlayerName.toLowerCase().includes(this.NewPlayer.toLowerCase()) && 
-                                    !this.Players.includes(player));
+                                    !this.Players.some(p => p.PlayerId == player.PlayerId));
   }
 
   public gameDateChanged(event: MatDatepickerInputEvent<Date>) {

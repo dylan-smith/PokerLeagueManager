@@ -7,7 +7,7 @@
   </mat-form-field>
   
   <div>
-    <mat-form-field *ngIf="showAddPlayer()">
+    <mat-form-field *ngIf="PlayerInputVisible()">
       <input matInput class="select-player" placeholder="Player" [matAutocomplete]="auto" [(ngModel)]="NewPlayer" (ngModelChange)="filterPlayers()">
     </mat-form-field>
 
