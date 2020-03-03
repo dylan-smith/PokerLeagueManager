@@ -50,7 +50,8 @@ export class CreateGameComponent implements OnInit {
       PlayerName: playerName,
       PayIn: 0,
       Winnings: 0,
-      Placing: 0
+      Placing: 0,
+      Rebuys: 0
     }
 
     this.Players.push(p);
