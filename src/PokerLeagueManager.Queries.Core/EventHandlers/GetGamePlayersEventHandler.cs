@@ -22,6 +22,8 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                 GameId = e.GameId,
                 PlayerId = e.PlayerId,
                 PlayerName = player.PlayerName,
+                PayIn = e.BuyinAmount,
+                Rebuys = 0,
             });
         }
 
@@ -35,7 +37,8 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             var dto = QueryDataStore.GetData<GetGamePlayersDto>().Single(p => p.GameId == e.GameId && p.PlayerId == e.PlayerId);
 
-            dto.PayIn += 10;
+            dto.PayIn += e.RebuyAmount;
+            dto.Rebuys++;
 
             QueryDataStore.Update(dto);
         }
@@ -44,7 +47,8 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
         {
             var dto = QueryDataStore.GetData<GetGamePlayersDto>().Single(p => p.GameId == e.GameId && p.PlayerId == e.PlayerId);
 
-            dto.PayIn -= 10;
+            dto.PayIn -= e.RebuyAmount;
+            dto.Rebuys--;
 
             QueryDataStore.Update(dto);
         }
@@ -73,7 +77,7 @@ namespace PokerLeagueManager.Queries.Core.EventHandlers
                     dto.Winnings = e.Third;
                 }
 
-                QueryDataStore.Update<GetGamePlayersDto>(dto);
+                QueryDataStore.Update(dto);
             }
         }
     }

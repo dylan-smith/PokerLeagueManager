@@ -24,5 +24,8 @@ namespace PokerLeagueManager.Common.DTO
 
         [DataMember]
         public int Placing { get; set; }
+
+        [DataMember]
+        public int Rebuys { get; set; }
     }
 }
