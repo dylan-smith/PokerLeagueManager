@@ -10,6 +10,10 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 {
     public class Game : BaseAggregateRoot
     {
+        private const int BUYIN = 20;
+        private const int RAKE = 10;
+        private const int REBUY = 10;
+
         private readonly Dictionary<Guid, (int Rebuys, int Placing)> _players = new Dictionary<Guid, (int Rebuys, int Placing)>();
         private readonly LinkedList<Guid> _knockedOutOrder = new LinkedList<Guid>();
         private bool _deleted = false;
@@ -58,7 +62,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new DuplicatePlayerAddedToGameException(player.PlayerId, base.AggregateId);
             }
 
-            base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId });
+            base.PublishEvent(new PlayerAddedToGameEvent() { GameId = base.AggregateId, PlayerId = player.PlayerId, BuyinAmount = BUYIN });
             RecalculatePayouts();
 
             if (_completed)
@@ -74,7 +78,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new PlayerNotInGameException(playerId, base.AggregateId);
             }
 
-            base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            base.PublishEvent(new PlayerRemovedFromGameEvent() { GameId = base.AggregateId, PlayerId = playerId, BuyinAmount = BUYIN });
             RecalculatePayouts();
 
             if (_completed)
@@ -96,7 +100,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new PlayerNotInGameException(playerId, base.AggregateId);
             }
 
-            base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            base.PublishEvent(new RebuyAddedEvent() { GameId = base.AggregateId, PlayerId = playerId, RebuyAmount = REBUY });
             RecalculatePayouts();
 
             if (_completed)
@@ -123,7 +127,7 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
                 throw new NoRebuysLeftToRemoveException(base.AggregateId, playerId);
             }
 
-            base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId });
+            base.PublishEvent(new RebuyRemovedEvent() { GameId = base.AggregateId, PlayerId = playerId, RebuyAmount = REBUY });
             RecalculatePayouts();
 
             if (_completed)
@@ -262,13 +266,10 @@ namespace PokerLeagueManager.Commands.Domain.Aggregates
 
         private (int first, int second, int third) CalculatePayouts()
         {
-            var rake = 10;
-            var buyin = 20;
-            var rebuy = 10;
             var secondPercent = 0.3;
             var thirdPercent = 0.1;
 
-            var totalPot = (_players.Count * buyin) + (_players.Sum(x => x.Value.Rebuys) * rebuy) - rake;
+            var totalPot = (_players.Count * BUYIN) + (_players.Sum(x => x.Value.Rebuys) * REBUY) - RAKE;
 
             if (totalPot < 150)
             {

@@ -22,5 +22,8 @@ namespace PokerLeagueManager.Common.Events
 
         [DataMember]
         public Guid PlayerId { get; set; }
+
+        [DataMember]
+        public int BuyinAmount { get; set; }
     }
 }
