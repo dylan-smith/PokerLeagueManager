@@ -11,7 +11,7 @@
   <mat-table #table [dataSource]="Players" [class.game-in-progress]="!game.Completed">
     <ng-container matColumnDef="Placing">
     <mat-header-cell [class.mat-column-Placing-small]="isScreenSmall()" *matHeaderCellDef></mat-header-cell>
-    <mat-cell [class.mat-column-Placing-small]="isScreenSmall()" *matCellDef="let element">{{element.Placing}}</mat-cell>
+    <mat-cell [class.mat-column-Placing-small]="isScreenSmall()" *matCellDef="let element">{{ element.Placing > 0 ? element.Placing : '' }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="PlayerName">
