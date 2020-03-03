@@ -30,7 +30,8 @@ describe('GameComponent', () => {
     PlayerName: 'Homer Simpson',
     Placing: 1,
     Winnings: 50,
-    PayIn: 20
+    PayIn: 20,
+    Rebuys: 0
   };
 
   let player2: IGetGamePlayersDto = {
@@ -39,7 +40,8 @@ describe('GameComponent', () => {
     PlayerName: 'Bart Simpson',
     Placing: 2,
     Winnings: 0,
-    PayIn: 30
+    PayIn: 30, 
+    Rebuys: 1
   };
 
   let testGamePlayers: IGetGamePlayersDto[] = [
