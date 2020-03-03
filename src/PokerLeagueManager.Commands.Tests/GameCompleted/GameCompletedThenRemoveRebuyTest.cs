@@ -22,10 +22,10 @@ namespace PokerLeagueManager.Commands.Tests.GameCompleted
             yield return new PlayerCreatedEvent() { PlayerId = _playerId1, PlayerName = "Homer Simpson" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId2, PlayerName = "Bart Simpson" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId3, PlayerName = "Rick Sanchez" };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3 };
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId2 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3, BuyinAmount = 20 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId2, RebuyAmount = 10 };
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId3 };
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId2 };
             yield return new PlayerKnockedOutEvent() { GameId = _gameId, PlayerId = _playerId1 };
@@ -45,7 +45,7 @@ namespace PokerLeagueManager.Commands.Tests.GameCompleted
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new RebuyRemovedEvent() { GameId = _gameId, PlayerId = _playerId2 };
+            yield return new RebuyRemovedEvent() { GameId = _gameId, PlayerId = _playerId2, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = AnyInt(), Second = AnyInt(), Third = AnyInt() };
             yield return new GameUncompletedEvent() { GameId = _gameId };
 

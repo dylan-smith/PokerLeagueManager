@@ -18,7 +18,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
         {
             yield return new GameCreatedEvent() { GameId = _gameId, GameDate = DateTime.Now };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId, PlayerName = "Homer Simpson" };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId, BuyinAmount = 20 };
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace PokerLeagueManager.Commands.Tests.AddPlayerToGame
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId, BuyinAmount = 20 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = AnyInt(), Second = AnyInt(), Third = AnyInt() };
         }
     }

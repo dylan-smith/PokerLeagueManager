@@ -28,7 +28,7 @@ namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId, BuyinAmount = 20 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 10, Second = 0, Third = 0 };
         }
     }

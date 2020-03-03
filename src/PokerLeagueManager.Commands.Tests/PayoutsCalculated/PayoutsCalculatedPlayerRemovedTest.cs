@@ -24,10 +24,10 @@ namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
             yield return new PlayerCreatedEvent() { PlayerId = _playerId2, PlayerName = "Bart Simpson" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId3, PlayerName = "Rick Sanchez" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId4, PlayerName = "Jon Snow" };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId4 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId4, BuyinAmount = 20 };
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new PlayerRemovedFromGameEvent() { GameId = _gameId, PlayerId = _playerId3, BuyinAmount = 20 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 30, Second = 20, Third = 0 };
         }
     }

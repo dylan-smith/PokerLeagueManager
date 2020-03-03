@@ -22,8 +22,8 @@ namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
             yield return new PlayerCreatedEvent() { PlayerId = _playerId1, PlayerName = "Homer Simpson" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId2, PlayerName = "Bart Simpson" };
             yield return new PlayerCreatedEvent() { PlayerId = _playerId3, PlayerName = "Rick Sanchez" };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1 };
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId1, BuyinAmount = 20 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId2, BuyinAmount = 20 };
         }
 
         [TestMethod]
@@ -42,107 +42,107 @@ namespace PokerLeagueManager.Commands.Tests.PayoutsCalculated
 
         public override IEnumerable<IEvent> ExpectedEvents()
         {
-            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new PlayerAddedToGameEvent() { GameId = _gameId, PlayerId = _playerId3, BuyinAmount = 20 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 30, Second = 20, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 40, Second = 20, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 50, Second = 20, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 60, Second = 20, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 60, Second = 30, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 70, Second = 30, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 80, Second = 30, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 80, Second = 40, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 90, Second = 40, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 100, Second = 40, Third = 0 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 80, Second = 50, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 90, Second = 50, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 100, Second = 50, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 110, Second = 50, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 110, Second = 60, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 120, Second = 60, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 130, Second = 60, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 130, Second = 70, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 140, Second = 70, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 150, Second = 70, Third = 20 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 140, Second = 80, Third = 30 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 150, Second = 80, Third = 30 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 160, Second = 80, Third = 30 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 170, Second = 80, Third = 30 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 170, Second = 90, Third = 30 };
             yield return new VerifyEventsNow();
 
-            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3 };
+            yield return new RebuyAddedEvent() { GameId = _gameId, PlayerId = _playerId3, RebuyAmount = 10 };
             yield return new PayoutsCalculatedEvent() { GameId = _gameId, First = 180, Second = 90, Third = 30 };
             yield return new VerifyEventsNow();
         }
