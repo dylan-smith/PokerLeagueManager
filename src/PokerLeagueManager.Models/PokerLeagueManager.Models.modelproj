@@ -27,6 +27,7 @@
   <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets"
     Condition="Exists('$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets')" />
   <Target Name="Build" Condition="!Exists('$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets')"/>
+  <Target Name="Clean" Condition="!Exists('$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets')"/>
   <ItemGroup>
     <Folder Include="ModelDefinition\" />
     <Content Include="ModelDefinition\PokerLeagueManager.Models.uml">
