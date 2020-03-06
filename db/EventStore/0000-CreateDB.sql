@@ -1,7 +1,7 @@
-CREATE DATABASE [PokerLeagueManager.DB.EventStore]
+CREATE DATABASE [EventStore]
 GO
 
-USE [PokerLeagueManager.DB.EventStore]
+USE [EventStore]
 GO
 
 CREATE TABLE [dbo].[AggregateLocks](

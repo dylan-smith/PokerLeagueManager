@@ -1,7 +1,7 @@
-CREATE DATABASE [PokerLeagueManager.DB.QueryStore]
+CREATE DATABASE [QueryStore]
 GO
 
-USE [PokerLeagueManager.DB.QueryStore]
+USE [QueryStore]
 GO
 
 CREATE SCHEMA [DTO]
