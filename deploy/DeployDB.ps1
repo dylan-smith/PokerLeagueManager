@@ -1,21 +1,22 @@
 ﻿[CmdletBinding()]
 Param(
 	[string]$DatabaseUpgradeScriptsPath,	
-	[switch]$DropDatabase,
 	[string]$DatabaseServerName,
 	[string]$DatabaseName,
 	[string]$DatabaseLogin,
-	[string]$DatabasePassword
+	[string]$DatabasePassword,
+    [string]$DatabaseEdition = "Basic",
+    [string]$DatabaseServiceObjective = "Basic",
+    [switch]$DropDatabase
 )
 
 Write-Verbose "Database Upgrade Scripts Path: $DatabaseUpgradeScriptsPath"
 Write-Verbose "Database Server: $DatabaseServerName"
 Write-Verbose "Database Name: $DatabaseName"
 Write-Verbose "Database Login: $DatabaseLogin"
-Write-Verbose "Database Password: $DatabasePassword"
+Write-Verbose "Database Edition: $DatabaseEdition"
+Write-Verbose "Database Service Objective: $DatabaseServiceObjective"
 Write-Verbose "Drop Database: $DropDatabase"
-
-$ErrorActionPreference = "Stop"
 
 . .\DatabaseDeploymentFunctions.ps1
 

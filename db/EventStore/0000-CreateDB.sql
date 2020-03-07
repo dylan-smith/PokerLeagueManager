@@ -1,9 +1,3 @@
-CREATE DATABASE [EventStore]
-GO
-
-USE [EventStore]
-GO
-
 CREATE TABLE [dbo].[AggregateLocks](
 	[AggregateId] [uniqueidentifier] NOT NULL,
 	[LockExpiry] [datetime] NOT NULL,

@@ -1,9 +1,3 @@
-CREATE DATABASE [QueryStore]
-GO
-
-USE [QueryStore]
-GO
-
 CREATE SCHEMA [DTO]
 GO
 
