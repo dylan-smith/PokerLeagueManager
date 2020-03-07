@@ -10,7 +10,7 @@ function Execute-NonQuery
 	$Cmd.CommandText = $Sql
 	
 	try {
-		$Cmd.ExecuteNonQuery() | Out-Null
+		$Cmd.ExecuteNonQuery()
 	}
 	catch [System.Exception] {
 		Write-Error $_.Exception.InnerException.Message
