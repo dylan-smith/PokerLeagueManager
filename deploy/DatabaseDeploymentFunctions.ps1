@@ -70,8 +70,6 @@ function Drop-Database
 
 	$Sql = "IF (DB_ID(N'$DatabaseName') IS NOT NULL) `n"
 	$Sql += "BEGIN `n"
-	$Sql += "  ALTER DATABASE [$DatabaseName] `n"
-	$Sql += "  SET SINGLE_USER WITH ROLLBACK IMMEDIATE;`n"
 	$Sql += "  DROP DATABASE [$DatabaseName];`n"
 	$Sql += "END"
 
