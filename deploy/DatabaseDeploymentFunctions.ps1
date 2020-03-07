@@ -53,6 +53,40 @@ function Test-Database
     Write-Output ($DatabaseCount -gt 0)
 }
 
+function Get-DatabaseEdition
+{
+    param([string]$DatabaseServerName,
+          [string]$DatabaseName,
+          [string]$DatabaseLogin,
+          [string]$DatabasePassword)
+
+    $Sql = "SELECT DATABASEPROPERTYEX('$DatabaseName', 'EDITION')"
+    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+
+    $DatabaseEdition = Execute-Scalar $Sql $Conn
+    $Conn.Close()
+
+    Write-Verbose "Database Edition: $DatabaseEdition"
+    Write-Output $DatabaseEdition
+}
+
+function Get-DatabaseServiceObjective
+{
+    param([string]$DatabaseServerName,
+          [string]$DatabaseName,
+          [string]$DatabaseLogin,
+          [string]$DatabasePassword)
+
+    $Sql = "SELECT DATABASEPROPERTYEX('$DatabaseName', 'ServiceObjective')"
+    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+
+    $DatabaseServiceObjective = Execute-Scalar $Sql $Conn
+    $Conn.Close()
+
+    Write-Verbose "Database Edition: $DatabaseServiceObjective"
+    Write-Output $DatabaseServiceObjective
+}
+
 function Drop-Database
 {
     param([string]$DatabaseServerName, 
@@ -104,13 +138,6 @@ function Create-Database
 	    Write-Error "Database Name must be provided"
     }
 
-	$CreateDBScriptName = "0000-CreateDB.sql"
-	$CreateDBPath = Join-Path $DatabaseUpgradeScriptsPath $CreateDBScriptName
-	
-	if ((Test-Path $CreateDBPath) -eq $false) {
-		Write-Error "Could not find file: $CreateDBPath"
-	}
-    
     if ($DatabaseServerName.ToLower().Contains("database.windows.net"))
     {
         $Sql = "CREATE DATABASE [$DatabaseName] ( EDITION = '$DatabaseEdition', SERVICE_OBJECTIVE = '$DatabaseServiceObjective' )"
@@ -124,31 +151,16 @@ function Create-Database
     Execute-NonQuery $Sql $Conn
     $Conn.Close()
 
-    Write-Verbose "Database $DatabaseName created, running $CreateDBPath..."
-    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
-    $Server = Get-SmoServer $Conn
-    
-	$Sql = [IO.File]::ReadAllText($CreateDBPath)
-	Execute-SQLCMD $Sql $Server
-
     Write-Verbose "Creating $ScriptsTable table..."
-	
-	$Sql = "SELECT COUNT(*) FROM sys.tables WHERE name = '$ScriptsTable'"
-	$TableCount = Execute-Scalar $Sql $Conn
-	
-	if ($TableCount -gt 0) {
-		Write-Error "$CreateDBScriptName should not create the $ScriptsTable table"
-	}
-
+    
 	$Sql = "CREATE TABLE [dbo].[$ScriptsTable] `n"
 	$Sql += "( `n"
 	$Sql += "  [ScriptName] VARCHAR(255) NOT NULL PRIMARY KEY, `n"
 	$Sql += "  [DateRun] DATETIME NOT NULL `n"
 	$Sql += ")"
 	
+    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
 	Execute-NonQuery $Sql $Conn
-	Add-RowToScriptsTable $Conn $CreateDBScriptName
-
     $Conn.Close()
 
     Write-Verbose "Creating database $DatabaseName completed!"

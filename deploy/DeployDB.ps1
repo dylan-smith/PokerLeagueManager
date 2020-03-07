@@ -25,7 +25,9 @@ if ([System.IO.Path]::IsPathRooted($DatabaseUpgradeScriptsPath) -eq $false) {
 }
 
 if ($DropDatabase) {
-    Drop-Database $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword
+    $DatabaseEdition = Get-DatabaseEdition -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+    $DatabaseServiceObjective = Get-DatabaseServiceObjective -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+    Drop-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
 }
 
 if ((Test-Database $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword) -eq $false)
@@ -34,4 +36,4 @@ if ((Test-Database $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePas
     Create-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword -DatabaseEdition $DatabaseEdition -DatabaseServiceObjective $DatabaseServiceObjective
 }
 
-Upgrade-Database $DatabaseUpgradeScriptsPath $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword
+Upgrade-Database -DatabaseUpgradeScriptsPath $DatabaseUpgradeScriptsPath -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
