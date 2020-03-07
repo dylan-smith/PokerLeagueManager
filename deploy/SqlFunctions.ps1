@@ -8,9 +8,11 @@ function Execute-NonQuery
 	$Cmd = New-Object System.Data.SqlClient.SqlCommand
 	$Cmd.Connection = $Conn
 	$Cmd.CommandText = $Sql
+    $Cmd.CommandTimeout = 600
 	
 	try {
-		$Cmd.ExecuteNonQuery()
+        Write-Verbose "Executing $Sql"
+		$Cmd.ExecuteNonQuery() | Out-Null
 	}
 	catch [System.Exception] {
 		Write-Error $_.Exception.InnerException.Message
@@ -95,7 +97,7 @@ function Get-SqlConnection
         }
     }
 
-    Write-Verbose "Using Connection String: $ConnString"
+    # Write-Verbose "Using Connection String: $ConnString"
 
     $Conn = New-Object System.Data.SqlClient.SqlConnection
     $Conn.ConnectionString = $ConnString

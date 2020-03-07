@@ -31,7 +31,7 @@ if ($DropDatabase) {
 if ((Test-Database $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword) -eq $false)
 {
     Write-Verbose "Database $DatabaseName does not exist, creating database..."
-    Create-Database $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword
+    Create-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword -DatabaseEdition $DatabaseEdition -DatabaseServiceObjective $DatabaseServiceObjective
 }
 
 Upgrade-Database $DatabaseUpgradeScriptsPath $DatabaseServerName $DatabaseName $DatabaseLogin $DatabasePassword

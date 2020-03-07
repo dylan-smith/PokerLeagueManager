@@ -66,30 +66,26 @@ function Drop-Database
 	    Write-Error "Database Name must be provided"
     }
 
-    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
-
-	$Sql = "IF (DB_ID(N'$DatabaseName') IS NOT NULL) `n"
-	$Sql += "BEGIN `n"
-	$Sql += "  DROP DATABASE [$DatabaseName];`n"
-	$Sql += "END"
-
-	Execute-NonQuery $Sql $Conn
-    $Conn.Close()
-
-    $SleepCount = 0
-
-    while (Test-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword)
+    if (Test-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword)
     {
-        Write-Verbose "Waiting for DB drop to complete..."
-        sleep -Seconds 10
-        $SleepCount++
+        $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+        $Sql = "DROP DATABASE [$DatabaseName]"
+        Execute-NonQuery $Sql $Conn
+        $Conn.Close()
 
-        if ($SleepCount -gt 10)
+        while (Test-Database -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword)
         {
-            Write-Error "100 seconds elapsed, DB still exists"
+            Write-Verbose "Waiting for DB drop to complete..."
+            sleep -Seconds 10
+            $SleepCount++
+
+            if ($SleepCount -gt 10)
+            {
+                Write-Error "100 seconds elapsed, DB still exists"
+            }
         }
     }
-
+    
 	Write-Verbose "Dropping Database $DatabaseName...Completed"
 }
 
@@ -115,8 +111,6 @@ function Create-Database
 		Write-Error "Could not find file: $CreateDBPath"
 	}
     
-	Write-Verbose "Running $CreateDBPath..."
-
     if ($DatabaseServerName.ToLower().Contains("database.windows.net"))
     {
         $Sql = "CREATE DATABASE $DatabaseName ( EDITION = '$DatabaseEdition', SERVICE_OBJECTIVE = '$DatabaseServiceObjective' )"
@@ -130,6 +124,7 @@ function Create-Database
     Execute-NonQuery $Sql $Conn
     $Conn.Close()
 
+    Write-Verbose "Database $DatabaseName created, running $CreateDBPath..."
     $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
     $Server = Get-SmoServer $Conn
     
