@@ -113,11 +113,11 @@ function Create-Database
     
     if ($DatabaseServerName.ToLower().Contains("database.windows.net"))
     {
-        $Sql = "CREATE DATABASE $DatabaseName ( EDITION = '$DatabaseEdition', SERVICE_OBJECTIVE = '$DatabaseServiceObjective' )"
+        $Sql = "CREATE DATABASE [$DatabaseName] ( EDITION = '$DatabaseEdition', SERVICE_OBJECTIVE = '$DatabaseServiceObjective' )"
     }
     else
     {
-        $Sql = "CREATE DATABASE $DatabaseName"
+        $Sql = "CREATE DATABASE [$DatabaseName]"
     }
     
     $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
@@ -186,7 +186,7 @@ function Upgrade-Database
     	Write-Error "$ScriptsTable table does not exist in $DatabaseName"
     }
     
-    $Sql = "SELECT * FROM $ScriptsTable"
+    $Sql = "SELECT * FROM [$ScriptsTable]"
     $ScriptsAlreadyRun = Get-ScriptsAlreadyRun $Conn
     
     $ScriptsToRun = @($UpgradeScripts | Where-Object {$ScriptsAlreadyRun -NotContains $_})
