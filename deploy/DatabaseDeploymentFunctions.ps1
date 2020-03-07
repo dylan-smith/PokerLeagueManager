@@ -84,7 +84,7 @@ function Drop-Database
         sleep -Seconds 10
         $SleepCount++
 
-        if ($SleepCount > 10)
+        if ($SleepCount -gt 10)
         {
             Write-Error "100 seconds elapsed, DB still exists"
         }
