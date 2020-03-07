@@ -61,7 +61,7 @@ function Get-DatabaseEdition
           [string]$DatabasePassword)
 
     $Sql = "SELECT DATABASEPROPERTYEX('$DatabaseName', 'EDITION')"
-    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
 
     $DatabaseEdition = Execute-Scalar $Sql $Conn
     $Conn.Close()
@@ -78,12 +78,12 @@ function Get-DatabaseServiceObjective
           [string]$DatabasePassword)
 
     $Sql = "SELECT DATABASEPROPERTYEX('$DatabaseName', 'ServiceObjective')"
-    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
+    $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseName $DatabaseName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
 
     $DatabaseServiceObjective = Execute-Scalar $Sql $Conn
     $Conn.Close()
 
-    Write-Verbose "Database Edition: $DatabaseServiceObjective"
+    Write-Verbose "Database Service Objective: $DatabaseServiceObjective"
     Write-Output $DatabaseServiceObjective
 }
 
