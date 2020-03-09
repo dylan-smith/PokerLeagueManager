@@ -10,7 +10,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: src/PokerLeagueManager.sln'
+  solution: src\PokerLeagueManager.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
