@@ -43,6 +43,30 @@ steps:
   inputs:
     filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
 
+- task: Npm@1
+  displayName: 'Run Jasmine Tests'
+  inputs:
+    command: custom
+    workingDir: src/PokerLeagueManager.UI.Web/angular
+    verbose: false
+    customCommand: 'run test-prod'
+
+- task: PublishTestResults@2
+  displayName: 'Publish jasmine test results'
+  inputs:
+    testResultsFiles: '$(Build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\angular\KarmaTestResults\**\test.xml'
+    mergeTestResults: true
+    testRunTitle: 'Jasmine Tests'
+  condition: succeededOrFailed()
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish jasmine code coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage/cobertura-coverage.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage'
+    failIfCoverageEmpty: true
+    
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
