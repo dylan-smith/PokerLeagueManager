@@ -66,7 +66,7 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage/cobertura-coverage.xml'
     reportDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage'
     failIfCoverageEmpty: true
-    
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -75,6 +75,77 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
+  displayName: 'Run Unit Tests'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    testAssemblyVer2: |
+     **\*.Tests.dll
+     !**\obj\**
+    runInParallel: true
+    codeCoverageEnabled: false
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+    diagnosticsEnabled: True
+
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: 'Run Code Analysis'
+
+- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+  displayName: 'Publish Analysis Result'
+
+- task: CopyFiles@2
+  displayName: 'Copy DB.EventStore to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\db\EventStore'
+    TargetFolder: '$(build.StagingDirectory)\DB.EventStore'
+
+- task: CopyFiles@2
+  displayName: 'Copy DB.QueryStore to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\db\QueryStore'
+    TargetFolder: '$(build.StagingDirectory)\DB.QueryStore'
+
+- task: CopyFiles@2
+  displayName: 'Copy Commands.WebApi to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
+
+- task: CopyFiles@2
+  displayName: 'Copy Queries.WebApi to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Queries.WebApi'
+
+- task: CopyFiles@2
+  displayName: 'Copy Events.WebApi to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Events.WebApi'
+
+- task: CopyFiles@2
+  displayName: 'Copy UI.Web to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.UI.Web'
+
+- task: CopyFiles@2
+  displayName: 'Copy deploy scripts to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\deploy'
+    TargetFolder: '$(build.StagingDirectory)\deploy'
+
+- task: CopyFiles@2
+  displayName: 'Copy Utilities to Drop'
+  inputs:
+    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Utilities\bin\$(BuildConfiguration)'
+    TargetFolder: '$(build.StagingDirectory)\Deploy\Utilities'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
