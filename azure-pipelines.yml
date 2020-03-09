@@ -102,7 +102,7 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '**'
+    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
 
 - task: CopyFiles@2
@@ -110,19 +110,21 @@ steps:
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
     Contents: '*'
-    TargetFolder: '$(build.ArtifactStagingDirectory)\PokerLeagueManager.Queries.WebApi'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Queries.WebApi'
 
 - task: CopyFiles@2
   displayName: 'Copy Events.WebApi to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
+    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Events.WebApi'
 
 - task: CopyFiles@2
   displayName: 'Copy UI.Web to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
-    TargetFolder: '$(build.ArtifactStagingDirectory)\PokerLeagueManager.UI.Web'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.UI.Web'
 
 - task: CopyFiles@2
   displayName: 'Copy deploy scripts to Drop'
