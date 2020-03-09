@@ -100,10 +100,10 @@ steps:
     TargetFolder: '$(build.StagingDirectory)\DB.QueryStore'
 
 - task: CopyFiles@2
-  displayName: 'Copy Commands.WebApi to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
-    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
+    Contents: '*'
+    TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi\'
 
 - task: CopyFiles@2
   displayName: 'Copy Queries.WebApi to Drop'
