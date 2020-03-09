@@ -24,11 +24,24 @@ steps:
     filePath: ./deploy/VersionAssemblies.ps1
     arguments: '-MajorVersion $(MajorVersion) -MinorVersion $(MinorVersion) -BuildNumber $(Build.BuildNumber) -SourcesDir $(Build.SourcesDirectory) -Verbose'
 
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: 'Prepare analysis on SonarCloud'
+  inputs:
+    SonarCloud: SonarCloud
+    organization: 'dylan-smith41309'
+    projectKey: pokerleaguemanager
+    projectName: PokerLeagueManager
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+- task: BatchScript@1
+  displayName: 'Build Angular'
+  inputs:
+    filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
 
 - task: VSBuild@1
   inputs:
