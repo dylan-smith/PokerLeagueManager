@@ -1,8 +1,3 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
-
 trigger:
 - master
 
@@ -20,7 +15,6 @@ steps:
 - task: PowerShell@2
   displayName: 'Version Assemblies'
   inputs:
-    targetType: filePath
     filePath: ./deploy/VersionAssemblies.ps1
     arguments: '-MajorVersion $(MajorVersion) -MinorVersion $(MinorVersion) -BuildNumber $(Build.BuildNumber) -SourcesDir $(Build.SourcesDirectory) -Verbose'
 
@@ -33,8 +27,10 @@ steps:
     projectName: PokerLeagueManager
 
 - task: NuGetToolInstaller@1
+  displayName: 'Setup NuGet'
 
 - task: NuGetCommand@2
+  displayName: 'NuGet Restore'
   inputs:
     restoreSolution: '$(solution)'
 
@@ -48,7 +44,6 @@ steps:
   inputs:
     command: custom
     workingDir: src/PokerLeagueManager.UI.Web/angular
-    verbose: false
     customCommand: 'run test-prod'
 
 - task: PublishTestResults@2
@@ -64,10 +59,10 @@ steps:
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage/cobertura-coverage.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage'
     failIfCoverageEmpty: true
 
 - task: VSBuild@1
+  displayName: 'Build Solution'
   inputs:
     solution: '$(solution)'
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
@@ -108,28 +103,24 @@ steps:
   displayName: 'Copy Commands.WebApi to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
 
 - task: CopyFiles@2
   displayName: 'Copy Queries.WebApi to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Queries.WebApi'
 
 - task: CopyFiles@2
   displayName: 'Copy Events.WebApi to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Events.WebApi'
 
 - task: CopyFiles@2
   displayName: 'Copy UI.Web to Drop'
   inputs:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.UI.Web'
 
 - task: CopyFiles@2
