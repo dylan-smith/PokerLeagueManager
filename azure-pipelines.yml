@@ -13,8 +13,17 @@ variables:
   solution: 'src\PokerLeagueManager.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  MajorVersion: '0'
+  MinorVersion: '1'
 
 steps:
+- task: PowerShell@2
+  displayName: 'Version Assemblies'
+  inputs:
+    targetType: filePath
+    filePath: ./deploy/VersionAssemblies.ps1
+    arguments: '-MajorVersion $(MajorVersion) -MinorVersion $(MinorVersion) -BuildNumber $(Build.BuildNumber) -SourcesDir $(Build.SourcesDirectory) -Verbose'
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
