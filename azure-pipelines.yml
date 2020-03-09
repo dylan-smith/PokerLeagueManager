@@ -10,7 +10,6 @@ variables:
   buildConfiguration: 'Release'
   MajorVersion: '0'
   MinorVersion: '1'
-  System.Debug: true
 
 steps:
 - task: PowerShell@2
