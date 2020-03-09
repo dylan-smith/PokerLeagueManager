@@ -105,6 +105,7 @@ steps:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
     Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
+    flattenFolders: true
 
 - task: CopyFiles@2
   displayName: 'Copy Queries.WebApi to Drop'
