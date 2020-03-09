@@ -66,9 +66,10 @@ steps:
   displayName: 'Build Solution'
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    msbuildArgs: '/p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="..\PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    clean: true
 
 - task: VSTest@2
   displayName: 'Run Unit Tests'
@@ -106,8 +107,6 @@ steps:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
     Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Commands.WebApi'
-    flattenFolders: true
-  enabled: false
 
 - task: CopyFiles@2
   displayName: 'Copy Queries.WebApi to Drop'
@@ -115,7 +114,6 @@ steps:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
     Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Queries.WebApi'
-  enabled: false
 
 - task: CopyFiles@2
   displayName: 'Copy Events.WebApi to Drop'
@@ -123,7 +121,6 @@ steps:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
     Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.Events.WebApi'
-  enabled: false
 
 - task: CopyFiles@2
   displayName: 'Copy UI.Web to Drop'
@@ -131,7 +128,6 @@ steps:
     SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
     Contents: '*'
     TargetFolder: '$(build.StagingDirectory)\PokerLeagueManager.UI.Web'
-  enabled: false
 
 - task: CopyFiles@2
   displayName: 'Copy deploy scripts to Drop'
