@@ -204,7 +204,7 @@ stages:
         azureSubscription: 'Azure RM - MVP'
         appType: 'webApp'
         WebAppName: '$(EventApi)'
-        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Events.WebApi.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
         enableCustomDeployment: true
         DeploymentType: 'webDeploy'
         RemoveAdditionalFilesFlag: true
