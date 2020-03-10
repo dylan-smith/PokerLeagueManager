@@ -167,12 +167,13 @@ stages:
         downloadType: 'single'
         artifactName: 'drop'
         downloadPath: '$(System.ArtifactsDirectory)'
+
     - task: AzureRmWebAppDeployment@4
       displayName: 'Deploy Query API'
       inputs:
         azureSubscription: 'Azure RM - MVP'
         WebAppName: '$(QueryApi)'
-        packageForLinux: '$(System.Artifacts)/drop/PokerLeagueManager.Queries.WebApi/PokerLeagueManager.Queries.WebApi.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
         enableCustomDeployment: true
         RemoveAdditionalFilesFlag: true
         ExcludeFilesFromAppDataFlag: false
