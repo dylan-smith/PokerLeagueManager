@@ -153,6 +153,9 @@ stages:
   displayName: 'Deploy to Test'
   variables:
     QueryApi: 'Queries-PokerLeagueManager-Test'
+    CommandApi: 'Commands-PokerLeagueManager-Test'
+    EventApi: 'Events-PokerLeagueManager-Test'
+    UIWebsite: 'PokerLeagueManager-Test'
     SqlServerName: 'PokerLeagueManager-Prod.database.windows.net'
     SqlUser: 'PokerLeagueManager'
     EventDatabase: 'EventStore'
