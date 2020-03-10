@@ -78,8 +78,8 @@ stages:
       displayName: 'Run Unit Tests'
       inputs:
         testAssemblyVer2: |
-        **\*.Tests.dll
-        !**\obj\**
+          **\*.Tests.dll
+          !**\obj\**
         runInParallel: true
         codeCoverageEnabled: false
         platform: '$(BuildPlatform)'
