@@ -30,7 +30,16 @@ namespace PokerLeagueManager.Utilities
                 foreach (var cmd in GenerateSampleDataCommands(numberOfGames))
                 {
                     Console.WriteLine($"Executing Command: {cmd.GetType().Name}");
-                    svc.ExecuteCommand(cmd);
+                    try
+                    {
+                        svc.ExecuteCommand(cmd);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        Console.WriteLine($"Inner: {ex.InnerException?.ToString()}");
+                        return;
+                    }
                 }
             }
         }
