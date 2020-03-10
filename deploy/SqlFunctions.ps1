@@ -99,9 +99,29 @@ function Get-SqlConnection
 
     # Write-Verbose "Using Connection String: $ConnString"
 
-    $Conn = New-Object System.Data.SqlClient.SqlConnection
-    $Conn.ConnectionString = $ConnString
-    $Conn.Open()
+    
+
+    $RetryCount = 4
+    $Retries = 0
+    $RetryInterval = 15
+    $Success = false
+
+    while ($Success -eq $false -or $Retries -gt $RetryCount)
+    {
+        Try
+        {
+            $Conn = New-Object System.Data.SqlClient.SqlConnection
+            $Conn.ConnectionString = $ConnString
+            $Conn.Open()
+            $Sucess = true
+        }
+        Catch
+        {
+            Write-Verbose "SQL connection failed, retrying [$Retry of $RetryCount]..."
+            $Retries++
+            Start-Sleep -s $RetryInterval
+        }
+    }
 
     Write-Output $Conn
 }
