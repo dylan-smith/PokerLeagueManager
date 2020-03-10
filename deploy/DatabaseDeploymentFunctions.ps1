@@ -46,7 +46,7 @@ function Test-Database
 
     $Conn = Get-SqlConnection -DatabaseServerName $DatabaseServerName -DatabaseLogin $DatabaseLogin -DatabasePassword $DatabasePassword
 
-    $Sql = "SELECT COUNT(*) FROM sys.databases WHERE name = '$DatabaseName'"
+    $Sql = "SELECT COUNT(*) FROM sys.databases WHERE name = '$DatabaseName' AND State = 0"
     $DatabaseCount = Execute-Scalar $Sql $Conn
     $Conn.Close()
     

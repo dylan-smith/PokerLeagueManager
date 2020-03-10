@@ -83,17 +83,17 @@ function Get-SqlConnection
     if ([string]::IsNullOrWhiteSpace($DatabaseName))
     {
         if ([string]::IsNullOrWhiteSpace($DatabaseLogin)) {
-	        $ConnString = "Data Source=$DatabaseServerName;Integrated Security=True"
+	        $ConnString = "Data Source=$DatabaseServerName;Integrated Security=True;ConnectRetryCount=4;ConnectRetryInterval=15;Connection Timeout=90;"
         }
         else {
-	        $ConnString = "Server=$DatabaseServerName;User Id=$DatabaseLogin;Password=$DatabasePassword;"
+	        $ConnString = "Server=$DatabaseServerName;User Id=$DatabaseLogin;Password=$DatabasePassword;ConnectRetryCount=4;ConnectRetryInterval=15;Connection Timeout=90;"
         }
     } else {
         if ([string]::IsNullOrWhiteSpace($DatabaseLogin)) {
-	        $ConnString = "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=True"
+	        $ConnString = "Data Source=$DatabaseServerName;Initial Catalog=$DatabaseName;Integrated Security=True;ConnectRetryCount=4;ConnectRetryInterval=15;Connection Timeout=90;"
         }
         else {
-    	    $ConnString = "Server=$DatabaseServerName;Database=$DatabaseName;User Id=$DatabaseLogin;Password=$DatabasePassword;"
+    	    $ConnString = "Server=$DatabaseServerName;Database=$DatabaseName;User Id=$DatabaseLogin;Password=$DatabasePassword;ConnectRetryCount=4;ConnectRetryInterval=15;Connection Timeout=90;"
         }
     }
 
