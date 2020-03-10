@@ -149,7 +149,8 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
 
-- stage: Deploy to Test
+- stage: Deploy-to-Test
+  displayName: 'Deploy to Test'
   variables:
     QueryApi: 'Queries-PokerLeagueManager-Test'
     buildPlatform: 'Any CPU'
