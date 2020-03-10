@@ -13,7 +13,7 @@ stages:
     MajorVersion: '0'
     MinorVersion: '1'
   jobs:
-  - job:
+  - job: Build
     steps:
     - task: PowerShell@2
       displayName: 'Version Assemblies'
@@ -158,7 +158,8 @@ stages:
     MajorVersion: '0'
     MinorVersion: '1'
   jobs:
-  - job:
+  - job: DeployToTest
+    displayName: 'Deploy To Test'
     steps:
     - task: DownloadBuildArtifacts@0
       inputs:
