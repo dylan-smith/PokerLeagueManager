@@ -11,137 +11,141 @@ variables:
   MajorVersion: '0'
   MinorVersion: '1'
 
-steps:
-- task: PowerShell@2
-  displayName: 'Version Assemblies'
-  inputs:
-    filePath: ./deploy/VersionAssemblies.ps1
-    arguments: '-MajorVersion $(MajorVersion) -MinorVersion $(MinorVersion) -BuildNumber $(Build.BuildNumber) -SourcesDir $(Build.SourcesDirectory) -Verbose'
+stages:
+- stage: Build
+  jobs:
+  - job:
+    steps:
+    - task: PowerShell@2
+      displayName: 'Version Assemblies'
+      inputs:
+        filePath: ./deploy/VersionAssemblies.ps1
+        arguments: '-MajorVersion $(MajorVersion) -MinorVersion $(MinorVersion) -BuildNumber $(Build.BuildNumber) -SourcesDir $(Build.SourcesDirectory) -Verbose'
 
-- task: SonarCloudPrepare@1
-  displayName: 'Prepare analysis on SonarCloud'
-  inputs:
-    SonarCloud: SonarCloud
-    organization: 'dylan-smith41309'
-    projectKey: pokerleaguemanager
-    projectName: PokerLeagueManager
+    - task: SonarCloudPrepare@1
+      displayName: 'Prepare analysis on SonarCloud'
+      inputs:
+        SonarCloud: SonarCloud
+        organization: 'dylan-smith41309'
+        projectKey: pokerleaguemanager
+        projectName: PokerLeagueManager
 
-- task: NuGetToolInstaller@1
-  displayName: 'Setup NuGet'
+    - task: NuGetToolInstaller@1
+      displayName: 'Setup NuGet'
 
-- task: NuGetCommand@2
-  displayName: 'NuGet Restore'
-  inputs:
-    restoreSolution: '$(solution)'
+    - task: NuGetCommand@2
+      displayName: 'NuGet Restore'
+      inputs:
+        restoreSolution: '$(solution)'
 
-- task: BatchScript@1
-  displayName: 'Build Angular'
-  inputs:
-    filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
+    - task: BatchScript@1
+      displayName: 'Build Angular'
+      inputs:
+        filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
 
-- task: Npm@1
-  displayName: 'Run Jasmine Tests'
-  inputs:
-    command: custom
-    workingDir: src/PokerLeagueManager.UI.Web/angular
-    customCommand: 'run test-prod'
+    - task: Npm@1
+      displayName: 'Run Jasmine Tests'
+      inputs:
+        command: custom
+        workingDir: src/PokerLeagueManager.UI.Web/angular
+        customCommand: 'run test-prod'
 
-- task: PublishTestResults@2
-  displayName: 'Publish jasmine test results'
-  inputs:
-    testResultsFiles: '$(Build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\angular\KarmaTestResults\**\test.xml'
-    mergeTestResults: true
-    testRunTitle: 'Jasmine Tests'
-  condition: succeededOrFailed()
+    - task: PublishTestResults@2
+      displayName: 'Publish jasmine test results'
+      inputs:
+        testResultsFiles: '$(Build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\angular\KarmaTestResults\**\test.xml'
+        mergeTestResults: true
+        testRunTitle: 'Jasmine Tests'
+      condition: succeededOrFailed()
 
-- task: PublishCodeCoverageResults@1
-  displayName: 'Publish jasmine code coverage'
-  inputs:
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage/cobertura-coverage.xml'
-    failIfCoverageEmpty: true
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish jasmine code coverage'
+      inputs:
+        codeCoverageTool: Cobertura
+        summaryFileLocation: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/coverage/cobertura-coverage.xml'
+        failIfCoverageEmpty: true
 
-- task: VSBuild@1
-  displayName: 'Build Solution'
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="..\PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-    clean: true
+    - task: VSBuild@1
+      displayName: 'Build Solution'
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="..\PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+        clean: true
 
-- task: VSTest@2
-  displayName: 'Run Unit Tests'
-  inputs:
-    testAssemblyVer2: |
-     **\*.Tests.dll
-     !**\obj\**
-    runInParallel: true
-    codeCoverageEnabled: false
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-    diagnosticsEnabled: True
+    - task: VSTest@2
+      displayName: 'Run Unit Tests'
+      inputs:
+        testAssemblyVer2: |
+        **\*.Tests.dll
+        !**\obj\**
+        runInParallel: true
+        codeCoverageEnabled: false
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'
+        diagnosticsEnabled: True
 
-- task: SonarCloudAnalyze@1
-  displayName: 'Run Code Analysis'
+    - task: SonarCloudAnalyze@1
+      displayName: 'Run Code Analysis'
 
-- task: SonarCloudPublish@1
-  displayName: 'Publish Analysis Result'
+    - task: SonarCloudPublish@1
+      displayName: 'Publish Analysis Result'
 
-- task: CopyFiles@2
-  displayName: 'Copy DB.EventStore to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\db\EventStore'
-    TargetFolder: '$(build.StagingDirectory)\DB.EventStore'
+    - task: CopyFiles@2
+      displayName: 'Copy DB.EventStore to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\db\EventStore'
+        TargetFolder: '$(build.StagingDirectory)\DB.EventStore'
 
-- task: CopyFiles@2
-  displayName: 'Copy DB.QueryStore to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\db\QueryStore'
-    TargetFolder: '$(build.StagingDirectory)\DB.QueryStore'
+    - task: CopyFiles@2
+      displayName: 'Copy DB.QueryStore to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\db\QueryStore'
+        TargetFolder: '$(build.StagingDirectory)\DB.QueryStore'
 
-- task: CopyFiles@2
-  displayName: 'Copy Commands.WebApi to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(build.StagingDirectory)\WebApi.Commands'
+    - task: CopyFiles@2
+      displayName: 'Copy Commands.WebApi to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Commands.WebApi\obj\$(BuildConfiguration)\Package'
+        Contents: '*'
+        TargetFolder: '$(build.StagingDirectory)\WebApi.Commands'
 
-- task: CopyFiles@2
-  displayName: 'Copy Queries.WebApi to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(build.StagingDirectory)\WebApi.Queries'
+    - task: CopyFiles@2
+      displayName: 'Copy Queries.WebApi to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Queries.WebApi\obj\$(BuildConfiguration)\Package'
+        Contents: '*'
+        TargetFolder: '$(build.StagingDirectory)\WebApi.Queries'
 
-- task: CopyFiles@2
-  displayName: 'Copy Events.WebApi to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(build.StagingDirectory)\WebApi.Events'
+    - task: CopyFiles@2
+      displayName: 'Copy Events.WebApi to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Events.WebApi\obj\$(BuildConfiguration)\Package'
+        Contents: '*'
+        TargetFolder: '$(build.StagingDirectory)\WebApi.Events'
 
-- task: CopyFiles@2
-  displayName: 'Copy UI.Web to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
-    Contents: '*'
-    TargetFolder: '$(build.StagingDirectory)\UI.Web'
+    - task: CopyFiles@2
+      displayName: 'Copy UI.Web to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.UI.Web\obj\$(BuildConfiguration)\Package'
+        Contents: '*'
+        TargetFolder: '$(build.StagingDirectory)\UI.Web'
 
-- task: CopyFiles@2
-  displayName: 'Copy deploy scripts to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\deploy'
-    TargetFolder: '$(build.StagingDirectory)\deploy'
+    - task: CopyFiles@2
+      displayName: 'Copy deploy scripts to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\deploy'
+        TargetFolder: '$(build.StagingDirectory)\deploy'
 
-- task: CopyFiles@2
-  displayName: 'Copy Utilities to Drop'
-  inputs:
-    SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Utilities\bin\$(BuildConfiguration)'
-    TargetFolder: '$(build.StagingDirectory)\Deploy\Utilities'
+    - task: CopyFiles@2
+      displayName: 'Copy Utilities to Drop'
+      inputs:
+        SourceFolder: '$(build.SourcesDirectory)\src\PokerLeagueManager.Utilities\bin\$(BuildConfiguration)'
+        TargetFolder: '$(build.StagingDirectory)\Deploy\Utilities'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
