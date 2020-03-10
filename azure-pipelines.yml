@@ -4,15 +4,14 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
-variables:
-  solution: 'src\PokerLeagueManager.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-  MajorVersion: '0'
-  MinorVersion: '1'
-
 stages:
 - stage: Build
+  variables:
+    solution: 'src\PokerLeagueManager.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    MajorVersion: '0'
+    MinorVersion: '1'
   jobs:
   - job:
     steps:
@@ -149,3 +148,30 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
+
+- stage: Deploy to Test
+  variables:
+    QueryApi: 'Queries-PokerLeagueManager-Test'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    MajorVersion: '0'
+    MinorVersion: '1'
+  jobs:
+  - job:
+    steps:
+    - task: DownloadBuildArtifacts@0
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Deploy Query API'
+      inputs:
+        azureSubscription: 'Azure RM - MVP'
+        WebAppName: '$(QueryApi)'
+        packageForLinux: '$(System.Artifacts)/drop/PokerLeagueManager.Queries.WebApi/PokerLeagueManager.Queries.WebApi.zip'
+        enableCustomDeployment: true
+        RemoveAdditionalFilesFlag: true
+        ExcludeFilesFromAppDataFlag: false
+        AdditionalArguments: '-retryAttempts:10 -retryInterval:6000'
