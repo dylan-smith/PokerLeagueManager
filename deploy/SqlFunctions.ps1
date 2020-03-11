@@ -104,7 +104,7 @@ function Get-SqlConnection
     $RetryCount = 4
     $Retries = 0
     $RetryInterval = 15
-    $Success = false
+    $Success = $false
 
     while ($Success -eq $false -or $Retries -gt $RetryCount)
     {
@@ -113,7 +113,7 @@ function Get-SqlConnection
             $Conn = New-Object System.Data.SqlClient.SqlConnection
             $Conn.ConnectionString = $ConnString
             $Conn.Open()
-            $Success = true
+            $Success = $true
         }
         Catch
         {
