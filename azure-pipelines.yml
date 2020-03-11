@@ -268,7 +268,7 @@ stages:
   jobs:
   - deployment: DeployToProduction
     displayName: 'Deploy To Production'
-    environment: 'Test'
+    environment: 'Production'
     strategy:
       runOnce:
         deploy:
