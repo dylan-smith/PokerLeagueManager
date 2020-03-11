@@ -156,7 +156,7 @@ stages:
     CommandApi: 'Commands-PokerLeagueManager-Test'
     EventApi: 'Events-PokerLeagueManager-Test'
     UIWebsite: 'PokerLeagueManager-Test'
-    SqlServerName: 'PokerLeagueManager-Prod.database.windows.net'
+    SqlServerName: 'PokerLeagueManager-Test.database.windows.net'
     SqlUser: 'PokerLeagueManager'
     EventDatabase: 'EventStore'
     QueryDatabase: 'QueryStore'
