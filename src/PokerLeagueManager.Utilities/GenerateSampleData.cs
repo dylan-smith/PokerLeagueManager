@@ -34,6 +34,15 @@ namespace PokerLeagueManager.Utilities
                     {
                         svc.ExecuteCommand(cmd);
                     }
+                    catch (AggregateException ex)
+                    {
+                        foreach (var x in ex.InnerExceptions)
+                        {
+                            Console.WriteLine(x.ToString());
+                        }
+
+                        throw;
+                    }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex.ToString());
