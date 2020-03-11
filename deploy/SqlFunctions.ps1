@@ -113,7 +113,7 @@ function Get-SqlConnection
             $Conn = New-Object System.Data.SqlClient.SqlConnection
             $Conn.ConnectionString = $ConnString
             $Conn.Open()
-            $Sucess = true
+            $Success = true
         }
         Catch
         {
@@ -123,7 +123,12 @@ function Get-SqlConnection
         }
     }
 
-    Write-Output $Conn
+    if ($Success -eq $true)
+    {
+        Write-Output $Conn
+    } else {
+        Write-Error "Failed to connect to SQL Server"
+    }
 }
 
 function Get-SmoServer
