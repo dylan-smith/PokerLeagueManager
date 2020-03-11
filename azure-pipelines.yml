@@ -163,89 +163,185 @@ stages:
     SampleGameCount: 50
     
   jobs:
-  - job: DeployToTest
+  - deployment: DeployToTest
     displayName: 'Deploy To Test'
-    steps:
-    - task: DownloadBuildArtifacts@0
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'drop'
-        downloadPath: '$(System.ArtifactsDirectory)'
+    environment: 'Test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'drop'
+              downloadPath: '$(System.ArtifactsDirectory)'
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Query API'
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure RM - MVP'
-        appType: 'webApp'
-        WebAppName: '$(QueryApi)'
-        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Query API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(QueryApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Commands API'
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure RM - MVP'
-        appType: 'webApp'
-        WebAppName: '$(CommandApi)'
-        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Commands API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(CommandApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Events API'
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure RM - MVP'
-        appType: 'webApp'
-        WebAppName: '$(EventApi)'
-        packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Events API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(EventApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
 
-    - task: AzureRmWebAppDeployment@4
-      displayName: 'Deploy Website'
-      inputs:
-        ConnectionType: 'AzureRM'
-        azureSubscription: 'Azure RM - MVP'
-        appType: 'webApp'
-        WebAppName: '$(UIWebsite)'
-        packageForLinux: '$(System.ArtifactsDirectory)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
-        enableCustomDeployment: true
-        DeploymentType: 'webDeploy'
-        RemoveAdditionalFilesFlag: true
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Website'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(UIWebsite)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
 
-    - task: PowerShell@2
-      displayName: 'Deploy EventStore DB'
-      inputs:
-        targetType: filePath
-        filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-        arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
-        failOnStderr: true
-        workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+          - task: PowerShell@2
+            displayName: 'Deploy EventStore DB'
+            inputs:
+              targetType: filePath
+              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              failOnStderr: true
+              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
 
-    - task: PowerShell@2
-      displayName: 'Deploy QueryStore DB'
-      inputs:
-        targetType: filePath
-        filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-        arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
-        failOnStderr: true
-        workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+          - task: PowerShell@2
+            displayName: 'Deploy QueryStore DB'
+            inputs:
+              targetType: filePath
+              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              failOnStderr: true
+              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
 
-    - script: 'PokerLeagueManager.Utilities.exe CreateEventSubscriber $(SqlServerName) $(EventDatabase) $(SqlUser) $(SqlPassword) http://$(EventApi).azurewebsites.net'
-      displayName: 'Configure Event Subscriber'
-      workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
-      failOnStderr: true
+          - script: 'PokerLeagueManager.Utilities.exe CreateEventSubscriber $(SqlServerName) $(EventDatabase) $(SqlUser) $(SqlPassword) http://$(EventApi).azurewebsites.net'
+            displayName: 'Configure Event Subscriber'
+            workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
+            failOnStderr: true
+            
+          - script: 'PokerLeagueManager.Utilities.exe GenerateSampleData http://$(CommandApi).azurewebsites.net $(SampleGameCount)'
+            displayName: 'Generate Sample Data'
+            workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
+            failOnStderr: true
       
-    - script: 'PokerLeagueManager.Utilities.exe GenerateSampleData http://$(CommandApi).azurewebsites.net $(SampleGameCount)'
-      displayName: 'Generate Sample Data'
-      workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
-      failOnStderr: true
-      
+- stage: DeployToProduction
+  displayName: 'Deploy to Production'
+  variables:
+    QueryApi: 'Queries-PokerLeagueManager-Prod'
+    CommandApi: 'Commands-PokerLeagueManager-Prod'
+    EventApi: 'Events-PokerLeagueManager-Prod'
+    UIWebsite: 'PokerLeagueManager-Prod'
+    SqlServerName: 'PokerLeagueManager-Prod.database.windows.net'
+    SqlUser: 'PokerLeagueManager'
+    EventDatabase: 'EventStore'
+    QueryDatabase: 'QueryStore'
+    
+  jobs:
+  - deployment: DeployToProduction
+    displayName: 'Deploy To Production'
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: DownloadBuildArtifacts@0
+            inputs:
+              buildType: 'current'
+              downloadType: 'single'
+              artifactName: 'drop'
+              downloadPath: '$(System.ArtifactsDirectory)'
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Query API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(QueryApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Commands API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(CommandApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Events API'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(EventApi)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
+
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Deploy Website'
+            inputs:
+              ConnectionType: 'AzureRM'
+              azureSubscription: 'Azure RM - MVP'
+              appType: 'webApp'
+              WebAppName: '$(UIWebsite)'
+              packageForLinux: '$(System.ArtifactsDirectory)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
+              enableCustomDeployment: true
+              DeploymentType: 'webDeploy'
+              RemoveAdditionalFilesFlag: true
+
+          - task: PowerShell@2
+            displayName: 'Deploy EventStore DB'
+            inputs:
+              targetType: filePath
+              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
+              failOnStderr: true
+              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+
+          - task: PowerShell@2
+            displayName: 'Deploy QueryStore DB'
+            inputs:
+              targetType: filePath
+              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
+              failOnStderr: true
+              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
