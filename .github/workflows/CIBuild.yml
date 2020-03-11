@@ -1,0 +1,26 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: latest
+
+    - name: NuGet Restore
+      run: nuget restore ./src/PokerLeagueManager.sln
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Build Solution
+      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:platform="Any CPU" /p:configuration="Release"
