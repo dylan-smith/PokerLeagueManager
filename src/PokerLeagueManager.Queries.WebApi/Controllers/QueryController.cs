@@ -78,6 +78,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             catch (TargetInvocationException ex)
             {
                 ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+                throw; // this will never be called, but is needed to compile
             }
         }
 
@@ -119,6 +120,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             catch (TargetInvocationException ex)
             {
                 ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+                throw; // this will never be called, but is needed to compile
             }
         }
     }

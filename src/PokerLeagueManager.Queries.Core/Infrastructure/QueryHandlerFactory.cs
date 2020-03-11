@@ -53,6 +53,7 @@ namespace PokerLeagueManager.Queries.Core.Infrastructure
             catch (TargetInvocationException ex)
             {
                 ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
+                throw; // this will never be called, but is needed to compile
             }
         }
 
