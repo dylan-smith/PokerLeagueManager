@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -76,7 +77,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             }
             catch (TargetInvocationException ex)
             {
-                throw ex.InnerException;
+                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
             }
         }
 
@@ -117,7 +118,7 @@ namespace PokerLeagueManager.Queries.WebApi.Controllers
             }
             catch (TargetInvocationException ex)
             {
-                throw ex.InnerException;
+                ExceptionDispatchInfo.Capture(ex.InnerException).Throw();
             }
         }
     }
