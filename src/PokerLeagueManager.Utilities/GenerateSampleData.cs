@@ -39,6 +39,7 @@ namespace PokerLeagueManager.Utilities
                         foreach (var x in ex.InnerExceptions)
                         {
                             Console.WriteLine(x.ToString());
+                            Console.WriteLine($"Inner: {ex.InnerException?.ToString()}");
                         }
 
                         throw;
