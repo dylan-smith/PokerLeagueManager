@@ -38,7 +38,7 @@ namespace PokerLeagueManager.Utilities
                     {
                         Console.WriteLine(ex.ToString());
                         Console.WriteLine($"Inner: {ex.InnerException?.ToString()}");
-                        return;
+                        throw;
                     }
                 }
             }
