@@ -10,6 +10,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
+    - name: Version Assemblies
+      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
       
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
