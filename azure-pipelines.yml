@@ -333,7 +333,7 @@ stages:
             inputs:
               targetType: filePath
               filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
               failOnStderr: true
               workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
 
@@ -342,6 +342,6 @@ stages:
             inputs:
               targetType: filePath
               filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
               failOnStderr: true
               workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
