@@ -25,5 +25,29 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.0
     
+    - name: Setup Node
+      uses: actions/setup-node@v1.1.0
+      with:
+        node-version: 12.x
+    
+    - name: npm ci
+      run: npm ci
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+      
+    - name: Generate TypeScript Lib
+      run: ./src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
+      working-directory: ./src/PokerLeagueManager.UI.Web
+      
+    - name: Build Angular
+      run: npm run build-prod
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+      
+    - name: Create index.cshtml
+      run: ./deploy/TransformIndex.ps1 -SourcePath ./src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath ./src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml
+    
+    - name: Run Jasmine Tests
+      run: npm run test-prod
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+    
     - name: Build Solution
       run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:platform="Any CPU" /p:configuration="Release"
