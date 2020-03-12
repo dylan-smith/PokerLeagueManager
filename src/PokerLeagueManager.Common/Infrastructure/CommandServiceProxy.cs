@@ -18,6 +18,7 @@ namespace PokerLeagueManager.Common.Infrastructure
             _commandClient.BaseAddress = new Uri(commandUrl);
             _commandClient.DefaultRequestHeaders.Accept.Clear();
             _commandClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _commandClient.Timeout = TimeSpan.FromSeconds(300);
         }
 
         public void SetUrl(string commandUrl)
