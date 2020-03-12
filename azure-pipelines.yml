@@ -12,7 +12,7 @@ stages:
     buildConfiguration: 'Release'
     MajorVersion: '0'
     MinorVersion: '1'
-    npm_config_cache: $(Pipeline.Workspace)/.npm
+    
   jobs:
   - job: Build
     steps:
