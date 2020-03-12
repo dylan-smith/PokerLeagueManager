@@ -7,12 +7,16 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      BuildConfiguration: Release
+      BuildPlatform: 'Any CPU'
 
     steps:
     - uses: actions/checkout@v2
     
     - name: Version Assemblies
       run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
+      shell: powershell
       
     - name: Install Nuget
       uses: nuget/setup-nuget@v1
@@ -45,10 +49,11 @@ jobs:
       
     - name: Create index.cshtml
       run: ./deploy/TransformIndex.ps1 -SourcePath ./src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath ./src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml
+      shell: powershell
     
     - name: Run Jasmine Tests
       run: npm run test-prod
       working-directory: ./src/PokerLeagueManager.UI.Web/angular
     
     - name: Build Solution
-      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:platform="Any CPU" /p:configuration="Release"
+      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=$env:BuildPlatform" /p:configuration="$env:BuildConfiguration"
