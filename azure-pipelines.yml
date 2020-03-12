@@ -43,7 +43,7 @@ stages:
       inputs:
         key: 'node_modules | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
         path: src/PokerLeagueManager.UI.Web/angular/node_modules
-      cacheHitVar: CACHE_RESTORED
+        cacheHitVar: CACHE_RESTORED
 
     - task: Npm@1
       displayName: npm ci
