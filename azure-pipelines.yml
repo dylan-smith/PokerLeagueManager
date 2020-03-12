@@ -48,15 +48,27 @@ stages:
     - task: Npm@1
       displayName: npm ci
       condition: ne(variables.CACHE_RESTORED, 'true')
-
       inputs:
         command: 'ci'
         workingDir: 'src/PokerLeagueManager.UI.Web/angular'
 
     - task: BatchScript@1
-      displayName: 'Build Angular'
+      displayName: 'Generate Typescript Lib'
       inputs:
-        filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
+        filename: src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
+
+    - task: Npm@1
+      inputs:
+        command: 'custom'
+        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
+        customCommand: 'run build-prod'
+
+    - task: PowerShell@2
+      inputs:
+        filePath: 'deploy/TransformIndex.ps1'
+        arguments: '-SourcePath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml'
+        failOnStderr: true
+        workingDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web'
 
     - task: Npm@1
       displayName: 'Run Jasmine Tests'
