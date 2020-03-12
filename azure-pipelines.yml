@@ -37,6 +37,12 @@ stages:
       inputs:
         restoreSolution: '$(solution)'
 
+    - task: Npm@1
+      displayName: npm install
+      inputs:
+        command: 'install'
+        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
+
     - task: BatchScript@1
       displayName: 'Build Angular'
       inputs:
