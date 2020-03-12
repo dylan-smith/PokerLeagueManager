@@ -12,6 +12,7 @@ stages:
     buildConfiguration: 'Release'
     MajorVersion: '0'
     MinorVersion: '1'
+    
   jobs:
   - job: Build
     steps:
@@ -37,10 +38,39 @@ stages:
       inputs:
         restoreSolution: '$(solution)'
 
-    - task: BatchScript@1
-      displayName: 'Build Angular'
+    - task: Cache@2
+      displayName: Cache npm
       inputs:
-        filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
+        key: 'node_modules | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
+        path: src/PokerLeagueManager.UI.Web/angular/node_modules
+        cacheHitVar: CACHE_RESTORED
+
+    - task: Npm@1
+      displayName: npm ci
+      condition: ne(variables.CACHE_RESTORED, 'true')
+      inputs:
+        command: 'ci'
+        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
+
+    - task: BatchScript@1
+      displayName: 'Generate Typescript Lib'
+      inputs:
+        filename: src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
+
+    - task: Npm@1
+      displayName: Build Angular
+      inputs:
+        command: 'custom'
+        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
+        customCommand: 'run build-prod'
+
+    - task: PowerShell@2
+      displayName: Create index.cshtml
+      inputs:
+        filePath: 'deploy/TransformIndex.ps1'
+        arguments: '-SourcePath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml'
+        failOnStderr: true
+        workingDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web'
 
     - task: Npm@1
       displayName: 'Run Jasmine Tests'
