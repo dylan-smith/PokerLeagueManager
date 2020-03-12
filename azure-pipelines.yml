@@ -39,16 +39,16 @@ stages:
         restoreSolution: '$(solution)'
 
     - task: Cache@2
-      inputs:
-        key: 'npm | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
-        restoreKeys: |
-          npm | "$(Agent.OS)"
-          npm
-        path: $(npm_config_cache)
       displayName: Cache npm
+      inputs:
+        key: 'node_modules | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
+        path: src/PokerLeagueManager.UI.Web/angular/node_modules
+      cacheHitVar: CACHE_RESTORED
 
     - task: Npm@1
       displayName: npm ci
+      condition: ne(variables.CACHE_RESTORED, 'true')
+
       inputs:
         command: 'ci'
         workingDir: 'src/PokerLeagueManager.UI.Web/angular'
