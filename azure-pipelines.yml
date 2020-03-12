@@ -58,12 +58,14 @@ stages:
         filename: src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
 
     - task: Npm@1
+      displayName: Build Angular
       inputs:
         command: 'custom'
         workingDir: 'src/PokerLeagueManager.UI.Web/angular'
         customCommand: 'run build-prod'
 
     - task: PowerShell@2
+      displayName: Create index.cshtml
       inputs:
         filePath: 'deploy/TransformIndex.ps1'
         arguments: '-SourcePath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml'
