@@ -12,6 +12,7 @@ stages:
     buildConfiguration: 'Release'
     MajorVersion: '0'
     MinorVersion: '1'
+    npm_config_cache: $(Pipeline.Workspace)/.npm
   jobs:
   - job: Build
     steps:
@@ -36,6 +37,15 @@ stages:
       displayName: 'NuGet Restore'
       inputs:
         restoreSolution: '$(solution)'
+
+    - task: Cache@2
+      inputs:
+        key: 'npm | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
+        restoreKeys: |
+          npm | "$(Agent.OS)"
+          npm
+        path: $(npm_config_cache)
+      displayName: Cache npm
 
     - task: Npm@1
       displayName: npm ci
