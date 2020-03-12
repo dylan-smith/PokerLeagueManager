@@ -35,7 +35,7 @@ jobs:
       working-directory: ./src/PokerLeagueManager.UI.Web/angular
       
     - name: Generate TypeScript Lib
-      run: ./src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
+      run: call GenerateTypeScript.bat
       working-directory: ./src/PokerLeagueManager.UI.Web
       
     - name: Build Angular
