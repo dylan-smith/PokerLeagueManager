@@ -57,3 +57,9 @@ jobs:
     
     - name: Build Solution
       run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=$env:BuildPlatform" /p:configuration="$env:BuildConfiguration"
+      
+    - name: Setup VSTest
+      uses: Malcolmnixon/Setup-VSTest@v2
+      
+    - name: Run Unit Tests
+      run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\Release\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\Release\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\Release\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
