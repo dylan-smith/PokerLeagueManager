@@ -12,7 +12,6 @@ stages:
     buildConfiguration: 'Release'
     MajorVersion: '0'
     MinorVersion: '1'
-    
   jobs:
   - job: Build
     steps:
@@ -38,39 +37,10 @@ stages:
       inputs:
         restoreSolution: '$(solution)'
 
-    - task: Cache@2
-      displayName: Cache npm
-      inputs:
-        key: 'node_modules | "$(Agent.OS)" | src/PokerLeagueManager.UI.Web/angular/package-lock.json'
-        path: src/PokerLeagueManager.UI.Web/angular/node_modules
-        cacheHitVar: CACHE_RESTORED
-
-    - task: Npm@1
-      displayName: npm ci
-      condition: ne(variables.CACHE_RESTORED, 'true')
-      inputs:
-        command: 'ci'
-        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
-
     - task: BatchScript@1
-      displayName: 'Generate Typescript Lib'
+      displayName: 'Build Angular'
       inputs:
-        filename: src/PokerLeagueManager.UI.Web/GenerateTypeScript.bat
-
-    - task: Npm@1
-      displayName: Build Angular
-      inputs:
-        command: 'custom'
-        workingDir: 'src/PokerLeagueManager.UI.Web/angular'
-        customCommand: 'run build-prod'
-
-    - task: PowerShell@2
-      displayName: Create index.cshtml
-      inputs:
-        filePath: 'deploy/TransformIndex.ps1'
-        arguments: '-SourcePath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath $(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml'
-        failOnStderr: true
-        workingDirectory: '$(Build.SourcesDirectory)/src/PokerLeagueManager.UI.Web'
+        filename: src/PokerLeagueManager.UI.Web/BuildAngular.bat
 
     - task: Npm@1
       displayName: 'Run Jasmine Tests'
@@ -173,10 +143,8 @@ stages:
         SourceFolder: '$(build.SourcesDirectory)/src/PokerLeagueManager.Utilities/bin/$(BuildConfiguration)'
         TargetFolder: '$(build.StagingDirectory)/Deploy/Utilities'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
+    - publish: '$(build.ArtifactStagingDirectory)'
+      artifact: drop
       condition: succeededOrFailed()
 
 - stage: DeployToTest
@@ -200,13 +168,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
-
           - task: AzureRmWebAppDeployment@4
             displayName: 'Deploy Query API'
             inputs:
