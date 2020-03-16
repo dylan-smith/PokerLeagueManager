@@ -154,7 +154,7 @@ jobs:
     runs-on: windows-latest
     env:
       AZURE_WEBAPP_NAME: Queries-PokerLeagueManager-Test
-      AZURE_WEBAPP_PACKAGE_PATH: ${{ github.workspace }}/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip
+      AZURE_WEBAPP_PACKAGE_PATH: ${{ github.workspace }}/WebApi.Queries
       
     steps:
     - name: Download Artifact
