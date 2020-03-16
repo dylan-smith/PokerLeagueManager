@@ -165,6 +165,10 @@ jobs:
     - name: test path
       run: Test-Path ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
     
+    - name: msdeploy
+      run: '"C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:package="D:\a\PokerLeagueManager\PokerLeagueManager/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip" -dest:auto,ComputerName="https://queries-pokerleaguemanager-test.scm.azurewebsites.net:443/msdeploy.axd?site=Queries-PokerLeagueManager-Test",UserName="$Queries-PokerLeagueManager-Test",Password="${{ secrets.queries_pwd }}",AuthType="Basic" -setParam:name="IIS Web Application Name",value="Queries-PokerLeagueManager-Test" -enableRule:AppOffline -skip:Directory=App_Data -retryAttempts:6 -retryInterval:10000'
+      shell: cmd
+    
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -172,6 +176,7 @@ jobs:
     
     - name: Deploy WebApi.Queries
       uses: azure/webapps-deploy@v2
+      if: 'false'
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
