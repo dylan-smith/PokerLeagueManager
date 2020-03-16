@@ -64,8 +64,14 @@ jobs:
     - name: Run Unit Tests
       run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\Release\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\Release\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\Release\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
 
-    - name: Publish Artifacts
+    - name: Publish QueryStore Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
         name: drop
         path: ./db/QueryStore
+    
+    - name: Publish EventStore Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: drop
+        path: ./db/EventStore
