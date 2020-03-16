@@ -18,7 +18,7 @@ jobs:
       run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
       shell: powershell
       
-    - name: Install Nuget
+    - name: Setup Nuget
       uses: nuget/setup-nuget@v1
       with:
         nuget-version: latest
@@ -89,20 +89,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Version Assemblies
-      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
-      shell: powershell
-      
-    - name: Install Nuget
-      uses: nuget/setup-nuget@v1
-      with:
-        nuget-version: latest
-
-    - name: NuGet Restore
-      run: nuget restore ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj -SolutionDirectory src
-  
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1.0.0
+    
     
     - name: Setup Node
       uses: actions/setup-node@v1.1.0
@@ -140,6 +127,21 @@ jobs:
       run: npm run test-prod
       working-directory: ./src/PokerLeagueManager.UI.Web/angular
     
+    - name: Version Assemblies
+      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
+      shell: powershell
+      
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: latest
+
+    - name: NuGet Restore
+      run: nuget restore ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj -SolutionDirectory src
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+    
     - name: Build UI.Web
       run: msbuild ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=$env:BuildPlatform" /p:configuration="$env:BuildConfiguration"
 
@@ -148,12 +150,14 @@ jobs:
       with:
         name: UI.Web
         path: src/PokerLeagueManager.UI.Web/obj/Release/Package/PokerLeagueManager.UI.Web.zip
+
   Deploy_Test:
     needs: [ Build_Services, Build_Web ]
     runs-on: windows-latest
     env:
       AZURE_WEBAPP_NAME: Queries-PokerLeagueManager-Test
       AZURE_WEBAPP_PACKAGE_PATH: WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip
+      
     steps:
     - name: Download Artifact
       uses: actions/download-artifact@v1
@@ -166,4 +170,3 @@ jobs:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
         package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    
