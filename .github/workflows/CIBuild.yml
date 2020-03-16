@@ -67,4 +67,5 @@ jobs:
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
+        name: drop
         path: ./db/QueryStore
