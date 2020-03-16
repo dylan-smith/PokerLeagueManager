@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     env:
       BuildConfiguration: Release
-      BuildPlatform: 'Any CPU'
+      BuildPlatform: Any CPU
 
     steps:
     - uses: actions/checkout@v2
@@ -62,31 +62,31 @@ jobs:
       uses: Malcolmnixon/Setup-VSTest@v2
       
     - name: Run Unit Tests
-      run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\Release\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\Release\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\Release\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
+      run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
 
     - name: Copy QueryStore Artifacts
-      run: "Copy-Item -Path 'db/QueryStore/*' -Destination (New-Item -Path 'drop/DB.QueryStore/' -Type Directory)"
+      run: Copy-Item -Path "db/QueryStore/*" -Destination (New-Item -Path "drop/DB.QueryStore/" -Type Directory)
       
     - name: Copy EventStore Artifacts
-      run: "Copy-Item -Path 'db/EventStore/*' -Destination (New-Item -Path 'drop/DB.EventStore/' -Type Directory)"
+      run: Copy-Item -Path "db/EventStore/*" -Destination (New-Item -Path "drop/DB.EventStore/" -Type Directory)
 
     - name: Copy Commands.WebApi Artifacts
-      run: "Copy-Item -Path 'src/PokerLeagueManager.Commands.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Commands.WebApi.zip' -Destination 'drop/'"
+      run: Copy-Item -Path "src/PokerLeagueManager.Commands.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Commands.WebApi.zip" -Destination "drop/"
 
     - name: Copy Events.WebApi Artifacts
-      run: "Copy-Item -Path 'src/PokerLeagueManager.Events.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Events.WebApi.zip' -Destination 'drop/'"
+      run: Copy-Item -Path "src/PokerLeagueManager.Events.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Events.WebApi.zip" -Destination "drop/"
       
     - name: Copy Queries.WebApi Artifacts
-      run: "Copy-Item -Path 'src/PokerLeagueManager.Queries.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Queries.WebApi.zip' -Destination 'drop/'"
+      run: Copy-Item -Path "src/PokerLeagueManager.Queries.WebApi/obj/$env:BuildConfiguration/Package/PokerLeagueManager.Queries.WebApi.zip" -Destination "drop/"
       
     - name: Copy UI.Web Artifacts
-      run: "Copy-Item -Path 'src/PokerLeagueManager.UI.Web/obj/$env:BuildConfiguration/Package/PokerLeagueManager.UI.Web.zip' -Destination 'drop/'"
+      run: Copy-Item -Path "src/PokerLeagueManager.UI.Web/obj/$env:BuildConfiguration/Package/PokerLeagueManager.UI.Web.zip" -Destination "drop/"
 
     - name: Copy Deploy Artifacts
-      run: "Copy-Item -Path 'deploy/' -Destination (New-Item -Path 'drop/deploy/' -Type Directory) -Recurse"
+      run: Copy-Item -Path "deploy/" -Destination (New-Item -Path "drop/deploy/" -Type Directory) -Recurse
       
     - name: Copy Utilities Artifacts
-      run: "Copy-Item -Path 'src/PokerLeagueManager.Utilties/bin/$env:BuildConfiguration/' -Destination (New-Item -Path 'drop/deploy/Utilities/' -Type Directory) -Recurse"
+      run: Copy-Item -Path "src/PokerLeagueManager.Utilties/bin/$env:BuildConfiguration/" -Destination (New-Item -Path "drop/deploy/Utilities/" -Type Directory) -Recurse"
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
