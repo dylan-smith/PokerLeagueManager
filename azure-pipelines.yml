@@ -187,7 +187,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(CommandApi)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -199,7 +199,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(EventApi)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -211,7 +211,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(UIWebsite)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -220,28 +220,28 @@ stages:
             displayName: 'Deploy EventStore DB'
             inputs:
               targetType: filePath
-              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              filePath: '$(Pipeline.Workspace)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(Pipeline.Workspace)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
               failOnStderr: true
-              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+              workingDirectory: '$(Pipeline.Workspace)/drop/deploy'
 
           - task: PowerShell@2
             displayName: 'Deploy QueryStore DB'
             inputs:
               targetType: filePath
-              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
+              filePath: '$(Pipeline.Workspace)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(Pipeline.Workspace)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -DropDatabase -Verbose'
               failOnStderr: true
               workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
 
           - script: 'PokerLeagueManager.Utilities.exe CreateEventSubscriber $(SqlServerName) $(EventDatabase) $(SqlUser) $(SqlPassword) http://$(EventApi).azurewebsites.net'
             displayName: 'Configure Event Subscriber'
-            workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
+            workingDirectory: '$(Pipeline.Workspace)/drop/deploy/Utilities'
             failOnStderr: true
             
           - script: 'PokerLeagueManager.Utilities.exe GenerateSampleData http://$(CommandApi).azurewebsites.net $(SampleGameCount)'
             displayName: 'Generate Sample Data'
-            workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy/Utilities'
+            workingDirectory: '$(Pipeline.Workspace)/drop/deploy/Utilities'
             failOnStderr: true
       
 - stage: DeployToProduction
@@ -264,13 +264,6 @@ stages:
       runOnce:
         deploy:
           steps:
-          - task: DownloadBuildArtifacts@0
-            inputs:
-              buildType: 'current'
-              downloadType: 'single'
-              artifactName: 'drop'
-              downloadPath: '$(System.ArtifactsDirectory)'
-
           - task: AzureRmWebAppDeployment@4
             displayName: 'Deploy Query API'
             inputs:
@@ -278,7 +271,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(QueryApi)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -290,7 +283,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(CommandApi)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/WebApi.Commands/PokerLeagueManager.Commands.WebApi.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -302,7 +295,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(EventApi)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/WebApi.Events/PokerLeagueManager.Events.WebApi.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -314,7 +307,7 @@ stages:
               azureSubscription: 'Azure RM - MVP'
               appType: 'webApp'
               WebAppName: '$(UIWebsite)'
-              packageForLinux: '$(System.ArtifactsDirectory)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
+              packageForLinux: '$(Pipeline.Workspace)/drop/UI.Web/PokerLeagueManager.UI.Web.zip'
               enableCustomDeployment: true
               DeploymentType: 'webDeploy'
               RemoveAdditionalFilesFlag: true
@@ -323,16 +316,16 @@ stages:
             displayName: 'Deploy EventStore DB'
             inputs:
               targetType: filePath
-              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
+              filePath: '$(Pipeline.Workspace)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(Pipeline.Workspace)/drop/DB.EventStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(EventDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
               failOnStderr: true
-              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+              workingDirectory: '$(Pipeline.Workspace)/drop/deploy'
 
           - task: PowerShell@2
             displayName: 'Deploy QueryStore DB'
             inputs:
               targetType: filePath
-              filePath: '$(System.ArtifactsDirectory)/drop/deploy/DeployDB.ps1'
-              arguments: '-DatabaseUpgradeScriptsPath "$(System.ArtifactsDirectory)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
+              filePath: '$(Pipeline.Workspace)/drop/deploy/DeployDB.ps1'
+              arguments: '-DatabaseUpgradeScriptsPath "$(Pipeline.Workspace)/drop/DB.QueryStore" -DatabaseServerName "$(SqlServerName)" -DatabaseName "$(QueryDatabase)" -DatabaseLogin "$(SqlUser)" -DatabasePassword "$(SqlPassword)" -Verbose'
               failOnStderr: true
-              workingDirectory: '$(System.ArtifactsDirectory)/drop/deploy'
+              workingDirectory: '$(Pipeline.Workspace)/drop/deploy'
