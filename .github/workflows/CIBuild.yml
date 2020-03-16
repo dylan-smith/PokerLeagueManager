@@ -65,11 +65,11 @@ jobs:
       run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\Release\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\Release\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\Release\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
 
     - name: Copy QueryStore Artifacts
-      run: "Copy-Item -Path 'db/QueryStore/*' -Destination 'drop/DB.QueryStore/'"
+      run: "Copy-Item -Path 'db/QueryStore/*' -Destination (New-Item -Path 'drop/DB.QueryStore/' -Type Directory)"
       shell: powershell
       
     - name: Copy EventStore Artifacts
-      run: "Copy-Item -Path 'db/EventStore/*' -Destination 'drop/DB.EventStore/'"
+      run: "Copy-Item -Path 'db/EventStore/*' -Destination (New-Item -Path 'drop/DB.EventStore/' -Type Directory)"
       shell: powershell
 
     - name: Publish Artifacts
