@@ -2,7 +2,7 @@ name: CI Workflow
 
 on:
   push:
-    branches: [ master ]
+    branches: master
 
 jobs:
   Build_Services:
