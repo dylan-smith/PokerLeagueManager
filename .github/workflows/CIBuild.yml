@@ -109,8 +109,18 @@ jobs:
       with:
         node-version: 12.x
     
+    - name: Restore node_modules from cache
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: src/PokerLeagueManager.UI.Web/angular/node_modules
+        key: ${{ runner.os }}-nodemodules-${{ hashFiles('src/PokerLeagueManager.UI.Web/angular/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nodemodules-
+    
     - name: npm ci
       run: npm ci
+      if: steps.cache.outputs.cache-hit != 'true'
       working-directory: ./src/PokerLeagueManager.UI.Web/angular
       
     - name: Generate TypeScript Lib
