@@ -144,6 +144,7 @@ stages:
         TargetFolder: '$(build.StagingDirectory)/Deploy/Utilities'
 
     - publish: '$(build.ArtifactStagingDirectory)'
+      displayName: 'Publish Artifacts'
       artifact: drop
       condition: succeededOrFailed()
 
