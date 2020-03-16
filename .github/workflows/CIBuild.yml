@@ -15,7 +15,7 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: Version Assemblies
-      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
+      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber ${{ env.GITHUB_RUN_NUMBER }} -SourcesDir . -Verbose
       shell: powershell
       
     - name: Setup Nuget
@@ -30,13 +30,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
     
     - name: Build Solution
-      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=$env:BuildPlatform" /p:configuration="$env:BuildConfiguration"
+      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=${{ env.BuildPlatform }}" /p:configuration="${{ env.BuildConfiguration }}"
       
     - name: Setup VSTest
       uses: Malcolmnixon/Setup-VSTest@v2
       
     - name: Run Unit Tests
-      run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
+      run: vstest.console "src\PokerLeagueManager.Commands.Tests\bin\$env:BuildConfiguration\PokerLeagueManager.Commands.Tests.dll" "src\PokerLeagueManager.Infrastructure.Tests\bin\${{ env.BuildConfiguration }}\PokerLeagueManager.Infrastructure.Tests.dll" "src\PokerLeagueManager.Queries.Tests\bin\${{ env.BuildConfiguration }}\PokerLeagueManager.Queries.Tests.dll" /Logger:"trx" /Parallel /Blame
 
     - name: Publish QueryStore Artifacts
       uses: actions/upload-artifact@v1.0.0
@@ -54,19 +54,19 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: WebApi.Commands
-        path: src/PokerLeagueManager.Commands.WebApi/obj/Release/Package/PokerLeagueManager.Commands.WebApi.zip
+        path: src/PokerLeagueManager.Commands.WebApi/obj/${{ env.BuildConfiguration }}/Package/PokerLeagueManager.Commands.WebApi.zip
 
     - name: Publish Events.WebApi Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
         name: WebApi.Events
-        path: src/PokerLeagueManager.Events.WebApi/obj/Release/Package/PokerLeagueManager.Events.WebApi.zip
+        path: src/PokerLeagueManager.Events.WebApi/obj/${{ env.BuildConfiguration }}/Package/PokerLeagueManager.Events.WebApi.zip
 
     - name: Publish Queries.WebApi Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
         name: WebApi.Queries
-        path: src/PokerLeagueManager.Queries.WebApi/obj/Release/Package/PokerLeagueManager.Queries.WebApi.zip
+        path: src/PokerLeagueManager.Queries.WebApi/obj/${{ env.BuildConfiguration }}/Package/PokerLeagueManager.Queries.WebApi.zip
 
     - name: Publish Deploy Artifacts
       uses: actions/upload-artifact@v1.0.0
@@ -78,7 +78,7 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: Utilities
-        path: src/PokerLeagueManager.Utilities/bin/Release
+        path: src/PokerLeagueManager.Utilities/bin/${{ env.BuildConfiguration }}
 
   Build_Web:
     runs-on: windows-latest
@@ -88,8 +88,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    
     
     - name: Setup Node
       uses: actions/setup-node@v1.1.0
@@ -128,7 +126,7 @@ jobs:
       working-directory: ./src/PokerLeagueManager.UI.Web/angular
     
     - name: Version Assemblies
-      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber $env:GITHUB_RUN_NUMBER -SourcesDir . -Verbose
+      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber ${{ env.GITHUB_RUN_NUMBER }} -SourcesDir . -Verbose
       shell: powershell
       
     - name: Setup Nuget
@@ -143,13 +141,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.0
     
     - name: Build UI.Web
-      run: msbuild ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=$env:BuildPlatform" /p:configuration="$env:BuildConfiguration"
+      run: msbuild ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=${{ env.BuildPlatform }}" /p:configuration="${{ env.BuildConfiguration }}"
 
     - name: Publish UI.Web Artifacts
       uses: actions/upload-artifact@v1.0.0
       with:
         name: UI.Web
-        path: src/PokerLeagueManager.UI.Web/obj/Release/Package/PokerLeagueManager.UI.Web.zip
+        path: src/PokerLeagueManager.UI.Web/obj/${{ env.BuildConfiguration }}/Package/PokerLeagueManager.UI.Web.zip
 
   Deploy_Test:
     needs: [ Build_Services, Build_Web ]
