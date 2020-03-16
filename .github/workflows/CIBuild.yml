@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  Build Services:
+  Build_Services:
     runs-on: windows-latest
     env:
       BuildConfiguration: Release
