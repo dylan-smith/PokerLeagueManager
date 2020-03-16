@@ -162,6 +162,9 @@ jobs:
       with:
         name: WebApi.Queries
     
+    - name: test path
+      run: Test-Path ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    
     - name: Azure Login
       uses: azure/login@v1
       with:
