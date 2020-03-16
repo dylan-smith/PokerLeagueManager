@@ -148,3 +148,22 @@ jobs:
       with:
         name: UI.Web
         path: src/PokerLeagueManager.UI.Web/obj/Release/Package/PokerLeagueManager.UI.Web.zip
+  Deploy_Test:
+    needs: [ Build_Services, Build_Web ]
+    runs-on: windows-latest
+    env:
+      AZURE_WEBAPP_NAME: Queries-PokerLeagueManager-Test
+      AZURE_WEBAPP_PACKAGE_PATH: WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: WebApi.Queries
+    
+    - name: Deploy WebApi.Queries
+      uses: azure/webapps-deploy@v2
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    
