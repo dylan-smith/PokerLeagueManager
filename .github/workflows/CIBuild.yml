@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     env:
       BuildConfiguration: Release
-      BuildPlatform: AnyCPU
+      BuildPlatform: Any CPU
 
     steps:
     - uses: actions/checkout@v2
