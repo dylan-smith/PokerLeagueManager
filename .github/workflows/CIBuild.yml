@@ -66,9 +66,11 @@ jobs:
 
     - name: Copy QueryStore Artifacts
       run: "Copy-Item -Path 'db/QueryStore/*' -Destination 'drop/DB.QueryStore/'"
+      shell: powershell
       
     - name: Copy EventStore Artifacts
       run: "Copy-Item -Path 'db/EventStore/*' -Destination 'drop/DB.EventStore/'"
+      shell: powershell
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
