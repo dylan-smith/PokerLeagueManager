@@ -86,7 +86,7 @@ jobs:
       run: Copy-Item -Path "deploy/" -Destination (New-Item -Path "drop/deploy/" -Type Directory) -Recurse
       
     - name: Copy Utilities Artifacts
-      run: Copy-Item -Path "src/PokerLeagueManager.Utilties/bin/$env:BuildConfiguration/" -Destination (New-Item -Path "drop/deploy/Utilities/" -Type Directory) -Recurse"
+      run: Copy-Item -Path "src/PokerLeagueManager.Utilties/bin/$env:BuildConfiguration/" -Destination (New-Item -Path "drop/deploy/Utilities/" -Type Directory) -Recurse
 
     - name: Publish Artifacts
       uses: actions/upload-artifact@v1.0.0
