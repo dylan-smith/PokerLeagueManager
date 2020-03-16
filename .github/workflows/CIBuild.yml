@@ -99,7 +99,7 @@ jobs:
         nuget-version: latest
 
     - name: NuGet Restore
-      run: nuget restore ./src/PokerLeagueManager.sln
+      run: nuget restore ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj -SolutionDirectory src
   
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.0.0
