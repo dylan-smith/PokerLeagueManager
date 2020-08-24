@@ -36,8 +36,8 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v1
+    # - name: Autobuild
+    #   uses: github/codeql-action/autobuild@v1
 
     # ℹ️ Command-line programs to run using the OS shell.
     # 📚 https://git.io/JvXDl
@@ -49,6 +49,21 @@ jobs:
     #- run: |
     #   make bootstrap
     #   make release
+    
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: latest
+
+    - name: NuGet Restore
+      run: nuget restore ./src/PokerLeagueManager.sln
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Build Solution
+      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:platform="Any CPU" /p:configuration="Release"
+      
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
