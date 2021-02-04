@@ -1,0 +1,131 @@
+name: CI Workflow
+
+on:
+  push:
+    branches: sq-test
+
+jobs:
+  Build_Services:
+    runs-on: windows-latest
+    env:
+      BuildConfiguration: Release
+      BuildPlatform: Any CPU
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: latest
+
+    - name: NuGet Restore
+      run: nuget restore ./src/PokerLeagueManager.sln
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Build Solution
+      run: msbuild ./src/PokerLeagueManager.sln /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=${{ env.BuildPlatform }}" /p:configuration="${{ env.BuildConfiguration }}"
+
+  Build_Web:
+    runs-on: windows-latest
+    env:
+      BuildConfiguration: Release
+      BuildPlatform: AnyCPU
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node
+      uses: actions/setup-node@v1.1.0
+      with:
+        node-version: 12.x
+    
+    - name: Restore node_modules from cache
+      uses: actions/cache@v1
+      id: cache
+      with:
+        path: src/PokerLeagueManager.UI.Web/angular/node_modules
+        key: ${{ runner.os }}-nodemodules-${{ hashFiles('src/PokerLeagueManager.UI.Web/angular/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nodemodules-
+    
+    - name: npm ci
+      run: npm ci
+      if: steps.cache.outputs.cache-hit != 'true'
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+      
+    - name: Generate TypeScript Lib
+      run: GenerateTypeScript.bat
+      working-directory: ./src/PokerLeagueManager.UI.Web
+      shell: cmd
+      
+    - name: Build Angular
+      run: npm run build-prod
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+      
+    - name: Create index.cshtml
+      run: ./deploy/TransformIndex.ps1 -SourcePath ./src/PokerLeagueManager.UI.Web/angular/dist/index.html -TargetPath ./src/PokerLeagueManager.UI.Web/angular/dist/index.cshtml
+      shell: powershell
+    
+    - name: Run Jasmine Tests
+      run: npm run test-prod
+      working-directory: ./src/PokerLeagueManager.UI.Web/angular
+    
+    - name: Version Assemblies
+      run: ./deploy/VersionAssemblies.ps1 -MajorVersion 0 -MinorVersion 1 -BuildNumber ${{ github.RUN_NUMBER }} -SourcesDir . -Verbose
+      shell: powershell
+      
+    - name: Setup Nuget
+      uses: nuget/setup-nuget@v1
+      with:
+        nuget-version: latest
+
+    - name: NuGet Restore
+      run: nuget restore ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj -SolutionDirectory src
+  
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.0
+    
+    - name: Build UI.Web
+      run: msbuild ./src/PokerLeagueManager.UI.Web/PokerLeagueManager.UI.Web.csproj /p:TreatWarningsAsErrors=true /p:CodeAnalysisRuleSet="../PokerLeagueManager.ruleset" /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:ValidateArchitecture=true /p:"platform=${{ env.BuildPlatform }}" /p:configuration="${{ env.BuildConfiguration }}"
+
+    - name: Publish UI.Web Artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: UI.Web
+        path: src/PokerLeagueManager.UI.Web/obj/${{ env.BuildConfiguration }}/Package/PokerLeagueManager.UI.Web.zip
+
+  Deploy_Test:
+    needs: [ Build_Services, Build_Web ]
+    runs-on: windows-latest
+    env:
+      AZURE_WEBAPP_NAME: Queries-PokerLeagueManager-Test
+      AZURE_WEBAPP_PACKAGE_PATH: ${{ github.workspace }}/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip
+      
+    steps:
+    - name: Download Artifact
+      uses: actions/download-artifact@v1
+      with:
+        name: WebApi.Queries
+    
+    - name: test path
+      run: Test-Path ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+    
+    - name: msdeploy
+      run: '"C:\Program Files\IIS\Microsoft Web Deploy V3\msdeploy.exe" -verb:sync -source:package="D:\a\PokerLeagueManager\PokerLeagueManager/WebApi.Queries/PokerLeagueManager.Queries.WebApi.zip" -dest:auto,ComputerName="https://queries-pokerleaguemanager-test.scm.azurewebsites.net:443/msdeploy.axd?site=Queries-PokerLeagueManager-Test",UserName="$Queries-PokerLeagueManager-Test",Password="${{ secrets.queries_pwd }}",AuthType="Basic" -setParam:name="IIS Web Application Name",value="Queries-PokerLeagueManager-Test" -enableRule:AppOffline -skip:Directory=App_Data -retryAttempts:6 -retryInterval:10000'
+      shell: cmd
+    
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Deploy WebApi.Queries
+      uses: azure/webapps-deploy@v2
+      if: 'false'
+      with: 
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
